@@ -20,8 +20,10 @@ urlpatterns = [
     url(r'teacher_delete_search',views.Teacher_delete_search.as_view()),
     url(r'teacher',views.Teacher.as_view()),
     url(r'student_delete_search',views.Student_delete_search.as_view()),
+    url(r'student_download', views.student_download),
     url(r'student_down',views.Student_down.as_view()),
-    url(r'student_batch',views.student_batch),
+    url(r'student_batch_up',views.student_batch_up),
+    url(r'student_batch_down',views.student_batch_down),
     url(r'student',views.Student.as_view()),
 
 ]

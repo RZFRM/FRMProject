@@ -876,9 +876,7 @@ class Student_down(View):
             return JsonResponse({"result": "fail", "msg": "该帐号没有对应学校,无法显示班级信息"})
 
 
-
-
-def student_batch(request):
+def student_batch_up(request):
     """学生 批量上传"""
     # 1、读取上传文件--->本地
     student_major = request.POST.get("student_major")
@@ -953,6 +951,17 @@ def student_batch(request):
 
 def student_download(request):
     """模版下载"""
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media", "学生信息.xlsx")
+
+    with open(MEDIA_ROOT, 'rb') as f:
+        response =HttpResponse(f)
+        response['Content-Type']='application/octet-stream'
+        response['Content-Disposition']='attachment;filename="模版.xlsx"'
+        return response
+
+
+def student_batch_down(request):
+    """批量导出----批量下载"""
 
 
 
