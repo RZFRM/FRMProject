@@ -546,7 +546,8 @@ def set_create_purchase_number(request):
 #  TODO  创建查看共功能数据
 def set_view_information(request):
     user_name  = request.COOKIES.get('username')
-    id = ''
+    id = request.GET.get('id')
+    print('---------------------------------', id)
     r_name = '采购申请机器人'
     if r_name == '采购申请机器人':
         try:
