@@ -22,5 +22,7 @@ urlpatterns = [
     path('', include('system_config.urls')),
     path('', include('personal_center.urls')),
     path('', include('getRobot.urls')),
-    path('', include('purchasing_robot.urls'))
+    path('', include('purchasing_robot.urls')),
+    path('', include('teach_task.urls')),
+
 ]

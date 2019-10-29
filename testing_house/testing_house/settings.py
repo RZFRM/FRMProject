@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'getRobot',
     'purchasing_robot',
     'mptt',
+    'teach_task.apps.TeachTaskConfig'
+
 ]
 
 MIDDLEWARE = [
@@ -95,6 +97,18 @@ DATABASES = {
 
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'FinceRobotManager',
+#         'USER': 'root',
+#         'PASSWORD': '123456',
+#         'HOST': '192.168.1.152',
+#         'PORT': '3306',
+#
+#     }
+# }
 
 
 # Password validation

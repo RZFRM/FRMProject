@@ -3,6 +3,81 @@ from  etc.MysqlSetting import *
 
 
 
+class SqlModel(object):
+    def __init__(self):
+        self.host = "192.168.1.152"
+        self.user = "root"
+        self.passwd = "123456"
+        self.dbname = "FinceRobotManager"
+        try:
+            self.db = pymysql.connect(self.host,self.user,self.passwd,self.dbname)
+        except Exception as e:
+            print("数据库连接错误，错误内容%s" % e)   # 后期需替换成log形式
+
+        self.cursor = self.db.cursor()
+
+    def select_all(self,sql_info):
+        """返回的是一个[[],[]] 如果空返回[]"""
+        try:
+            res = self.cursor.execute(sql_info)
+            result = self.cursor.fetchall()
+            if res:
+                res_list = []
+                for i in result:
+                    res_list2 = []
+                    for j in i:
+                        res_list2.append(j)
+                    res_list.append(res_list2)
+                return res_list
+            else:
+                return []
+        except Exception as e:
+            print("数据库查询错误，错误内容:%s" % e)
+        finally:
+            self.cursor.close()
+            self.db.close()
+
+    def select_one(self, sql_info):
+        """返回的是一个[1,1] 为空返回[]"""
+        try:
+            res = self.cursor.execute(sql_info)
+            result = self.cursor.fetchone()
+            if res:
+                res_list = []
+                for i in result:
+                    res_list.append(i)
+                return res_list
+            else:
+                return []
+        except Exception as e:
+            print("数据库查询错误，错误内容:%s" % e)
+        finally:
+            self.cursor.close()
+            self.db.close()
+
+    def insert_or_update(self,sql_info):
+        """成功返回True,失败False"""
+        try:
+            self.cursor.execute(sql_info)
+            self.db.commit()
+            return True
+        except Exception as e:
+            print(e)
+            self.db.rollback()
+            return False
+        finally:
+            self.cursor.close()
+            self.db.close()
+
+    def insert(self,table,field,value):
+        """成功返回True,失败False"""
+
+        a = ()
+
+        sql = "insert into %s%s value %s" % (table,field,value)
+
+
+
 
 class Mysql_base(object):
     ''' 数据库操作基本类, 包含于业务无关的的操作方法'''

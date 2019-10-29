@@ -1,0 +1,18 @@
+# Compiled Python files
+
+*.pyc
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+
+
+.idea/
+var/
+bin_*
+live.*
+var.live.*
+*/gen-*
+*/var/
+*/bin_*
