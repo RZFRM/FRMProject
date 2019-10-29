@@ -1,0 +1,148 @@
+{% extends "base_iframe.html" %}
+{% load staticfiles %}
+{% block iframe_info %}
+
+
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header">&nbsp;&nbsp;&nbsp;&nbsp; 任务列表 &nbsp;>&nbsp;
+                已完成任务页
+            </div>
+            <div class="layui-card-body">
+
+                <table class="layui-hide" id="test" lay-filter="test"></table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block script_info %}
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <a class="layui-btn layui-btn-sm" lay-event="getCheckData">批量</a>
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">报表下载</button>
+            {#            <button class="layui-btn layui-btn-sm" lay-event="isAll">停止</button>#}
+            <button class="layui-btn layui-btn-sm" lay-event="isAll">删除</button>
+            {#                <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off">#}
+            {#            <button class="layui-btn" data-type="reload">搜索</button>#}
+
+
+        </div>
+    </script>
+
+    <script type="text/html" id="barDemo">
+        {#        <a class="layui-btn layui-btn-xs" lay-event="start">开始</a>#}
+        {#        <a class="layui-btn  layui-btn-disabled layui-btn-xs" lay-event="stop">停止</a>#}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">详情</button>
+    </script>
+
+
+    <script>
+        detail = function (t) {
+            console.log(t)
+            var dict = new FormData();
+            dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+            dict.append('job_no', '123')
+            console.log(dict)
+            layui.$.ajax({
+                url: '/detail_data',
+                type: 'post',
+                data: dict,
+                processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                success: function () {
+                    alert(11)
+                }
+            })
+        }
+    </script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+            table.render({
+                elem: '#test'
+                , height: 1000
+                , url: '/completed_data'
+                , toolbar: '#toolbarDemo'
+                , title: '用户数据表'
+                , cols: [[
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'id', title: 'ID', width: 150, fixed: 'left', unresize: true, sort: true}
+                    , {field: 'job_no', title: '任务编号', width: 230}
+                    , {field: 'job_name', title: '任务名称', width: 180}
+                    , {field: 'job_type', title: '任务类型', width: 230}
+                    , {field: 'job_end_time', title: '结束时间', width: 220}
+                    , {field: 'job_spend_time', title: '用时', width: 150}
+                    , {field: 'job_status', title: '状态', width:182, sort: true}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 252}
+                ]]
+                , page: true
+            });
+
+            //头工具栏事件
+
+
+            //监听行工具事件
+            table.on('tool(test)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'del') {
+
+                    layer.confirm('真的删除行么', function (index) {
+                        console.log(obj.data.id)
+                        var dict = new FormData();
+                        dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+                        dict.append('id', obj.data.id)
+
+                        layui.$.ajax({
+                            url: '/delete_jobs_info',
+                            type: 'post',
+                            data: dict,
+                            processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                            contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                            success: function () {
+
+                            }
+                        })
+                        obj.del();
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'detail') {
+                    var data = obj.data;
+                    console.log(data)
+
+                    console.log(obj.data.job_no)
+                    var job_no = obj.data.job_no
+
+                    window.location.href = '/detail_data?job_no='+job_no
+                    {#layui.$.ajax({#}
+                    {#    url: '/detail_data',#}
+                    {#    type: 'post',#}
+                    {#    data: dict,#}
+                    {#    processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)#}
+                    {#    contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）#}
+                    {#    success: function () {#}
+                    {#        window.location.href('')#}
+                    {#    }#}
+//                    })
+
+                    } else if (obj.event === 'start') {
+                        layer.confirm('真的要开始吗？', function (index) {
+                            var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"
+                            var start_class = 'layui-btn layui-btn-warm layui-btn-xs'
+                            var stop = obj.tr[2].children[0].children[0].children[1]
+                            var start = obj.tr[2].children[0].children[0].children[0]
+                            stop.className = start_class
+                            start.className = stop_class
+                            layer.close(index)
+
+                        });
+                    }
+                }
+            );
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,232 @@
+{% extends "base_iframe.html" %}
+{% load staticfiles %}
+{% block iframe_info %}
+    <style>
+        p {
+            margin: 0;
+            padiing: 0;
+        }
+
+        .install {
+            background: #fff;
+            box-sizing: border-box;
+            margin: 0;
+            padding-bottom: 30px;
+            position: relative;
+        }
+
+        .head {
+            font-size: 20px;
+            line-height: 40px;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .download {
+            width: 27%;
+            height: 721px;
+            background: #fff;
+            box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.32);
+            float: left;
+            margin-left: 4%;
+        }
+
+        .download + .download {
+            margin-left: 6%;
+        }
+
+        .client {
+            width: 100%;
+            height: 54px;
+            background: rgba(242, 242, 242, 1);
+            line-height: 54px;
+        }
+
+        .procedure {
+            width: 80%;
+            padding: 0 10%;
+            line-height: 28px;
+        }
+
+        .procedure > p, .procedure > span {
+            color: #000;
+            font-size: 16px;
+        }
+
+        .blodd {
+            font-size: 18px !important;
+            font-weight: bold;
+        }
+
+        .blod {
+            font-weight: bold;
+        }
+
+        .procedure > img {
+            width: 75%;
+        }
+
+        .procedure_a {
+            width: 80%;
+            height: 161px;
+            color: #fff;
+            display: block;
+            font-size: 24px;
+            margin: 0 auto 15%;
+            text-align: center;
+            background: #0A998C;
+            text-decoration: none;
+            padding-top: 0%;
+        }
+
+        a:hover {
+            color: #fff;
+        }
+
+        .anew{
+            color: #ff2600 !important;
+            font-size:16px !important;
+            font-weight: bold !important;
+        }
+
+        .overlay {
+            background-color: #000;
+            opacity: 1.0;
+            filter: alpha(opacity=100);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            overflow: auto;
+        }
+
+        .overlayimg {
+            position: fixed;
+            top: 15%;
+            left: 20%;
+            z-index: 11;
+            width: 50%;
+            height: auto;
+        }
+
+    </style>
+
+    <div class="layui-card install" style="">
+        <table></table>
+        <p class="head" style="margin: 30px 0 25px 0;">融智财务机器人安装与配置</p>
+        <div class="download">
+            <div class="head client">安装机器人客户端</div>
+            <div class="procedure" style="padding-top: 10%">
+                <a class="procedure_a"
+                   href="http://support.i-search.com.cn:8090/isrpa_online_world/upload/iS-RPA-Robot-9.0.0.exe">
+                    <span style="margin:15% 0 2% 0;display: inline-block;">点击下载</span> <br>安装程序
+                </a>
+                <p class="blodd">说明：</p>
+                <span>第一步：<span class="blod">下载机器人客户端</span>安装程序（约308MB）。</span><br>
+                <span>第二步：安装机器人客户端软件，<span class="blod">强烈建议按默认路径安装。</span></span>
+                <p class="blodd">提示：</p>
+                <span>机器人客户端安装后，自动加入操作系统启动项，不影响计算机使用。</span>
+            </div>
+        </div>
+        <div class="download">
+            <div class="head client">上传客户端注册文件</div>
+            <div class="procedure" style="padding-top: 10%">
+                <a id="clientInfo" name="clientInfo" class="procedure_a">
+                    <span id="clientInfo_first" style="margin:15% 0 2% 0;display: inline-block;">点击上传</span><br>
+                    <span id="clientInfo_last">注册文件</span>
+                </a>
+                <p class="blodd">说明：</p>
+                <span>注册文件不带有任何用户计算机信息，仅用于机器人服务器与客户端建立连接，该注册文件默认存储于客户端安装路径下：</span>
+                <span>第二步：安装机器人客户端软件，<span>强烈建议按默认路径安装。</span></span>
+                <p>路径：C:\iS-RPA\logs\2019-08-29 文件名</p>
+                <p>文件名：ClientManHelper.log</p>
+                <p class="blodd">提示：</p>
+                <span>每次用不同计算机操作机器人，需重新上传注册文件，否则无法连接服务器。</span>
+            </div>
+        </div>
+        <div class="download">
+            <div class="head client">设置服务器网址</div>
+            <div class="procedure" style="padding-top:15px;">
+                <span>第一步：在任务栏右下角找到机器人客户端图标，双击打开。</span><br>
+                <img src="{% static 'robotInstall/img1.png' %}" alt=""><br>
+                <span>第二步：在机器人客户端右上角点击“ ”，在出现的菜单中点击 <span>“设置”</span></span><br>
+                <img src="{% static 'robotInstall/img3.png' %}" alt=""><br>
+                <span>第三步：在 <span class="blod">“设置”</span>界面的 <span class="blod">“服务器地址”</span>栏输入：<span class="blod">rpa.chinaive.com</span>，点击 <span
+                        class="blod">确定</span></span><br>
+                <img src="{% static 'robotInstall/img2.png' %}" alt="">
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+
+{% endblock %}
+{% block script_info %}
+    <script src="../../static/layuiadmin/layui/layui.js"></script>
+    <script>
+        layui.use('upload', function () {
+            var upload = layui.upload,
+                $ = layui.$;
+
+            var uploadInst = upload.render({
+                elem: '#clientInfo'
+                , accept: 'file'
+                , url: '/clientInfo/' //上传接口
+                , field: "clientInfo"
+                , acceptMime: 'log/plain'
+                , data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                }
+                , done: function (data) {
+                    if(data.success=="200"){
+                        $("#clientInfo").css("background","#66BEB6");
+                        $("#clientInfo_first").html("上传成功");
+                        var onedate = new Date().toLocaleString('chinese', { hour12: false });
+                        $("#clientInfo_last").html(onedate).css("font-size","16px");
+                        $("<p class='anew'>重新上传</p>").appendTo($("#clientInfo"));
+                    }
+                }
+                , error: function () {
+                    //请求异常回调
+                }
+            });
+        });
+
+        //图片点击放大的效果
+        window.onload = function () {
+            addExpand()
+        };
+
+        function addExpand() {
+            var imgs = document.getElementsByTagName("img");
+            imgs[0].focus();
+            for (var i = 0; i < imgs.length; i++) {
+                imgs[i].onclick = expandPhoto;
+                imgs[i].onkeydown = expandPhoto;
+            }
+        }
+
+        function expandPhoto() {
+            var overlay = document.createElement("div");
+            overlay.setAttribute("id", "overlay");
+            overlay.setAttribute("class", "overlay");
+            document.body.appendChild(overlay);
+
+            var img = document.createElement("img");
+            img.setAttribute("id", "expand")
+            img.setAttribute("class", "overlayimg");
+            img.src = this.getAttribute("src");
+            document.getElementById("overlay").appendChild(img);
+
+            img.onclick = restore;
+        }
+
+        function restore() {
+            document.body.removeChild(document.getElementById("overlay"));
+            document.body.removeChild(document.getElementById("expand"));
+        }
+    </script>
+{% endblock %}

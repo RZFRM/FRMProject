@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第三步</title>
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        .found span {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(51, 51, 51, 1);
+        }
+
+        ul {
+            float: left;
+            margin: 50px 0 0 17px;
+            text-align: center
+        }
+
+        .approve {
+            width: 350px;
+            margin: 0 auto;
+            padding-top: 15%;
+        }
+
+        .good {
+            float: left;
+            height: 210px;
+            width: 32px;
+        }
+
+        .good > span {
+            height: 60px;
+            display: inline-block;
+            border: 1px solid #c6c6c6;
+            margin-left: 14px;
+        }
+
+        .more {
+            float: right;
+        }
+
+        .more > div + div {
+            margin-top: 55px;
+        }
+
+        .more > div > p + p {
+            margin-top: 6px;
+        }
+
+        .more > div > p:first-child {
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .more > div > p:last-child {
+            color: #333;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .btn {
+            width: 105px;
+            height: 39px;
+            background: rgba(55, 38, 89, 1);
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 39px;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            left: 44%;
+            bottom: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>创建新业务名称</span>
+    </div>
+    <ul>
+        <li class="ULI"><a lay-href="/purchasing_created" class="ULIP"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+    </ul>
+    <div style="height: 417px;overflow: auto;padding-top:25px">
+        <form class="layui-form forn" action="" lay-filter="component-form-group">
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>建议单价：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入建议单价"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="price" onkeyup="checkInt(this)" id=txtPrice
+                           lay-verify="required|number|price">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>单位：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入单位  例:台,个"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" lay-verify="required">
+                </div>
+            </div>
+
+            <button class="btn" type="submit" lay-submit="" lay-filter="demo2"
+                    onclick="javascript:window.location.href='/purchaes_requisitions_determine'">提交
+            </button>
+        </form>
+        <div style="clear: both"></div>
+    </div>
+</div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+{% extends "base_iframe.html" %}
+{% load staticfiles %}
+{% block iframe_info %}
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">首次使用{{ robot_name }}机器人基础设置</div>
+                    <div class="layui-card-body" pad15 style="height: 1000px;">
+
+                        <form class="layui-form" action='set_project.html' method="post">
+                            {% csrf_token %}
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">个税申报软件安装路径:</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="person_tax_install_path"
+                                           value="C:\Servyou\EPPortal_DS3.0\EPEvenue_SH.exe" class="layui-input"
+                                           style="width: 600px;">
+
+                                    {#                  <select name="role" lay-verify="">#}
+                                    {#                    <option value="1" selected>超级管理员</option>#}
+                                    {#                    <option value="2" disabled>普通管理员</option>#}
+                                    {#                    <option value="3" disabled>审核员</option>#}
+                                    {#                    <option value="4" disabled>编辑人员</option>#}
+                                    {#                  </select>#}
+                                </div>
+
+                            </div>
+                            <div class="layui-form-item" style="width: 800px;">
+                                <p class="layui-form-label" style="width: 600px; margin-left: 30px;">
+                                    默认安装路径为：C:\Servyou\EPPortal_DS3.0\EPEvenue_SH.exe</p>
+                            </div>
+
+                            {#　　　　　　　　　　　　　　TODO　　　登录公司名称#}
+                            <label class="layui-form-label" style="width: 200px;">{{ robot_name }}软件登录信息&nbsp;&nbsp;&nbsp;</label>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">登录公司名:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="company_name" class="layui-input" style="width: 600px;">
+                                </div>
+                                {#                                <div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>#}
+                            </div>
+
+                            {#                            TODO  纳税人识别号  #}
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">纳税人识别号:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="company_no" class="layui-input" style="width: 600px;">
+                                </div>
+                                {#                                <div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>#}
+                            </div>
+
+                            {#                             TODO　　登陆密码　#}
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">登陆密码:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="password" name="company_pwd" class="layui-input" style="width: 600px;">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="margin-left: 300px;">
+                                    <button type="submit" class="layui-btn layadmin-backlog-body" lay-filter="setmyinfo"
+                                            style="width: 100px;">提交
+                                    </button>
+                                    {#                                    <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>#}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+{% block script_info %}
+    <script>
+        layui.config({
+            base: '{% static "/layuiadmin/" %}'
+        }).extend({
+            index: '/lib/index'
+        }).use(['index', 'set']);
+    </script>
+{% endblock %}

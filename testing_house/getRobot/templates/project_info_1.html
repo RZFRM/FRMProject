@@ -1,0 +1,187 @@
+{% extends "base_iframe.html" %}
+{% load staticfiles %}
+{% block iframe_info %}
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">创建{{ robot_name }}机器人执行任务</div>
+                    <div class="layui-card-body" pad15 style="height: 1000px;">
+
+                        <div class="layui-form" lay-filter="">
+
+                            {#                           TODO  新建项目名 #}
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">新任务名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="job_name" class="layui-input" style="width: 600px;">
+
+                                </div>
+
+                            </div>
+                            <div class="layui-form-item" style="width: 800px;">
+
+                            </div>
+
+                            {#　　　　　　　　　　　　　　TODO　　　上传文档#}
+                            <div class="layui-form-item">
+                                <label class="layui-form-label " style="width: 200px;">上传工资表&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <div class="layui-upload" style="width: 800px;">
+                                        {% csrf_token %}
+                                        <input type="file" name="filename" class="layui-btn layui-btn-normal" id="test8"
+                                               style="float: left; background-color:lightpink ; width: 150px;">
+                                            {#                                            <i class="layui-icon"></i>上传文件#}
+                                        </input>
+                                        <a class="layui-a-tips  " href='{% static 'person_tax/纳税企业申报信息表.xlsm' %}'
+                                           style="margin-left: 20px; margin-top: 10px;">
+                                            <span style="font-size: large"><u>下载模板</u></span>
+                                        </a>
+
+                                        <br/><br/>
+                                        <a class="layui-btn" id="test9" onclick="get()" style="margin-top: 20px;">
+                                            立即执行
+                                        </a>
+
+                                        <a href="unfinished_jobs" class="layui-btn" onclick="add()"
+                                           style="margin-top: 20px; margin-left: 15px;">加入列表
+                                        </a>
+                                        {#                                        <a href="unfinished_jobs" class="layui-btn" id="load_jobs_list"#}
+                                        {#                                           style="margin-top: 20px; margin-left: 15px;">任务列表#}
+                                        {#                                        </a>#}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script_info %}
+
+    <script>
+        layui.config({
+            base: '{% static "/layuiadmin/" %}'
+        }).extend({
+            index: '/lib/index'
+        }).use(['index', 'set']);
+
+    </script>
+
+    {#     TODO  立即执行  #}
+    <script>
+
+        get = function () {
+            {#var job_name = document.getElementById('job_name').valueOf().value#}
+            var job_name = layui.$("#job_name").val()
+            var robot_name = '{{ robot_name }}'
+            var fileContent =  document.getElementById('test8').files[0]
+            //console.log(fileContent)
+            var dict = new FormData();
+            dict.append("robot_name", robot_name)
+            dict.append("job_name", job_name);
+            dict.append("fileName", document.getElementById('test8').value);
+            dict.append("fileContent",fileContent);
+            dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+            layui.$.ajax({
+                url: '/upload_salary_start',
+                type: 'post',
+                data: dict,
+
+                processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                success: function () {
+                }
+            })
+            history.go(0)
+        }
+    </script>
+
+
+
+
+    {#     TODO  加入列表 #}
+    <script>
+        add = function () {
+            {#var job_name = document.getElementById('job_name').valueOf().value#}
+            var job_name = layui.$("#job_name").val()
+
+            {#alert(job_name)#}
+            var dict = new FormData();
+            var token_value = layui.$('[name="csrfmiddlewaretoken"]').val();
+            dict.append("job_name", job_name);
+            dict.append("fileName", document.getElementById('test8').value);
+            dict.append("fileContent", document.getElementById('test8').files[0]);
+            dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+            {#alert(dict)#}
+            layui.$.ajax({
+                url: '/upload_salary_add/',
+                type: 'post',
+                data: dict,
+                dataType:'file',
+                processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                success: function () {
+                }
+            })
+        }
+    </script>
+    {#    <script>#}
+    {##}
+    {##}
+    {#        layui.use('upload', function () {#}
+    {#            var $ = layui.jquery#}
+    {#                , upload = layui.upload;#}
+    {#            //选完文件后不自动上传#}
+    {##}
+    {##}
+    {#            upload.render({#}
+    {#                elem: '#test8'#}
+    {#                , url: '/upload_salary'#}
+    {#                , auto: false#}
+    {#                , field: "test8"#}
+    {#                , accept: 'file'#}
+    {#                //,multiple: true#}
+    {#                , bindAction: '#test9'#}
+    {#                , done: function (res) {#}
+    {#                    console.log(res)#}
+    {#alert($('#job_name').val())#}
+    {#                }#}
+    {#                , data: {#}
+    {#                    csrfmiddlewaretoken: '{{ csrf_token }}',#}
+    {#                    'job_name': job_name#}
+    {#                },#}
+    {##}
+    {#            });#}
+    {#        });#}
+    {##}
+    {##}
+    {#    </script>#}
+
+    <script>
+
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+        });
+
+        $.ajax({
+            method: "POST",
+            url: '/job_name',
+            data: {'job_name': job_name}
+        })
+            .done(function (msg) {
+                alert("Data Saved: " + msg);
+            });
+
+
+    </script>
+
+
+
+{% endblock %}

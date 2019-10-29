@@ -1,0 +1,211 @@
+﻿{% extends "base_iframe.html" %}
+{% load staticfiles %}
+{% block iframe_info %}
+    <style>
+        .middelfont {
+            margin: 0 auto;
+        }
+
+        .allimage {
+            margin-top: 15px;
+            margin-left: 150px;
+        }
+
+        .info {
+            margin-top: 15px;
+            margin-left: 0px;
+            padding-right: 20px;
+        }
+    </style>
+    <div class="layui-card">
+        {#        <div class="layui-card-header">卡片面板</div>#}
+        <div class="layui-card-body">
+            <div class="layui-container">
+                <div class="layui-row">
+                    <div class="layui-col-xs4">
+                        <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+                    </div>
+                    <div class="layui-col-xs4">
+                       <div class="grid-demo"><h2 style="margin-top: 20px;"><b style="color: black">融智机器人安装与配置 </b></h2></div>
+                    </div>
+                    <div class="layui-col-xs4">
+                        <div class="grid-demo grid-demo-bg1"></div>
+                    </div>
+
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="grid-demo grid-demo-bg1">
+
+                            <div style=" margin-top:60px;">
+                                <a hrerf="javascritp:;"> <img src="{% static 'robotInstall/setup_config_3.png' %}"></a>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs3">
+                        <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo">
+
+                            <div style=" margin-top:100px; height: 300px; width: 280px;">
+                                {% csrf_token %}
+                                <a id="clientInfo" name="clientInfo">
+
+                                    <img src="{% static 'robotInstall/upload_file.png' %}" style="padding-left:96px;">
+                                    <p style="margin-right: 300px; margin-top: 10px;">
+                                    <h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>点击上传 &nbsp;&nbsp;验证文件</b></h3>
+                                    </p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 请上传机器人客户端验证文件 <br>
+                                        &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; 完成客户端验证, 默认按安装文件<br>
+                                        文件默认路径:C:\iS-RPA\logs\2019-08-29<br>
+                                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 文件名：ClientManHelper.log</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs3">
+                        <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+                    </div>
+
+                </div>
+
+
+                {#         TODO 按钮下页  返回#}
+                <div class="layui-row">
+                    <div class="layui-col-xs3">
+                        <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+                    </div>
+                    <div class="layui-col-xs3" style=" float: left">
+                        <div class="grid-demo">
+                            {#                    <button type="button" class="layui-btn layui-btn-radius" style="width: 200px; margin-left: 10px;">默认按钮</button>#}
+                            <a href="{% url 'set_config' %}?page=2" class="layui-btn layui-btn-radius"
+                               style="width: 200px; margin-left: 10px;">返回</a>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs3" style="margin-right: 25%">
+                        <div class="grid-demo grid-demo-bg1">&nbsp;
+                            <a href="/set_config?page=4" class="layui-btn layui-btn-radius"
+                               style="width: 200px; margin-left: 10px;">设置完成，下一步</a>
+                        </div>
+                    </div>
+
+
+                    <div class="layui-col-xs3">
+                        <div class="grid-demo grid-demo-bg1">&nbsp;
+                            {#                    <a href="javascript:;" class="layui-btn layui-btn-radius" style="width: 200px; margin-left: 10px;">设置完成，下一步</a>#}
+                            &nbsp;
+                        </div>
+                    </div>
+
+                </div>
+
+
+                {#         TODO  查看帮助  #}
+                <div class="layui-row">
+                    <div class="layui-col-xs4">
+                        <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+                    </div>
+                    <div class="layui-col-xs4">
+                        <div class="grid-demo" style="margin-top: 50px; margin-left:130px;">
+                            <a id="p1"> 查看帮助</a>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs4">
+                        <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block script_info %}
+    <script>
+        layui.config({
+            base: '{% static "/layuiadmin/" %}'
+        }).extend({
+            index: '/lib/index'
+        }).use(['index', 'set']);
+    </script>
+    {#    <script type="text/javascript" src="layui/layui.js"></script>#}
+    {#    <script type="text/javascript">#}
+    {#        layui.config({#}
+    {#            base: '/lib/'#}
+    {#        }).extend({#}
+    {#            ckplayer: 'ckplayer/ckplayer'#}
+    {#        }).use(['jquery', 'ckplayer'], function () {#}
+    {#            var $ = layui.$,#}
+    {#                ckplayer = layui.ckplayer;#}
+    {#            var vUrl = $('#video').data('url'),#}
+    {#                videoObject = {#}
+    {#                    container: '#video',#}
+    {#                    loop: true,#}
+    {#                    autoplay: true,#}
+    {#                    video: [#}
+    {#                        [vUrl, 'video/mp4']#}
+    {#                    ]#}
+    {#                };#}
+    {#            var player = new ckplayer(videoObject);#}
+    {#        });#}
+    {#    </script>#}
+
+    <script>
+
+
+        layui.use('upload', function () {
+            var upload = layui.upload,
+                $ = layui.$;
+
+            var uploadInst = upload.render({
+                elem: '#clientInfo'
+                , accept: 'file'
+                , url: '/clientInfo/' //上传接口
+                , field: "clientInfo"
+                , acceptMime: 'log/plain'
+                , data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                }
+
+                , done: function (res) {
+                    console.log('sucess!')
+                }
+                , error: function () {
+                    //请求异常回调
+                }
+            });
+        });
+
+
+    </script>
+
+    <script>
+        layui.use("layer", function () {
+            var layer = layui.layer;
+//layer.msg("大家好，这是最简单的弹层", { time: 9000, type: 1,title:['测试一下','font-size:18px'] });
+            layui.$("#p1").click(function () {
+                layer.tab({
+                    area: ['600px', '300px'],
+                    tab: [{
+                        title: 'TAB1',
+                        content: '内容1'
+                    }, {
+                        title: 'TAB2',
+                        content: '内容2'
+                    }, {
+                        title: 'TAB3',
+                        content: {% static  'viode/connect_server.gif' %}
+                    }]
+                });
+            });
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,221 @@
+{% extends "base_iframe.html" %}
+{% load staticfiles %}
+{% block iframe_info %}
+    <style>
+        .middelfont {
+            margin: 0 auto;
+        }
+
+        .allimage {
+            margin-top: 15px;
+            margin-left: 150px;
+        }
+
+        .info {
+            margin-top: 15px;
+            margin-left: 0px;
+            padding-right: 20px;
+        }
+
+    </style>
+    {#    <div class="layui-fluid">#}
+    {#        <div class="layui-row layui-col-space15">#}
+    {#            <div class="layui-col-md12">#}
+    {##}
+    {#                <div class="layui-card">#}
+    {#                    <div class="layui-card-body" style="height: 900px;">#}
+    {#                        <div>#}
+    {#                            <h2 style="font-family: 黑体; margin-top: 48px;">#}
+    {#                                <center> 使用前准备工作</center>#}
+    {#                            </h2>#}
+    {#                        </div>#}
+    {##}
+    {#                        <div class="layui-row layui-col-space30" style="margin-left: 500px; margin-top: 80px;">#}
+    {#                            <div class="layui-col-md2 layui-col-sm4">#}
+    {#                                <div class="cmdlist-container">#}
+    {#                                    <a href="javascript:;">#}
+    {#                                        <img src="{% static "pic/download/computer.png" %}"#}
+    {#                                             style="margin-left: 30px;">#}
+    {#                                    </a>#}
+    {#                                    <a href="javascript:;">#}
+    {#                                        <div class="cmdlist-text">#}
+    {#                                            <p class="info">第一次安装用户需要让系统判定本机的 位置，同时上传数据和返回数据</p>#}
+    {#                                        </div>#}
+    {#                                    </a>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <div class="layui-col-md2 layui-col-sm4">#}
+    {#                                <div class="cmdlist-container">#}
+    {#                                    <a href="javascript:;">#}
+    {#                                        <img src="{% static "pic/download/postion.png" %}" style="margin-left: 50px;">#}
+    {#                                    </a>#}
+    {#                                    <a href="javascript:;">#}
+    {#                                        <div class="cmdlist-text">#}
+    {#                                            <p class="info">第一次安装用户需要让系统判定本机的 位置，同时上传数据和返回数据</p>#}
+    {#                                        </div>#}
+    {#                                    </a>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <div class="layui-col-md2 layui-col-sm4">#}
+    {#                                <div class="cmdlist-container">#}
+    {#                                    <a href="javascript:;">#}
+    {#                                        <img src="{% static "pic/download/files.png" %}" style="margin-left: 50px;">#}
+    {#                                    </a>#}
+    {#                                    <a href="javascript:;">#}
+    {#                                        <div class="cmdlist-text">#}
+    {#                                            <p class="info">第一次安装用户需要让系统判定本机的 位置，同时上传数据和返回数据</p>#}
+    {##}
+    {#                                        </div>#}
+    {#                                    </a>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {##}
+    {#                        <div style="text-align:center;">#}
+    {#                            <button class="layui-btn layui-btn-normal layui-btn-radius"#}
+    {#                                    style="width: 110px; height: 36px; background-color: #3E2860; border-radius: 10px; margin-top: 15px;">#}
+    {#                                <a href="http://support.i-search.com.cn:8090/isrpa_online_world/upload/iS-RPA-Robot-9.0.0.exe"#}
+    {#                                   rel="nofollow"><span style="color: white">立刻下载</span></a>#}
+    {#                            </button>#}
+    {#                        </div>#}
+    {##}
+    {#                        <div>#}
+    {#                            <h2 style="font-family: 黑体">#}
+    {#                                <center> 安装后ID问题</center>#}
+    {#                            </h2>#}
+    {#                            <p>#}
+    {#                            <div class="layui-card-body">#}
+    {#                                <video id="img" preload="meta" controls="" oncontextmenu="return false;" height="202px"#}
+    {#                                       ; width="359px" ; style="background-color: #333;" data-vscid="5mu6nao5s">#}
+    {#                                    <source src="{% static "viode/SummerNight.mp4" %}" type="video/mp4">#}
+    {#                                </video>#}
+    {#                            </div>#}
+    {#                            </p>#}
+    {#                        </div>#}
+    {##}
+    {#                        <div>#}
+    {#                            <button class="layui-btn layui-btn-normal layui-btn-radius"#}
+    {#                                    style="width: 110px; height: 36px; background-color: #3E2860; border-radius: 10px">#}
+    {#                                <a href="http://support.i-search.com.cn:8090/isrpa_online_world/upload/iS-RPA-Robot-9.0.0.exe"#}
+    {#                                   rel="nofollow"><span style="color: white">立即使用</span></a>#}
+    {#                            </button>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs4">
+                <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+            </div>
+            <div class="layui-col-xs4">
+                <div class="grid-demo"><h2 style="margin-top: 20px;">融智机器人安装与配置</h2></div>
+            </div>
+            <div class="layui-col-xs4">
+                <div class="grid-demo grid-demo-bg1"></div>
+            </div>
+
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <div class="grid-demo grid-demo-bg1">
+
+                    <div style=" margin-top:50px;">
+                        <a hrerf=""> <img src="{% static 'robotInstall/setup_config_1.png' %}"></a>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-xs4">
+                <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+            </div>
+            <div class="layui-col-xs4">
+                <div class="grid-demo">
+                    <div style=" margin-top:100px; height: 300px; width: 280px;">
+                        <a href="http://support.i-search.com.cn:8090/isrpa_online_world/upload/iS-RPA-Studio-9.0.0x64.exe">
+                            <img src="{%  static 'robotInstall/download_ico.png' %}" style="padding-left:75px;">
+                            <p style="margin-right: 300px;">
+                                <h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击此处下载客户端</h3>
+                                请下载安装机器人客户端，安装时请选择
+                            </p>
+                            <p>&nbsp;默认安装路径。 如已安装，请直接点击</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“安装完成，下一步”。</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs4">
+                <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+            </div>
+
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-xs4">
+                <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+            </div>
+            <div class="layui-col-xs4">
+                <div class="grid-demo">
+                    <button type="button" class="layui-btn layui-btn-radius" style="width: 200px; margin-left: 10px;">默认按钮</button>
+                </div>
+            </div>
+            <div class="layui-col-xs4">
+                <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+            </div>
+
+        </div>
+    <div class="layui-row">
+            <div class="layui-col-xs4">
+                <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+            </div>
+            <div class="layui-col-xs4">
+                <div class="grid-demo" style="margin-top: 50px; margin-left: 80px;">
+                    <a href="javascritp:;"> 查看帮助 </a>
+                </div>
+            </div>
+            <div class="layui-col-xs4">
+                <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block script_info %}
+    <script>
+        layui.config({
+            base: '{% static "/layuiadmin/" %}'
+        }).extend({
+            index: '/lib/index'
+        }).use(['index', 'set']);
+    </script>
+    <script type="text/javascript" src="layui/layui.js"></script>
+    <script type="text/javascript">
+        layui.config({
+            base: '/lib/'
+        }).extend({
+            ckplayer: 'ckplayer/ckplayer'
+        }).use(['jquery', 'ckplayer'], function () {
+            var $ = layui.$,
+                ckplayer = layui.ckplayer;
+            var vUrl = $('#video').data('url'),
+                videoObject = {
+                    container: '#video',
+                    loop: true,
+                    autoplay: true,
+                    video: [
+                        [vUrl, 'video/mp4']
+                    ]
+                };
+            var player = new ckplayer(videoObject);
+        });
+    </script>
+{% endblock %}
