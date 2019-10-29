@@ -267,7 +267,7 @@ def purchaes_order_create(request):
 # TODO  采购合同 获取所有请购单信息
 def set_contract_by_purchase_number(request):
     user_name = request.COOKIES.get('username')
-    sql  = "select job_id from job_list_summary   where  job_status ='1113' and user_name_id = '%s';"%user_name
+    sql = "select job_id from job_list_summary   where  job_status ='1113' and user_name_id = '%s';"%user_name
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []

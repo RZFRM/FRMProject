@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="36e65a54-0485-489d-a5f7-1ffb048d672f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personal_center/templates/home_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/personal_center/templates/home_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/purchasing_robot/templates/purchaes_requisitions_2.html" beforeDir="false" afterPath="$PROJECT_DIR$/purchasing_robot/templates/purchaes_requisitions_2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/purchasing_robot/templates/purchasing_robot_business_manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/purchasing_robot/templates/purchasing_robot_business_manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/purchasing_robot/templates/purchaes_order_4.html" beforeDir="false" afterPath="$PROJECT_DIR$/purchasing_robot/templates/purchaes_order_4.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/purchasing_robot/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/purchasing_robot/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,7 +59,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/purchasing_robot/templates/purchaes_order_4.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4551" />
+            <state relative-caret-position="387">
+              <caret line="210" column="19" lean-forward="true" selection-start-line="210" selection-start-column="19" selection-end-line="210" selection-end-column="19" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -79,7 +79,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/purchasing_robot/templates/purchasing_robot_business_manager.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="230">
@@ -97,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/purchasing_robot/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="550" column="22" lean-forward="true" selection-start-line="550" selection-start-column="22" selection-end-line="550" selection-end-column="22" />
+            <state relative-caret-position="236">
+              <caret line="274" column="30" lean-forward="true" selection-start-line="274" selection-start-column="30" selection-end-line="274" selection-end-column="30" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -165,7 +165,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/system_config/templates/menu.html" />
         <option value="$PROJECT_DIR$/static/layuiadmin/json/menu/menus.json" />
         <option value="$PROJECT_DIR$/system_config/templates/menu_add_son.html" />
         <option value="$PROJECT_DIR$/system_config/templates/menu_list_old.html" />
@@ -212,10 +211,11 @@
         <option value="$PROJECT_DIR$/system_config/views.py" />
         <option value="$PROJECT_DIR$/templates/base_iframe.html" />
         <option value="$PROJECT_DIR$/templates/111.html" />
-        <option value="$PROJECT_DIR$/purchasing_robot/views.py" />
         <option value="$PROJECT_DIR$/purchasing_robot/templates/purchasing_robot_business_manager.html" />
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/personal_center/templates/home_page.html" />
+        <option value="$PROJECT_DIR$/purchasing_robot/templates/purchaes_order_4.html" />
+        <option value="$PROJECT_DIR$/purchasing_robot/views.py" />
       </list>
     </option>
   </component>
@@ -271,6 +271,17 @@
               <item name="testing_house" type="462c0819:PsiDirectoryNode" />
               <item name="purchasing_robot" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="testing_house" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing_house" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="testing_house" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing_house" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="robotInstall" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="testing_house" type="b2602c69:ProjectViewProjectNode" />
@@ -402,12 +413,12 @@
       <workItem from="1564191010124" duration="28463000" />
       <workItem from="1564275563109" duration="10302000" />
       <workItem from="1564365007291" duration="20940000" />
-      <workItem from="1572340993679" duration="9584000" />
+      <workItem from="1572340993679" duration="10440000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="275062000" />
+    <option name="totallyTimeSpent" value="275918000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -420,6 +431,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20309168" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -435,7 +447,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.329718" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.36659437" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.22451194" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -757,16 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/purchasing_robot/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="550" column="22" lean-forward="true" selection-start-line="550" selection-start-column="22" selection-end-line="550" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -798,15 +800,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/purchasing_robot/templates/purchaes_order_4.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4551" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/purchasing_robot/templates/purchasing_robot_business_manager.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="207" column="20" lean-forward="true" selection-start-line="190" selection-start-column="39" selection-end-line="207" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/purchasing_robot/templates/purchaes_order_4.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="210" column="19" lean-forward="true" selection-start-line="210" selection-start-column="19" selection-end-line="210" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/purchasing_robot/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="274" column="30" lean-forward="true" selection-start-line="274" selection-start-column="30" selection-end-line="274" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

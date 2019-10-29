@@ -206,7 +206,7 @@
                             console.log(res.data.length);
                             $("#xm").append(`<option value="${res.data[index]}">${res.data[index]}</option>`)
                         }
-                        {#layui.form.render("select","xmFilter");  //更新 lay-filter="test2" 所在容器内的全部 select 状态#}
+                        layui.form.render("select","xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
                     }
                 });
             });
