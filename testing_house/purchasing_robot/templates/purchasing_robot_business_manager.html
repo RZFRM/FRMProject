@@ -197,13 +197,9 @@
                             shade: false,
                             maxmin: true, //开启最大化最小化按钮
                             area: ['43.65%', '62%'],
-                            content:'/view_information',
+                            content:'/view_information?id='+data.id,
                             success: function (layero,index) {
-                                //在layer.open的success方法中拿到子页面的body对象
-                                var body = layer.getChildFrame('body', index);
-                                //直接获取当前按钮
-                                body.contents().find("#lookUp").val(data.id);
-                                console.log(data.id)
+
                             }
                         })
                 }
