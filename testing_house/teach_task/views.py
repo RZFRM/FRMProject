@@ -951,8 +951,18 @@ def student_batch(request):
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
+
 def student_download(request):
     """模版下载"""
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media", "学生信息.xlsx")
+
+    with open(MEDIA_ROOT, 'rb') as f:
+        response =HttpResponse(f)
+        response['Content-Type']='application/octet-stream'
+        response['Content-Disposition']='attachment;filename="模版.xlsx"'
+        return response
+
+
 
 
 
