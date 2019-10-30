@@ -283,8 +283,6 @@ def set_contract_by_purchase_number(request):
         , "msg": ""
         , "count": 1
         , "data": data_list
-
-
     }
     return  JsonResponse(data)
 
