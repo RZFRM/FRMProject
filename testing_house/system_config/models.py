@@ -8,6 +8,16 @@ from mptt.models import MPTTModel
 
 # TODO 用户信息表
 class User(models.Model):
+    admin_id = models.AutoField(primary_key=True, unique=True, verbose_name='管理员id')
+    admin_name = models.CharField(max_length=10, null=True, verbose_name='登入人员名字')
+    admin_type = models.CharField(max_length=10, verbose_name='分类，1：内部，2：教务，3：老师，4:学生 5:公司')
+    phone = models.BigIntegerField(null=True, verbose_name='电话')
+    school_code = models.IntegerField(null=True, verbose_name='学校编号')
+    admin_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
+                                   verbose_name=u"有效性", max_length=10)
+    create_name = models.CharField(max_length=10)
+
+
     user_name = models.CharField(max_length=50, null=None, unique=True)
     user_password = models.CharField(max_length=100, null=None)
     user_agent_no = models.CharField(max_length=100, null=True)

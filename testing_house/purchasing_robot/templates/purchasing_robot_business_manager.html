@@ -31,7 +31,7 @@
         <button type="button" id="Added" class="layui-btn layui-btn-sm layui-btn-danger"
                 style="width:120px;border-radius:2%;float: left;margin-right: 30px">
             <i class="layui-icon layui-icon-add-1"></i>
-            新增任务
+            新增业务
         </button>
         {#        <div class="layui-btn-container" style="float:left">#}
         {#            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">批量导入</button>#}
@@ -45,7 +45,7 @@
     </script>
 
     <script type="text/html" id="barDemo">
-        <button type="button" lay-event="lookUp" id="lookUp" class="layui-btn layui-btn-sm layui-btn-danger"
+        <button type="button" lay-event="lookUp" id="lookUp" class="layui-btn layui-btn-sm"
                 style="width:50%;margin-left:30%;">查看
         </button>
     </script>
@@ -89,8 +89,7 @@
                 , title: '用户数据表'
                 , cols: [[
                     {type: 'checkbox', fixed: 'left'}
-                    , {type: 'numbers', title: '序号', sort: true, width: "4%"}
-                    , {field: 'id', title: 'ID', hide: true}
+                    , {type: 'numbers', title: '序号', width: "4%"}
                     , {field: 'business_name', title: '业务名称', width: "15%"}
                     , {field: 'gmt_create', title: '创建时间', width: "15%", sort: true}
                     , {field: 'application_depart', title: '申请部门', width: "15%"}

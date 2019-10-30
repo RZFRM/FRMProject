@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <style>
+        body {
+            font-size: 20px;
+        }
+
+        table {
+            margin-top: 20px;
+        }
+
+        tr {
+            height: 35px;
+        }
+
+        caption {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 1px solid #93D1FF;
+        }
+    </style>
+</head>
+<body>
+
+<table border="1" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" bordercolor="#F0F0F0" cellpadding="1"
+       align="center">
+    <caption>采购</caption>
+    <tr align="center">
+        <td width="200" height="35" bgcolor="#009688">项目</td>
+        <td width="250" bgcolor="#009688">内容</td>
+    </tr>
+    <tr align="center">
+        <td id="uname" style="display:none;"></td>
+        <td id="valus" style="display:none;"></td>
+    </tr>
+
+</table>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+     layui.use([ 'table', 'laydate', 'jquery'], function () {
+         var table = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+         function addevent(){
+             $("#uname").val("123");
+             $("#valus").val("321")
+         }
+     })
+</script>
+</body>
+</html>
+

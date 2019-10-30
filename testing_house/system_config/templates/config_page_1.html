@@ -187,10 +187,14 @@
                         var onedate = new Date().toLocaleString('chinese', { hour12: false });
                         $("#clientInfo_last").html(onedate).css("font-size","16px");
                         $("<p class='anew'>重新上传</p>").appendTo($("#clientInfo"));
+                        layer.msg("123")
+                    }else{
+                        layer.msg(321)
                     }
                 }
                 , error: function () {
                     //请求异常回调
+                    console.log(123)
                 }
             });
         });

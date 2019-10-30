@@ -68,9 +68,6 @@
                         <dd style="text-align: center;"><a href="{% url 'login' %}">退出</a></dd>
                     </dl>
                 </li>
-                <!-- {#                <li class="layui-nav-item layui-hide-xs" lay-unselect>#}
-{#                    <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>#}
-{#                </li>#} -->
                 <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
                     <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
@@ -83,18 +80,6 @@
                 </div>
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
                     lay-filter="layadmin-system-side-menu">
-                    <!-- {#                    <li data-name="user" class="layui-nav-item layui-nav-itemed">#}
-{#                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">#}
-{#                            <i class="layui-icon layui-icon-user"></i>#}
-{#                            <cite>个人中心</cite>#}
-{#                        </a>#}
-{#                        <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">我的消息</a></dd>#}
-{#                        </dl>#}
-{#                    </li>#} -->
-
-
                     <li data-name="user" class="layui-nav-item ">
 
                         <!-- <i class="layui-icon layui-icon-face-smile-fine"></i>
@@ -137,7 +122,7 @@
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">资产核算机器人</a>
+                                <a href="javascript:;">固定资产机器人</a>
                                 <dl class="layui-nav-child">
                                     <dd><a href="javascript:;">业务管理</a></dd>
                                     <dd><a href="javascript:;">任务管理</a></dd>
@@ -145,7 +130,7 @@
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">费用报销机器人</a>
+                                <a href="javascript:;">总账业务机器人</a>
                                 <dl class="layui-nav-child">
                                     <dd><a href="javascript:;">业务管理</a></dd>
                                     <dd><a href="javascript:;">任务管理</a></dd>
@@ -153,7 +138,7 @@
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">银行付款机器人</a>
+                                <a href="javascript:;">网银付款机器人</a>
                                 <dl class="layui-nav-child">
                                     <dd><a href="javascript:;">业务管理</a></dd>
                                     <dd><a href="javascript:;">任务管理</a></dd>
@@ -161,7 +146,7 @@
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">收款核算机器人</a>
+                                <a href="javascript:;">网银查询机器人</a>
                                 <dl class="layui-nav-child">
                                     <dd><a href="javascript:;">业务管理</a></dd>
                                     <dd><a href="javascript:;">任务管理</a></dd>
@@ -177,7 +162,7 @@
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">个税申报机器人</a>
+                                <a href="javascript:;">发票查验机器人</a>
                                 <dl class="layui-nav-child">
                                     <dd><a href="javascript:;">业务管理</a></dd>
                                     <dd><a href="javascript:;">任务管理</a></dd>
@@ -185,7 +170,15 @@
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">企税申报机器人</a>
+                                <a href="javascript:;">发票认证机器人</a>
+                                <dl class="layui-nav-child">
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
+                                </dl>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;">企税季报机器人</a>
                                 <dl class="layui-nav-child">
                                     <dd><a href="javascript:;">业务管理</a></dd>
                                     <dd><a href="javascript:;">任务管理</a></dd>
@@ -194,14 +187,6 @@
                             </dd>
                             <dd>
                                 <a href="javascript:;">增值税申报机器人</a>
-                                <dl class="layui-nav-child">
-                                    <dd><a href="javascript:;">业务管理</a></dd>
-                                    <dd><a href="javascript:;">任务管理</a></dd>
-                                    <dd><a href="javascript:;">基础配置</a></dd>
-                                </dl>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;">其他税费申报机器人</a>
                                 <dl class="layui-nav-child">
                                     <dd><a href="javascript:;">业务管理</a></dd>
                                     <dd><a href="javascript:;">任务管理</a></dd>
@@ -229,85 +214,6 @@
 {#                                <dd data-name="console"><a lay-href="{% url 'my_news' %}">任务列表</a></dd>#} -->
                         </dl>
                     </li>
-
-
-                    <!-- {##}
-{#                    <li data-name="user" class="layui-nav-item ">#}
-{#                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">#}
-{#                            <i class="layui-icon layui-icon-menu-fill"></i>#}
-{#                            <cite>任务管理</cite>#}
-{#                        </a>#}
-{#                        <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">执行状态</a></dd>#}
-{#                        </dl>#}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">任务编号</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">任务机器人</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">业务数据</a></dd>#}
-{#                        </dl>#}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">管理</a></dd>#}
-{#                        </dl>#}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">已完成任务</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{##}
-{##}
-{##}
-{#                    </li>#}
-{##}
-{#                    <li data-name="user" class="layui-nav-item ">#}
-{#                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">#}
-{#                            <i class="layui-icon layui-icon-chat"></i>#}
-{#                            <cite>消息管理</cite>#}
-{#                        </a>#}
-{#                        <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">运行通知</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{##}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">消息页</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{#                    </li>#}
-{##}
-{##} -->
-                    {#                    <li data-name="user" class="layui-nav-item ">#}
-                    {#                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">#}
-                    {#                            <i class="layui-icon layui-icon-voice"></i>#}
-                    {#                            <cite>机器人设置</cite>#}
-                    {#                        </a>#}
-                    {#                        <dl class="layui-nav-child">#}
-                    {#                            <dd data-name="console" class="layui-this"><a lay-href="/set_person_tax_config">个人所得税机器人</a></dd>#}
-                    {#<!-- {#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">我的消息</a></dd>#}
-                    -->#}
-                    {#                        </dl>#}
-                    {#                    </li>#}
 
 
                     <li data-name="user" class="layui-nav-item ">

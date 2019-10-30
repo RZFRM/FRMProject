@@ -30,7 +30,7 @@ import time
 
 
 
-DB = Mysql_client()
+DB = Mysql_client_FRM()
 
 
 flow_name = {'1':'OPSkey','3':'Tax'}
@@ -76,7 +76,9 @@ def index(request):
         print('POST:', user_name_code)
         # print('POST:', check_code)
         mysql_username = User.objects.filter(user_name=user_name_code).first()
-        mysql_password = User.objects.filter(user_password=user_pawd_code)
+        sql = "select user_pass from user where user_name = '%s' "%user_name_code
+        user_pass = DB.get_select_one()
+        mysql_password = user_pass
         print(111111111111111)
         print(mysql_username)
         if mysql_username:

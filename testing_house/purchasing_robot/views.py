@@ -283,8 +283,6 @@ def set_contract_by_purchase_number(request):
         , "msg": ""
         , "count": 1
         , "data": data_list
-
-
     }
     return  JsonResponse(data)
 
@@ -493,7 +491,7 @@ def set_purchase_robot_buession_info(request):
     #  TODO 返回 未完成列表 数据
 
     user_name = request.COOKIES.get('username')
-    sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s' "%user_name
+    sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   "%user_name
     print(sql)
     user_jobs = DB.get_select_all(sql_info=sql)
     print(user_jobs)
@@ -549,26 +547,15 @@ def set_create_purchase_number(request):
 def set_view_information(request):
     user_name  = request.COOKIES.get('username')
     id = request.GET.get('id')
-    print('---------------------------------', id)
-    r_name = '采购申请机器人'
-    if r_name == '采购申请机器人':
-        try:
-            sql = "select * from  purchase_apply_table  where id = ''" %id
-            row_info = DB.get_select_one(sql)
-
-            return row_info
-        except Exception as e:
-            print('查询失败', e)
-            return False
-    print('------------------',id)
-    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price_, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = '+str(id)
+    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price_, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(
+        id)
     print(sql)
     views_info = DB.select_one(sql)
+    r_name = views_info[-1].split('-')[1]
+    print('---------------------------------', id)
 
-    print(views_info)
-    r_name =views_info[-1].split('-')[1]
+
     if r_name == '采购申请与审批':
-
         views_info.append('单据编号')
         views_info.append('采购用途')
         views_info.append('货物名称')
