@@ -551,7 +551,15 @@ def set_view_information(request):
         id)
     print(sql)
     views_info = DB.select_one(sql)
-    r_name = views_info[-1].split('-')[1]
+    print(views_info)
+    if views_info:
+        r_name = views_info[-1].split('-')[1]
+    else:
+        data = {
+            'code':'400',
+            'msg':'没有查到'
+        }
+        return
     print('---------------------------------', id)
 
 

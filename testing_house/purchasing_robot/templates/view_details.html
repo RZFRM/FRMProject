@@ -7,6 +7,7 @@
     <style>
         body {
             font-size: 20px;
+            margin: auto;
         }
 
         table {
@@ -23,38 +24,76 @@
             margin-bottom: 20px;
             border: 1px solid #93D1FF;
         }
+        p{
+            width: 25%;
+            text-align: center;
+            margin:0 auto;
+            font-weight: bold;
+        }
+        #name, #value {
+            float: left;
+            list-style: none;
+            width: 300px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        ul > li {
+            height: 35px;
+            line-height: 35px;
+            border: 1px solid #000;
+        }
+
+        li + li {
+            border-top: 0;
+        }
     </style>
 </head>
 <body>
+    <input type="text" id="id" style="display: none">
+    <p id="robot"></p>
+    <ul id="name">
+    </ul>
+    <ul id="value">
+    </ul>
 
-<table border="1" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" bordercolor="#F0F0F0" cellpadding="1"
-       align="center">
-    <caption>采购</caption>
-    <tr align="center">
-        <td width="200" height="35" bgcolor="#009688">项目</td>
-        <td width="250" bgcolor="#009688">内容</td>
-    </tr>
-    <tr align="center">
-        <td id="uname" style="display:none;"></td>
-        <td id="valus" style="display:none;"></td>
-    </tr>
+<div style="clear: both"></div>
 
-</table>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
-     layui.use([ 'table', 'laydate', 'jquery'], function () {
-         var table = layui.form
-            , layer = layui.layer
+
+
+    layui.use(['table', 'laydate', 'jquery'], function () {
+        var layer = layui.layer
+            , table = layui.table
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
 
-         function addevent(){
-             $("#uname").val("123");
-             $("#valus").val("321")
-         }
-     })
+
+        layui.$.ajax({
+            url: '/view_information_data?id=' + $("#id").val(),
+            type: 'get',
+            processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+            success: function (data) {
+                console.log(data)
+                let value = data.data
+                let name = data.project_name;
+                for (let index in name) {
+                    $("#name").append(
+                        `<li>${name[index]}</li>`
+                    )
+                }
+                for (let i in value) {
+                    $("#value").append(
+                        `<li>${value[i]}</li>`
+                    )
+                }
+                $("#robot").html(data.r_name)
+            }
+        })
+    })
 </script>
 </body>
 </html>
-
