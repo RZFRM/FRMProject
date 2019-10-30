@@ -960,9 +960,15 @@ def student_download(request):
         return response
 
 
-def student_batch_down(request):
-    """批量导出----批量下载"""
+# def student_batch_down(request):  #TODO 后期做，确定怎么导
+#     """批量导出----批量下载"""
 
+
+class Report(View):
+    """学生页面，查看、判分"""
+    def get(self,request):
+        """查看、判分展示报告列表"""
+        student_code = request.GET.get("student_code")
 
 
 

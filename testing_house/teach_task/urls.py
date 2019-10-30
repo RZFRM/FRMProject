@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'student_download', views.student_download),
     url(r'student_down',views.Student_down.as_view()),
     url(r'student_batch_up',views.student_batch_up),
-    url(r'student_batch_down',views.student_batch_down),
+    # url(r'student_batch_down',views.student_batch_down),
     url(r'student',views.Student.as_view()),
 
 ]
