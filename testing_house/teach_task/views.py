@@ -991,3 +991,21 @@ class Report(View):
 
     def post(self,request):
         """实训报告，判分"""
+        student_code = request.POST.get("student_code")
+        report_name = request.POST.get("report_name")
+        sql = "select report_info from report where report_name ='%s' and student_code='%s'" % (report_name,int(student_code))
+        try:
+            report_info_list = SqlModel().select_one(sql)
+            if report_info_list:
+                report_info = report_info_list[0]
+                return JsonResponse({"result": report_info})
+            else:
+                return JsonResponse({"result": ""})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def report_info_add(request):
+    """学生模块，报告的判分"""
+    #TODO 不确定前端能不能传递一些数据，后做
+    return HttpResponse("ok")
