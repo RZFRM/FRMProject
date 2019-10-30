@@ -65,7 +65,7 @@
                 <div class="layui-input-block" style="min-height: 30px;">
                     <select lay-verify="required" id="xm" name="purchase_number" lay-filter="xmFilter"
                             style="width:100%;height: 30px;" lay-ignore>
-                        <option value="">请选择</option>
+                        <option value="123123">123123</option>
                     </select>
                 </div>
             </div>
@@ -206,7 +206,7 @@
                             console.log(res.data.length);
                             $("#xm").append(`<option value="${res.data[index]}">${res.data[index]}</option>`)
                         }
-                        {#layui.form.render("select","xmFilter");  //更新 lay-filter="test2" 所在容器内的全部 select 状态#}
+                        layui.form.render("select","xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
                     }
                 });
             });
