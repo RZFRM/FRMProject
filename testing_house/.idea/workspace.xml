@@ -2,6 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="36e65a54-0485-489d-a5f7-1ffb048d672f" name="Default Changelist" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/testing_house.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/testing_house.iml" afterDir="false" />
+=======
+>>>>>>> 033e4ec59964d90dcc9aa760b324a4584c0fc802
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,6 +33,8 @@
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
+<<<<<<< HEAD
+=======
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -118,6 +126,7 @@
       </file>
     </leaf>
   </component>
+<<<<<<< HEAD
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -125,6 +134,9 @@
       </list>
     </option>
   </component>
+=======
+>>>>>>> 033e4ec59964d90dcc9aa760b324a4584c0fc802
+>>>>>>> fdafd76c714c7b8ca85dcd400ad9c7fb991f088d
   <component name="FindInProjectRecents">
     <findStrings>
       <find>btn</find>
@@ -160,6 +172,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+<<<<<<< HEAD
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -222,9 +235,14 @@
     <option name="width" value="1605" />
     <option name="height" value="869" />
   </component>
+=======
+  <component name="ProjectId" id="1SriODJ1XrTbdXMua82YwBUPCaM" />
+>>>>>>> fdafd76c714c7b8ca85dcd400ad9c7fb991f088d
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+<<<<<<< HEAD
+=======
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -301,6 +319,7 @@
       </pane>
     </panes>
   </component>
+>>>>>>> 033e4ec59964d90dcc9aa760b324a4584c0fc802
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="sqlite&#10;mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -411,13 +430,24 @@
       <workItem from="1564191010124" duration="28463000" />
       <workItem from="1564275563109" duration="10302000" />
       <workItem from="1564365007291" duration="20940000" />
+<<<<<<< HEAD
       <workItem from="1572340993679" duration="11390000" />
+=======
+<<<<<<< HEAD
+      <workItem from="1572328083680" duration="2742000" />
+    </task>
+    <servers />
+  </component>
+=======
+      <workItem from="1572340993679" duration="905000" />
+>>>>>>> fdafd76c714c7b8ca85dcd400ad9c7fb991f088d
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="276868000" />
   </component>
+>>>>>>> 033e4ec59964d90dcc9aa760b324a4584c0fc802
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -427,6 +457,21 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
+<<<<<<< HEAD
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+=======
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
@@ -821,5 +866,6 @@
         </state>
       </provider>
     </entry>
+>>>>>>> 033e4ec59964d90dcc9aa760b324a4584c0fc802
   </component>
 </project>

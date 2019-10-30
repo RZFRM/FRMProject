@@ -200,7 +200,7 @@ def purchaes_requisitions_create_data(request):
     #  TODO  插入数据库
     #  TODO  1.获取机器人名字, 2,获取请购信息
 
-    business_name_1 = str(goods_numbers[goods_number_1]) + '采购申请与审批'
+    business_name_1 = str(goods_numbers[goods_number_1]) + '-采购申请与审批'
     gmt_create_1 = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     gmt_modified_1 = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     purchase_apply_status = '1113'
@@ -225,7 +225,7 @@ def purchaes_requisitions_create_data(request):
     #  TODO  创建任务信息
 
     job_no = create_uuid()
-    jobs_name = '采购' + goods_numbers[goods_number_1] + '请购单填制'
+    jobs_name = '采购' + goods_numbers[goods_number_1] + '-请购单填制'
     print('job_no ============================', job_no)
     print('jobbbbbbbbbbbbbbb:', job_no)
     # TODO  获取开始时间写入数据库  用户名  写入数据库
@@ -283,6 +283,8 @@ def set_contract_by_purchase_number(request):
         , "msg": ""
         , "count": 1
         , "data": data_list
+
+
     }
     return  JsonResponse(data)
 
@@ -558,11 +560,42 @@ def set_view_information(request):
         except Exception as e:
             print('查询失败', e)
             return False
+    print('------------------',id)
+    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price_, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = '+str(id)
+    print(sql)
+    views_info = DB.select_one(sql)
+
+    print(views_info)
+    r_name =views_info[-1].split('-')[1]
+    if r_name == '采购申请与审批':
+
+        views_info.append('单据编号')
+        views_info.append('采购用途')
+        views_info.append('货物名称')
+        views_info.append('建议单价')
+        views_info.append('单位')
+        views_info.append('数量')
+        views_info.append('建议金额')
+        views_info.append('申请人')
+        views_info.append('申请部门')
+        views_info.append('申请日期')
+        views_info[2] = goods_numbers[views_info[2]]
+        result = {
+            'code': '200'
+            , 'msg': ''
+            , 'data': views_info
+        }
+        return JsonResponse(result)
+
     if r_name == '采购合同机器人':
 
 
 
-        data = {'200':'成功'}
-    return  JsonResponse(data)
+        result = {
+            'code':'200'
+            ,'msg':''
+            ,'data':views_info
+                }
+        return  JsonResponse(result)
 
 
