@@ -31,7 +31,7 @@
         <button type="button" id="Added" class="layui-btn layui-btn-sm layui-btn-danger"
                 style="width:120px;border-radius:2%;float: left;margin-right: 30px">
             <i class="layui-icon layui-icon-add-1"></i>
-            新增任务
+            新增业务
         </button>
         {#        <div class="layui-btn-container" style="float:left">#}
         {#            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">批量导入</button>#}
@@ -45,7 +45,7 @@
     </script>
 
     <script type="text/html" id="barDemo">
-        <button type="button" lay-event="lookUp" id="lookUp" class="layui-btn layui-btn-sm layui-btn-danger"
+        <button type="button" lay-event="lookUp" id="lookUp" class="layui-btn layui-btn-sm"
                 style="width:50%;margin-left:30%;">查看
         </button>
     </script>
@@ -89,8 +89,7 @@
                 , title: '用户数据表'
                 , cols: [[
                     {type: 'checkbox', fixed: 'left'}
-                    , {type: 'numbers', title: '序号', sort: true, width: "4%"}
-                    , {field: 'id', title: 'ID', hide: true}
+                    , {type: 'numbers', title: '序号', width: "4%"}
                     , {field: 'business_name', title: '业务名称', width: "15%"}
                     , {field: 'gmt_create', title: '创建时间', width: "15%", sort: true}
                     , {field: 'application_depart', title: '申请部门', width: "15%"}
@@ -99,7 +98,7 @@
                     , {field: 'gmt_modified', title: '处理时间', width: "15%", sort: true}
                     , {fixed: '', title: '操作', toolbar: '#barDemo', width: "10%"}
                 ]]
-                 , done: function (res, curr, count) { // 隐藏列
+                , done: function (res, curr, count) { // 隐藏列
                     $(".layui-table-box").find("[data-field='id']").css("display", "none");
                 }
                 , page: true
@@ -185,23 +184,41 @@
 
             //监听行工具事件
             table.on('tool(test)', function (obj) {
-                var data = obj.data;   //获得当前行数据（json格式的键值对）
-                console.log(data.id);
+                var data = obj.data;//获得当前行数据（json格式的键值对）
+
                 if (obj.event === 'lookUp') {
                     //弹出一个iframe层  查看按钮
-                        layer.open({
-                            id: "check",
-                            type: 2,
-                            title: '查看数据',
-                            shadeClose: true,
-                            shade: false,
-                            maxmin: true, //开启最大化最小化按钮
-                            area: ['43.65%', '62%'],
-                            content:'/view_information?id='+data.id,
-                            success: function (layero,index) {
+                    layer.open({
+                        id: "check",
+                        type: 2,
+                        title: '查看数据',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['43.65%', '62%'],
+                        content: '/view_details',
+                        success: function (layero, index) {
+                            var iframe = window['layui-layer-iframe' + index];
+                            {#iframe.getDataFromOption(data);#}
 
-                            }
-                        })
+                             var body = layer.getChildFrame('body', index);//建立父子联系
+                            body.find('input').val(data.id);
+                        }
+                    })
+
+
+                    {#$.post('/view_information?id=' + data.id, data, function (result,statue) {#}
+                    {#    layer.open({#}
+                    {#        type:2 ,#}
+                    {#        title: '查看数据',#}
+                    {#        shadeClose: true,#}
+                    {#        shade: false,#}
+                    {#        maxmin: true, //开启最大化最小化按钮#}
+                    {#        area: ['43.65%', '62%'],#}
+                    {#        content:"view_details.html",#}
+                    {#    });#}
+                    {#    console.log(result);#}
+                    {#,"json");#}
                 }
 
 
@@ -249,7 +266,7 @@
 
 
                 {#    layer.confirm('真的要停止吗？', function (index) {#}
-                        {#obj.del();#}
+                {#obj.del();#}
                 {#        var start_class = "layui-btn  layui-btn-xs"#}
                 {#        var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"#}
                 {#        var stop = obj.tr[2].children[0].children[0].children[1]#}

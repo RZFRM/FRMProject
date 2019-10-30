@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <style>
+        body {
+            font-size: 20px;
+            margin: auto;
+        }
+
+        table {
+            margin-top: 20px;
+        }
+
+        tr {
+            height: 35px;
+        }
+
+        caption {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 1px solid #93D1FF;
+        }
+        p{
+            width: 25%;
+            text-align: center;
+            margin:0 auto;
+            font-weight: bold;
+        }
+        #name, #value {
+            float: left;
+            list-style: none;
+            width: 300px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        ul > li {
+            height: 35px;
+            line-height: 35px;
+            border: 1px solid #000;
+        }
+
+        li + li {
+            border-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="id" style="display: none">
+    <p id="robot"></p>
+    <ul id="name">
+    </ul>
+    <ul id="value">
+    </ul>
+
+<div style="clear: both"></div>
+
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+
+
+    layui.use(['table', 'laydate', 'jquery'], function () {
+        var layer = layui.layer
+            , table = layui.table
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+
+        layui.$.ajax({
+            url: '/view_information_data?id=' + $("#id").val(),
+            type: 'get',
+            processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+            success: function (data) {
+                console.log(data)
+                let value = data.data
+                let name = data.project_name;
+                for (let index in name) {
+                    $("#name").append(
+                        `<li>${name[index]}</li>`
+                    )
+                }
+                for (let i in value) {
+                    $("#value").append(
+                        `<li>${value[i]}</li>`
+                    )
+                }
+                $("#robot").html(data.r_name)
+            }
+        })
+    })
+</script>
+</body>
+</html>

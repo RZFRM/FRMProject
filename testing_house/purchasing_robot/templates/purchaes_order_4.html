@@ -65,7 +65,7 @@
                 <div class="layui-input-block" style="min-height: 30px;">
                     <select lay-verify="required" id="xm" name="purchase_number" lay-filter="xmFilter"
                             style="width:100%;height: 30px;" lay-ignore>
-                        <option value="123123">123123</option>
+                        <option value="">请输入您的请购单号</option>
                     </select>
                 </div>
             </div>
@@ -194,19 +194,24 @@
                 , $ = layui.jquery
                 , laydate = layui.laydate;
 
-
+                console.log(123)
             $(function () {
                 $.ajax({
                     url: "/contract_by_purchase_number",
                     type: "post",
                     datatype: "json",
                     success: function (res) {
-                        for(let index in res.data){
+
+                        for (var i = 0; i < res.data.length; i++) {
+                            alert(res.data[i]);
+                        }
+
+                        for (let index in res.data) {
                             console.log(res.data);
                             console.log(res.data.length);
                             $("#xm").append(`<option value="${res.data[index]}">${res.data[index]}</option>`)
                         }
-                        layui.form.render("select","xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                        layui.form.render("select", "xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
                     }
                 });
             });
