@@ -21,25 +21,25 @@ class Index(View):
         return render(request, 'login.html')
 
     def post(self,request):
-        admin_user = request.POST.get('username')
-        admin_pass = request.POST.get('pwd')
+        user_name = request.POST.get('username')
+        user_pass = request.POST.get('pwd')
         try:
-            admin = User.objects.filter(admin_user=admin_user).first()
-            user = admin.admin_user
-            password = admin.admin_pass
+            admin = User.objects.filter(user_name=user_name).first()
+            user = admin.user_name
+            password = admin.user_pass
             state = admin.admin_state
-            if user == admin_user and password == admin_pass and state == "True":
-                return JsonResponse({'result': 'success','username':admin_user})
+            if user == user_name and password == user_pass and state == "True":
+                return JsonResponse({'result': 'success', 'username': user_name})
             else:
                 return JsonResponse({'result': 'fail'})
         except:
-            return JsonResponse({"result": "fail","msg": "该帐号没有权限登入"})
+            return JsonResponse({"result": "fail", "msg": "该帐号没有权限登入"})
 
 
 class Task(View):
     def get(self,request):
-        admin_user = request.COOKIES.get('username')
-        sql = "select admin_type from admin_user where admin_user='%s'" % admin_user
+        user_name = request.COOKIES.get('username')
+        sql = "select admin_type from user where user_name='%s'" % user_name
         try:
             admin_type = SqlModel().select_one(sql)
         except:
@@ -103,12 +103,16 @@ class School(View):
         school_province = request.POST.get('school_province')
         school_city = request.POST.get('school_city')
         admin_name = request.POST.get('admin_name')
-        admin_user = request.COOKIES.get('username')    # cookies中获取登入者帐号
+        username = request.COOKIES.get('username')    # cookies中获取登入者帐号
         now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
         try:
+            sql_select = "select admin_name from user where user_name='%s'" % username
+            admin_name_list = SqlModel().select_one(sql_select)
+            create_name = admin_name_list[0]
+
             result1 = SCHOOL.objects.filter(school_code=int(school_code))
             if result1:
-                sql = "update school set school_code='%s',school_name='%s',school_rank='%s',school_type='%s',school_province='%s', school_city='%s',admin_name='%s',create_name='%s',create_time='%s' where school_code='%s'" % (int(school_code), school_name, school_rank, school_type, school_province, school_city, admin_name,admin_user, now_time,school_code)
+                sql = "update school set school_code='%s',school_name='%s',school_rank='%s',school_type='%s',school_province='%s', school_city='%s',admin_name='%s',create_name='%s',create_time='%s' where school_code='%s'" % (int(school_code), school_name, school_rank, school_type, school_province, school_city, admin_name,create_name, now_time,school_code)
                 res = SqlModel().insert_or_update(sql)
                 if res:
                     return JsonResponse({"result": "修改成功"})
@@ -117,7 +121,7 @@ class School(View):
             else:
                 sql = "insert into school (school_code,school_name,school_rank,school_type,school_province,school_city,admin_name,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (
                 int(school_code), school_name, school_rank, school_type, school_province, school_city, admin_name,
-                admin_user, now_time)
+                create_name, now_time)
                 res = SqlModel().insert_or_update(sql)
                 if res:
                     return JsonResponse({"result": "新增成功"})
@@ -197,7 +201,7 @@ def city(request):
 def edu(request):
     """学校页面，教务管理员下拉接口"""
     school_code = request.GET.get('school_code')
-    sql = "select admin_name from admin_user where admin_state='True' and school_code='%s'" % school_code
+    sql = "select admin_name from user where admin_state='True' and school_code='%s'" % school_code
     admin_name = SqlModel().select_all(sql)
     admin_name_list = []
     if admin_name:
@@ -212,14 +216,14 @@ class Edu(View):
     """教务管理"""
     def get(self,request):
         """教务页面展示"""
-        admin_user = request.COOKIES.get('username')
-        # admin_user = request.GET.get('admin_user')
-        sql = "select school_code from admin_user where admin_user='%s'" % admin_user
+        username = request.COOKIES.get('username')
+        # username = request.GET.get('username')
+        sql = "select school_code from user where user_name='%s'" % username
         try:
             school_code = SqlModel().select_one(sql)
             if school_code:
                 school_code = school_code[0]
-                sql = "select admin_name,admin_user,admin_pass,phone,admin_state,create_name,create_time from admin_user where admin_type='2' and school_code='%s'" % int(school_code)
+                sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='2' and school_code='%s'" % int(school_code)
                 edu_list = SqlModel().select_all(sql)
                 if edu_list:
                     data_list = []
@@ -247,22 +251,22 @@ class Edu(View):
     def post(self,request):
         """教务新增、修改接口"""
         admin_name = request.POST.get('admin_name')
-        admin_user = request.POST.get('admin_user')
-        admin_pass = request.POST.get('admin_pass')
+        user_name = request.POST.get('user_name')
+        user_pass = request.POST.get('user_pass')
         phone = request.POST.get('phone')
         admin_state = request.POST.get('admin_state')
         now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
         admin_type = "2"
         log_accounts = request.COOKIES.get('username')   # 登入者帐号，创建人
         # log_accounts = request.POST.get('username')   # 登入者帐号，创建人
-        sql = "select admin_name,school_code from admin_user where admin_user='%s'" % log_accounts
-        sql2 = "select * from admin_user where admin_user='%s'" % admin_user   # 该语句判断数据是否存在，是新增还是修改
+        sql = "select admin_name,school_code from user where user_name='%s'" % log_accounts
+        sql2 = "select * from user where user_name='%s'" % user_name   # 该语句判断数据是否存在，是新增还是修改
         try:
             admin_list = SqlModel().select_one(sql)   # admin_list[0] = admin_name = create_name , admin_list[1] = school_code
             res = SqlModel().select_one(sql2)
             if res:
                 """修改接口"""
-                sql_revise = "update admin_user set admin_name='%s',admin_user='%s',admin_pass='%s',admin_type='%s',phone='%s',school_code='%s',admin_state='%s',create_name='%s',create_time='%s' where admin_user='%s'" % (admin_name,admin_user,admin_pass,admin_type,phone,admin_list[1],admin_state,admin_list[0],now_time,admin_user)
+                sql_revise = "update user set admin_name='%s',user_name='%s',user_pass='%s',admin_type='%s',phone='%s',school_code='%s',admin_state='%s',create_name='%s',create_time='%s' where user_name='%s'" % (admin_name,user_name,user_pass,admin_type,phone,admin_list[1],admin_state,admin_list[0],now_time,user_name)
                 res_up = SqlModel().insert_or_update(sql_revise)
                 if res_up:
                     return JsonResponse({"result": "修改成功"})
@@ -270,7 +274,7 @@ class Edu(View):
                     return JsonResponse({"result": "修改失败"})
             else:
                 """新增接口"""
-                sql_add = "insert into admin_user (admin_name,admin_user,admin_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (admin_name,admin_user,admin_pass,admin_type,int(phone),int(admin_list[1]),admin_state,admin_list[0],now_time)
+                sql_add = "insert into user (admin_name,user_name,user_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (admin_name,user_name,user_pass,admin_type,int(phone),int(admin_list[1]),admin_state,admin_list[0],now_time)
                 res_add = SqlModel().insert_or_update(sql_add)
                 if res_add:
                     return JsonResponse({"result": "新增成功"})
@@ -284,9 +288,9 @@ class Edu_delete_search(View):
     """教务删除、搜索功能"""
     def get(self,request):
         """教务删除功能"""
-        admin_user = request.GET.get("admin_user")
+        user_name = request.GET.get("user_name")
 
-        sql = "delete from admin_user where admin_user='%s'" % admin_user
+        sql = "delete from user where user_name='%s'" % user_name
         try:
             res = SqlModel().insert_or_update(sql)
             if res:
@@ -298,7 +302,7 @@ class Edu_delete_search(View):
 
     def post(self,request):
         admin_name = request.POST.get('admin_name')
-        sql = "select admin_name,admin_user,admin_pass,phone,admin_state,create_name,create_time from admin_user where admin_name like '%%%s%%'" % admin_name
+        sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_name like '%%%s%%'" % admin_name
         try:
             admin_info = SqlModel().select_all(sql)
             if admin_info:
@@ -313,10 +317,10 @@ class Major(View):
     """专业模块"""
     def get(self,request):
         """GET请求，专业展示"""
-        admin_user = request.COOKIES.get('username')
-        # admin_user = request.GET.get('username')  # 测试用
+        username = request.COOKIES.get('username')
+        # username = request.GET.get('username')  # 测试用
 
-        sql = "select school_code from admin_user where admin_user='%s'" % admin_user
+        sql = "select school_code from user where user_name='%s'" % username
         try:
             school_code = SqlModel().select_one(sql)
             if school_code:
@@ -349,9 +353,9 @@ class Major(View):
         major_code = request.POST.get('major_code')
         major_state = request.POST.get('major_state')
         now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
-        admin_user = request.COOKIES.get('username')    # cookies中获取登入者帐号
-        # admin_user = request.POST.get('username')    #  测试用
-        sql = "select admin_name,school_code from admin_user where admin_user = '%s'" % admin_user
+        username = request.COOKIES.get('username')    # cookies中获取登入者帐号
+        # username = request.POST.get('username')    #  测试用
+        sql = "select admin_name,school_code from user where user_name = '%s'" % username
         try:
             admin_list = SqlModel().select_one(sql)  # admin_name=admin_list[0]  school_code=admin_list[1]
             result = MAJOR.objects.filter(major_code=int(major_code))
@@ -417,9 +421,9 @@ class Major_delete_search(View):
 class Class(View):
     """班级模块，页面展示、新增与修改功能"""
     def get(self,request):
-        admin_user = request.COOKIES.get("username")
-        # admin_user = request.GET.get("admin_user")    # 测试用
-        sql = "select school_code from admin_user where admin_user = '%s'" % admin_user
+        username = request.COOKIES.get("username")
+        # username = request.GET.get("username")    # 测试用
+        sql = "select school_code from user where user_name = '%s'" % username
 
         try:
             school_code = SqlModel().select_one(sql)
@@ -454,8 +458,8 @@ class Class(View):
 
     def post(self,request):
         """班级新增、修改功能"""
-        admin_user = request.COOKIES.get("username")
-        # admin_user = request.POST.get("admin_user")   # 测试用
+        username = request.COOKIES.get("username")
+        # username = request.POST.get("username")   # 测试用
         class_code = request.POST.get("class_code")
         class_name = request.POST.get("class_name")
         major_name = request.POST.get("major_name")
@@ -465,7 +469,7 @@ class Class(View):
         close_time = request.POST.get("close_time")
         now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
 
-        sql_admin = "select admin_name,school_code from admin_user where admin_user = '%s'" % admin_user
+        sql_admin = "select admin_name,school_code from user where user_name = '%s'" % username
         try:
             admin_list = SqlModel().select_one(sql_admin)
             admin_name = admin_list[0]
@@ -544,9 +548,9 @@ class Class_down(View):
     """班级弹框，专业下拉，老师下拉 接口"""
     def get(self,request):
         """专业下拉"""
-        admin_user = request.COOKIES.get("username")
-        # admin_user = request.GET.get("admin_user")   # 测试用
-        sql = "select school_code from admin_user where admin_user='%s'" % admin_user
+        username = request.COOKIES.get("username")
+        # username = request.GET.get("username")   # 测试用
+        sql = "select school_code from user where user_name='%s'" % username
         try:
             school_code_list = SqlModel().select_one(sql)
             if school_code_list:
@@ -567,9 +571,9 @@ class Class_down(View):
 
     def post(self,request):
         """班级弹框，授课老师 下拉"""
-        admin_user = request.COOKIES.get("username")
-        # admin_user = request.POST.get("admin_user")   # 测试用
-        sql = "select admin_name from admin_user as A inner join (select school_code from admin_user where admin_user='%s') as B on A.school_code = B.school_code" % admin_user
+        username = request.COOKIES.get("username")
+        # username = request.POST.get("username")   # 测试用
+        sql = "select admin_name from user as A inner join (select school_code from user where user_name='%s') as B on A.school_code = B.school_code" % username
         admin_name_list = SqlModel().select_all(sql)
         if admin_name_list:
             admin_list = []
@@ -584,9 +588,9 @@ class Teacher(View):
     """教师模块，展示、新增、修改"""
     def get(self,request):
         """展示功能"""
-        admin_user = request.COOKIES.get("username")
-        # admin_user = request.GET.get("admin_user")   # 测试用
-        sql = "select admin_name,admin_user,admin_pass,phone,admin_state,create_name,create_time from admin_user as A inner join (select school_code from admin_user where admin_user='%s') as B on A.school_code = B.school_code where A.admin_type='3'" % admin_user
+        username = request.COOKIES.get("username")
+        # username = request.GET.get("username")   # 测试用
+        sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user as A inner join (select school_code from user where user_name='%s') as B on A.school_code = B.school_code where A.admin_type='3'" % username
         try:
             admin_list = SqlModel().select_all(sql)
             if admin_list:
@@ -615,24 +619,24 @@ class Teacher(View):
         # username = request.POST.get("username")      # 测试用
 
         admin_name = request.POST.get("admin_name")
-        admin_user = request.POST.get("admin_user")
-        admin_pass = request.POST.get("admin_pass")
+        user_name = request.POST.get("user_name")
+        user_pass = request.POST.get("user_pass")
         phone = request.POST.get("phone")
         admin_state = request.POST.get("admin_state")
         now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
 
         try:
-            sql = "select admin_name,school_code from admin_user where admin_user='%s'" % username
+            sql = "select admin_name,school_code from user where user_name='%s'" % username
             admin_list = SqlModel().select_one(sql)
             if admin_list:
                 create_name = admin_list[0]
                 school_code = admin_list[1]
 
-                sql_res = "select * from admin_user where admin_user='%s'" % admin_user
+                sql_res = "select * from user where user_name='%s'" % user_name
                 res = SqlModel().select_one(sql_res)
                 if res:
                     """修改,更新"""
-                    sql_up = "update admin_user set admin_name='%s',admin_user='%s',admin_pass='%s',admin_type='%s',phone='%s',school_code='%s',admin_state='%s',create_name='%s',create_time='%s' where admin_user='%s'" % (admin_name,admin_user,admin_pass,'3',int(phone),int(school_code),admin_state,create_name,now_time,admin_user)
+                    sql_up = "update user set admin_name='%s',user_name='%s',user_pass='%s',admin_type='%s',phone='%s',school_code='%s',admin_state='%s',create_name='%s',create_time='%s' where user_name='%s'" % (admin_name,user_name,user_pass,'3',int(phone),int(school_code),admin_state,create_name,now_time,user_name)
                     res_up = SqlModel().insert_or_update(sql_up)
                     if res_up:
                         return JsonResponse({"result": "修改成功"})
@@ -640,7 +644,7 @@ class Teacher(View):
                         return JsonResponse({"result": "修改失败"})
                 else:
                     """新增"""
-                    sql_add = "insert into admin_user (admin_name,admin_user,admin_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (admin_name,admin_user,admin_pass,'3',phone,school_code,admin_state,create_name,now_time)
+                    sql_add = "insert into user (admin_name,user_name,user_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (admin_name,user_name,user_pass,'3',phone,school_code,admin_state,create_name,now_time)
                     res_add = SqlModel().insert_or_update(sql_add)
                     if res_add:
                         return JsonResponse({"result": "新增成功"})
@@ -654,8 +658,8 @@ class Teacher_delete_search(View):
     """教师删除、搜索功能"""
     def get(self,request):
         """删除功能"""
-        admin_user = request.GET.get("admin_user")
-        sql = "delete from admin_user where admin_user='%s'" % admin_user
+        user_name = request.GET.get("user_name")
+        sql = "delete from user where user_name='%s'" % user_name
         try:
             res = SqlModel().insert_or_update(sql)
             if res:
@@ -668,7 +672,7 @@ class Teacher_delete_search(View):
     def post(self,request):
         """搜索功能"""
         admin_name = request.POST.get("admin_name")
-        sql = "select admin_name,admin_user,admin_pass,phone,admin_state,create_name,create_time from admin_user where admin_name like '%%%s%%'" % admin_name
+        sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_name like '%%%s%%'" % admin_name
         try:
             class_list = SqlModel().select_all(sql)
             if class_list:
@@ -697,10 +701,10 @@ class Student(View):
     """学生页面，展示、新增、修改功能"""
     def get(self,request):
         """学生页面展示"""
-        admin_user = request.COOKIES.get("username")
-        # admin_user = request.GET.get("admin_user")
+        username = request.COOKIES.get("username")
+        # username = request.GET.get("username")
         student_class = request.GET.get("student_class")
-        sql = "select school_code from admin_user where admin_user = '%s'" % admin_user
+        sql = "select school_code from user where user_name = '%s'" % username
 
         try:
             school_code_list = SqlModel().select_one(sql)
@@ -741,26 +745,26 @@ class Student(View):
         username = request.COOKIES.get("username")
         # username = request.POST.get("username")  # 测试用
         admin_name = request.POST.get("admin_name")
-        admin_user = request.POST.get("admin_user")
-        admin_pass = request.POST.get("admin_pass")
+        user_name = request.POST.get("user_name")
+        user_pass = request.POST.get("user_pass")
         student_major = request.POST.get("student_major")
         student_class = request.POST.get("student_class")
         phone = request.POST.get("phone")
         now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
         admin_type = '4'
-        sql = "select admin_name,school_code from admin_user where admin_user = '%s'" % username
+        sql = "select admin_name,school_code from user where user_name = '%s'" % username
         try:
             admin_list = SqlModel().select_one(sql)
             if admin_list:
                 create_name = admin_list[0]
                 school_code = admin_list[1]
 
-                sql_select = "select * from admin_user where admin_user = '%s'" % admin_user
+                sql_select = "select * from user where user_name = '%s'" % user_name
                 res = SqlModel().select_one(sql_select)
                 if res:
                     """修改"""
-                    sql_up = "update admin_user set admin_name='%s',admin_pass='%s',phone='%s',create_name='%s' where admin_user='%s'" % (admin_name,admin_pass,phone,create_name,admin_user)
-                    sql_up2 = "update student set student_name='%s',student_major='%s',student_class='%s',phone='%s',late_time='%s' where student_code='%s'" % (admin_name,student_major,student_class,phone,now_time,int(admin_user))
+                    sql_up = "update user set admin_name='%s',user_name='%s',phone='%s',create_name='%s' where user_name='%s'" % (admin_name,user_pass,phone,create_name,user_name)
+                    sql_up2 = "update student set student_name='%s',student_major='%s',student_class='%s',phone='%s',late_time='%s' where student_code='%s'" % (admin_name,student_major,student_class,phone,now_time,int(user_name))
                     res_up = SqlModel().insert_or_update(sql_up)
                     res_up2 = SqlModel().insert_or_update(sql_up2)
                     if res_up and res_up2:
@@ -769,8 +773,8 @@ class Student(View):
                         return JsonResponse({"result": "修改失败"})
                 else:
                     """新增"""
-                    sql_add = "insert into admin_user (admin_name,admin_user,admin_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (admin_name,admin_user,admin_pass,admin_type,int(phone),int(school_code),'True',create_name,now_time)
-                    sql_add2 = "insert into student (student_code,student_name,school_code,student_major,student_class,phone,create_time) values ('%s','%s','%s','%s','%s','%s','%s')" % (int(admin_user),admin_name,int(school_code),student_major,student_class,int(phone),now_time)
+                    sql_add = "insert into user (admin_name,user_name,user_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (admin_name,user_name,user_pass,admin_type,int(phone),int(school_code),'True',create_name,now_time)
+                    sql_add2 = "insert into student (student_code,student_name,school_code,student_major,student_class,phone,create_time) values ('%s','%s','%s','%s','%s','%s','%s')" % (int(user_name),admin_name,int(school_code),student_major,student_class,int(phone),now_time)
 
                     res_add = SqlModel().insert_or_update(sql_add)
                     res_add2 = SqlModel().insert_or_update(sql_add2)
@@ -788,9 +792,9 @@ class Student_delete_search(View):
     """学生管理，删除、搜索功能"""
     def get(self,request):
         """删除功能"""
-        admin_user = request.GET.get("admin_user")
-        sql = "delete from admin_user where admin_user='%s'" % admin_user
-        sql2 = "delete from student where student_code='%s'" % int(admin_user)
+        user_name = request.GET.get("user_name")
+        sql = "delete from user where user_name='%s'" % user_name
+        sql2 = "delete from student where student_code='%s'" % int(user_name)
         try:
             res = SqlModel().insert_or_update(sql)
             res2 = SqlModel().insert_or_update(sql2)
@@ -839,7 +843,7 @@ class Student_down(View):
         """专业下拉"""
         username = request.COOKIES.get("username")
         # username = request.GET.get("username")  # 测试用
-        sql = "select major_name from major as A inner join (select school_code from admin_user where admin_user='%s') as B on A.school_code = B.school_code" % username
+        sql = "select major_name from major as A inner join (select school_code from user where user_name='%s') as B on A.school_code = B.school_code" % username
         try:
             major_name_list = SqlModel().select_all(sql)
             if major_name_list:
@@ -858,7 +862,7 @@ class Student_down(View):
         # username = request.POST.get("username")  # 测试用
         major_name = request.POST.get("major_name")
 
-        sql = "select school_code from admin_user where admin_user='%s'" % username
+        sql = "select school_code from user where user_name='%s'" % username
         school_code_list = SqlModel().select_one(sql)
         if school_code_list:
             school_code = school_code_list[0]
@@ -914,7 +918,7 @@ def student_batch_up(request):
     username = request.POST.get("username")  # 测试用
     now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
     admin_type = '4'
-    sql = "select admin_name,school_code from admin_user where admin_user = '%s'" % username
+    sql = "select admin_name,school_code from user where user_name = '%s'" % username
     try:
         admin_list = SqlModel().select_one(sql)
         if admin_list:
@@ -922,23 +926,23 @@ def student_batch_up(request):
             school_code = admin_list[1]
 
             for i in student_list:
-                admin_user = int(i["student_code"])
+                user_name = int(i["student_code"])
                 admin_name = i["name"]
-                admin_pass = int(i["pass"])
+                user_pass = int(i["pass"])
                 phone = i["phone"]
 
-                sql_select = "select * from admin_user where admin_user = '%s'" % admin_user
+                sql_select = "select * from user where user_name = '%s'" % user_name
                 res = SqlModel().select_one(sql_select)
                 if res:
                     """修改"""
-                    sql_up = "update admin_user set admin_user='%s',admin_name='%s',admin_pass='%s',phone='%s',create_name='%s' where admin_user='%s'" % (str(admin_user),admin_name, admin_pass, phone, create_name, str(admin_user))
-                    sql_up2 = "update student set student_name='%s',student_major='%s',student_class='%s',phone='%s',late_time='%s' where student_code='%s'" % (admin_name, student_major, student_class, phone, now_time, int(admin_user))
+                    sql_up = "update user set user_name='%s',admin_name='%s',user_pass='%s',phone='%s',create_name='%s' where user_name='%s'" % (str(user_name),admin_name, user_pass, phone, create_name, str(user_name))
+                    sql_up2 = "update student set student_name='%s',student_major='%s',student_class='%s',phone='%s',late_time='%s' where student_code='%s'" % (admin_name, student_major, student_class, phone, now_time, int(user_name))
                     SqlModel().insert_or_update(sql_up)
                     SqlModel().insert_or_update(sql_up2)
                 else:
                     """新增"""
-                    sql_add = "insert into admin_user (admin_name,admin_user,admin_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (admin_name, admin_user, admin_pass, admin_type, int(phone), int(school_code), 'True', create_name,now_time)
-                    sql_add2 = "insert into student (student_code,student_name,school_code,student_major,student_class,phone,create_time,late_time) values ('%s','%s','%s','%s','%s','%s','%s','%s')" % (int(admin_user), admin_name, int(school_code), student_major, student_class, int(phone), now_time,now_time)
+                    sql_add = "insert into user (admin_name,user_name,user_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (admin_name, user_name, user_pass, admin_type, int(phone), int(school_code), 'True', create_name,now_time)
+                    sql_add2 = "insert into student (student_code,student_name,school_code,student_major,student_class,phone,create_time,late_time) values ('%s','%s','%s','%s','%s','%s','%s','%s')" % (int(user_name), admin_name, int(school_code), student_major, student_class, int(phone), now_time,now_time)
                     SqlModel().insert_or_update(sql_add)
                     SqlModel().insert_or_update(sql_add2)
 
@@ -969,6 +973,21 @@ class Report(View):
     def get(self,request):
         """查看、判分展示报告列表"""
         student_code = request.GET.get("student_code")
+        sql = "select report_name,score from report where student_code = '%s'" % int(student_code)
+        try:
+            report_list = SqlModel().select_all(sql)
+            if report_list:
+                report_data = []
+                for i in report_list:
+                    data = {}
+                    data["report_name"] = i[0]
+                    data["score"] = i[1]
+                    report_data.append(data)
+                return JsonResponse({"result": report_data})
+            else:
+                return JsonResponse({"result": ""})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
-
-
+    def post(self,request):
+        """实训报告，判分"""
