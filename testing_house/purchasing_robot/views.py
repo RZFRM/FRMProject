@@ -20,7 +20,7 @@ from system_config.models import User, Job_list_summary, Application_info
 import time
 from sql_operating.mysql_class import *
 from etc.command import  *
-from  personal_center.views import   update_sql
+from  personal_center.views import  update_sql
 
 
 

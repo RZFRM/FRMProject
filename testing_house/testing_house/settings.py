@@ -94,7 +94,6 @@ DATABASES = {
         'PASSWORD': 'Rzgcchampion2019<>?',
         'HOST': '39.100.105.181',
         'PORT': '3306'
-
     }
 }
 
