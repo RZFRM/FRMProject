@@ -57,6 +57,8 @@ def pruchasing_robot_base_data(request):
     user_name = request.COOKIES.get('username')
     person_tax_install_path = request.POST.get('person_tax_install_path')
     company_name = request.POST.get('company_name')
+
+    # print(person_tax_install_path, company_name)
     operator = '00001'
     password = ''
     account_set = ''
@@ -65,7 +67,7 @@ def pruchasing_robot_base_data(request):
     user_name = user_name
     gmt_create = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     gmt_modified = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
-    print(person_tax_install_path, company_name)
+    print('配置页面修改-----------------------------',person_tax_install_path, company_name)
     #  TODO  判断用户时候已经新增  u8环境表
     sql = "select count(*)  from  U8login_table where user_name = '%s' " % user_name
     row_info = DB.select_one(sql)
@@ -294,48 +296,62 @@ def set_contract_by_purchase_number(request):
 def set_purchaes_order_create_data(request):
     # TODO  请购单号
     purchase_number = request.POST.get('purchase_number')
+    purchase_number = '123123'
 
 
     # TODO  合同编号
     contract_number = request.POST.get('contract_number')
+    contract_number ='123'
 
 
 
     # TODO  供应商信息
     supplier_name = request.POST.get('supplier_name')
+    supplier_name = '123'
 
     #  TODO  税率
     tax_rate  = request.POST.get('tax_rate')
+    tax_rate  = '123'
 
     #  TODO  不含税单价
     free_tax_unit_price = request.POST.get('free_tax_unit_price')
+    free_tax_unit_price = '123'
 
     # TODO  数量
     count = request.POST.get('count')
+    count = '123123'
 
     # TODO  单位
     unit = request.POST.get('unit')
+    unit = '1213'
 
     # TODO  总金额
     summary_price = request.POST.get('summary_price')
+    summary_price = '123123'
 
     # TODO 需求日期
     demand_date  = request.POST.get('demand_date')
+    demand_date  ='123123'
 
     # TODO  申请人
     applicant = request.POST.get('applicant')
+    applicant = '123123'
 
     # TODO  申请部门
     application_sector = request.POST.get('application_sector')
+    application_sector = '123123'
 
     # TODO   申请日期
     application_date  = request.POST.get('application_date')
+    application_date  = '123123'
 
     #  TODO  部门负责人
     department_head  = request.POST.get('department_head')
+    department_head  ='123213'
 
     # TODO  公司负责人
     company_head  = request.POST.get('company_head')
+    company_head  = '123123'
 
     #  TODO  插入数据库
     #  TODO  1.获取机器人名字, 2,获取请购信息
@@ -471,7 +487,6 @@ def set_purchase_robot_jobs_info(request):
             , "job_type": i[3]
             , "job_start_time": str(i[4])
             , "job_status": run_status[i[5]]
-
         }
         data_list.append(data_dic)
     print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',data_list)
@@ -550,39 +565,63 @@ def set_view_information(request):
     sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price_, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(
         id)
     print(sql)
-    views_info = DB.select_one(sql)
-    r_name = views_info[-1].split('-')[1]
-    print('---------------------------------', id)
+    try:
+        views_info = DB.select_one(sql)
+        if views_info:
+            r_name = views_info[-1].split('-')[1]
+            print('---------------------------------', id)
+            project_name = []
 
+            if r_name == '采购申请与审批':
 
-    if r_name == '采购申请与审批':
-        views_info.append('单据编号')
-        views_info.append('采购用途')
-        views_info.append('货物名称')
-        views_info.append('建议单价')
-        views_info.append('单位')
-        views_info.append('数量')
-        views_info.append('建议金额')
-        views_info.append('申请人')
-        views_info.append('申请部门')
-        views_info.append('申请日期')
-        views_info[2] = goods_numbers[views_info[2]]
-        result = {
-            'code': '200'
-            , 'msg': ''
-            , 'data': views_info
-        }
-        return JsonResponse(result)
-
-    if r_name == '采购合同机器人':
-
-
-
-        result = {
-            'code':'200'
-            ,'msg':''
-            ,'data':views_info
+                project_name.append('单据编号')
+                project_name.append('采购用途')
+                project_name.append('货物名称')
+                project_name.append('建议单价')
+                project_name.append('单位')
+                project_name.append('数量')
+                project_name.append('建议金额')
+                project_name.append('申请人')
+                project_name.append('申请部门')
+                project_name.append('申请日期')
+                views_info[2] = goods_numbers[views_info[2]]
+                result = {
+                    'code': '200'
+                    , 'msg': '成功！'
+                    , 'data': views_info
+                    ,'project_name':project_name
                 }
-        return  JsonResponse(result)
+                return JsonResponse(result)
 
+            if r_name == '采购合同机器人':
+                project_name.append('单据编号')
+                project_name.append('采购用途')
+                project_name.append('货物名称')
+                project_name.append('建议单价')
+                project_name.append('单位')
+                project_name.append('数量')
+                project_name.append('建议金额')
+                project_name.append('申请人')
+                project_name.append('申请部门')
+                project_name.append('申请日期')
+
+
+                result = {
+                    'code':'200'
+                    ,'msg':''
+                    ,'data':views_info
+                        }
+                return  JsonResponse(result)
+        else:
+            data = {
+                'code':'400',
+                'msg':'查询不到数据'
+            }
+            return JsonResponse(data)
+    except Exception as e :
+        data = {
+            'code':'400'
+            ,'msg':'查询异常'
+        }
+        return  JsonResponse(data)
 
