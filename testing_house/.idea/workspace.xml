@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="36e65a54-0485-489d-a5f7-1ffb048d672f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/purchasing_robot/templates/purchaes_order_4.html" beforeDir="false" afterPath="$PROJECT_DIR$/purchasing_robot/templates/purchaes_order_4.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/purchasing_robot/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/purchasing_robot/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,8 +98,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/purchasing_robot/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="274" column="30" lean-forward="true" selection-start-line="274" selection-start-column="30" selection-end-line="274" selection-end-column="30" />
+            <state relative-caret-position="143">
+              <caret line="283" column="20" lean-forward="true" selection-start-line="283" selection-start-column="20" selection-end-line="283" selection-end-column="20" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -413,12 +411,12 @@
       <workItem from="1564191010124" duration="28463000" />
       <workItem from="1564275563109" duration="10302000" />
       <workItem from="1564365007291" duration="20940000" />
-      <workItem from="1572340993679" duration="10440000" />
+      <workItem from="1572340993679" duration="11390000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="275918000" />
+    <option name="totallyTimeSpent" value="276868000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -431,7 +429,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20309168" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -447,7 +444,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.329718" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.22451194" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.51843816" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -816,8 +813,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/purchasing_robot/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="274" column="30" lean-forward="true" selection-start-line="274" selection-start-column="30" selection-end-line="274" selection-end-column="30" />
+        <state relative-caret-position="143">
+          <caret line="283" column="20" lean-forward="true" selection-start-line="283" selection-start-column="20" selection-end-line="283" selection-end-column="20" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
