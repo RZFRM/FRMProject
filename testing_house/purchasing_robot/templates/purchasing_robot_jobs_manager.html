@@ -87,10 +87,10 @@
     </script>
 
     <script>
-        layui.use(['table', 'layer','jquery'], function () {
+        layui.use(['table', 'layer', 'jquery'], function () {
             var table = layui.table,
                 layer = layui.layer,
-                $=layui.jquery;
+                $ = layui.jquery;
 
             table.render({
                 elem: '#test'
@@ -104,11 +104,11 @@
                     , {field: 'job_name', title: '任务名称', width: "30%"}
                     , {field: 'job_type', title: '机器人类型', width: "20%"}
                     , {field: 'job_start_time', title: '创建时间', width: "20%"}
-                    , {field: 'job_status', title: '状态', width: "12%", sort: true}
+                    , {field: 'job_status', title: '状态', width: "13.2%", sort: true}
                     , {fixed: '', title: '操作', toolbar: '#barDemo', width: "10%"}
                 ]]
                 , done: function () { // 隐藏列
-                    $("[data-field='id']").css('display','none');
+                    $("[data-field='id']").css('display', 'none');
                 }
                 , page: true
             });
@@ -207,67 +207,66 @@
                     dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
                     dict.append('id', obj.data.id)
 
-                    layer.confirm('真的要停止吗？', function (index) {
+                    //判断当前按钮是否禁用
+                    var stop = obj.tr[0].children[6].children[0].children[1]
+                    if (stop.className.indexOf("layui-btn-disabled") > -1) {
+                        return  "当前按钮处于禁用状态";
+                    } else {
+                        layer.confirm('真的要停止吗？', function (index) {
+                            layui.$.ajax({
+                                url: '/stop_jobs_info',
+                                type: 'post',
+                                data: dict,
+                                processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                                contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                                success: function () {
+                                }
+                            })
+                            //开始和禁止按钮的样式互换
+                            var start_class = "layui-btn  layui-btn-xs"
+                            var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"
+                            var start = obj.tr[0].children[6].children[0].children[0]
+                            start.className = start_class;
+                            stop.className = stop_class;
 
-                        layui.$.ajax({
-                        url: '/stop_jobs_info',
-                        type: 'post',
-                        data: dict,
-                        processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
-                        contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
-                        success: function () {
-                        }
-                    })
-
-                        {#obj.del();#}
-                        var start_class = "layui-btn  layui-btn-xs"
-                        var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"
-                        var stop = obj.tr[1].children[0].children[0].children[1]
-                        var start = obj.tr[1].children[0].children[0].children[0]
-                        console.log(obj.tr[2]);
-                        stop.className = stop_class
-                        start.className = start_class
-                        var $ = layui.$
-                        layer.close(index)
-                    });
+                            layer.close(index)
+                        });
+                    }
                 } else if (obj.event === 'start') {
                     var dict = new FormData();
-                    console.log(obj.data)
+                    {#console.log(obj.data)#}
                     dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
                     dict.append('job_no', obj.data.job_no)
                     dict.append('job_type', obj.data.job_type)
 
-
-                    layer.confirm('您确定开始吗？', function (index) {
-
-                        layui.$.ajax({
-                            url: '/start_jobs_info',
-                            type: 'post',
-                            data: dict,
-                            processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
-                            contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
-                            success: function () {
-                            }
+                    var start = obj.tr[0].children[6].children[0].children[0]
+                    ////判断当前按钮是否禁用
+                    if (start.className.indexOf("layui-btn-disabled") > -1) {
+                        return  "当前按钮处于禁用状态";
+                    } else {
+                        //点击确认，进行数据传递
+                        layer.confirm('您确定开始吗？', function (index) {
+                            layui.$.ajax({
+                                url: '/start_jobs_info',
+                                type: 'post',
+                                data: dict,
+                                processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                                contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                                success: function () {
+                                    //获得页面上开始和停止按钮
+                                    {#var start = obj.tr[0].children[6].children[0].children[0]#}
+                                    var stop = obj.tr[0].children[6].children[0].children[1]
+                                    //修改开始，停止按钮的颜色以及是否禁用
+                                    var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"
+                                    var start_class = 'layui-btn layui-btn-warm layui-btn-xs'
+                                    //更换开始，停止按钮的样式
+                                    start.className = stop_class;
+                                    stop.className = start_class;
+                                }
+                            })
+                            layer.close(index)
                         })
-
-                        var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"
-                        var start_class = 'layui-btn layui-btn-warm layui-btn-xs'
-                        var a = obj.tr[0].children[0].children[0].children[1]
-                        var b = obj.tr[0].children[0].children[0].children[0]
-
-                        console.log(a)
-                        console.log(b)
-                        console.log($(".layui-layer-btn0"))
-
-                        $(".layui-layer-btn0").on("click",function(){
-                            console.log(123)
-                            $("#start").addClass("start_class")
-                            start.className = stop_class
-                        })
-
-
-                        layer.close(index)
-                    })
+                    }
                 } else if (obj.event === 'detail') {
                     var data = obj.data;
                     console.log(data)
