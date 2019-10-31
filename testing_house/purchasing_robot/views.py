@@ -296,7 +296,7 @@ def set_contract_by_purchase_number(request):
 def set_purchaes_order_create_data(request):
     # TODO  请购单号
     purchase_number = request.POST.get('purchase_number')
-    purchase_number = '123123'
+    # purchase_number = '123123'
 
 
     # TODO  合同编号
@@ -352,6 +352,14 @@ def set_purchaes_order_create_data(request):
     # TODO  公司负责人
     company_head  = request.POST.get('company_head')
     company_head  = '123123'
+
+    data = {
+        "code": '200'
+        , "msg": "失败！"
+        , "count": 1
+    }
+    return JsonResponse(data)
+
 
     #  TODO  插入数据库
     #  TODO  1.获取机器人名字, 2,获取请购信息
@@ -415,7 +423,7 @@ def set_purchaes_order_create_data(request):
     # print( user_name,'---------   --------------' ,modules, price , unit , quantity)
 
         data = {
-            "code": '400'
+            "code": '200'
             , "msg": "失败！"
             , "count": 1
         }
@@ -429,6 +437,7 @@ def set_purchaes_order_create_data(request):
 
 #  TODO  采购机器人 弹框第五步
 def purchaes_order_determine(request):
+    data = {}
     return render(request, 'purchaes_order_determine_5.html')
 
 

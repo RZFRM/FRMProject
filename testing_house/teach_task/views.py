@@ -39,7 +39,6 @@ class Index(View):
                         now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
                         sql = "update student set amount = amount+1,late_time='%s' where student_code='%s'" % (now_time,user_name)
                         res = SqlModel().insert_or_update(sql)
-
                     return JsonResponse({'result': 'success', 'username': user_name})
                 else:
                     return JsonResponse({'result': 'fail'})

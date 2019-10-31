@@ -28,21 +28,22 @@
         p{
             width: 25%;
             text-align: center;
-            margin:40px auto;
+            margin:30px auto 18px;
             font-weight: bold;
         }
         #name, #value {
             float: left;
             list-style: none;
-            {#max-width: 300px;#}
             width: 50%;
-            min-width: 200px;
             text-align: center;
             margin: 0 auto;
         }
 
+        ul>li:first-child{
+            font-weight: 600
+        }
+
         ul > li {
-            height: 35px;
             line-height: 35px;
             border: 1px solid #000;
         }
@@ -57,13 +58,14 @@
 
     <div style="width: 80%; margin: auto; text-align: center">
         <p id="robot"></p>
-        <ul id="name"></ul>
-        <ul id="value"></ul>
+        <ul id="name">
+            <li>项目</li>
+        </ul>
+        <ul id="value">
+            <li>内容</li>
+        </ul>
         <div style="clear: both"></div>
     </div>
-
-
-
 
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
@@ -83,7 +85,6 @@
             processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
             contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
             success: function (data) {
-                console.log(data)
                 let value = data.data
                 let name = data.project_name;
                 for (let index in name) {

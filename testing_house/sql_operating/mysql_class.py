@@ -1,13 +1,13 @@
 import pymysql
 from  etc.MysqlSetting import *
-
+from testing_house.settings import DATABASES
 
 
 class SqlModel(object):
     def __init__(self):
-        self.host = "192.168.1.152"
-        self.user = "root"
-        self.passwd = "123456"
+        self.host = DATABASES["default"]["HOST"]
+        self.user = DATABASES["default"]["USER"]
+        self.passwd = DATABASES["default"]["PASSWORD"]
         self.dbname = "FinceRobotManager"
         try:
             self.db = pymysql.connect(self.host,self.user,self.passwd,self.dbname)
