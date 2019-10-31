@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <style>
         body {
+            width:100%;
             font-size: 20px;
             margin: auto;
         }
@@ -27,13 +28,15 @@
         p{
             width: 25%;
             text-align: center;
-            margin:0 auto;
+            margin:40px auto;
             font-weight: bold;
         }
         #name, #value {
             float: left;
             list-style: none;
-            width: 300px;
+            {#max-width: 300px;#}
+            width: 50%;
+            min-width: 200px;
             text-align: center;
             margin: 0 auto;
         }
@@ -51,13 +54,16 @@
 </head>
 <body>
     <input type="text" id="id" style="display: none">
-    <p id="robot"></p>
-    <ul id="name">
-    </ul>
-    <ul id="value">
-    </ul>
 
-<div style="clear: both"></div>
+    <div style="width: 80%; margin: auto; text-align: center">
+        <p id="robot"></p>
+        <ul id="name"></ul>
+        <ul id="value"></ul>
+        <div style="clear: both"></div>
+    </div>
+
+
+
 
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
@@ -90,7 +96,7 @@
                         `<li>${value[i]}</li>`
                     )
                 }
-                $("#robot").html(data.r_name)
+                $("#robot").html(data.r_name);
             }
         })
     })
