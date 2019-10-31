@@ -140,8 +140,9 @@ class Mysql_base(object):
         except Exception as e:
             print("数据库查询错误，错误内容:%s" % e)
         finally:
+
             cursor.close()
-            self.conn.commit()
+
 
 
     def select_all(self, sql_info):
@@ -167,7 +168,7 @@ class Mysql_base(object):
             print("数据库查询错误，错误内容:%s" % e)
         finally:
             cursor.close()
-            self.conn.commit()
+
 
 
 
