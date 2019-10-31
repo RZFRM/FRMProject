@@ -586,12 +586,14 @@ def set_view_information_data(request):
                 views_info.append('申请人')
                 views_info.append('申请部门')
                 views_info.append('申请日期')
+
                 views_info[2] = goods_numbers[views_info[2]]
                 views_info.pop()
                 result = {
                     'code': '200'
                     , 'msg': ''
                     , 'data': views_info
+                    ,'r_name':r_name
                 }
 
                 project_name.append('单据编号')
