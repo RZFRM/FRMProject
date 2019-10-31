@@ -337,7 +337,6 @@ class Mysql_client_FRM(Mysql_base):
             return False
         # TODO: 处理插入异常
 
-
     def get_insert(self,table,values,fields=None):
         try:
             self.insert(table, values, fields)
