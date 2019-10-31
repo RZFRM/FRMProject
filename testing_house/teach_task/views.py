@@ -5,6 +5,8 @@ from django.shortcuts import render
 import datetime
 import os
 import xlrd
+import time
+import xlwt
 
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render
@@ -15,7 +17,6 @@ from .common import province_city
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-
 class Index(View):
     def get(self,request):
         return render(request, 'login.html')
@@ -24,13 +25,18 @@ class Index(View):
         username = request.POST.get('username')
         pwd = request.POST.get('pwd')
         try:
-            sql = "select user_name,user_pass,admin_state from user where user_name = '%s'" % username
+            sql = "select user_name,user_pass,admin_state,admin_type from user where user_name = '%s'" % username
             user_list = SqlModel().select_one(sql)
             if user_list:
                 user_name = user_list[0]
                 user_pass = user_list[1]
                 admin_state = user_list[2]
+                admin_type = user_list[3]
                 if username == user_name and pwd == user_pass and admin_state == "True":
+                    if admin_type == "4":
+                        now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
+                        sql = "update student set amount = amount+1,late_time='%s' where student_code='%s'" % (now_time,user_name)
+                        res = SqlModel().insert_or_update(sql)
                     return JsonResponse({'result': 'success', 'username': user_name})
                 else:
                     return JsonResponse({'result': 'fail'})
@@ -959,7 +965,7 @@ def student_batch_up(request):
 
 def student_download(request):
     """模版下载"""
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media", "学生信息.xlsx")
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media", "模版.xlsx")
 
     with open(MEDIA_ROOT, 'rb') as f:
         response =HttpResponse(f)
@@ -971,9 +977,37 @@ def student_download(request):
 def student_batch_down(request):  #TODO 后期做，确定怎么导
     """批量导出----批量下载"""
 
+    wb = xlwt.Workbook()
+    ws = wb.add_sheet('学生信息')
 
+    title_list = ['序号', '学号', '姓名', '专业', '班级', '手机', '注册时间', '登录次数', '学习总时长', '最近登录时间', '最近学习时长', '分数']
 
+    for i in range(len(summary_title_list)):  # 第一行标题栏
+        ws.write(0, i, summary_title_list[i])  # summary 标题栏写入
+        ws.write(1, i, summary_value_list[i])  # summary 内容写入
 
+    for i in range(len(detail_title_list)):  # detail 标题栏
+        ws.write(2, i, detail_title_list[i])  # detail 标题栏写入
+
+    for i in range(len(detail_value_list)):  # 循环次数由 查询出的个数决定
+        for j in range(len(detail_title_list)):  # 循环次数由 客户勾选数决定
+            ws.write(i + 3, j, detail_value_list[i][j])
+
+    a = time.strftime("%Y-%m-%d-%I-%M-%S", time.localtime(time.time()))  # 按下载时间给文件起名
+    wb.save('%s.xlsx' % a)  # 写入数据.  保存在本地
+    file_name = a + ".xlsx"
+    # print(file_name)
+
+    self.set_header('Content-Type', 'application/octet-stream')
+    # 下载时显示的文件名称
+    self.set_header('Content-Disposition', 'attachment; filename=%s' % file_name)
+
+    with open(file_name, "rb") as f:
+        while True:
+            info = f.read(1024)
+            if not info:
+                break
+            self.write(info)
 
 
 
