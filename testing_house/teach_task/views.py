@@ -9,7 +9,7 @@ import xlrd
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
-from .models import User, Major as MAJOR, School as SCHOOL
+from .models import Major as MAJOR, School as SCHOOL
 from sql_operating.mysql_class import SqlModel
 from .common import province_city
 
@@ -20,20 +20,24 @@ class Index(View):
     def get(self,request):
         return render(request, 'login.html')
 
-    # def post(self,request):
-    #     user_name = request.POST.get('username')
-    #     user_pass = request.POST.get('pwd')
-    #     try:
-    #         admin = User.objects.filter(user_name=user_name).first()
-    #         user = admin.user_name
-    #         password = admin.user_pass
-    #         state = admin.admin_state
-    #         if user == user_name and password == user_pass and state == "True":
-    #             return JsonResponse({'result': 'success', 'username': user_name})
-    #         else:
-    #             return JsonResponse({'result': 'fail'})
-    #     except:
-    #         return JsonResponse({"result": "fail", "msg": "该帐号没有权限登入"})
+    def post(self,request):
+        username = request.POST.get('username')
+        pwd = request.POST.get('pwd')
+        try:
+            sql = "select user_name,user_pass,admin_state from user where user_name = '%s'" % username
+            user_list = SqlModel().select_one(sql)
+            if user_list:
+                user_name = user_list[0]
+                user_pass = user_list[1]
+                admin_state = user_list[2]
+                if username == user_name and pwd == user_pass and admin_state == "True":
+                    return JsonResponse({'result': 'success', 'username': user_name})
+                else:
+                    return JsonResponse({'result': 'fail'})
+            else:
+                return JsonResponse({"result": "fail"})
+        except:
+            return JsonResponse({"result": "fail", "msg": "该帐号没有权限登入"})
 
 
 class Task(View):
@@ -839,7 +843,7 @@ class Student_delete_search(View):
 
 class Student_down(View):
     """学生页面，专业、班级下拉接口"""
-    def get(self,request):
+    def get(self, request):
         """专业下拉"""
         username = request.COOKIES.get("username")
         # username = request.GET.get("username")  # 测试用
@@ -856,7 +860,7 @@ class Student_down(View):
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
-    def post(self,request):
+    def post(self, request):
         """班级下拉"""
         username = request.COOKIES.get("username")
         # username = request.POST.get("username")  # 测试用
@@ -903,7 +907,7 @@ def student_batch_up(request):
             3: "phone"
         }
         student_list = []
-        for index in range(1,sheet.nrows):        # 有效行数
+        for index in range(1, sheet.nrows):        # 有效行数
             row = sheet.row(index)                # 获取行的列对象
             row_dict = {}
             for i in range(len(maps)):
@@ -914,8 +918,8 @@ def student_batch_up(request):
     except:
         return JsonResponse({"result": "文件传递问题，请重试"})
 
-    # username = request.COOKIES.get("username")
-    username = request.POST.get("username")  # 测试用
+    username = request.COOKIES.get("username")
+    # username = request.POST.get("username")  # 测试用
     now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
     admin_type = '4'
     sql = "select admin_name,school_code from user where user_name = '%s'" % username
@@ -964,13 +968,27 @@ def student_download(request):
         return response
 
 
-# def student_batch_down(request):  #TODO 后期做，确定怎么导
-#     """批量导出----批量下载"""
+def student_batch_down(request):  #TODO 后期做，确定怎么导
+    """批量导出----批量下载"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class Report(View):
     """学生页面，查看、判分"""
-    def get(self,request):
+    def get(self, request):
         """查看、判分展示报告列表"""
         student_code = request.GET.get("student_code")
         sql = "select report_name,score from report where student_code = '%s'" % int(student_code)
@@ -989,7 +1007,7 @@ class Report(View):
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
-    def post(self,request):
+    def post(self, request):
         """实训报告，判分"""
         student_code = request.POST.get("student_code")
         report_name = request.POST.get("report_name")

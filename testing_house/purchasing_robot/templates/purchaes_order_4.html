@@ -64,7 +64,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">关联请购单：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <select lay-verify="required" id="xm" name="purchase_number" lay-filter="xmFilter"
-                            style="width:100%;height: 30px;" lay-ignore>
+                            style="width:100%;height: 30px;" lay-search="" lay-ignore>
                         <option value="">请输入您的请购单号</option>
                     </select>
                 </div>
@@ -186,36 +186,61 @@
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
-    function useLayDateMultiple(cls) {
-        layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
-            var form = layui.form
-                , layer = layui.layer
-                , layedit = layui.layedit
-                , $ = layui.jquery
-                , laydate = layui.laydate;
 
-                console.log(123)
-            $(function () {
-                $.ajax({
-                    url: "/contract_by_purchase_number",
-                    type: "post",
-                    datatype: "json",
-                    success: function (res) {
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
 
-                        for (var i = 0; i < res.data.length; i++) {
-                            alert(res.data[i]);
-                        }
-
-                        for (let index in res.data) {
-                            console.log(res.data);
-                            console.log(res.data.length);
-                            $("#xm").append(`<option value="${res.data[index]}">${res.data[index]}</option>`)
-                        }
-                        layui.form.render("select", "xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+        //第四步弹框 关联请购单编号
+        $(function () {
+            $.ajax({
+                url: "/contract_by_purchase_number",
+                type: "post",
+                datatype: "json",
+                success: function (res) {
+                    for (let index in res.data) {
+                        $("#xm").append(`<option value="${res.data[index]}">${res.data[index]}</option>`)
                     }
-                });
+                    layui.form.render("select", "xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                }
             });
+        });
 
+        //自定义验证规则
+        form.verify({
+            contract: function (value) {
+                if (!new RegExp("[A-Z0-9]{8}").test(value)) {
+                    return '只能是8位大写字母和数字';
+                }
+            },
+            quantity: function (value) {
+                if (!new RegExp("([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])").test(value)) {
+                    return '必须大于0'
+                }
+            }
+        });
+
+        //提交验证
+        form.on('submit(demo4)', function (data) {
+            //通用表单提交(AJAX方式)
+            $.ajax({
+                url: "/purchaes_order_create_data",
+                type: "post",
+                data: $(data.form).serialize(),
+                success: function (data) {
+                    if (data.code == 200) {
+                        location.href = "/purchaes_order_determine";
+                    } else {
+                        msg = data.msg;
+                    }
+                }
+            });
+        });
+
+        function useLayDateMultiple(cls) {
             //日期
             var laydate = layui.laydate;
             lay('#' + cls).each(function () {
@@ -224,40 +249,13 @@
                     trigger: 'click'
                 });
             });
-            //自定义验证规则
-            form.verify({
-                contract: function (value) {
-                    if (!new RegExp("[A-Z0-9]{8}").test(value)) {
-                        return '只能是8位大写字母和数字';
-                    }
-                },
-                quantity: function (value) {
-                    if (!new RegExp("([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])").test(value)) {
-                        return '必须大于0'
-                    }
-                }
-            });
-            form.on('submit(demo4)', function (data) {
-                //通用表单提交(AJAX方式)
-                $.ajax({
-                    url: "/purchaes_order_create_data",
-                    type: "post",
-                    data: $(data.form).serialize(),
-                    success: function (data) {
-                        if (data.code == 200) {
-                            location.href = "/purchaes_order_determine";
-                        } else {
-                            msg = data.msg;
-                        }
-                    }
-                });
-            });
-        });
-    }
+        };
+        useLayDateMultiple('time1');
+        useLayDateMultiple('time2');
+    })
 
-    useLayDateMultiple('time1');
-    useLayDateMultiple('time2');
 
+    //jsua1
     function abc() {
         var myselect = document.getElementById("revenue");//拿到select对象：
         var index = myselect.selectedIndex; //拿到选中项的索引： selectedIndex代表的是你所选中项的index
