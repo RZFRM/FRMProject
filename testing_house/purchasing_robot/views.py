@@ -55,19 +55,22 @@ def pruchasing_robot_base(request):
 # TODO  采购机器人基础配置页面
 def pruchasing_robot_base_data(request):
     user_name = request.COOKIES.get('username')
-    person_tax_install_path = request.POST.get('person_tax_install_path')
-    company_name = request.POST.get('company_name')
+    # person_tax_install_path = request.POST.get('person_tax_install_path')
+    # company_name = request.POST.get('company_name')
 
     # print(person_tax_install_path, company_name)
-    operator = '00001'
-    password = ''
-    account_set = ''
 
-    u8_install_path = ''
-    user_name = user_name
-    gmt_create = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
-    gmt_modified = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
-    print('配置页面修改-----------------------------',person_tax_install_path, company_name)
+    operator = request.POST.get('operator')
+    password = request.POST.get('password')
+    account_set =  request.POST.get('account_set')
+
+    u8_install_path = request.POST.get('u8_install_path')
+
+    print(u8_install_path, account_set, operator, password, user_name)
+    gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    return  JsonResponse({'200':''})
+    # print('配置页面修改-----------------------------',person_tax_install_path, company_name)
     #  TODO  判断用户时候已经新增  u8环境表
     sql = "select count(*)  from  U8login_table where user_name = '%s' " % user_name
     row_info = DB.select_one(sql)
