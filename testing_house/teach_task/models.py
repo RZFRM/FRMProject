@@ -1,10 +1,10 @@
 from django.db import models
-
-# Create your models here.
+#
+# # Create your models here.
 
 
 # class User(models.Model):
-#     id = models.AutoField(primary_key=True,unique=True,verbose_name='管理员id')
+#     id = models.AutoField(primary_key=True,verbose_name='管理员id')
 #     admin_name = models.CharField(max_length=10,null=True,verbose_name='登入人员名字')
 #     user_name = models.CharField(max_length=50, null=None, unique=True,verbose_name='帐号')
 #     user_pass = models.CharField(max_length=50, null=None,verbose_name='密码')
