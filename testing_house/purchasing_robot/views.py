@@ -62,7 +62,7 @@ def pruchasing_robot_base_data(request):
     operator = '00001'
     password = ''
     account_set = ''
-    operating_date = ''
+
     u8_install_path = ''
     user_name = user_name
     gmt_create = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
@@ -94,9 +94,9 @@ def pruchasing_robot_base_data(request):
             DB.get_insert(
                 table='U8login_table',
                 values=(gmt_modified, company_name, operator, password,
-                        account_set, operating_date, u8_install_path, user_name),
+                        account_set,  u8_install_path, user_name),
                 fields="(gmt_modified ,computer_name , operating_user, password,"
-                       "account_set ,operating_date , u8_install_path , user_name)")
+                       "account_set , u8_install_path , user_name)")
             print('>>>>>>>>>>>>>>更新成功！')
             data = {'200':'成功'}
             return JsonResponse(data)
@@ -269,7 +269,7 @@ def purchaes_order_create(request):
 # TODO  采购合同 获取所有请购单信息
 def set_contract_by_purchase_number(request):
     user_name = request.COOKIES.get('username')
-    sql = "select job_id from job_list_summary   where  job_status ='1113' and user_name_id = '%s';"%user_name
+    sql = "select purchase_number from purchase_apply_table  where user_name = '%s'"%user_name
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
@@ -292,105 +292,90 @@ def set_contract_by_purchase_number(request):
 
 
 
-# TODO  采购机器人 合同确认
+# TODO  采购合同机器人  数据入库
 def set_purchaes_order_create_data(request):
     # TODO  请购单号
     purchase_number = request.POST.get('purchase_number')
-    # purchase_number = '123123'
-
 
     # TODO  合同编号
     contract_number = request.POST.get('contract_number')
-    contract_number ='123'
-
-
 
     # TODO  供应商信息
     supplier_name = request.POST.get('supplier_name')
-    supplier_name = '123'
 
     #  TODO  税率
     tax_rate  = request.POST.get('tax_rate')
-    tax_rate  = '123'
 
     #  TODO  不含税单价
     free_tax_unit_price = request.POST.get('free_tax_unit_price')
-    free_tax_unit_price = '123'
 
     # TODO  数量
     count = request.POST.get('count')
-    count = '123123'
-
-    # TODO  单位
-    unit = request.POST.get('unit')
-    unit = '1213'
+    #
+    # # TODO  单位
+    # unit = request.POST.get('unit')
 
     # TODO  总金额
     summary_price = request.POST.get('summary_price')
-    summary_price = '123123'
 
     # TODO 需求日期
     demand_date  = request.POST.get('demand_date')
-    demand_date  ='123123'
 
     # TODO  申请人
     applicant = request.POST.get('applicant')
-    applicant = '123123'
 
     # TODO  申请部门
     application_sector = request.POST.get('application_sector')
-    application_sector = '123123'
 
     # TODO   申请日期
     application_date  = request.POST.get('application_date')
-    application_date  = '123123'
 
     #  TODO  部门负责人
     department_head  = request.POST.get('department_head')
-    department_head  ='123213'
 
     # TODO  公司负责人
     company_head  = request.POST.get('company_head')
-    company_head  = '123123'
 
-    data = {
-        "code": '200'
-        , "msg": "失败！"
-        , "count": 1
-    }
-    return JsonResponse(data)
+    print(purchase_number,contract_number,supplier_name, tax_rate,free_tax_unit_price, count,summary_price,demand_date,
+          applicant,application_sector, application_date,department_head,company_head)
+
 
 
     #  TODO  插入数据库
     #  TODO  1.获取机器人名字, 2,获取请购信息
-    goods_name =''
-    sql = "select  business_name  from purchase_contraton_table  where  purchase_number = '%s'" %purchase_number
-    goods_name = str(DB.select_one(sql))[0:-7]
+
+    sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" %purchase_number
+    goods_name = str(DB.select_one(sql))[0]
     user_name = request.COOKIES.get('username')
-    business_name = goods_name + '合同申请与审批'
-    gmt_create = (time.strftime('%Y-% m-%d %H:%M:%S', time.localtime(time.time())))
-    gmt_modified = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+    business_name = goods_numbers[goods_name] + '-合同申请与审批'
+    gmt_create = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
     contract_apply_status = '1113'
-    recommended_date = '2020-12-09'
-    # print(gmt_modified, gmt_create, purchase_apply_status, business_name)
+    recommended_date = '2020-12-10'
+    print(gmt_modified, gmt_create, contract_apply_status, business_name)
+
     try:
         DB.get_insert(table='purchase_contract_table',
                       values=(gmt_create, gmt_modified, purchase_number, contract_number, supplier_name,
-                              tax_rate, free_tax_unit_price, count, unit
+                              tax_rate, free_tax_unit_price, count
                               ,summary_price, demand_date
                               ,applicant, application_sector,application_date,
                               department_head, company_head, user_name,contract_apply_status, business_name),
                       fields="(gmt_create, gmt_modified,purchase_number,contract_number,supplier_name,"
-                             "tax_rate,free_tax_unit_price,count,unit,"
+                             "tax_rate,free_tax_unit_price,count,"
                              "summary_price,demand_date,"
                              "applicant,application_sector,application_date,"
                              "department_head,company_head,user_name,contract_apply_status,business_name,)")
     except Exception as e:
         print('插入失败！')
-        return False
-
-    #  TODO  创建任务信息
-
+        data = {
+            'code':'400',
+            'msg':'插入数据库失败'
+        }
+        return JsonResponse(data)
+    #
+    # #  TODO  创建任务信息
+    #
     job_no = create_uuid()
     jobs_name = '采购' + goods_name + '采购订单填制'
     print('job_no ============================', job_no)
@@ -400,33 +385,31 @@ def set_purchaes_order_create_data(request):
     print(localTime)
 
     # TODO  写入数据库
-    try:
-        job_list_summary = Job_list_summary()
-        job_list_summary.job_type = '采购合同机器人'
-        job_list_summary.job_no = job_no
-        job_list_summary.job_id = purchase_number
-        job_list_summary.job_name = jobs_name
-        job_list_summary.user_name_id = user_name
-        job_list_summary.job_start_time = localTime
-        job_list_summary.job_status = '1111'
-        job_list_summary.save()
-        data = {
-            "code": '200'
-            , "msg": "成功！"
-            , "count": 1
-        }
-    except:
-        print('写入数据库失败！')
-    # #  TODO  启动RPA  --
+    # try:
+    #     job_list_summary = Job_list_summary()
+    #     job_list_summary.job_type = '采购合同机器人'
+    #     job_list_summary.job_no = job_no
+    #     job_list_summary.job_id = purchase_number
+    #     job_list_summary.job_name = jobs_name
+    #     job_list_summary.user_name_id = user_name
+    #     job_list_summary.job_start_time = localTime
+    #     job_list_summary.job_status = '1111'
+    #     job_list_summary.save()
+    #     data = {
+    #         "code": '200'
+    #         , "msg": "成功！"
+    #         , "count": 1
+    #     }
+    #     return JsonResponse(data)
+    # except:
+    #     print('写入数据库失败！')
 
-    # TODO 添加任务信息
-    # print( user_name,'---------   --------------' ,modules, price , unit , quantity)
 
-        data = {
-            "code": '200'
-            , "msg": "失败！"
-            , "count": 1
-        }
+    data = {
+        "code": '200'
+        , "msg": "失败！"
+        , "count": 1
+    }
     return JsonResponse(data)
 
 
@@ -518,6 +501,7 @@ def set_purchase_robot_buession_info(request):
     sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   "%user_name
     print(sql)
     user_jobs = DB.get_select_all(sql_info=sql)
+
     print(user_jobs)
     data_list = []
     print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
