@@ -67,6 +67,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'system_config/templates'),
             os.path.join(BASE_DIR, 'personal_center/templates'),
+            os.path.join(BASE_DIR, 'teach_task/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
