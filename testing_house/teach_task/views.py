@@ -20,20 +20,20 @@ class Index(View):
     def get(self,request):
         return render(request, 'login.html')
 
-    def post(self,request):
-        user_name = request.POST.get('username')
-        user_pass = request.POST.get('pwd')
-        try:
-            admin = User.objects.filter(user_name=user_name).first()
-            user = admin.user_name
-            password = admin.user_pass
-            state = admin.admin_state
-            if user == user_name and password == user_pass and state == "True":
-                return JsonResponse({'result': 'success', 'username': user_name})
-            else:
-                return JsonResponse({'result': 'fail'})
-        except:
-            return JsonResponse({"result": "fail", "msg": "该帐号没有权限登入"})
+    # def post(self,request):
+    #     user_name = request.POST.get('username')
+    #     user_pass = request.POST.get('pwd')
+    #     try:
+    #         admin = User.objects.filter(user_name=user_name).first()
+    #         user = admin.user_name
+    #         password = admin.user_pass
+    #         state = admin.admin_state
+    #         if user == user_name and password == user_pass and state == "True":
+    #             return JsonResponse({'result': 'success', 'username': user_name})
+    #         else:
+    #             return JsonResponse({'result': 'fail'})
+    #     except:
+    #         return JsonResponse({"result": "fail", "msg": "该帐号没有权限登入"})
 
 
 class Task(View):
