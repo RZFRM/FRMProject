@@ -575,16 +575,16 @@ def set_view_information_data(request):
 
             if r_name == '采购申请与审批':
 
-                views_info.append('单据编号')
-                views_info.append('采购用途')
-                views_info.append('货物名称')
-                views_info.append('建议单价')
-                views_info.append('单位')
-                views_info.append('数量')
-                views_info.append('建议金额')
-                views_info.append('申请人')
-                views_info.append('申请部门')
-                views_info.append('申请日期')
+                project_name.append('单据编号')
+                project_name.append('采购用途')
+                project_name.append('货物名称')
+                project_name.append('建议单价')
+                project_name.append('单位')
+                project_name.append('数量')
+                project_name.append('建议金额')
+                project_name.append('申请人')
+                project_name.append('申请部门')
+                project_name.append('申请日期')
 
                 views_info[2] = goods_numbers[views_info[2]]
                 views_info.pop()
@@ -592,6 +592,7 @@ def set_view_information_data(request):
                     'code': '200'
                     , 'msg': ''
                     , 'data': views_info
+                    ,'project_name':project_name
                     ,'r_name':r_name
                 }
 
