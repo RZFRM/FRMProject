@@ -56,7 +56,7 @@ def pruchasing_robot_base(request):
 def pruchasing_robot_base_data(request):
     user_name = request.COOKIES.get('username')
     # person_tax_install_path = request.POST.get('person_tax_install_path')
-    # company_name = request.POST.get('company_name')
+    company_name = ''
 
     # print(person_tax_install_path, company_name)
 
@@ -66,46 +66,48 @@ def pruchasing_robot_base_data(request):
 
     u8_install_path = request.POST.get('u8_install_path')
 
-    print(u8_install_path, account_set, operator, password, user_name)
+    # print(u8_install_path, account_set, operator, password, user_name)
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-    return  JsonResponse({'200':''})
+    print(operator, password, account_set, u8_install_path)
+    # return  JsonResponse({'200':''})
     # print('配置页面修改-----------------------------',person_tax_install_path, company_name)
     #  TODO  判断用户时候已经新增  u8环境表
     sql = "select count(*)  from  U8login_table where user_name = '%s' " % user_name
     row_info = DB.select_one(sql)
-    if row_info:
+    print(row_info)
+    if row_info[0]:
         try:
             DB.get_update(
                 table='U8login_table',
                 assignments="gmt_modified = '%s',computer_name = '%s', "
                             "operating_user = '%s', password  ='%s',"
-                            "account_set = '%s',operating_date = '%s', "
+                            "account_set = '%s', "
                             "u8_install_path = '%s'"
-                            % (gmt_modified, company_name, operator, password, account_set, operating_date,
+                            % (gmt_modified, company_name, operator, password, account_set,
                                u8_install_path),
                 condition="user_name  = '%s' " % user_name)
-            print('>>>>>>>>>>>>>>>>>>>>>>>>>更新成功！')
-            data = {'200':'更新成功'}
+            print('>>>>>>>>>>>>>>>>>>>>>>>>>更新方式更新成功！')
+            data = {'success': '1111', 'msg': ''}
             return JsonResponse(data)
         except Exception as e:
             print('>>>>>>>>>>>>>>更新失败！原因如下：', e)
-            data = {'400':'更新失败'}
+            data = {'fail':'4444','msg':'插入失败'}
             return JsonResponse(data)
     else:
         try:
             DB.get_insert(
                 table='U8login_table',
-                values=(gmt_modified, company_name, operator, password,
+                values=(gmt_create ,gmt_modified, company_name, operator, password,
                         account_set,  u8_install_path, user_name),
-                fields="(gmt_modified ,computer_name , operating_user, password,"
+                fields="(gmt_create,gmt_modified ,computer_name , operating_user, password,"
                        "account_set , u8_install_path , user_name)")
-            print('>>>>>>>>>>>>>>更新成功！')
-            data = {'200':'成功'}
+            print('>>>>>>>>>>>>>>插入方式更新成功！')
+            data = {'success':'1111','msg':''}
             return JsonResponse(data)
         except Exception as e:
             print('>>>>>>>>>>>>>>更新失败！原因如下：', e)
-            data = {'400':'失败'}
+            data = {'fail':'4444','msg':'插入失败'}
             return JsonResponse(data)
 
 
