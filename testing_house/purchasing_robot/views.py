@@ -570,7 +570,7 @@ def set_view_information_data(request):
         views_info = DB.select_one(sql)
         if views_info:
             r_name = views_info[-1].split('-')[1]
-            print('---------------------------------', id)
+            print('---------------------------------', id,views_info)
             project_name = []
 
             if r_name == '采购申请与审批':
@@ -594,23 +594,6 @@ def set_view_information_data(request):
                     ,'project_name':project_name
                 }
 
-                views_info.append('单据编号')
-                views_info.append('采购用途')
-                views_info.append('货物名称')
-                views_info.append('建议单价')
-                views_info.append('单位')
-                views_info.append('数量')
-                views_info.append('建议金额')
-                views_info.append('申请人')
-                views_info.append('申请部门')
-                views_info.append('申请日期')
-                views_info[2] = goods_numbers[views_info[2]]
-                views_info[10] = ''
-                result = {
-                    'code': '200'
-                    , 'msg': ''
-                    , 'data': views_info
-                }
                 return JsonResponse(result)
 
             elif r_name == '采购合同机器人':
@@ -644,6 +627,7 @@ def set_view_information_data(request):
         data = {
             'code':'400'
             ,'msg':'查询异常'
+
         }
         return  JsonResponse(data)
 
