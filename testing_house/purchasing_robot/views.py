@@ -559,7 +559,7 @@ def set_create_purchase_number(request):
 
 
 #  TODO  创建查看共功能数据
-def set_view_information(request):
+def set_view_information_data(request):
     user_name  = request.COOKIES.get('username')
     id = request.GET.get('id')
     sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price_, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(
@@ -647,3 +647,6 @@ def set_view_information(request):
         }
         return  JsonResponse(data)
 
+#  TODO  返回查看页面
+def set_view_information(request):
+    return render(request, "view_details.html", locals())

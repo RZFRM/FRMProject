@@ -52,6 +52,7 @@ urlpatterns = [
     url('purchase_robot_buession_info', views.set_purchase_robot_buession_info, name='set_purchase_robot_jobs_info'),
     url('purchase_robot_jobs_info', views.set_purchase_robot_jobs_info, name='set_purchase_robot_jobs_info'),
     url('create_purchase_number', views.set_create_purchase_number, name='set_purchase_robot_jobs_info'),
+    url('view_information_data', views.set_view_information_data, name='set_view_information'),
     url('view_information', views.set_view_information, name='set_view_information'),
 
 
