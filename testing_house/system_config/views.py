@@ -969,7 +969,7 @@ def client_info(request):
         print('用户不存在！')
     print(All_No)
 
-    data = {'200':'200'}
+    data = {'success':'200'}
     return JsonResponse(data)
 
 def set_personalIncomeTax(request):
