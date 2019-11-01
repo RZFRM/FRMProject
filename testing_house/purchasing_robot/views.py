@@ -351,6 +351,7 @@ def set_purchaes_order_create_data(request):
 
     sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" %purchase_number
     goods_name = str(DB.select_one(sql))[0]
+    print('----------------goods_name--------',goods_name)
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-合同申请与审批'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
