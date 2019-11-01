@@ -58,11 +58,12 @@ span {
 .financial_robot>span:nth-child(2) {
     width:94px;
     height:19px;
-    font-size:18px;
+    font-size:17px;
     font-family:Microsoft YaHei;
     font-weight:bold;
     color:rgba(255,72,0,1);
-    line-height:19px;
+    line-height:28px;
+    margin: 10px 10px 0 0;
 
 }
 .tasks {

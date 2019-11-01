@@ -233,19 +233,29 @@
                             <cite>机器人实训教学</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 实训任务</a></dd>
-                            <dd><a href='javascript:;'><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教学管理</a></dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学生管理</a></dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教师管理</a></dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 班级管理</a></dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 专业管理</a></dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教务管理</a></dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学校管理</a></dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 课程管理</a></dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 案例管理</a></dd>
+                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 实训任务</a>
+                            </dd>
+                            <dd><a href='javascript:;'><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教学管理</a>
+                            </dd>
+                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学生管理</a>
+                            </dd>
+                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教师管理</a>
+                            </dd>
+                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 班级管理</a>
+                            </dd>
+                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 专业管理</a>
+                            </dd>
+                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教务管理</a>
+                            </dd>
+                            <dd><a lay-href="/school_delete_search">
+                                <img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学校管理</a></dd>
+                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 课程管理</a>
+                            </dd>
+                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 案例管理</a>
+                            </dd>
                         </dl>
                     </li>
-<!-- {##}
+                    <!-- {##}
 {##}
 {#                    <li data-name="set" class="layui-nav-item">#}
 {#                        <a href="javascript:;" lay-tips="系统管理" lay-direction="2">#}
@@ -324,6 +334,18 @@
     }).extend({
         index: '/lib/index'
     }).use('index');
+
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        $('#add').on('click', function () {
+            location.href = "../teach_task/templates/school-admin.html";
+        });
+    })
 
 </script>
 <script>

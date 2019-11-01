@@ -117,6 +117,7 @@ class School(View):
 
     def post(self, request):
         """POST请求，新增、修改逻辑"""
+
         school_name = request.POST.get('school_name')
         school_code = request.POST.get('school_code')
         school_rank = request.POST.get('school_rank')
