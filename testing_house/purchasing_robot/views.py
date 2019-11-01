@@ -278,20 +278,28 @@ def set_contract_by_purchase_number(request):
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
-    for i in user_jobs:
-        data_list.append(i[0])
+    if user_jobs[0]:
 
+        for i in user_jobs:
+            data_list.append(i[0])
+        print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
 
-    print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
-
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
-    data = {
-        "code": "200"
-        , "msg": ""
-        , "count": 1
-        , "data": data_list
-    }
-    return  JsonResponse(data)
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data = {
+            "scuess": "200"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+        return  JsonResponse(data)
+    else:
+        data = {
+            "fail": "4444"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+        return JsonResponse(data)
 
 
 
@@ -350,7 +358,7 @@ def set_purchaes_order_create_data(request):
     #  TODO  1.获取机器人名字, 2,获取请购信息
 
     sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" %purchase_number
-    goods_name = str(DB.select_one(sql))[0]
+    goods_name = str(DB.select_one(sql)[0])
     print('----------------goods_name--------',goods_name)
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-合同申请与审批'
@@ -371,7 +379,7 @@ def set_purchaes_order_create_data(request):
                              "tax_rate,free_tax_unit_price,count,"
                              "summary_price,demand_date,"
                              "applicant,application_sector,application_date,"
-                             "department_head,company_head,user_name,contract_apply_status,business_name,)")
+                             "department_head,company_head,user_name,contract_apply_status,business_name)")
     except Exception as e:
         print('插入失败！')
         data = {
@@ -391,24 +399,24 @@ def set_purchaes_order_create_data(request):
     print(localTime)
 
     # TODO  写入数据库
-    # try:
-    #     job_list_summary = Job_list_summary()
-    #     job_list_summary.job_type = '采购合同机器人'
-    #     job_list_summary.job_no = job_no
-    #     job_list_summary.job_id = purchase_number
-    #     job_list_summary.job_name = jobs_name
-    #     job_list_summary.user_name_id = user_name
-    #     job_list_summary.job_start_time = localTime
-    #     job_list_summary.job_status = '1111'
-    #     job_list_summary.save()
-    #     data = {
-    #         "code": '200'
-    #         , "msg": "成功！"
-    #         , "count": 1
-    #     }
-    #     return JsonResponse(data)
-    # except:
-    #     print('写入数据库失败！')
+    try:
+        job_list_summary = Job_list_summary()
+        job_list_summary.job_type = '采购合同机器人'
+        job_list_summary.job_no = job_no
+        job_list_summary.job_id = purchase_number
+        job_list_summary.job_name = jobs_name
+        job_list_summary.user_name_id = user_name
+        job_list_summary.job_start_time = localTime
+        job_list_summary.job_status = '1111'
+        job_list_summary.save()
+        data = {
+            "code": '200'
+            , "msg": "成功！"
+            , "count": 1
+        }
+        return JsonResponse(data)
+    except:
+        print('写入数据库失败！')
 
 
     data = {
