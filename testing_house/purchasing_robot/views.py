@@ -483,7 +483,7 @@ def set_purchase_robot_jobs_info(request):
     sql = "select  id,job_no,job_name, job_type,job_start_time,job_status   from  job_list_summary where  job_type like '采购%%' and user_name_id= '%s' order by id desc "%user_name
     user_jobs = DB.get_select_all(sql_info=sql)
 
-    print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
+    # print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
 
     for i in user_jobs:
         data_dic = {
@@ -495,7 +495,7 @@ def set_purchase_robot_jobs_info(request):
             , "job_status": run_status[i[5]]
         }
         data_list.append(data_dic)
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',data_list)
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>任务')
     data = {
         "code": 0
         , "msg": ""
@@ -514,34 +514,42 @@ def set_purchase_robot_buession_info(request):
     user_name = request.COOKIES.get('username')
     sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   "%user_name
     print(sql)
-    user_jobs = DB.get_select_all(sql_info=sql)
+    user_jobs = DB.select_all(sql_info=sql)
 
     print(user_jobs)
     data_list = []
-    print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
-
-    for i in user_jobs:
-        data_dic = {
-             "id":i[6]
-            ,"business_name": i[0]
-            , "gmt_create": str(i[1])
-            , "application_depart": i[2]
-            ,'robot_name':'采购请购机器人'
-            , "applicant": i[3]
-            , "purchase_apply_status": run_status[i[4]]
-            , "gmt_modified":str(i[5])
+    # print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
+    if user_jobs:
+        for i in user_jobs:
+            data_dic = {
+                 "id":i[6]
+                ,"business_name": i[0]
+                , "gmt_create": str(i[1])
+                , "application_depart": i[2]
+                ,'robot_name':'采购请购机器人'
+                , "applicant": i[3]
+                , "purchase_apply_status": run_status[i[4]]
+                , "gmt_modified":str(i[5])
+            }
+            data_list.append(data_dic)
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>业务信息查询成功')
+        data = {
+            "code": 0
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
         }
-        data_list.append(data_dic)
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',data_list)
-    data = {
-        "code": 0
-        , "msg": ""
-        , "count": 1
-        , "data": data_list
-    }
+        return JsonResponse(data)
+    else:
+        data = {
+            "code": 0
+            , "msg": "查询失败！"
+            , "count": 1
+            , "data": data_list
+        }
+        return JsonResponse(data)
 
 
-    return JsonResponse(data)
 
 # TODO  创建请购单数据
 def set_create_purchase_number(request):

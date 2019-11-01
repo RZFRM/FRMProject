@@ -134,14 +134,17 @@ class Mysql_base(object):
                 res_list = []
                 for i in result:
                     res_list.append(i)
+                cursor.close()
+                # self.conn.commit()
                 return res_list
             else:
+                cursor.close()
                 return []
+
+
         except Exception as e:
             print("数据库查询错误，错误内容:%s" % e)
-        finally:
 
-            cursor.close()
 
 
 
@@ -149,8 +152,10 @@ class Mysql_base(object):
         """返回的是一个[1,1] 为空返回[]"""
         try:
             print(sql_info)
+            print(">>>>>>>>>>>>>>")
             cursor = self.conn.cursor()
             res = cursor.execute(sql_info)
+            print("=============:",res)
             result = cursor.fetchall()
             if res:
                 print("====================")
@@ -161,13 +166,14 @@ class Mysql_base(object):
                     for j in i:
                         res_list2.append(j)
                     res_list.append(res_list2)
+                cursor.close()
                 return res_list
             else:
+                cursor.close()
                 return []
         except Exception as e:
             print("数据库查询错误，错误内容:%s" % e)
-        finally:
-            cursor.close()
+
 
 
 
@@ -329,9 +335,9 @@ class Mysql_client_FRM(Mysql_base):
     def get_select_all(self,sql_info):
         try:
             print(">>>>>>>>>>>>>>>>>>>>>>")
-            purchase_id  = self.select_all(sql_info)
-            print('查询请购信息表id===:',purchase_id)
-            return   purchase_id
+            purchase_info  = self.select_all(sql_info)
+            print('查询请购信息表id===:')
+            return   purchase_info
         except Exception as e:
             print('没有id请从1开始',e )
             return False
