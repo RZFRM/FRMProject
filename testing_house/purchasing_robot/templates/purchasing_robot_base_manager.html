@@ -92,8 +92,12 @@
                     url: "/pruchasing_robot_base_data",
                     type: "post",
                     data: $(data.form).serialize(),
-                    success: function () {
-
+                    success: function (data) {
+                        if(data.fail==4444){
+                            alert(data.msg)
+                        }else{
+                            alert("保存成功")
+                        }
                     }
                 });
                 return false;  //阻止表单跳转。

@@ -87,9 +87,10 @@
         }
 
         .anew{
-            color: #739E98 !important;
+            color: #2F9688 !important;
             font-size:16px !important;
             font-weight: bold !important;
+            margin-top: 14px;
         }
 
         {#.overlay {#}
@@ -124,8 +125,8 @@
             <div class="procedure" style="padding-top: 10%">
                 <a class="procedure_a"
                    href="http://support.i-search.com.cn:8090/isrpa_online_world/upload/iS-RPA-Robot-9.0.0.exe">
-                    <img style="margin:12% 0 5% 0;display: inline-block;" src="{% static 'robotInstall/download.png' %}" alt="">  <br>
-                    <span>点击下载</span>
+                    <img style="margin:12% 0 5% 0;display: inline-block;" src="{% static 'robotInstall/download.png' %}" alt="">
+                    <p>点击下载</p>
                 </a>
                 <p class="blodd">说明：</p>
                 <span>第一步：<span class="blod">下载机器人客户端</span>安装程序（约308MB）。</span><br>
@@ -138,7 +139,7 @@
             <div class="head client">上传客户端注册文件</div>
             <div class="procedure" style="padding-top: 10%">
                 <a id="clientInfo" name="clientInfo" class="procedure_a">
-                    <img style="margin:12% 0 5% 0;display: inline-block;" src="{% static 'robotInstall/uploading.png' %}" alt="">
+                    <img id="clientInfo_img" style="margin:12% 0 5% 0;display: inline-block;" src="{% static 'robotInstall/uploading.png' %}" alt="">
                     <br><span id="clientInfo_first">点击上传</span>
                 </a>
                 <p class="blodd">说明：</p>
@@ -186,19 +187,16 @@
                 , done: function (data) {
                     if(data.success =="200"){
                         $("#clientInfo").css("border","2px dashed #739E98");
-                        $("#clientInfo>img").remove();
-                        $("#clientInfo_first").html("上传成功").css("color","#739E98");
-
-
-
+                        //移除图片
+                        $("#clientInfo_img").remove();
+                        $("#clientInfo_first").html("上传成功").css({"color":"#739E98","margin":"10px","display":"inline-block"});
                         //写一个24小时格式的时间
                         var onedate = new Date().toLocaleString('chinese', { hour12: false });
-                        $(onedate).append($("#clientInfo")).css("font-size","16px");
+                        $("<p></p>").html(onedate).appendTo($("#clientInfo")).css("font-size","16px");
                         //插入一句话
                         $("<p class='anew'>重新上传</p>").appendTo($("#clientInfo"));
-                        layer.msg("123")
                     }else{
-                        layer.msg(321)
+
                     }
                 }
                 , error: function () {
