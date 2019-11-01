@@ -1,80 +1,104 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css"/>
-    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all"/>
-    <title>robot-train-teach</title>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-    <div id="container">
-        <div class="layui-col-train-teach">
-            <div class="layui-card">
-                <div class="layui-card-header" style="width: 1920px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
-                    教务管理
-                </div>
-            </div>
+<div class="layui-col-train-teach">
+    <div class="layui-card">
+        <div class="layui-card-header" style="width: 1920px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+            教务管理
         </div>
-        <div class="btn-groups">
-            <div class="layui-groups">
-                <button type="button" class="layui-btn">新增</button>
-                <button type="button" class="layui-btn">修改</button>
-                <button type="button" class="layui-btn">删除</button>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="搜索姓名" class="layui-input">
-                </div>
-                <button type="button" class="layui-btn">搜索</button>
-            </div>
-        </div>
-
-
-
-         <div class="layui-card-body">
-            <table class="layui-hide" id="test" style="margin: auto"></table>
-         </div>
-        <div id="demo7"></div>
     </div>
-    <script src="../../static/layuiadmin/layui/layui.js"></script>
-    <script>
-            layui.use('table', function(){
-              var table = layui.table;
+</div>
+<div class="school-head" id="school-head">
+    <div class="btn-groups">
+        <div class="layui-groups">
+            <button type="button" class="layui-btn">新增</button>
+            <button type="button" class="layui-btn">修改</button>
+            <button type="button" class="layui-btn">删除</button>
+        </div>
+    </div>
+    <div class="demoTable">
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索任务名称">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+</div>
 
-              table.render({
-                elem: '#test'
-                ,url:''
-                ,cols: [[
-                  {type:'checkbox'}
-                  ,{field:'id', width:"5%", title: '序号'}
-                  ,{field:'name', width:"10%", title: '姓名'}
-                  ,{field:'userame', width:"10%", title: '用户名'}
-                  ,{field:'pwd', width:"15%", title: '密码'}
-                  ,{field:'telephon-num', title: '手机密码', width:"15%"}
-                  ,{field:'status', width:"15%", title: '状态'}
-                  ,{field:'creator', width:"15%", title: '创建人'}
-                  ,{field:'operation-date', width:"10%", title: '操作日期'}
-                ]]
-                ,page: true
-              });
-            });
-            </script>
-            <script>
-                layui.use(['laypage', 'layer'], function() {
-                    var laypage = layui.laypage
-                        , layer = layui.layer;
-                    laypage.render({
-                        elem: 'demo7'
-                        , count: 100
-                        , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
-                        , jump: function (obj) {
-                            console.log(obj)
-                        }
-                    })
-                })
-            </script>
+<div class="layui-card-body">
+    <table class="layui-hide" id="table_user" lay-filter="user"></table>
+</div>>
+
+<script src="../../static/res/layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['table', 'layedit', 'laydate', 'jquery'], function () {
+        var table = layui.table
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+
+        layer.msg(215458)
+        console.log(123)
+
+
+        //方法级渲染
+        table.render({
+            elem: '#table_user'
+            , url: '/school'
+            , toolbar: 'school-head'
+            , max_height: 1000
+            ,type:"get"
+            , cols: [[
+                {checkbox: true, fixed: true}
+                , {field: 'a', title: '序号', width: "5%"}
+                , {field: 'b', title: '学校代码', width: "15%"}
+                , {field: 'c', title: '学校名称', width: "15%"}
+                , {field: 'd', title: '办学层次', width: "10%"}
+                , {field: 'e', title: '办学类型',width:"15%"}
+                , {field: 'f', title: '省份', width: "5%"}
+                , {field: 'g', title: '城市', width: "5%"}
+                , {field: 'h', title: '教务管理员', width: "15%"}
+                , {field: 'i', title: '创建人员', width: "15%"}
+            ]]
+            , page: true
+        });
+
+        {#var $ = layui.$, active = {#}
+        {#    reload: function () {#}
+        {#        var demoReload = $('#demoReload');#}
+        {##}
+        {#        //执行重载#}
+        {#        table.reload('testReload', {#}
+        {#            page: {#}
+        {#                curr: 1 //重新从第 1 页开始#}
+        {#            }#}
+        {#            , where: {#}
+        {#                key: {#}
+        {#                    id: demoReload.val()#}
+        {#                }#}
+        {#            }#}
+        {#        }, 'data');#}
+        {#    }#}
+        {#;#}
+
+        {#$('.demoTable .layui-btn').on('click', function(){#}
+        {#  var type = $(this).data('type');#}
+        {#  active[type] ? active[type].call(this) : '';#}
+        {#);#}
+    });
+</script>
+
 </body>
 </html>
