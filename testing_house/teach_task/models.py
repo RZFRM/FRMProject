@@ -104,7 +104,7 @@ class Course(models.Model):
     """课程表"""
     course_id = models.AutoField(primary_key=True, verbose_name="课程id")
     course_name = models.CharField(max_length=50, verbose_name="课程名称")
-    course_recommend = models.CharField(max_length=1024, verbose_name="课程介绍")
+    course_recommend = models.CharField(max_length=1024, null=True, verbose_name="课程介绍")
     course_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
                                     verbose_name=u"有效性", max_length=10)
 
@@ -119,9 +119,10 @@ class Task(models.Model):
     """任务表"""
     task_id = models.AutoField(primary_key=True, verbose_name="任务id")
     task_name = models.CharField(max_length=50, verbose_name="任务名称")
-    task_recommend = models.CharField(max_length=1000, verbose_name="任务简介")
+    task_recommend = models.CharField(max_length=1000, null=True, verbose_name="任务简介")
     task_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
                                   verbose_name=u"有效性", max_length=10)
+    course_name = models.CharField(max_length=50, null=True, verbose_name="课程名称")
 
     def __str__(self):
         return self.task_name
