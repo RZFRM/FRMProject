@@ -1,0 +1,28 @@
+
+
+.school-head{
+    display: flex;
+    flex-wrap: nowrap;
+    width:1651px;
+    height:50px;
+    line-height: 50px;
+    background:rgba(242,242,242,1);
+}
+.demoTable{
+    margin-left: 900px;
+    z-index: 999;
+    border-radius: 4px;
+}
+.layui-groups>.layui-btn{
+    width:77px;
+    height:30px;
+    background:rgba(0,150,136,1);
+    border-radius:4px;
+    line-height: 30px;
+}
+.btn-groups{
+    margin-left: 20px;
+}
+.demoTable>.layui-inline>.layui-input{
+    border-radius: 5px;
+}
