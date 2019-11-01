@@ -1284,4 +1284,39 @@ def course(request):
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
+class Course_task(View):
+    """课程管理，任务查看，与简介设置"""
+    def get(self,request):
+        """课程管理，任务展示"""
+        sql = "select task_name from task"
+        try:
+            task_name_list = SqlModel().select_all(sql)
+            if task_name_list:
+                task_list = []
+                for i in task_name_list:
+                    task_list.append(i[0])
+                return JsonResponse({"result": task_list})
+            else:
+                return JsonResponse({"result": ""})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
+    def post(self,request):
+        """简介设置"""
+        task_name = request.POST.get("task_name")
+        task_recommend = request.POST.get("task_recommend")
+
+        sql = "select * from task where task_name ='%s'" % task_name
+        try:
+            task_info = SqlModel().select_one(sql)
+            if task_info:
+                sql_up = "updata task set task_recommend='%s' where task_name='%s'" % (task_recommend,task_name)
+                res = SqlModel().insert_or_update(sql_up)
+                if res:
+                    return JsonResponse({"result": "设置成功"})
+                else:
+                    return JsonResponse({"result": "fail", "msg": "设置失败，请重试"})
+            else:
+                return JsonResponse({"result": "fail", "msg": "该名称不存在，请重试"})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})

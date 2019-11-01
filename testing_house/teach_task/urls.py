@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'student', views.Student.as_view()),
     url(r'report', views.Report.as_view()),
     url(r'course_add', views.course),
+    url(r'course_task',views.Course_task.as_view()),
 ]
