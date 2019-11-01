@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css"/>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all"/>
+    <title>robot-train-teach</title>
+</head>
+<body>
+    <div id="container">
+        <div class="layui-col-train-teach">
+            <div class="layui-card">
+                <div class="layui-card-header" style="width: 1920px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+                    专业管理
+                </div>
+            </div>
+        </div>
+        <div class="btn-groups">
+            <div class="layui-groups">
+                <button type="button" class="layui-btn">新增</button>
+                <button type="button" class="layui-btn">修改</button>
+                <button type="button" class="layui-btn">删除</button>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="搜索专业" class="layui-input">
+                </div>
+                <button type="button" class="layui-btn">搜索</button>
+            </div>
+        </div>
+
+
+
+         <div class="layui-card-body">
+            <table class="layui-hide" id="test" style="margin: auto"></table>
+         </div>
+        <div id="demo7"></div>
+    </div>
+    <script src="../../static/layuiadmin/layui/layui.js"></script>
+    <script>
+            layui.use('table', function(){
+              var table = layui.table;
+
+              table.render({
+                elem: '#test'
+                ,url:'/school'
+                ,cols: [[
+                  {type:'checkbox'}
+                  ,{field:'id', width:"5%", title: '序号'}
+                  ,{field:'professional-code', width:"15%", title: '专业代码'}
+                  ,{field:'professional-name', width:"20%", title: '专业名称'}
+                  ,{field:'status', width:"15%", title: '状态'}
+                  ,{field:'professional-creator', width:"20%", title: '创建人'}
+                  ,{field:'operation-date', width:"20%", title: '操作日期'}
+                ]]
+                ,page: true
+              });
+            });
+            </script>
+            <script>
+                layui.use(['laypage', 'layer'], function() {
+                    var laypage = layui.laypage
+                        , layer = layui.layer;
+                    laypage.render({
+                        elem: 'demo7'
+                        , count: 100
+                        , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                        , jump: function (obj) {
+                            console.log(obj)
+                        }
+                    })
+                })
+            </script>
+</body>
+</html>

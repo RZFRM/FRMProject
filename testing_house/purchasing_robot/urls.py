@@ -59,5 +59,5 @@ urlpatterns = [
     # url('purchase_delete_jobs_info', views.set_purchase_deletjobs_info, name='delete_jobs'),
     # url('purchase_stop_jobs_info', views.set_purchase_stopjobs_info, name='stop_jobs'),
     # url('purchase_start_jobs_info', views.set_purchase_startjobs_info, name='start_jobs'),
-
+    # url(r'aaaaa',views.test)
 ]

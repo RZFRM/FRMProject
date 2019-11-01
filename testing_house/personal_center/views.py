@@ -18,7 +18,7 @@ detail_job_no = ''
 
 def home_page(request):
     user_name = request.COOKIES.get('username')
-    update_sql(user_name)
+    # update_sql(user_name)
     return render(request, 'home_page.html', locals())
 
 
@@ -512,18 +512,18 @@ def update_sql(user_name):
     try:
         # isa_job_no = Job_list_summary.objects.filter(Q(user_name_id=user_name) &  Q(isdelete=0) & ~Q(job_status='1113')  & ~Q(isa_job_no='') , )
         isa_job_no = Job_list_summary.objects.filter(Q(isdelete=0)  & ~Q(isa_job_no=None))
-        print('未完成页面====================', isa_job_no)
+        print('未完成页面====================')
         if isa_job_no:
             # jobs_list = Job_list_summary.objects.get(user_name=user_name)
             for i in isa_job_no:
                 print(i.isa_job_no)
                 end_time = get_isa_info(str(i.isa_job_no))
-                print('end_time===================', end_time)
+                print('end_time===================')
 
                 # print(type(end_time[0][2]), end_time[0][2])
                 if end_time[0][0] :
                     start_time = i.job_start_time
-                    print('start_time:============', start_time)
+                    print('start_time:============')
                     use_time = time_difference(end_time[0][0], start_time)
                     print(use_time)
                     Job_list_summary.objects.filter(Q(user_name=user_name) | Q(isa_job_no=i.isa_job_no)).update(
@@ -536,7 +536,7 @@ def update_sql(user_name):
                     # update(user_agent_no=All_No)
                 else:
                     start_time = i.job_start_time
-                    print('start_time:============', start_time)
+                    print('start_time:============')
                     use_time = time_difference(end_time[0][0], start_time)
                     print(use_time)
                     Job_list_summary.objects.filter(Q(user_name=user_name) | Q(isa_job_no=i.isa_job_no)).update(
@@ -548,10 +548,10 @@ def update_sql(user_name):
             # user_jobs = Job_list_summary.objects.filter(Q(user_name=user_name) & ~Q(job_status='1113'))
             # print('isa_job_no ===========',isa_job_no)
         else:
-            print(11)
-            print(11)
+
             # user_jobs = Job_list_summary.objects.filter(Q(user_name=user_name) & ~Q(job_status='1113'))
             user_jobs = Job_list_summary.objects.filter(Q(user_name_id=user_name) & ~Q(isdelete=1))
+            return True
     except:
 
         print('获取艺赛琪服务器失败！')

@@ -1,12 +1,14 @@
 from django.db import models
+
+
 #
 # # Create your models here.
 
 
 class School(models.Model):
-    school_id = models.AutoField(primary_key=True,verbose_name='学校id')
+    school_id = models.AutoField(primary_key=True, verbose_name='学校id')
     school_code = models.IntegerField(unique=True, verbose_name='学校代码')
-    school_name = models.CharField(max_length=50,verbose_name='学校名称')
+    school_name = models.CharField(max_length=50, verbose_name='学校名称')
     school_rank = models.CharField(max_length=10, verbose_name='学校等级')
     school_type = models.CharField(max_length=10, verbose_name='学校类型')
     school_province = models.CharField(max_length=10, verbose_name='省份')
@@ -28,7 +30,7 @@ class Major(models.Model):
     major_name = models.CharField(max_length=50, verbose_name='专业名称')
     school_code = models.IntegerField(unique=True, verbose_name='学校代码')
     major_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
-                              verbose_name=u"有效性", max_length=10)
+                                   verbose_name=u"有效性", max_length=10)
     create_name = models.CharField(max_length=50, verbose_name='创建人')
     create_time = models.DateTimeField(null=True, verbose_name='创建时间')
 
@@ -47,7 +49,7 @@ class Class(models.Model):
     school_code = models.IntegerField(verbose_name='班级所在学校')
     class_teacher = models.CharField(max_length=50, verbose_name='班级老师')
     class_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
-                              verbose_name=u"有效性", max_length=10)
+                                   verbose_name=u"有效性", max_length=10)
     begin_time = models.DateTimeField(null=True, verbose_name='开课时间')
     close_time = models.DateTimeField(null=True, verbose_name='关课时间')
     create_time = models.DateTimeField(null=True, verbose_name='创建时间')
@@ -70,10 +72,10 @@ class Student(models.Model):
     phone = models.BigIntegerField(null=True, verbose_name='电话')
     create_time = models.DateTimeField(null=True, verbose_name='创建时间')
     amount = models.IntegerField(null=True, default=0, verbose_name='登入次数')
-    sum_time = models.CharField(max_length=50,null=True, default='0', verbose_name='时间总和')
+    sum_time = models.CharField(max_length=50, null=True, default='0', verbose_name='时间总和')
     late_time = models.DateTimeField(null=True, verbose_name='最后登入时间')
     study_time = models.CharField(max_length=50, null=True, default='0', verbose_name='学习时长')
-    score = models.IntegerField(null=True,verbose_name="得分")
+    score = models.IntegerField(null=True, verbose_name="得分")
 
     def __str__(self):
         return self.student_name
@@ -96,3 +98,34 @@ class Report(models.Model):
 
     class Meta:
         db_table = 'report'
+
+
+class Course(models.Model):
+    """课程表"""
+    course_id = models.AutoField(primary_key=True, verbose_name="课程id")
+    course_name = models.CharField(max_length=50, verbose_name="课程名称")
+    course_recommend = models.CharField(max_length=1024, null=True, verbose_name="课程介绍")
+    course_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
+                                    verbose_name=u"有效性", max_length=10)
+
+    def __str__(self):
+        return self.course_name
+
+    class Meta:
+        db_table = 'course'
+
+
+class Task(models.Model):
+    """任务表"""
+    task_id = models.AutoField(primary_key=True, verbose_name="任务id")
+    task_name = models.CharField(max_length=50, verbose_name="任务名称")
+    task_recommend = models.CharField(max_length=1000, null=True, verbose_name="任务简介")
+    task_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
+                                  verbose_name=u"有效性", max_length=10)
+    course_name = models.CharField(max_length=50, null=True, verbose_name="课程名称")
+
+    def __str__(self):
+        return self.task_name
+
+    class Meta:
+        db_table = 'task'
