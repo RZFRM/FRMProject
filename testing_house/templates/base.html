@@ -247,7 +247,7 @@
                             </dd>
                             <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教务管理</a>
                             </dd>
-                            <dd><a lay-href="/school_delete_search">
+                            <dd><a href="javascript:;" id="add">
                                 <img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学校管理</a></dd>
                             <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 课程管理</a>
                             </dd>
@@ -343,7 +343,7 @@
             , laydate = layui.laydate;
 
         $('#add').on('click', function () {
-            location.href = "../teach_task/templates/school-admin.html";
+            location.href = "/school-admin.html";
         });
     })
 

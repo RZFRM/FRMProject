@@ -160,6 +160,7 @@ class School_delete_search(View):
 
     def get(self, request):
         """学校删除功能"""
+        # return render(request,"school-admin.html")
         school_code = request.GET.get("school_code")
         sql = "delete from school where school_code='%s'" % int(school_code)
         try:

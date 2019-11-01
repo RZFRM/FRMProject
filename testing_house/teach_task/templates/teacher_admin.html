@@ -14,7 +14,7 @@
 <div class="layui-col-train-teach">
     <div class="layui-card">
         <div class="layui-card-header" style="width: 1920px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
-            班级管理
+            教师管理
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@
     </div>
     <div class="demoTable">
         <div class="layui-inline">
-            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索班级名称">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索用户名">
         </div>
         <button class="layui-btn" data-type="reload">搜索</button>
     </div>
@@ -63,15 +63,13 @@
             , cols: [[
                 {checkbox: true, fixed: true}
                 , {field: 'a', title: '序号', width: "5%"}
-                , {field: 'b', title: '班级名称', width: "10%"}
-                , {field: 'c', title: '班级编号', width: "10%"}
-                , {field: 'd', title: '所属专业', width: "10%"}
-                , {field: 'e', title: '授课教师',width:"15%"}
+                , {field: 'b', title: '姓名', width: "15%"}
+                , {field: 'c', title: '用户名', width: "15%"}
+                , {field: 'd', title: '密码', width: "10%"}
+                , {field: 'e', title: '手机号码',width:"25%"}
                 , {field: 'f', title: '状态', width: "10%"}
-                , {field: 'g', title: '开课时间', width: "10%"}
-                , {field: 'h', title: '关课时间', width: "10%"}
-                , {field: 'i', title: '创建人员', width: "10%"}
-                , {field: 'h', title: '操作时间', width: "10%"}
+                , {field: 'g', title: '创建人', width: "10%"}
+                , {field: 'h', title: '操作时间', width: "15%"}
             ]]
             , page: true
         });
