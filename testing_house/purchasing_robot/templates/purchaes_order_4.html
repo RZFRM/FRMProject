@@ -84,7 +84,8 @@
                     <select lay-verify="required" lay-search="" style="width:100%;height: 30px;" name="supplier_name">
                         <option value="">直接选择或搜索选择</option>
                         <option value="大通厂">大通厂</option>
-                        <option value="光明家具厂">光明家具厂</option>
+                        <option value="光明厂">光明厂</option>
+                        <option value="神龙厂">神龙厂</option>
                     </select>
                 </div>
             </div>
@@ -110,7 +111,7 @@
                 </lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" lay-verify="required|number" class="layui-input"
-                           placeholder="请输入商品单价" onblur="abc()" id="money" name="free_tax_unit_price"
+                           placeholder="请输入商品单价" onkeyup="abc()" id="money" name="free_tax_unit_price"
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
@@ -118,7 +119,7 @@
                 <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>数量：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" lay-verify="required|number" class="layui-input"
-                           placeholder="请输入数量" onblur="abc()" id="numbar" name="count"
+                           placeholder="请输入数量" onkeyup="abc()" id="numbar" name="count"
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
