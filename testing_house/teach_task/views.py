@@ -80,7 +80,6 @@ class Task(View):
 # 学校管理页面
 class School(View):
     """学校管理页面展示，学校新增/修改逻辑"""
-
     def get(self, request):
         """GET请求，学校管理页面展示"""
         sql = "select school_code,school_name,school_rank,school_type,school_province,school_city,admin_name,create_name,create_time from school"
@@ -104,9 +103,17 @@ class School(View):
                     "i": i[8]
                 }
                 data_list.append(data)
-            return JsonResponse({"result": data_list})
+            res_dict = {
+                "code": 0,
+                "data": data_list
+            }
+            return JsonResponse(res_dict)
         else:
-            return JsonResponse({"result": ""})
+            res_dict = {
+                "code": 0,
+                "data": ""
+            }
+            return JsonResponse(res_dict)
 
     def post(self, request):
         """POST请求，新增、修改逻辑"""
@@ -1286,7 +1293,8 @@ def course(request):
 
 class Course_task(View):
     """课程管理，任务查看，与简介设置"""
-    def get(self,request):
+
+    def get(self, request):
         """课程管理，任务展示"""
         sql = "select task_name from task"
         try:
@@ -1301,7 +1309,7 @@ class Course_task(View):
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
-    def post(self,request):
+    def post(self, request):
         """简介设置"""
         task_name = request.POST.get("task_name")
         task_recommend = request.POST.get("task_recommend")
@@ -1310,7 +1318,7 @@ class Course_task(View):
         try:
             task_info = SqlModel().select_one(sql)
             if task_info:
-                sql_up = "updata task set task_recommend='%s' where task_name='%s'" % (task_recommend,task_name)
+                sql_up = "updata task set task_recommend='%s' where task_name='%s'" % (task_recommend, task_name)
                 res = SqlModel().insert_or_update(sql_up)
                 if res:
                     return JsonResponse({"result": "设置成功"})
