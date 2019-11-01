@@ -1,13 +1,13 @@
 import pymysql
 from  etc.MysqlSetting import *
-
+from testing_house.settings import DATABASES
 
 
 class SqlModel(object):
     def __init__(self):
-        self.host = "192.168.1.152"
-        self.user = "root"
-        self.passwd = "123456"
+        self.host = DATABASES["default"]["HOST"]
+        self.user = DATABASES["default"]["USER"]
+        self.passwd = DATABASES["default"]["PASSWORD"]
         self.dbname = "FinceRobotManager"
         try:
             self.db = pymysql.connect(self.host,self.user,self.passwd,self.dbname)
@@ -336,7 +336,6 @@ class Mysql_client_FRM(Mysql_base):
             print('没有id请从1开始',e )
             return False
         # TODO: 处理插入异常
-
 
     def get_insert(self,table,values,fields=None):
         try:
