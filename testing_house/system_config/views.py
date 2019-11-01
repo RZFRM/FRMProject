@@ -11,7 +11,7 @@ from IsearchAPI.ISAPI import rpa_rest
 from sql_operating.mysql_class import *
 from IsearchAPI.Baidu_TicketIdentification import *
 from sql_operating.mysql_class import Mysql_client
-from .models import User, Job_list_summary, Application_info
+# from .models import User, Job_list_summary, Application_info
 import time
 
 

@@ -20,7 +20,7 @@ from system_config.models import User, Job_list_summary, Application_info
 import time
 from sql_operating.mysql_class import *
 from etc.command import  *
-from  personal_center.views import   update_sql
+# from  personal_center.views import   update_sql
 
 
 
@@ -119,14 +119,14 @@ def pruchasing_robot_base_data(request):
 def pruchasing_robot_business(request):
     user_name = request.COOKIES.get('user_name')
     print(user_name)
-    update_sql(user_name)
+    # update_sql(user_name)
     return render(request, 'purchasing_robot_business_manager.html', locals())
 
 
 #  TODO  采购机器人任务管理页
 def pruchasing_robot_jobs(request):
     user_name = request.COOKIES.get('user_name')
-    update_sql(user_name)
+    # update_sql(user_name)
     return render(request, 'purchasing_robot_jobs_manager.html')
 
 
@@ -221,7 +221,7 @@ def purchaes_requisitions_create_data(request):
                               , purchase_time_1, recommended_date,
                               purchase_apply_status, department_head_1, company_head_1, business_name_1),
                       fields="(gmt_create, gmt_modified,purchase_number,procurement_type,purchase_usesing,"
-                             "goods_number,recommended_unite_price_ ,specification,goods_count,"
+                             "goods_number,recommended_unite_price ,specification,goods_count,"
                              "recommended_price,applicant,application_depart,user_name,"
                              "purchase_time,recommended_date,"
                              "purchase_apply_status,department_head,company_head,business_name)")
@@ -278,20 +278,28 @@ def set_contract_by_purchase_number(request):
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
-    for i in user_jobs:
-        data_list.append(i[0])
+    if user_jobs[0]:
 
+        for i in user_jobs:
+            data_list.append(i[0])
+        print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
 
-    print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
-
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
-    data = {
-        "code": "200"
-        , "msg": ""
-        , "count": 1
-        , "data": data_list
-    }
-    return  JsonResponse(data)
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data = {
+            "scuess": "200"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+        return  JsonResponse(data)
+    else:
+        data = {
+            "fail": "4444"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+        return JsonResponse(data)
 
 
 
@@ -350,7 +358,8 @@ def set_purchaes_order_create_data(request):
     #  TODO  1.获取机器人名字, 2,获取请购信息
 
     sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" %purchase_number
-    goods_name = str(DB.select_one(sql))[0]
+    goods_name = str(DB.select_one(sql)[0])
+    print('----------------goods_name--------',goods_name)
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-合同申请与审批'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
@@ -370,7 +379,7 @@ def set_purchaes_order_create_data(request):
                              "tax_rate,free_tax_unit_price,count,"
                              "summary_price,demand_date,"
                              "applicant,application_sector,application_date,"
-                             "department_head,company_head,user_name,contract_apply_status,business_name,)")
+                             "department_head,company_head,user_name,contract_apply_status,business_name)")
     except Exception as e:
         print('插入失败！')
         data = {
@@ -390,24 +399,24 @@ def set_purchaes_order_create_data(request):
     print(localTime)
 
     # TODO  写入数据库
-    # try:
-    #     job_list_summary = Job_list_summary()
-    #     job_list_summary.job_type = '采购合同机器人'
-    #     job_list_summary.job_no = job_no
-    #     job_list_summary.job_id = purchase_number
-    #     job_list_summary.job_name = jobs_name
-    #     job_list_summary.user_name_id = user_name
-    #     job_list_summary.job_start_time = localTime
-    #     job_list_summary.job_status = '1111'
-    #     job_list_summary.save()
-    #     data = {
-    #         "code": '200'
-    #         , "msg": "成功！"
-    #         , "count": 1
-    #     }
-    #     return JsonResponse(data)
-    # except:
-    #     print('写入数据库失败！')
+    try:
+        job_list_summary = Job_list_summary()
+        job_list_summary.job_type = '采购合同机器人'
+        job_list_summary.job_no = job_no
+        job_list_summary.job_id = purchase_number
+        job_list_summary.job_name = jobs_name
+        job_list_summary.user_name_id = user_name
+        job_list_summary.job_start_time = localTime
+        job_list_summary.job_status = '1111'
+        job_list_summary.save()
+        data = {
+            "code": '200'
+            , "msg": "成功！"
+            , "count": 1
+        }
+        return JsonResponse(data)
+    except:
+        print('写入数据库失败！')
 
 
     data = {
@@ -468,13 +477,14 @@ def purchaes_business_data_display(request):
 
 #  TODO  任务 信息
 def set_purchase_robot_jobs_info(request):
-    #  TODO 返回 未完成列表 数据
+
     data_list  =[]
     user_name = request.COOKIES.get('username')
     sql = "select  id,job_no,job_name, job_type,job_start_time,job_status   from  job_list_summary where  job_type like '采购%%' and user_name_id= '%s' order by id desc "%user_name
-    user_jobs = DB.get_select_all(sql_info=sql)
-
-    print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
+    # user_info = user_jobs = Job_list_summary.objects.filter(Q(user_name_id=user_name) & ~Q(isdelete=1))
+    user_jobs = DB.select_all(sql_info=sql)
+    # user_jobs = DB.get_select(table='job_list_summary',fields='(id,job_no,job_name, job_type,job_start_time,job_status)', condition = user_name)
+    print(' 已完成：：：：：：：：：：：：：：：：：',sql)
 
     for i in user_jobs:
         data_dic = {
@@ -486,7 +496,7 @@ def set_purchase_robot_jobs_info(request):
             , "job_status": run_status[i[5]]
         }
         data_list.append(data_dic)
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',data_list)
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>任务')
     data = {
         "code": 0
         , "msg": ""
@@ -505,45 +515,54 @@ def set_purchase_robot_buession_info(request):
     user_name = request.COOKIES.get('username')
     sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   "%user_name
     print(sql)
-    user_jobs = DB.get_select_all(sql_info=sql)
+    user_jobs = DB.select_all(sql_info=sql)
 
     print(user_jobs)
     data_list = []
-    print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
-
-    for i in user_jobs:
-        data_dic = {
-             "id":i[6]
-            ,"business_name": i[0]
-            , "gmt_create": str(i[1])
-            , "application_depart": i[2]
-            ,'robot_name':'采购请购机器人'
-            , "applicant": i[3]
-            , "purchase_apply_status": run_status[i[4]]
-            , "gmt_modified":str(i[5])
+    # print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
+    if user_jobs:
+        for i in user_jobs:
+            data_dic = {
+                 "id":i[6]
+                ,"business_name": i[0]
+                , "gmt_create": str(i[1])
+                , "application_depart": i[2]
+                ,'robot_name':'采购请购机器人'
+                , "applicant": i[3]
+                , "purchase_apply_status": run_status[i[4]]
+                , "gmt_modified":str(i[5])
+            }
+            data_list.append(data_dic)
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>业务信息查询成功')
+        data = {
+            "code": 0
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
         }
-        data_list.append(data_dic)
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',data_list)
-    data = {
-        "code": 0
-        , "msg": ""
-        , "count": 1
-        , "data": data_list
-    }
+        return JsonResponse(data)
+    else:
+        data = {
+            "code": 0
+            , "msg": "查询失败！"
+            , "count": 1
+            , "data": data_list
+        }
+        return JsonResponse(data)
 
 
-    return JsonResponse(data)
 
 # TODO  创建请购单数据
 def set_create_purchase_number(request):
     # TODO  判断 数据库是否有 CG000001
     user_name = request.COOKIES.get('username')
+    id = 1
     try:
         sql = "select id from purchase_apply_table  where  user_name ='%s'  order by id desc  limit 1 ;" % user_name
         buessines_info = DB.get_select_one(sql_info=sql)[0]
         print(buessines_info)
+
         if buessines_info == False  or  buessines_info  == 0:
-            id = 1
             purchase_number = "CG0000" + str(id)
             return HttpResponse(purchase_number)
         else:
@@ -551,17 +570,29 @@ def set_create_purchase_number(request):
             purchase_number = "CG0000" + str(id)
             return HttpResponse(purchase_number)
     except Exception as e:
-        print('调取数据库失败!', e)
-        return HttpResponse(False)
 
+        purchase_number = "CG0000" + str(id)
+        return HttpResponse(purchase_number)
+
+# from teach_task.models import  Class
+# from  system_config.models import  purchase_contract_table
+# #  TODO  trst
+# def  test(request):
+#     user_name ='kj1'
+#     purchase = purchase_contract_table.objects.filter(user_name =user_name)
+#     print(purchase)
+#     return HttpResponse("pooo")
+#
+#
+#
+#
 
 
 #  TODO  创建查看共功能数据
 def set_view_information_data(request):
     user_name  = request.COOKIES.get('username')
     id = request.GET.get('id')
-    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price_, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(
-        id)
+    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price_, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(id)
     print(sql)
 
     try:
