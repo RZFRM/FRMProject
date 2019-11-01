@@ -328,7 +328,17 @@ class Mysql_client_FRM(Mysql_base):
         except Exception as e:
             print('没有id请从1开始',e )
             return False
-        # TODO: 处理插入异常
+
+    def get_select(self,table, fields, condition, order_by=None, limit = None, desc=False):
+
+        print('查找语句')
+        select_info  = self.select(table=table, fields=fields,condition=condition, order_by=order_by, limit=limit,desc=desc)
+        if select_info:
+            return  select_info
+        else:
+            select_info = '查询失败！'
+            return select_info
+
 
 
 
