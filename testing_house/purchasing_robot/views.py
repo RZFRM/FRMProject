@@ -154,7 +154,7 @@ def purchaes_requisitions_create(request):
     #
     # purchase_number = 'CG0000007'
     # print(locals())
-    return  render(request, 'purchaes_storage_6.html')
+    return  render(request, 'purchaes_payment_10.html')
     return render(request, 'purchaes_requisitions_2.html', locals())
 
 
