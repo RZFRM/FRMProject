@@ -19,6 +19,36 @@ from .common import province_city
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
+def school_jump(request):
+    """学校页面跳转"""
+    return render(request, "school-admin.html")
+
+
+def province_jump(request):
+    """教务页面跳转"""
+    return render(request, "teach-admin。html")
+
+
+def major_jump(request):
+    """专业页面跳转"""
+    return render(request, "professional-admin.html")
+
+
+def class_jump(request):
+    """班级页面跳转"""
+    return render(request, "class-admin.html")
+
+
+def teacher_jump(request):
+    """教务页面跳转"""
+    return render(request, "teacher-admin.html")
+
+
+def student_jump(request):
+    """学生页面跳转"""
+    return render(request, "students_admin.html")
+
+
 class Index(View):
     def get(self, request):
         return render(request, 'login.html')
@@ -59,10 +89,21 @@ class Task(View):
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
         if admin_type:
-            task_root = ["实训任务", "教学资源", "学生管理", "教师管理", "班级管理", "专业管理", "教务管理", "学校管理", "课程管理", "案例管理"]
-            task_edu = ["实训任务", "教学资源", "学生管理", "教师管理", "班级管理", "专业管理", "教务管理"]
-            task_teach = ["实训任务", "教学资源", "学生管理"]
-            task_student = ["实训任务", "教学资源"]
+            task_root = [{"name": "实训任务", "url": ""}, {"name": "实训任务卡", "url": ""}, {"name": "教学管理", "url": ""},
+                         {"name": "学生管理", "url": "/student_jump"}, {"name": "教师管理", "url": "/teacher_jump"},
+                         {"name": "班级管理", "url": "/class_jump"}, {"name": "专业管理", "url": "/major_jump"},
+                         {"name": "教务管理", "url": "/teach_jump"}, {"name": "学校管理", "url": "/school_jump"},
+                         {"name": "课程管理", "url": ""}, {"name": "案例管理", "url": ""}]
+
+            task_edu = [{"name": "实训任务", "url": ""}, {"name": "实训任务卡", "url": ""}, {"name": "教学管理", "url": ""},
+                         {"name": "学生管理", "url": "/student_jump"}, {"name": "教师管理", "url": "/teacher_jump"},
+                         {"name": "班级管理", "url": "/class_jump"}, {"name": "专业管理", "url": "/major_jump"},
+                         {"name": "教务管理", "url": "/teach_jump"}]
+
+            task_teach = [{"name": "实训任务", "url": ""}, {"name": "实训任务卡", "url": ""}, {"name": "教学管理", "url": ""},{"name": "学生管理", "url": "/student_jump"}]
+
+            task_student = [{"name": "实训任务", "url": ""}, {"name": "实训任务卡", "url": ""}]
+
             if admin_type[0] == '1':
                 return JsonResponse({"result": task_root})
             elif admin_type[0] == '2':
@@ -80,6 +121,7 @@ class Task(View):
 # 学校管理页面
 class School(View):
     """学校管理页面展示，学校新增/修改逻辑"""
+
     def get(self, request):
         """GET请求，学校管理页面展示"""
         sql = "select school_code,school_name,school_rank,school_type,school_province,school_city,admin_name,create_name,create_time from school"
@@ -573,6 +615,7 @@ class Major_delete_search(View):
 
 class Class(View):
     """班级模块，页面展示、新增与修改功能"""
+
     def get(self, request):
         username = request.COOKIES.get("username")
         # username = request.GET.get("username")    # 测试用
