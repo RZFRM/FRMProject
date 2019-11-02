@@ -28,7 +28,7 @@
     </div>
     <div class="demoTable">
         <div class="layui-inline">
-            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索任务名称">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索姓名">
         </div>
         <button class="layui-btn" data-type="reload">搜索</button>
     </div>
@@ -63,14 +63,13 @@
             , cols: [[
                 {checkbox: true, fixed: true}
                 , {field: 'a', title: '序号', width: "5%"}
-                , {field: 'b', title: '学校代码', width: "10%"}
-                , {field: 'c', title: '学校名称', width: "10%"}
-                , {field: 'd', title: '办学层次', width: "10%"}
-                , {field: 'e', title: '办学类型',width:"10%"}
-                , {field: 'f', title: '省份', width: "10%"}
-                , {field: 'g', title: '城市', width: "10"}
-                , {field: 'h', title: '教务管理员', width: "10"}
-                , {field: 'i', title: '创建人员', width: 135}
+                , {field: 'b', title: '姓名', width: "15%"}
+                , {field: 'c', title: '用户名', width: "15%"}
+                , {field: 'd', title: '密码', width: "10%"}
+                , {field: 'e', title: '手机号码',width:"25%"}
+                , {field: 'f', title: '状态', width: "10%"}
+                , {field: 'g', title: '创建人', width: "10%"}
+                , {field: 'h', title: '操作时间', width: "15%"}
             ]]
             , page: true
         });

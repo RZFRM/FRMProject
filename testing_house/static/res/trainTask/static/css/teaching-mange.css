@@ -1,0 +1,33 @@
+.school-head>.demoTable{
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    width:1651px;
+    height:50px;
+    line-height: 50px;
+    background:rgba(242,242,242,1);
+}
+.school-head>.demoTable>p{
+    margin-left: 50px;
+    width:72px;
+    height:18px;
+    font-size:18px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgba(51,51,51,1);
+    line-height:50px;
+
+}
+
+.school-head>.demoTable>.layui-inline{
+    width:412px;
+    height:43px;
+}
+.input-teaching{
+    width:412px;
+    height:43px;
+    margin-left: 1000px;
+}
+.input-teaching>.input-teaching{
+    width: 200px;
+}
