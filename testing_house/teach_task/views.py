@@ -267,14 +267,29 @@ class Edu(View):
                             'g': i[6]
                         }
                         data_list.append(data)
-
-                    return JsonResponse({"resutlt": data_list})
+                    data_dict = {
+                        "code": 0,
+                        "data": data_list
+                    }
+                    return JsonResponse(data_dict)
                 else:
-                    return JsonResponse({"result": ""})
+                    data_dict = {
+                        "code": 0,
+                        "data": ""
+                    }
+                    return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": "该登入帐号没有对应学校，无法显示教务信息"})
+                data_dict = {
+                    "code": 0,
+                    "data": {"fail": "该登入帐号没有对应学校，无法显示教务信息"}
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
     def post(self, request):
         """教务 新增接口"""
@@ -367,11 +382,36 @@ class Edu_delete_search(View):
         try:
             admin_info = SqlModel().select_all(sql)
             if admin_info:
-                return JsonResponse({"result": admin_info})
+                data_list = []
+                for i in admin_info:
+                    i[6] = str(i[6])[:10]
+                    data = {
+                        "a": i[0],
+                        "b": i[1],
+                        "c": i[2],
+                        "d": i[3],
+                        "e": i[4],
+                        "f": i[5],
+                        'g': i[6]
+                    }
+                    data_list.append(data)
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": ""})
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
 
 class Major(View):
@@ -391,7 +431,6 @@ class Major(View):
                 major_list = SqlModel().select_all(sql_info)
                 if major_list:
                     data_list = []
-
                     for i in major_list:
                         i[4] = str(i[4])[:10]
                         data = {
@@ -402,13 +441,29 @@ class Major(View):
                             "e": i[4]
                         }
                         data_list.append(data)
-                    return JsonResponse({"result": data_list})
+                    data_dict = {
+                        "code": 0,
+                        "data": data_list
+                    }
+                    return JsonResponse(data_dict)
                 else:
-                    return JsonResponse({"result": ""})
+                    data_dict = {
+                        "code": 0,
+                        "data": ""
+                    }
+                    return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": "该登入帐号没有对应学校，无法显示专业信息"})
+                data_dict = {
+                    "code": 0,
+                    "data": {"fail": "该登入帐号没有对应学校，无法显示专业信息"}
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
     def post(self, request):
         """POST请求，新增、逻辑"""
@@ -497,21 +552,31 @@ class Major_delete_search(View):
                         "e": i[4]
                     }
                     data_list.append(data)
-                return JsonResponse({"result": data_list})
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": ""})
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
 
 class Class(View):
     """班级模块，页面展示、新增与修改功能"""
-
     def get(self, request):
         username = request.COOKIES.get("username")
         # username = request.GET.get("username")    # 测试用
         sql = "select school_code from user where user_name = '%s'" % username
-
         try:
             school_code = SqlModel().select_one(sql)
             if school_code:
@@ -536,13 +601,29 @@ class Class(View):
                             'i': i[8]
                         }
                         data_list.append(data)
-                    return JsonResponse({"result": data_list})
+                    data_dict = {
+                        "code": 0,
+                        "data": data_list
+                    }
+                    return JsonResponse(data_dict)
                 else:
-                    return JsonResponse({"result": ""})
+                    data_dict = {
+                        "code": 0,
+                        "data": ""
+                    }
+                    return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": "该登入帐号没有对应学校，无法显示班级信息"})
+                data_dict = {
+                    "code": 0,
+                    "data": {"fail": "该登入帐号没有对应学校，无法显示班级信息"}
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
     def post(self, request):
         """班级  新增功能"""
@@ -660,11 +741,23 @@ class Class_delete_search(View):
                         'i': i[8]
                     }
                     data_list.append(data)
-                return JsonResponse({"result": data_list})
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": ""})
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
 
 class Class_down(View):
@@ -732,11 +825,23 @@ class Teacher(View):
                         'g': i[6]
                     }
                     data_list.append(data)
-                return JsonResponse({"result": data_list})
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": ""})
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
     def post(self, request):
         """新增、修改"""
@@ -850,11 +955,23 @@ class Teacher_delete_search(View):
                         'g': i[6]
                     }
                     data_list.append(data)
-                return JsonResponse({"result": data_list})
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": ""})
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
 
 class Student(View):
@@ -894,13 +1011,29 @@ class Student(View):
                             'k': i[10]
                         }
                         data_list.append(data)
-                    return JsonResponse({"result": data_list})
+                    data_dict = {
+                        "code": 0,
+                        "data": data_list
+                    }
+                    return JsonResponse(data_dict)
                 else:
-                    return JsonResponse({"result": ""})
+                    data_dict = {
+                        "code": 0,
+                        "data": ""
+                    }
+                    return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": "fail", "msg": "该帐号没有对应学校，无法查看学生信息"})
+                data_dict = {
+                    "code": 0,
+                    "data": {"fail": "该帐号没有对应学校，无法查看学生信息"}
+                }
+                return JsonResponse(data_dict)
         except Exception as e:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
     def post(self, request):
         """学生页面新增功能"""
@@ -1030,11 +1163,23 @@ class Student_delete_search(View):
                         'k': i[10]
                     }
                     data_list.append(data)
-                return JsonResponse({"result": data_list})
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": ""})
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
         except Exception as e:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
 
 class Student_down(View):
