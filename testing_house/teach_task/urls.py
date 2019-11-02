@@ -2,6 +2,14 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+
+    url(r'school_jump', views.school_jump),
+    url(r'teach_jump', views.province_jump),
+    url(r'major_jump', views.major_jump),
+    url(r'class_jump', views.class_jump),
+    url(r'teacher_jump', views.teacher_jump),
+    url(r'student_jump', views.student_jump),
+
     url(r'index', views.Index.as_view()),
     url(r'task', views.Task.as_view()),
     url(r'school_delete_search', views.School_delete_search.as_view()),
@@ -31,5 +39,5 @@ urlpatterns = [
     url(r'student', views.Student.as_view()),
     url(r'report', views.Report.as_view()),
     url(r'course_add', views.course),
-    url(r'course_task',views.Course_task.as_view()),
+    url(r'course_task', views.Course_task.as_view()),
 ]
