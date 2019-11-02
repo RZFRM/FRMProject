@@ -161,6 +161,7 @@ def purchaes_requisitions_create(request):
 # TODO  采购机器人第二步数据
 
 def purchaes_requisitions_create_data(request):
+
     user_name = request.COOKIES.get('username')
 
     # TODO 请购单编号
@@ -426,6 +427,18 @@ def set_purchaes_order_create_data(request):
         , "count": 1
     }
     return JsonResponse(data)
+
+
+# 第六步数据提交地址
+def set_purchaes_storage_create_data(request):
+    if request.POST:
+        return HttpResponse('200')
+
+
+
+# 第六步数据提交地址
+
+
 
 
 
