@@ -64,33 +64,33 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing">*</span>合同编号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
-                        <option style="height: 32px" value="">直接选择或搜索选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
+                    <select name="modules" lay-verify="required" lay-search="" id="asd" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="" dataidx="">直接选择或搜索选择</option>
+                        <option value="1" dataidx="123">CG-2020110328</option>
+                        <option value="2" dataidx="124">CG-2020120101</option>
+                        <option value="3" dataidx="125">CG-2020120102</option>
+                        <option value="4" dataidx="126">CG-2020120608</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">审批时间：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="2020/12/6  11:48:09" disabled
+                    <input type="text" autocomplete="off" class="layui-input" value="2020/12/6  11:48:09" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">仓库名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="材料库" disabled
+                    <input type="text" autocomplete="off" name="" class="layui-input" value="材料库" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">入库时间：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="2020/12/10  9:03:42" disabled
+                <div class="layui-input-block" style="min-height: 30px;" name="warehouse_date">
+                    <input type="text" autocomplete="off" class="layui-input" value="2020/12/10  9:03:42" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
@@ -98,7 +98,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing">*</span>点验人员：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="application" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请填写点验人员的姓名</option>
                         <option value="1">谢宏</option>
                         <option value="2">刘霞</option>
@@ -125,6 +125,9 @@
         laydate.render({
             elem: '#date'
         });
+
+        var aaa = $("#asd").find("option:selected").attr("dataidx");
+        console.log(aaa)
 
         //button提交监听
         form.on('submit(demo6)', function (data) {
