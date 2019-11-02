@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>教务管理/新增/修改</title>
+    <title>班级管理/新增/修改</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
@@ -51,6 +51,20 @@
             color: #0C0C0C;
             margin: 8px;
         }
+        .increase {
+            position: absolute;
+            top: 7px;
+            right: -44px;
+            width:29px;
+            height:15px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            text-decoration:underline;
+            color:rgba(0,150,136,1);
+            line-height:40px;
+            list-style: none;
+        }
         .btn {
             width: 105px;
             height: 39px;
@@ -71,7 +85,7 @@
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>教务管理</span>
+        <span>班级管理</span>
         <button>X</button>
     </div>
 
@@ -81,36 +95,22 @@
     <div style="height: 425px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">用户名：</lable>
+                <lable class="layui-form-label" style="padding:5px 15px;">班级名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入用户名" disabled
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入班级名称" disabled
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">密码：</lable>
+                <lable class="layui-form-label" style="padding:5px 15px;">班级编号：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入密码" disabled
-                           style="min-height: 30px;line-height: 20px; height: 20px;">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">姓名：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入教师姓名" disabled
-                           style="min-height: 30px;line-height: 20px; height: 20px;">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">手机号码：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入手机号" disabled
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入班级编号" disabled
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>是否有效：</label>
+                        class="xing"></span>所属专业：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
@@ -121,10 +121,58 @@
                     </select>
                 </div>
             </div>
-            <div class="remind">
-                <p>提示：</p>
-                <p>1.设置为无效后，该账号无法登陆。</p>
-                <p>2.教师账号未添加学生账号可删除，否则不可删除。</p>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
+                        class="xing"></span>授课教师：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="">请选择</option>
+                        <option value="1">CG-2020110328</option>
+                        <option value="2">CG-2020120101</option>
+                        <option value="3">CG-2020120102</option>
+                        <option value="4">CG-2020120608</option>
+                    </select>
+                    <a class="increase">增加</a>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
+                        class="xing"></span>班级状态：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="">请选择</option>
+                        <option value="1">CG-2020110328</option>
+                        <option value="2">CG-2020120101</option>
+                        <option value="3">CG-2020120102</option>
+                        <option value="4">CG-2020120608</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
+                        class="xing"></span>开课日期：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="">请选择</option>
+                        <option value="1">CG-2020110328</option>
+                        <option value="2">CG-2020120101</option>
+                        <option value="3">CG-2020120102</option>
+                        <option value="4">CG-2020120608</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
+                        class="xing"></span>关课日期：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="">请选择</option>
+                        <option value="1">CG-2020110328</option>
+                        <option value="2">CG-2020120101</option>
+                        <option value="3">CG-2020120102</option>
+                        <option value="4">CG-2020120608</option>
+                    </select>
+                </div>
             </div>
             <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
 
