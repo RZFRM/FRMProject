@@ -9,7 +9,7 @@ from django.shortcuts import render, HttpResponse
 from django.core.paginator import Paginator
 from system_config.models import User, Job_list_summary, Application_info, JobList, EmpSalary, CorpsInfo
 from sql_operating.mysql_class import Mysql_client
-import time, datetime
+import time
 from IsearchAPI.ISAPI import rpa_rest
 from etc.command import *
 
