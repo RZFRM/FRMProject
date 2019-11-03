@@ -64,7 +64,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing">*</span>合同编号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" id="asd" style="width:100%;height: 30px;">
+                    <select name="purchase_number" lay-verify="required" lay-search="" id="asd" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="" dataidx="">直接选择或搜索选择</option>
                         <option value="1" dataidx="123">CG-2020110328</option>
                         <option value="2" dataidx="124">CG-2020120101</option>
@@ -76,21 +76,21 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">审批时间：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="2020/12/6  11:48:09" readonly
+                    <input type="text" autocomplete="off" class="layui-input" value="2020-12-06  11:48:09" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">仓库名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" name="" class="layui-input" value="材料库" readonly
+                    <input type="text" autocomplete="off" name="warehouse_number" class="layui-input" value="材料库" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">入库时间：</lable>
                 <div class="layui-input-block" style="min-height: 30px;" name="warehouse_date">
-                    <input type="text" autocomplete="off" class="layui-input" value="2020/12/10  9:03:42" readonly
+                    <input type="text" autocomplete="off" class="layui-input" value="2020-12-10  9:03:42" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
@@ -114,10 +114,9 @@
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
-    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+    layui.use(['form', 'laydate', 'jquery'], function () {
         var form = layui.form
             , layer = layui.layer
-            , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
 
