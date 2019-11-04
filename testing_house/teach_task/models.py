@@ -89,6 +89,8 @@ class Report(models.Model):
     report_name = models.CharField(max_length=50, verbose_name='报告名称')
     weight = models.IntegerField(verbose_name='权重')
     report_info = models.CharField(max_length=50, null=True, verbose_name='报表内容')
+    report_require = models.CharField(max_length=1024, null=True, verbose_name="报告要求")
+    report_answer = models.CharField(max_length=1024, null=True, verbose_name="报告答案")
     student_code = models.IntegerField(verbose_name='学号')
     score = models.IntegerField(null=True, verbose_name='得分')
     create_time = models.DateTimeField(verbose_name='创建时间')
@@ -129,3 +131,46 @@ class Task(models.Model):
 
     class Meta:
         db_table = 'task'
+
+
+class Process(models.Model):
+    """流程图 表"""
+    process_id = models.AutoField(primary_key=True, verbose_name="流程图id")
+    process_name = models.CharField(max_length=50, verbose_name="流程图名称")
+    process_position = models.CharField(max_length=50, verbose_name="流程图位置")
+    task_name = models.CharField(max_length=50, null=True, verbose_name="任务名称")
+
+    def __str__(self):
+        return self.process_name
+
+    class Meta:
+        db_table = 'process'
+
+
+class Teach_design(models.Model):
+    """教学设计 表"""
+    design_id = models.AutoField(primary_key=True, verbose_name="教学设计id")
+    design_name = models.CharField(max_length=50, null=True, verbose_name="教学设计文件名称")
+    design_position = models.CharField(max_length=50, null=True, verbose_name="文件位置")
+    task_name = models.CharField(max_length=50, null=True, verbose_name="任务名称")
+
+    def __str__(self):
+        return self.design_name
+
+    class Meta:
+        db_table = 'teach_design'
+
+
+class Course_ware(models.Model):
+    """课件 表"""
+    course_id = models.AutoField(primary_key=True, verbose_name="课件id")
+    course_name = models.CharField(max_length=50, null=True, verbose_name="课件名称")
+    course_position = models.CharField(max_length=50, null=True, verbose_name="课件位置")
+    task_name = models.CharField(max_length=50, null=True, verbose_name="任务名称")
+
+    def __str__(self):
+        return self.course_name
+
+    class Meta:
+        db_table = 'course'
+
