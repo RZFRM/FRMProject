@@ -1,9 +1,8 @@
 from django.db import models
 
 # Create your models here.
-# #
-# # # TODO   采购请购机器人数据表
 
+# # # TODO   采购请购机器人数据表
 class purchase_apply_table(models.Model):
     id= models.AutoField(primary_key=True,verbose_name="id")
     gmt_create= models.DateTimeField(null=True, verbose_name='创建时间')
@@ -71,8 +70,9 @@ class purchase_contract_table(models.Model):
     class Meta:
         db_table = 'purchase_contract_table'
 
-#
-#
+
+
+
 
 
 # TODO   采购入库机器人数据表
