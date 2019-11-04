@@ -87,29 +87,29 @@ WSGI_APPLICATION = 'testing_house.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'FinceRobotManager',
-        'USER': 'personal_tax',
-        'PASSWORD': 'Rzgcchampion2019<>?',
-        'HOST': '39.100.105.181',
-        'PORT': '3306'
-
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'FinceRobotManager',
-#         'USER': 'rzgc',
-#         'PASSWORD': 'Rzgcchampion2019',
-#         'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
+#         'USER': 'personal_tax',
+#         'PASSWORD': 'Rzgcchampion2019<>?',
+#         'HOST': '39.100.105.181',
 #         'PORT': '3306'
 #
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'FinceRobotManager',
+        'USER': 'rzgc',
+        'PASSWORD': 'Rzgcchampion2019',
+        'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
+        'PORT': '3306'
+
+    }
+}
 
 # DATABASES = {
 #     'default': {
