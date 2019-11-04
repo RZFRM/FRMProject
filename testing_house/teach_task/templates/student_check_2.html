@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>专业管理/新增/修改</title>
+    <title>学生管理/批量导入</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
@@ -34,22 +34,31 @@
             background:rgba(248,248,248,1);
             margin-left: 600px;
         }
-        .remind {
-            width:356px;
-            height:39px;
+        .explain{
+            width:342px;
+            height:40px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:#333333;
+            margin: 20px 0 20px 0;
+        }
+        .Excel {
+            margin:-21px 0 0 104px;
+        }
+        .Excel>div {
+            margin-top: 8px;
+        }
+        .Excel>div>button {
+            margin-left: 58px;
+            width:30px;
+            height:12px;
             font-size:14px;
             font-family:Microsoft YaHei;
             font-weight:400;
             color:rgba(255,84,0,1);
-            margin: 30px 0 0 42px;
-        }
-        .remind>p:nth-child(2) {
-            color: #0C0C0C;
-            margin: 8px;
-        }
-        .remind>p:nth-child(3) {
-            color: #0C0C0C;
-            margin: 8px;
+            background: none;
+            border: none;
         }
         .btn {
             width: 105px;
@@ -71,32 +80,18 @@
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>专业管理</span>
+        <span>学生管理</span>
         <button>X</button>
     </div>
 
-    <div>
-        <p>新增/修改</p>
+    <div class="">
+        <p>批量导入</p>
     </div>
     <div style="height: 425px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">专业名称：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入专业名称" disabled
-                           style="min-height: 30px;line-height: 20px; height: 20px;">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">专业代码：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入专业代码" disabled
-                           style="min-height: 30px;line-height: 20px; height: 20px;">
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>是否有效：</label>
+                        class="xing"></span>所属专业：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
@@ -105,13 +100,38 @@
                     </select>
                 </div>
             </div>
-            <div class="remind">
-                <p>提示：</p>
-                <p>1.如专业下有开通的班级，不能设置为无效。</p>
-                <p>2.专业下有班级不可删除。</p>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
+                        class="xing"></span>所属班级：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                </div>
             </div>
-            <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
+            <p style="display: inline; margin-left: 23px">学生名单：</p>
+            <fieldset class="layui-elem-field layui-field-title" style="display:inline;margin: 10px;">
 
+                <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
+            </fieldset>
+            <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
+            <div style="margin-left:90px" class="explain">
+                <p style="color:#FF5400">说明:</p>
+                <span style="margin: -18px 0 0 38px;display: block">仅支持Excel格式文件，<br>&nbsp;数据格式为：姓名，学号，密码，手机号码。</span>
+            </div>
+            <p style="margin-left:23px;margin-top: 10px">文件列表：</p>
+            <div class="Excel">
+                <div>
+                    <span>2020届新生名单会计.xsl</span>
+                    <button>删除</button>
+                </div>
+                <div>
+                    <span>2020届新生名单会计.xsl</span>
+                    <button>删除</button>
+                </div>
+             </div>
         </form>
     </div>
 </div>
@@ -128,6 +148,15 @@
         //日期
         laydate.render({
             elem: '#date'
+        });
+        //文件上传
+        upload.render({
+            elem: '#test3'
+            ,url: '/upload/'
+            ,accept: 'file' //普通文件
+            ,done: function(res){
+              console.log(res)
+            }
         });
 
         //button提交监听

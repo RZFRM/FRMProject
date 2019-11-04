@@ -13,7 +13,7 @@ class School(models.Model):
     school_type = models.CharField(max_length=10, verbose_name='学校类型')
     school_province = models.CharField(max_length=10, verbose_name='省份')
     school_city = models.CharField(max_length=10, verbose_name='城市')
-    admin_name = models.IntegerField(verbose_name='教务管理员名称')
+    admin_name = models.CharField(max_length=10, verbose_name='教务管理员名称')
     create_name = models.CharField(max_length=50, verbose_name='创建人')
     create_time = models.DateTimeField(null=True)
 
@@ -28,7 +28,7 @@ class Major(models.Model):
     major_id = models.AutoField(primary_key=True, verbose_name='专业id')
     major_code = models.IntegerField(unique=True, verbose_name='专业代码')
     major_name = models.CharField(max_length=50, verbose_name='专业名称')
-    school_code = models.IntegerField(unique=True, verbose_name='学校代码')
+    school_code = models.IntegerField(null=True, verbose_name='学校代码')
     major_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
                                    verbose_name=u"有效性", max_length=10)
     create_name = models.CharField(max_length=50, verbose_name='创建人')

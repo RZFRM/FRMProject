@@ -26,7 +26,7 @@ def school_jump(request):
 
 def province_jump(request):
     """教务页面跳转"""
-    return render(request, "teach-admin。html")
+    return render(request, "teach-admin.html")
 
 
 def major_jump(request):

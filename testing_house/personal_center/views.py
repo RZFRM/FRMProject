@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from system_config.models import User, Job_list_summary, Application_info, JobList, EmpSalary, CorpsInfo
 from sql_operating.mysql_class import Mysql_client
 import time
+import datetime
 from IsearchAPI.ISAPI import rpa_rest
 from etc.command import *
 
@@ -40,7 +41,7 @@ def set_unfinished(request):
 #  TODO 已完成列表
 def set_completed(request):
     user_name = request.COOKIES.get('username')
-    update_sql(user_name)
+    # update_sql(user_name)
     return render(request, 'completed_jobs.html', locals())
 
 
