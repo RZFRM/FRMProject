@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class FixedassetsRobotConfig(AppConfig):
-    name = 'FixedAssets_robot'
+    name = 'fixed_assets_robot'

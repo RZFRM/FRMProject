@@ -586,8 +586,7 @@ def set_create_purchase_number(request):
 def set_view_information_data(request):
     user_name = request.COOKIES.get('username')
     id = request.GET.get('id')
-    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from FA_purchase_requisition_table where id = ' + str(
-        id)
+    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from FA_purchase_requisition_table where id = ' + str(id)
     print(sql)
 
     try:
