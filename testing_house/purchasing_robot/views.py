@@ -411,8 +411,8 @@ def set_purchaes_order_create_data(request):
 
 #  TODO 入库关联  请购单
 def set_warehousing_by_purchase_number(request):
-    # user_name = request.COOKIES.get('username')
-    user_name = 'kj1'
+    user_name = request.COOKIES.get('username')
+    # user_name = 'kj1'
     sql = "select purchase_number, contract_number from purchase_contract_table  where user_name = '%s'" % user_name
 
     user_jobs = DB.get_select_all(sql_info=sql)
