@@ -1,0 +1,179 @@
+	  *{
+		  font-family: 微软雅黑;
+	  }
+	  .layui-layout-admin .layui-side {
+	      top: 60px;
+	      width: 220px;
+	      overflow-x: hidden;
+	  }
+	  .layui-layout-admin .layui-logo {
+	      position: absolute;
+	      left: 0;
+	      top: 0;
+	      width: 220px;
+	      height: 100%;
+	      line-height: 60px;
+	      text-align: center;
+	      color: #009688;
+	      font-size: 16px;
+	  }
+	  .layui-side-scroll {
+	      position: relative;
+	      width: 250px;
+	      height: 100%;
+	      overflow-x: hidden;
+	  }
+	  .layui-nav-tree {
+	      width: 220px;
+	      padding: 0;
+	  }
+	  .hover:hover{
+	  	    background-color: #009688;
+	  	    color: #fff;
+	  }
+	  .layui-layout-admin .layui-side {
+	      top: 49px;
+	      width: 220px;
+	      overflow-x: hidden;
+	  }
+	  
+	  
+	  
+	  .layui-icon{
+	  	margin-right: 10px;
+	  }
+	  .layui-layout-admin .layui-side {
+	    
+	      background-color: #393D49;
+	  }
+	  .layui-btn {
+	      margin-top: -4px;
+	      display: inline-block;
+	      height: 30px;
+	      line-height: 30px;
+	      padding: 0 18px;
+	      background-color: #009688;
+	      color: #fff;
+	      white-space: nowrap;
+	      text-align: center;
+	      font-size: 14px;
+	      border: none;
+	      border-radius: 2px;
+	      cursor: pointer;
+		  margin-left: 2px;
+	  }
+	  input[type="text"] {
+	      width: 200px;
+	      height: 20px;
+	  }
+	  .layui-row{
+		  display: flex;
+		  display: flex;
+		  height: 45px;
+		  line-height: 45px;
+		  background-color: #f2f2f2;
+		  margin-top: 0.625rem;
+		  padding-left: 0.625rem;
+	  }
+	  .content{
+		  width: 100%;
+		  overflow: auto;
+		  height: 360px;
+	  }
+	  .conter_li{
+		      list-style: none;
+		      margin-top: 26px;
+		      
+	  }
+	  .layui-btn-normal{
+		width: 130px;
+		height: 50px;
+		    margin-left: 420px;
+		    margin-top: 55px;
+		    border-radius: 10%
+	  }
+	  .leaving{
+		  width: 50%;
+		  height: 231px;
+		  border: 1px solid black;
+		  margin-top: 2.8125rem;
+	  }
+	  .download{
+		  width: 500px;
+		  height: 365px;
+		  border: 0.2px solid #000000;
+		  margin-right: 16px;
+		  margin-left: 15px;
+		  box-shadow:inset 0px 0px 0.1px 0.1px black;
+		  text-align: center;
+		  line-height: 35px;
+		  color: #FFFFFF;
+		  
+	  }
+	  .upload{
+		  width: 500px;
+		  height: 265px;
+		  border: 1px solid #000000;
+		  margin-top: 20px;
+		  margin-left: 15px;
+		  text-align: center;
+		  line-height: 35px;
+		  color: #FFFFFF;
+		  /* margin-right: 16px; */
+	  }
+	  .download_header,.upload_header{
+		  width: 500px;
+		  height: 35px;
+		  background-color: #1C84C6;
+	  }
+	  /* neirong */
+	  .layui-this:hover{
+		     background-color: #f6f6f6;
+		     color: #1E9FFF;
+			 border-top: 2px;
+			 
+	  }
+		.hover{
+			margin-left: 10px;
+		}
+	/*  dd.layui-nav-itemed {
+	      margin-left: 10px;
+	  } */
+	  dl{
+		      background-color: #292b33 !important;
+	  }
+	  .add{
+		  width: 100%;
+	  }
+	
+		 .nav {
+		     margin-bottom: 15px;
+		     margin-top: 15px;
+		 }
+		 /*  */
+	.download-li {
+	    color: black;
+	    display: flex;
+	    justify-content: space-between;
+	}
+	/*二级导航 */
+	.nav-1 {
+		display: flex;
+		justify-content: space-between;
+		background-color: #F2F2F2;
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+	}
+	.nav-3{
+		margin-right: 11px;
+	}
+	.download-li-1 {
+		display: flex;
+		justify-content: space-between;
+	}
+	.download-li-1>span{
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow:ellipsis
+	}
