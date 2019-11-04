@@ -154,12 +154,14 @@ def purchaes_requisitions_create(request):
     #
     # purchase_number = 'CG0000007'
     # print(locals())
+    # return  render(request, 'purchaes_storage_6.html')
     return render(request, 'purchaes_requisitions_2.html', locals())
 
 
 # TODO  采购机器人第二步数据
 
 def purchaes_requisitions_create_data(request):
+
     user_name = request.COOKIES.get('username')
 
     # TODO 请购单编号
@@ -391,7 +393,7 @@ def set_purchaes_order_create_data(request):
     # #  TODO  创建任务信息
     #
     job_no = create_uuid()
-    jobs_name = '采购' + goods_name + '采购订单填制'
+    jobs_name = '采购-' + goods_numbers[goods_name] + '-采购订单填制'
     print('job_no ============================', job_no)
     print('jobbbbbbbbbbbbbbb:', job_no)
     # TODO  获取开始时间写入数据库  用户名  写入数据库
@@ -427,14 +429,30 @@ def set_purchaes_order_create_data(request):
     return JsonResponse(data)
 
 
+# 第六步数据提交地址
+def set_purchaes_storage_create_data(request):
+    if request.POST:
+        return HttpResponse('200')
 
+
+
+# 第六步数据提交地址
+
+
+
+
+
+#  TODO  入库数据确定
+def set_purchaes_storage_create_data(request):
+
+    return JsonResponse({'sucess':'200'})
 
 
 
 
 #  TODO  采购机器人 弹框第五步
 def purchaes_order_determine(request):
-    data = {}
+
     return render(request, 'purchaes_order_determine_5.html')
 
 
@@ -458,6 +476,14 @@ def purchaes_reimburse_determine(request):
     return render(request, 'purchaes_reimburse_determine_9.html')
 
 
+
+#  TODO 采购  报销数据确定
+def set_purchaes_reimburse_create_data(request):
+    return JsonResponse({'sucess':'200'})
+
+
+
+
 #  TODO  采购机器人 弹框第十步
 def purchaes_payment_create(request):
     return render(request, 'purchaes_payment_10.html')
@@ -466,6 +492,12 @@ def purchaes_payment_create(request):
 #  TODO  采购机器人 弹框第十一步
 def purchaes_payment_determine(request):
     return render(request, 'purchaes_payment_determine_11.html')
+
+
+
+# TODO  采购 报账数据提交
+def set_purchaes_payment_create_data(request):
+    return JsonResponse({'sucess':'200'})
 
 
 #  TODO  采购机器人 弹框第十二步
@@ -480,20 +512,21 @@ def set_purchase_robot_jobs_info(request):
 
     data_list  =[]
     user_name = request.COOKIES.get('username')
-    sql = "select  id,job_no,job_name, job_type,job_start_time,job_status   from  job_list_summary where  job_type like '采购%%' and user_name_id= '%s' order by id desc "%user_name
-    # user_info = user_jobs = Job_list_summary.objects.filter(Q(user_name_id=user_name) & ~Q(isdelete=1))
-    user_jobs = DB.select_all(sql_info=sql)
+    # sql = "select  id,job_no,job_name, job_type,job_start_time,job_status   from  job_list_summary where  job_type like '采购%%' and user_name_id= '%s' order by id desc "%user_name
+    user_jobs = Job_list_summary.objects.filter(Q(user_name_id=user_name) & Q(job_type__contains='采购'))
+    # user_jobs = DB.select_all(sql_info=sql)
     # user_jobs = DB.get_select(table='job_list_summary',fields='(id,job_no,job_name, job_type,job_start_time,job_status)', condition = user_name)
-    print(' 已完成：：：：：：：：：：：：：：：：：',sql)
+    print(' 已完成：：：：：：：：：：：：：：：：：',user_jobs)
 
     for i in user_jobs:
+        # print(i)
         data_dic = {
-            'id':i[0]
-            ,"job_no":i[1]
-            ,"job_name": i[2]
-            , "job_type": i[3]
-            , "job_start_time": str(i[4])
-            , "job_status": run_status[i[5]]
+            'id':i.id
+            ,"job_no":i.job_no
+            ,"job_name": i.job_name
+            , "job_type": i.job_type
+            , "job_start_time": str(i.job_start_time)
+            , "job_status": run_status[i.job_status]
         }
         data_list.append(data_dic)
     print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>任务')
@@ -592,7 +625,7 @@ def set_create_purchase_number(request):
 def set_view_information_data(request):
     user_name  = request.COOKIES.get('username')
     id = request.GET.get('id')
-    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price_, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(id)
+    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(id)
     print(sql)
 
     try:

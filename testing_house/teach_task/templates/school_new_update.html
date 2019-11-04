@@ -19,10 +19,28 @@
             left: 17px;
         }
         .atitle>span{
-            margin-left: 5px;
+            width:61px;
+            height:15px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
         }
-
-
+        .atitle>button {
+            width:27px;
+            height:25px;
+            border: none;
+            background:rgba(248,248,248,1);
+            margin-left: 600px;
+        }
+        .new_update>p {
+            width:79px;
+            height:16px;
+            font-size:16px;
+            font-family:Microsoft YaHei;
+            font-weight:bold;
+            color:rgba(51,51,51,1);
+        }
         .btn {
             width: 105px;
             height: 39px;
@@ -44,9 +62,9 @@
 <div class="Popout">
     <div class="atitle">
         <span>学校管理</span>
+        <button>X</button>
     </div>
-
-    <div>
+    <div class="new_update">
         <p>新增/修改</p>
     </div>
     <div style="height: 425px;overflow: auto;padding-top:25px">
@@ -54,15 +72,15 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">学校名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="材料库" disabled
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入学校名称" disabled
+                           style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">学校代码：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="材料库" disabled
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入学校代码" disabled
+                           style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -119,7 +137,7 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>教务管理：</label>
+                        class="xing"></span>教务管理员：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
