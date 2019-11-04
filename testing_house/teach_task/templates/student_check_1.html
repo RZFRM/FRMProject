@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>学生管理/查看/判分</title>
+    <title>学生管理1/查看/判分</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
@@ -51,6 +51,47 @@
             color: #0C0C0C;
             margin: 8px;
         }
+        .task_name {
+            margin: 50px 0px 0px 100px;
+
+        }
+        .task_name>div{
+            display: flex;
+            flex-wrap: nowrap;
+            margin-top: 8px;
+        }
+        .task_name>div>p:nth-child(1) {
+            width:71px;
+            height:14px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+        }
+        .task_name>div>span:nth-child(1) {
+            width:154px;
+            height:15px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+        }
+        .task_name>div:nth-child(2){
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .task_name>div:nth-child(2){
+            width:420px;
+            height:211px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(102,102,102,1);
+            line-height:28px;
+        }
+        .report_content {
+                margin: -14px -53px 0px 72px
+        }
         .btn {
             width: 105px;
             height: 39px;
@@ -64,7 +105,7 @@
             cursor: pointer;
             position: absolute;
             left: 44%;
-            bottom: 32px;
+            bottom: 75px;
         }
     </style>
 </head>
@@ -73,15 +114,29 @@
     <div class="atitle">
         <span>学生管理</span>
         <button>X</button>
-    </div>
-
-    <div>
         <p>查看/判分</p>
+    </div>
+    <div class="task_name">
+        <div>
+            <p>任务名称：</p>
+            <span>&nbsp;&nbsp;采购与付款核算机器人</span>
+        </div>
+        <div>
+            <p>报告内容:</p>
+            <div class="report_content">
+                <span>&nbsp;&nbsp;1.传统方式下，不同部门，职责人员分工不同，在采购与付款业务中，操作U8-ERP系统的人员至少包括采购员、采购负责人、仓库保管员会计、财务经理、出纳，6种不同角色成员；但在财务机器人模式下，只有一个角色，即财务机器人。<br>2.传统方式下，票据的集中化处理，不及时处理较为严重，同时涉及到多个岗位、多个角色时，互相沟通、协调，需要在ERP等系统中完成全部操作的时间远远超过操作本身；但在财务机器人模式下，集中化了各类操作人员到一个人身上。</span>
+
+            </div>
+        </div>
+        <div style="margin-top: 30px">
+            <p>报告人：</p>
+            <span>邓煜</span>
+        </div>
     </div>
     <div style="height: 425px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">判分：</lable>
+            <div class="layui-form-item" style="margin-left:-137px;">
+                <lable class="layui-form-label" style="padding:5px 15px;">判&nbsp;&nbsp;&nbsp;分：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" placeholder="请输入分数（百分制）" disabled
                            style="min-height: 30px;line-height: 20px; height: 20px;">
@@ -89,8 +144,8 @@
             </div>
             <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
             <div class="remind">
-                <p>提示：</p>
-                <p>提交后不允许更改</p>
+                <p style="margin: 20% 0 0 17%">提示：</p>
+                <p style="position: absolute; bottom:6%;left: 45%">提交后不允许更改</p>
             </div>
 
 

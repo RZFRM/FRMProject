@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>专业管理/新增/修改</title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        ul {
+            position: absolute;
+            top: 95px;
+            left: 17px;
+        }
+        .atitle>span{
+            margin-left: 5px;
+            width:61px;
+            height:15px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+        }
+        .atitle>button {
+            width:27px;
+            height:25px;
+            border: none;
+            background:rgba(248,248,248,1);
+            margin-left: 600px;
+        }
+       .task_name {
+           display: flex;
+           flex-wrap: wrap;
+           margin: 30px auto;
+           width: 530px;
+       }
+        .task_name>div>p {
+            width:71px;
+            height:14px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+            display: inline;
+        }
+        .task_purchase{
+            width:215px;
+            height:15px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+        }
+        .task_content {
+            width:395px;
+            height:351px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(102,102,102,1);
+            line-height:28px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>课程管理</span>
+        <button>X</button>
+    </div>
+
+    <div>
+        <p>参考答案</p>
+    </div>
+    <div class="task_name">
+        <div>
+            <p>任务名称:</p>
+            <span class="task_purchase">
+                &nbsp;&nbsp;&nbsp;采购与付款核算机器人实训任务
+            </span>
+        </div>
+        <div style="margin-top: 30px">
+            <p >任务简介:</p>
+            <span class="task_content" style="text-align: justify;display: block;margin-left: 76px;margin-top:-20px">
+                1.传统方式下，不同部门，职责人员分工不同，在采购与付款业务中，操作U8-ERP系统的人员至少包括采购员、采购负责人、仓库保管员会计、财务经理、出纳，6种不同角色成员；但在财务机器人模式下，只有一个角色，即财务机器人。<br>2.传统方式下，票据的集中化处理，不及时处理较为严重，同时涉及到多个岗位、多个角色时，互相沟通、协调，需要在ERP等系统中完成全部操作的时间远远超过操作本身；但在财务机器人模式下，集中化了各类操作人员到一个人身上。
+            </span>
+        </div>
+    </div>
+</div>
+</div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+
+        //button提交监听
+        form.on('submit(demo6)', function (data) {
+            //通用表单提交(AJAX方式)
+            $.ajax({
+                url: "/purchaes_storage_create_data",
+                type: "post",
+                data: $(data.form).serialize(),
+                success: function () {
+                    location.href = "/purchaes_storage_determine";
+                }
+            });
+        });
+    });
+
+</script>
+</body>
+</html>
