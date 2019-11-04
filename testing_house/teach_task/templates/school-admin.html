@@ -30,7 +30,7 @@
         <div class="layui-inline">
             <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索姓名">
         </div>
-        <button class="layui-btn" data-type="reload">搜索</button>
+        <button class="layui-btn" data-type="reload" style="margin-right: ">搜索</button>
     </div>
 </div>
 
@@ -62,44 +62,48 @@
             ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', title: '序号', width: "5%"}
-                , {field: 'b', title: '学校代码', width: "10%"}
-                , {field: 'c', title: '学校名称', width: "20%"}
-                , {field: 'd', title: '办学层次', width: "10%"}
-                , {field: 'e', title: '办学类型',width:"10%"}
-                , {field: 'f', title: '省份', width: "5%"}
-                , {field: 'g', title: '城市', width: "5%"}
-                , {field: 'h', title: '教务管理员', width: "10%"}
-                , {field: 'g', title: '创建人', width: "5%"}
-                , {field: 'h', title: '操作', width: "20%"}
+                , {field: 'a', align:"center",title: '序号', width: "5%",templet: '#xuhao'}
+                , {field: 'b', align:"center",title: '学校代码', width: "10%"}
+                , {field: 'c', align:"center",title: '学校名称', width: "20%"}
+                , {field: 'd', align:"center",title: '办学层次', width: "10%"}
+                , {field: 'e', align:"center",title: '办学类型',width:"10%"}
+                , {field: 'f', align:"center",title: '省份', width: "10%"}
+                , {field: 'g', align:"center",title: '城市', width: "10%"}
+                , {field: 'h', align:"center",title: '教务管理员', width: "10%"}
+                , {field: 'g', align:"center",title: '创建人', width: "5%"}
+                , {field: 'h', align:"center",title: '操作', width: "10%"}
             ]]
             , page: true
         });
 
-        var $ = layui.$, active = {
-            reload: function () {
-                var demoReload = $('#demoReload');
 
-                //执行重载
-                table.reload('testReload', {
-                    page: {
-                        curr: 1 //重新从第 1 页开始
-                    }
-                    , where: {
-                        key: {
-                            id: demoReload.val()
-                        }
-                    }
-                }, 'data');
-            }
-        ;
-
-        $('.demoTable .layui-btn').on('click', function(){
-          var type = $(this).data('type');
-          active[type] ? active[type].call(this) : '';
-        );
+        {#let $ = layui.$, active = {#}
+        {#    reload: function () {#}
+        {#        let demoReload = $('#demoReload');#}
+        {##}
+        {#        //执行重载#}
+        {#        table.reload('testReload', {#}
+        {#            page: {#}
+        {#                curr: 1 //重新从第 1 页开始#}
+        {#            }#}
+        {#            , where: {#}
+        {#                key: {#}
+        {#                    id: demoReload.val()#}
+        {#                }#}
+        {#            }#}
+        {#        }, 'data');#}
+        {#    }#}
+        {#;#}
+        {##}
+        {#$('.demoTable .layui-btn').on('click', function(){#}
+        {#  let type = $(this).data('type');#}
+        {#  active[type] ? active[type].call(this) : '';#}
+        {#);#}
     });
 </script>
 
+        <script type="text/html" id="xuhao">
+            {d.LAY_TABLE_INDEX+1}
+        </script>
 </body>
 </html>
