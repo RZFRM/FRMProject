@@ -5,11 +5,12 @@
     flex-wrap: nowrap;
     width:1651px;
     height:50px;
-    line-height: 50px;
+    line-height: 68px;
     background:rgba(242,242,242,1);
+    margin: 0 auto;
 }
 .demoTable{
-    margin-left: 900px;
+    margin-left: 796px;
     z-index: 999;
     border-radius: 4px;
 }

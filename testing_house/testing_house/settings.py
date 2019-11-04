@@ -104,6 +104,7 @@ DATABASES = {
 #         'PASSWORD': 'Rzgcchampion2019',
 #         'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
 #         'PORT': '3306'
+<<<<<<< HEAD
 #
 #     }
 # }
@@ -116,9 +117,23 @@ DATABASES = {
 #         'PASSWORD': '123456',
 #         'HOST': '192.168.1.152',
 #         'PORT': '3306',
+=======
+>>>>>>> de5effddd905afcc63b1a491b8296687d3330799
 #
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'FinceRobotManager',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': '192.168.1.152',
+        'PORT': '3306',
+
+    }
+}
 
 
 # Password validation

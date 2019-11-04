@@ -800,7 +800,7 @@ a cite {
 
 .layui-body {
     position: absolute;
-    left: 200px;
+    left: 0px;
     right: 0;
     top: 0;
     bottom: 0;

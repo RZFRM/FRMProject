@@ -61,6 +61,9 @@ def pruchasing_robot_base_data(request):
     # return  JsonResponse({'200':''})
     # print('配置页面修改-----------------------------',person_tax_install_path, company_name)
     #  TODO  判断用户时候已经新增  u8环境表
+
+
+
     sql = "select count(*)  from  U8login_table where user_name = '%s' " % user_name
     row_info = DB.select_one(sql)
     print(row_info)
@@ -136,12 +139,11 @@ def purchaes_requisitions_create(request):
     #
     # purchase_number = 'CG0000007'
     # print(locals())
-    # return  render(request, 'purchaes_storage_6.html')
+    return  render(request, 'purchaes_storage_6.html')
     return render(request, 'purchaes_requisitions_2.html', locals())
 
 
-# TODO  采购机器人第二步数据
-
+# TODO  采购机器人第二步数据  请购单数据
 def purchaes_requisitions_create_data(request):
     user_name = request.COOKIES.get('username')
 
@@ -256,7 +258,11 @@ def purchaes_order_create(request):
 # TODO  采购合同 获取所有请购单信息
 def set_contract_by_purchase_number(request):
     user_name = request.COOKIES.get('username')
+<<<<<<< HEAD
     sql = "select purchase_number from purchase_apply_table  where user_name = '%s'" % user_name
+=======
+    sql = "select purchase_number from purchase_contract_table  where user_name = '%s'"%user_name
+>>>>>>> de5effddd905afcc63b1a491b8296687d3330799
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
@@ -303,9 +309,6 @@ def set_purchaes_order_create_data(request):
 
     # TODO  数量
     count = request.POST.get('count')
-    #
-    # # TODO  单位
-    # unit = request.POST.get('unit')
 
     # TODO  总金额
     summary_price = request.POST.get('summary_price')
@@ -404,23 +407,164 @@ def set_purchaes_order_create_data(request):
     return JsonResponse(data)
 
 
-# 第六步数据提交地址
-def set_purchaes_storage_create_data(request):
-    if request.POST:
-        return HttpResponse('200')
 
 
+<<<<<<< HEAD
 # 第六步数据提交地址
+=======
+
+#  TODO 入库关联  请购单
+def set_warehousing_by_purchase_number(request):
+    user_name = request.COOKIES.get('username')
+    # user_name = 'kj1'
+    sql = "select purchase_number, contract_number from purchase_contract_table  where user_name = '%s'" % user_name
+
+    user_jobs = DB.get_select_all(sql_info=sql)
+    data_list = []
+    print(user_jobs)
+    if user_jobs:
+
+        for i in user_jobs:
+            data_list.append(i[0])
+        print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
+
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data = {
+            "scuess": "200"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+        return JsonResponse(data)
+    else:
+        data = {
+            "fail": "4444"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+    return JsonResponse(data)
+
+>>>>>>> de5effddd905afcc63b1a491b8296687d3330799
 
 
 #  TODO  入库数据确定
 def set_purchaes_storage_create_data(request):
+<<<<<<< HEAD
     return JsonResponse({'sucess': '200'})
+=======
+    # TODO  请购单号
+    purchase_number = request.POST.get('purchase_number')
+
+   #   TODO 合同编号
+    contract_number  = request.POST.get('contract_number')
+
+   # TODO 审批时间
+    approval_date = request.POST.get('approval_date')
+
+    # TODO  仓库名称
+    warehouse_number = request.POST.get('warehouse_number')
+
+    # TODO  入库时间
+    warehouse_date = request.POST.get('warehouse_date')
+
+    # TODO   点验人
+    application  = request.POST.get('application')
+
+    print(purchase_number, approval_date, warehouse_number, warehouse_date, application)
+
+
+
+    #  TODO  插入数据库
+    #  TODO  1.获取机器人名字, 2,获取请购信息
+    return JsonResponse({'code': '200'})
+
+
+
+    sql = "select  goods_number  from purchase_warehousing_table  where  purchase_number = '%s'" %purchase_number
+    goods_name = str(DB.select_one(sql)[0])
+    print('----------------goods_name--------',goods_name)
+    user_name = request.COOKIES.get('username')
+    business_name = goods_numbers[goods_name] + '-点验入库'
+    gmt_create = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    purchase_warehousing_status = '1113'
+
+    print(gmt_modified, gmt_create, purchase_warehousing_status, business_name)
+
+    try:
+        DB.get_insert(table='purchase_contract_table',
+                      values=(gmt_create, gmt_modified, user_name,purchase_number, approval_date,
+                              contract_number,warehouse_number,warehouse_date,
+                              application,purchase_warehousing_status, business_name),
+                      fields="(gmt_create, gmt_modified,user_name,approval_date,purchase_number,"
+                             "contract_number,warehouse_number,warehouse_date,"
+                             "application,purchase_warehousing_status,business_name)")
+    except Exception as e:
+        print('插入失败！')
+        data = {
+            'code':'400',
+            'msg':'插入数据库失败'
+        }
+        return JsonResponse(data)
+    #
+    # #  TODO  创建任务信息
+    #
+    job_no = create_uuid()
+    jobs_name = '采购-' + goods_numbers[goods_name] + '-入库单填写'
+    print('job_no ============================', job_no)
+    print('jobbbbbbbbbbbbbbb:', job_no)
+    # TODO  获取开始时间写入数据库  用户名  写入数据库
+    localTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    print(localTime)
+
+    # TODO  写入数据库
+    try:
+        job_list_summary = Job_list_summary()
+        job_list_summary.job_type = '采购入库机器人'
+        job_list_summary.job_no = job_no
+        job_list_summary.job_id = purchase_number
+        job_list_summary.job_name = jobs_name
+        job_list_summary.user_name_id = user_name
+        job_list_summary.job_start_time = localTime
+        job_list_summary.job_status = '1111'
+        job_list_summary.save()
+        data = {
+            "success": '1111'
+            , "msg": "成功！"
+            , "count": 1
+        }
+        return JsonResponse(data)
+    except:
+        print('写入数据库失败！')
+        data = {
+            "faile": '4444'
+            , "msg": "失败！"
+            , "count": 1
+        }
+
+        return JsonResponse(data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> de5effddd905afcc63b1a491b8296687d3330799
 
 
 #  TODO  采购机器人 弹框第五步
 def purchaes_order_determine(request):
     return render(request, 'purchaes_order_determine_5.html')
+
+
 
 
 #  TODO  采购机器人 弹框第六步
@@ -438,14 +582,150 @@ def purchaes_reimburse_create(request):
     return render(request, 'purchaes_reimburse_8.html')
 
 
+
+#  TODO  发票机器人 报销申请  关联请购单
+def set_invoice_by_purchase_number(request):
+    user_name = request.COOKIES.get('username')
+    # user_name = 'kj1'
+    sql = "select purchase_number, contract_number from purchase_contract_table  where user_name = '%s'" % user_name
+
+    user_jobs = DB.get_select_all(sql_info=sql)
+    data_list = []
+    print(user_jobs)
+    if user_jobs:
+
+        for i in user_jobs:
+            data_list.append(i[0])
+        print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
+
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data = {
+            "scuess": "200"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+        return JsonResponse(data)
+    else:
+        data = {
+            "fail": "4444"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+    return JsonResponse(data)
+
+
+
+
+
+
+
+
+
+
 #  TODO  采购机器人 弹框第九步
 def purchaes_reimburse_determine(request):
     return render(request, 'purchaes_reimburse_determine_9.html')
 
 
+<<<<<<< HEAD
 #  TODO 采购  报销数据确定
 def set_purchaes_reimburse_create_data(request):
     return JsonResponse({'sucess': '200'})
+=======
+
+
+
+
+#  TODO 采购  发票数据确定
+def set_purchaes_reimburse_create_data(request):
+
+    user_name  = request.COOKIES.get('username')
+
+    purchase_number = request.POST.get('purchase_number')
+    contract_number  =request.POST.get('contract_number')
+    incoive_number = request.POST.get('incoive_number')
+    reimbursement_type  =request.POST.get('reimbursement_type')
+    reimbursement_money  =request.POST.get('reimbursement_money')
+    money_details = request.POST.get('money_details')
+    # supplier_name
+    application_date = request.POST.get('application_date')
+    application = request.POST.get('application')
+    application_sector= request.POST.get('application_sector')
+    department_head = request.POST.get('department_head')
+    company_head = request.POST.get('company_head')
+    print(purchase_number,contract_number,incoive_number, reimbursement_type,reimbursement_money,money_details
+     ,application_date, application ,application_sector ,department_head,company_head)
+    return JsonResponse({'code': '200'})
+
+    sql = "select  goods_number  from purchase_warehousing_table  where  purchase_number = '%s'" % purchase_number
+    goods_name = str(DB.select_one(sql)[0])
+    print('----------------goods_name--------', goods_name)
+    user_name = request.COOKIES.get('username')
+    business_name = goods_numbers[goods_name] + '-采购报销申请与审批'
+    gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    purchase_invoice_status = '1113'
+
+    try:
+        DB.get_insert(table='purchase_invoice_table',
+                      values=(gmt_create, gmt_modified, user_name, purchase_number,
+                              contract_number, incoive_number,reimbursement_type,
+                              reimbursement_money,money_details,supplier_name,application_date
+                             ,application,application_sector,department_head,company_head,business_name,purchase_invoice_status  ),
+                      fields="(gmt_create, gmt_modified, user_name, purchase_number,"
+                              "contract_number, incoive_number,reimbursement_type,"
+                              "reimbursement_money,money_details,supplier_name,application_date"
+                             ",application,application_sector,department_head,company_head,business_name,purchase_invoice_status")
+    except Exception as e:
+        print('插入失败！')
+        data = {
+            'code': '400',
+            'msg': '插入数据库失败'
+        }
+        return JsonResponse(data)
+    #
+    # #  TODO  创建任务信息
+    #
+    job_no = create_uuid()
+    jobs_name = '采购-' + goods_numbers[goods_name] + '-发票关联及报账制单'
+    print('job_no ============================', job_no)
+    print('jobbbbbbbbbbbbbbb:', job_no)
+    # TODO  获取开始时间写入数据库  用户名  写入数据库
+    localTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    print(localTime)
+
+    # TODO  写入数据库
+    try:
+        job_list_summary = Job_list_summary()
+        job_list_summary.job_type = '采购报账机器人'
+        job_list_summary.job_no = job_no
+        job_list_summary.job_id = purchase_number
+        job_list_summary.job_name = jobs_name
+        job_list_summary.user_name_id = user_name
+        job_list_summary.job_start_time = localTime
+        job_list_summary.job_status = '1111'
+        job_list_summary.save()
+        data = {
+            "success": '1111'
+            , "msg": "成功！"
+            , "count": 1
+        }
+        return JsonResponse(data)
+    except:
+        print('写入数据库失败！')
+        data = {
+            "faile": '4444'
+            , "msg": "失败！"
+            , "count": 1
+        }
+
+        return JsonResponse(data)
+
+
+
+>>>>>>> de5effddd905afcc63b1a491b8296687d3330799
 
 
 #  TODO  采购机器人 弹框第十步
@@ -453,14 +733,150 @@ def purchaes_payment_create(request):
     return render(request, 'purchaes_payment_10.html')
 
 
+#  TODO  付款关联请购单
+def set_pyment_by_purchase_number(request):
+    user_name = request.COOKIES.get('username')
+    # user_name = 'kj1'
+    sql = "select purchase_number, contract_number from purchase_contract_table  where user_name = '%s'" % user_name
+
+    user_jobs = DB.get_select_all(sql_info=sql)
+    data_list = []
+    print(user_jobs)
+    if user_jobs:
+
+        for i in user_jobs:
+            data_list.append(i[0])
+        print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
+
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data = {
+            "scuess": "200"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+        return JsonResponse(data)
+    else:
+        data = {
+            "fail": "4444"
+            , "msg": ""
+            , "count": 1
+            , "data": data_list
+        }
+    return JsonResponse(data)
+
+
+
+# TODO  采购 报账数据提交
+def set_purchaes_payment_create_data(request):
+    user_name = request.COOKIES.get('username')
+
+
+    contract_number  = request.POST.get('contract_number')
+    payment_reason = request.POST.get('payment_reason')
+    payment_money= request.POST.get('payment_money')
+    payment_type= request.POST.get('payment_type')
+    payment_date= request.POST.get('payment_date')
+    payment_object= request.POST.get('payment_object')
+    payment_bank= request.POST.get('payment_bank')
+    bank_account= request.POST.get('bank_account')
+    application_date= request.POST.get('application_date')
+    application= request.POST.get('application')
+    application_sector= request.POST.get('application_sector')
+    department_head= request.POST.get('department_head')
+    company_head= request.POST.get('company_head')
+    print(contract_number, payment_bank, payment_reason, payment_money,payment_type,payment_date, payment_object,bank_account
+          ,application, application_date, application_sector, department_head, company_head)
+
+    #  TODO  插入数据库
+    #  TODO  1.获取机器人名字, 2,获取请购信息
+    return JsonResponse({'code': '200'})
+
+
+
+    sql = "select  goods_number  from purchase_warehousing_table  where  purchase_number = '%s'" %purchase_number
+    goods_name = str(DB.select_one(sql)[0])
+    print('----------------goods_name--------',goods_name)
+    user_name = request.COOKIES.get('username')
+    business_name = goods_numbers[goods_name] + '-采购付款申请与审批'
+    gmt_create = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    purchase_payment_status = '1113'
+
+    print(gmt_modified, gmt_create, purchase_payment_status, business_name)
+
+    try:
+        DB.get_insert(table='purchase_contract_table',
+                      values=(gmt_create, gmt_modified, user_name,business_name,purchase_payment_status,
+                              contract_number, payment_bank, payment_reason, payment_money,payment_type,
+                              payment_date, payment_object,bank_account,application, application_date,
+                              application_sector, department_head, company_head),
+                      fields="(gmt_create, gmt_modified, user_name,business_name,purchase_payment_status,"
+                              "contract_number, payment_bank, payment_reason, payment_money,payment_type,"
+                              "payment_date, payment_object,bank_account,application, application_date,"
+                              "application_sector, department_head, company_head)")
+    except Exception as e:
+        print('插入失败！')
+        data = {
+            'code':'400',
+            'msg':'插入数据库失败'
+        }
+        return JsonResponse(data)
+    #
+    # #  TODO  创建任务信息
+    #
+    job_no = create_uuid()
+    jobs_name = '采购-' + goods_numbers[goods_name] + '-入库单填写'
+    print('job_no ============================', job_no)
+    print('jobbbbbbbbbbbbbbb:', job_no)
+    # TODO  获取开始时间写入数据库  用户名  写入数据库
+    localTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    print(localTime)
+
+    # TODO  写入数据库
+    try:
+        job_list_summary = Job_list_summary()
+        job_list_summary.job_type = '采购入库机器人'
+        job_list_summary.job_no = job_no
+        job_list_summary.job_id = purchase_number
+        job_list_summary.job_name = jobs_name
+        job_list_summary.user_name_id = user_name
+        job_list_summary.job_start_time = localTime
+        job_list_summary.job_status = '1111'
+        job_list_summary.save()
+        data = {
+            "success": '1111'
+            , "msg": "成功！"
+            , "count": 1
+        }
+        return JsonResponse(data)
+    except:
+        print('写入数据库失败！')
+        data = {
+            "faile": '4444'
+            , "msg": "失败！"
+            , "count": 1
+        }
+
+        return JsonResponse(data)
+
+
+
+
+
+
 #  TODO  采购机器人 弹框第十一步
 def purchaes_payment_determine(request):
     return render(request, 'purchaes_payment_determine_11.html')
 
 
+<<<<<<< HEAD
 # TODO  采购 报账数据提交
 def set_purchaes_payment_create_data(request):
     return JsonResponse({'sucess': '200'})
+=======
+
+>>>>>>> de5effddd905afcc63b1a491b8296687d3330799
 
 
 #  TODO  采购机器人 弹框第十二步
