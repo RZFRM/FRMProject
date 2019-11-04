@@ -2,7 +2,6 @@ from django.db import models
 
 
 # Create your models here.
-# #
 # # # TODO   采购请购机器人数据表
 
 class FA_purchase_requisition_table(models.Model):
