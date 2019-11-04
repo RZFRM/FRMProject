@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'Invoice_inspection',
     'Invoice_certification',
     'Corporate_tax_quarterly_report',
-    'VAT_return'
     'FixedAssets_robot',
 
 ]

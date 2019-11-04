@@ -258,11 +258,9 @@ def purchaes_order_create(request):
 # TODO  采购合同 获取所有请购单信息
 def set_contract_by_purchase_number(request):
     user_name = request.COOKIES.get('username')
-<<<<<<< HEAD
-    sql = "select purchase_number from purchase_apply_table  where user_name = '%s'" % user_name
-=======
+
     sql = "select purchase_number from purchase_contract_table  where user_name = '%s'"%user_name
->>>>>>> de5effddd905afcc63b1a491b8296687d3330799
+
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
@@ -409,9 +407,9 @@ def set_purchaes_order_create_data(request):
 
 
 
-<<<<<<< HEAD
+
 # 第六步数据提交地址
-=======
+
 
 #  TODO 入库关联  请购单
 def set_warehousing_by_purchase_number(request):
@@ -445,14 +443,10 @@ def set_warehousing_by_purchase_number(request):
         }
     return JsonResponse(data)
 
->>>>>>> de5effddd905afcc63b1a491b8296687d3330799
-
 
 #  TODO  入库数据确定
 def set_purchaes_storage_create_data(request):
-<<<<<<< HEAD
-    return JsonResponse({'sucess': '200'})
-=======
+
     # TODO  请购单号
     purchase_number = request.POST.get('purchase_number')
 
@@ -557,9 +551,6 @@ def set_purchaes_storage_create_data(request):
 
 
 
->>>>>>> de5effddd905afcc63b1a491b8296687d3330799
-
-
 #  TODO  采购机器人 弹框第五步
 def purchaes_order_determine(request):
     return render(request, 'purchaes_order_determine_5.html')
@@ -629,11 +620,7 @@ def purchaes_reimburse_determine(request):
     return render(request, 'purchaes_reimburse_determine_9.html')
 
 
-<<<<<<< HEAD
-#  TODO 采购  报销数据确定
-def set_purchaes_reimburse_create_data(request):
-    return JsonResponse({'sucess': '200'})
-=======
+
 
 
 
@@ -724,8 +711,6 @@ def set_purchaes_reimburse_create_data(request):
         return JsonResponse(data)
 
 
-
->>>>>>> de5effddd905afcc63b1a491b8296687d3330799
 
 
 #  TODO  采购机器人 弹框第十步
@@ -869,14 +854,6 @@ def set_purchaes_payment_create_data(request):
 def purchaes_payment_determine(request):
     return render(request, 'purchaes_payment_determine_11.html')
 
-
-<<<<<<< HEAD
-# TODO  采购 报账数据提交
-def set_purchaes_payment_create_data(request):
-    return JsonResponse({'sucess': '200'})
-=======
-
->>>>>>> de5effddd905afcc63b1a491b8296687d3330799
 
 
 #  TODO  采购机器人 弹框第十二步
