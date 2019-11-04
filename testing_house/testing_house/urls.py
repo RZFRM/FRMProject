@@ -24,5 +24,6 @@ urlpatterns = [
     path('', include('getRobot.urls')),
     path('', include('purchasing_robot.urls')),
     path('', include('teach_task.urls')),
+    path('FA/', include('FixedAssets_robot.urls')),
 
 ]
