@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>学生管理</title>
+  <link rel="stylesheet" href="../layui/css/layui.css">
+  <link rel="stylesheet" type="text/css" href="../../static/res/trainTask/static/css/admin.css"/>
+  <link rel="stylesheet" type="text/css" href="../../static/res/trainTask/static/css/index.css"/>
+  <link rel="stylesheet" href="../../static/res/trainTask/static/css/teaching.css">
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css"/>
+  <style>
+      .tt{
+          width: 231px;
+          margin-left:20px;
+          height: 25px;
+      }
+      .nav-1 {
+          width:1651px;
+          height:50px;
+          background:rgba(242,242,242,1);
+      }
+      .nav-2 {
+          margin-left: 10px;
+      }
+      .nav-3 {
+          width:412px;
+          height:43px;
+      }
+      .layui-btn{
+          width: 100px;
+          border-radius: 4px;
+          height: 27px;
+          line-height: 27px;
+      }
+      .stu_table {
+          margin: 0 auto;
+          width:1615px;
+          height:48px;
+          background:rgba(250,250,250,1);
+          border:1px solid rgba(232,232,232,1);
+          margin-top: 10px;
+      }
+  </style>
+</head>
+<body class="layui-layout-body">
+  <div class="layui-body" style="background-color: #FFFFFF;">
+        <!-- 内容主体区域 -->
+        <div style="margin-left: 1.4375rem; background-color: #FFFFFF;">
+
+            <!-- 面包屑导航 -->
+            <div class="nav">
+                    <span class="layui-breadcrumb" lay-separator=">">
+                <a href="">机器人实训教学 </a>
+                <a href="">学生管理</a>
+                </span>
+            </div>
+                <!--二级导航  -->
+            <div class="nav-1" >
+                <div class="nav-2">
+                    <button class="nav-button">新增</button>
+                    <button class="nav-button">修改</button>
+                    <button class="nav-button">删除</button>
+                </div>
+                <div class="nav-3">
+                    <input type="text" placeholder="搜索业务"><button type="button" class="layui-btn" >搜索</button>
+                </div>
+                    
+                
+			</div>
+			<!-- 表格内容 -->
+            <div class="stu_table">
+				   <table class="layui-hide" id="table_user" lay-filter="user"></table>
+				   
+			</div>
+
+        </div>
+  </div>
+
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+// 表格代码
+layui.use('table', function(){
+	var table = layui.table;
+  
+  table.render({
+            elem: '#table_user'
+            , url: '/school'
+            , toolbar: 'school-head'
+            , max_height: 1000
+            ,type:"get"
+            , cols: [[
+                {checkbox: true, fixed: true}
+                , {field: 'a', align:"center",title: '序号', width: "5%",templet: '#xuhao'}
+                , {field: 'b', align:"center",title: '学校代码', width: "10%"}
+                , {field: 'c', align:"center",title: '学校名称', width: "20%"}
+                , {field: 'd', align:"center",title: '办学层次', width: "10%"}
+                , {field: 'e', align:"center",title: '办学类型',width:"10%"}
+                , {field: 'f', align:"center",title: '省份', width: "10%"}
+                , {field: 'g', align:"center",title: '城市', width: "10%"}
+                , {field: 'h', align:"center",title: '教务管理员', width: "10%"}
+                , {field: 'g', align:"center",title: '创建人', width: "5%"}
+                , {field: 'h', align:"center",title: '操作', width: "10%"}
+            ]]
+            , page: true
+        });
+
+
+        {#let $ = layui.$, active = {#}
+        {#    reload: function () {#}
+        {#        let demoReload = $('#demoReload');#}
+        {##}
+        {#        //执行重载#}
+        {#        table.reload('testReload', {#}
+        {#            page: {#}
+        {#                curr: 1 //重新从第 1 页开始#}
+        {#            }#}
+        {#            , where: {#}
+        {#                key: {#}
+        {#                    id: demoReload.val()#}
+        {#                }#}
+        {#            }#}
+        {#        }, 'data');#}
+        {#    }#}
+        {#;#}
+        {##}
+        {#$('.demoTable .layui-btn').on('click', function(){#}
+        {#  let type = $(this).data('type');#}
+        {#  active[type] ? active[type].call(this) : '';#}
+        {#);#}
+    });
+</script>
+
+        <script type="text/html" id="xuhao">
+            {d.LAY_TABLE_INDEX+1}
+        </script>
+</body>
+</html>
