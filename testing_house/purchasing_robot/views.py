@@ -75,7 +75,6 @@ def pruchasing_robot_base_data(request):
     #  TODO  判断用户时候已经新增  u8环境表
 
 
-
     sql = "select count(*)  from  U8login_table where user_name = '%s' " % user_name
     row_info = DB.select_one(sql)
     print(row_info)
@@ -433,20 +432,18 @@ def set_purchaes_order_create_data(request):
 
 #  TODO 入库关联  请购单
 def set_warehousing_by_purchase_number(request):
-    user_name = request.COOKIES.get('username')
-    # user_name = 'kj1'
+    # user_name = request.COOKIES.get('username')
+    user_name = 'kj1'
     sql = "select purchase_number, contract_number from purchase_contract_table  where user_name = '%s'" % user_name
 
     user_jobs = DB.get_select_all(sql_info=sql)
-    data_list = []
+    data_list  = []
+
     print(user_jobs)
     if user_jobs:
-
-        for i in user_jobs:
-            data_list.append(i[0])
         print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
-
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data_list.append(user_jobs)
         data = {
             "scuess": "200"
             , "msg": ""
@@ -464,6 +461,33 @@ def set_warehousing_by_purchase_number(request):
     return JsonResponse(data)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  TODO  采购机器人 弹框第五步
+def purchaes_order_determine(request):
+
+    return render(request, 'purchaes_order_determine_5.html')
+
+
+
+
+#  TODO  采购机器人 弹框第六步
+def purchaes_storage_create(request):
+    return render(request, 'purchaes_storage_6.html')
 
 
 
@@ -565,28 +589,6 @@ def set_purchaes_storage_create_data(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-#  TODO  采购机器人 弹框第五步
-def purchaes_order_determine(request):
-
-    return render(request, 'purchaes_order_determine_5.html')
-
-
-
-
-#  TODO  采购机器人 弹框第六步
-def purchaes_storage_create(request):
-    return render(request, 'purchaes_storage_6.html')
 
 
 #  TODO  采购机器人 弹框第七步

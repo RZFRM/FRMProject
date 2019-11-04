@@ -32,7 +32,7 @@ urlpatterns = [
     url('contract_by_purchase_number', views.set_contract_by_purchase_number, name = '合同关联请购单'),
     url('warehousing_by_purchase_number', views.set_warehousing_by_purchase_number, name = '入库关联请购单'),
     url('invoice_by_purchase_number', views.set_invoice_by_purchase_number, name = '发票关联请购单'),
-    url('pyment_by_purchase_number', views.set_pyment_by_purchase_number, name = '发票关联请购单'),
+    url('pyment_by_purchase_number', views.set_pyment_by_purchase_number, name = '付款关联请购单'),
 
 
 
