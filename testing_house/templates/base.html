@@ -232,27 +232,27 @@
                             <i class="layui-icon layui-icon-read"></i>
                             <cite>机器人实训教学</cite>
                         </a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 实训任务</a>
-                            </dd>
-                            <dd><a href='javascript:;'><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教学管理</a>
-                            </dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学生管理</a>
-                            </dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教师管理</a>
-                            </dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 班级管理</a>
-                            </dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 专业管理</a>
-                            </dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教务管理</a>
-                            </dd>
-                            <dd><a href="javascript:;" id="add">
-                                <img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学校管理</a></dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 课程管理</a>
-                            </dd>
-                            <dd><a href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 案例管理</a>
-                            </dd>
+                        <dl class="layui-nav-child" id="dl_child">
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 实训任务</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href='javascript:;'><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教学管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学生管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教师管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 班级管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 专业管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教务管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="/school_jump" id="add">#}
+{#                                <img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学校管理</a></dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 课程管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 案例管理</a>#}
+{#                            </dd>#}
                         </dl>
                     </li>
                     <!-- {##}
@@ -345,7 +345,25 @@
         $('#add').on('click', function () {
             location.href = "/testing_house/teach_task/templates/school-admin.html";
         });
+        $(function () {
+            $.ajax({
+                url: "/task",
+                type: "get",
+                datatype: "json",
+                success: function (res) {
+                     for (let index in res.result) {
+                         let student = eval(res.result[index]);
+                         console.log();
+                        $("#dl_child").append(`<dd><a lay-href="${student.url}"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; ${student.name}</a>
+                            </dd>`)
+                    }
+                    layui.form.render("select", "xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                }
+            });
+            return false;
+        });
     })
+
 
 </script>
 <script>

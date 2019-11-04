@@ -51,6 +51,7 @@
             color: #0C0C0C;
             margin: 8px;
         }
+
         .btn {
             width: 105px;
             height: 39px;
@@ -71,50 +72,13 @@
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>专业管理</span>
+        <span>学生管理</span>
         <button>X</button>
     </div>
 
     <div>
-        <p>新增/修改</p>
+        <p>实训报告</p>
     </div>
-    <div style="height: 425px;overflow: auto;padding-top:25px">
-        <form class="layui-form forn" action="" lay-filter="component-form-group">
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">专业名称：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入专业名称" disabled
-                           style="min-height: 30px;line-height: 20px; height: 20px;">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">专业代码：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入专业代码" disabled
-                           style="min-height: 30px;line-height: 20px; height: 20px;">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>是否有效：</label>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
-                        <option style="height: 32px" value="">请选择</option>
-                        <option value="1">是</option>
-                        <option value="2">否</option>
-                    </select>
-                </div>
-            </div>
-            <div class="remind">
-                <p>提示：</p>
-                <p>1.如专业下有开通的班级，不能设置为无效。</p>
-                <p>2.专业下有班级不可删除。</p>
-            </div>
-            <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
-
-        </form>
-    </div>
-</div>
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
