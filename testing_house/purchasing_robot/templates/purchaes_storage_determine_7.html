@@ -96,8 +96,21 @@
         </div>
         <div style="clear: both"></div>
     </div>
-    <button class="btn" onclick="javascript:window.location.href='/purchaes_reimburse_create'">下一步</button>
+    <button class="layui-btn btn" lay-submit="" lay-filter="demo7" id="wicket" >完成</button>
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(["form", "layer", "jquery"], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.jquery;
+
+        //关闭当前窗口
+        $("#wicket").click(function () {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        })
+    })
+</script>
 </body>
 </html>

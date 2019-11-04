@@ -145,11 +145,12 @@
                 type: "post",
                 datatype: "json",
                 success: function (res) {
-                    console.log(res);
-                    for (let index in res.data) {
-                        $("#contract").append(`<option value="${res.data[index]}">${res.data[index]}</option>`)
+                    console.log(res)
+                    var date = res.data[0];
+                    for (let index in date) {
+                        $("#contract").append(`<option value="${date[index]}">${(date[index])[1]}</option>`)
                     }
-                    layui.form.render("select", "component-form-group");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                    layui.form.render("select", "component-form-group");//更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
                 }
             });
         });
