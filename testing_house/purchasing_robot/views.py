@@ -19,20 +19,10 @@ from IsearchAPI.ISAPI import rpa_rest
 from system_config.models import User, Job_list_summary, Application_info
 import time
 from sql_operating.mysql_class import *
-from etc.command import  *
+from etc.command import *
+
+
 # from  personal_center.views import   update_sql
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # TODO 生成8位唯一任务编号
@@ -40,8 +30,6 @@ def create_uuid():
     a = uuid.uuid1()
     job_no = str(a)
     return job_no[0:8]
-
-
 
 
 DB = Mysql_client_FRM()
@@ -62,7 +50,7 @@ def pruchasing_robot_base_data(request):
 
     operator = request.POST.get('operator')
     password = request.POST.get('password')
-    account_set =  request.POST.get('account_set')
+    account_set = request.POST.get('account_set')
 
     u8_install_path = request.POST.get('u8_install_path')
 
@@ -92,27 +80,23 @@ def pruchasing_robot_base_data(request):
             return JsonResponse(data)
         except Exception as e:
             print('>>>>>>>>>>>>>>更新失败！原因如下：', e)
-            data = {'fail':'4444','msg':'插入失败'}
+            data = {'fail': '4444', 'msg': '插入失败'}
             return JsonResponse(data)
     else:
         try:
             DB.get_insert(
                 table='U8login_table',
-                values=(gmt_create ,gmt_modified, company_name, operator, password,
-                        account_set,  u8_install_path, user_name),
+                values=(gmt_create, gmt_modified, company_name, operator, password,
+                        account_set, u8_install_path, user_name),
                 fields="(gmt_create,gmt_modified ,computer_name , operating_user, password,"
                        "account_set , u8_install_path , user_name)")
             print('>>>>>>>>>>>>>>插入方式更新成功！')
-            data = {'success':'1111','msg':''}
+            data = {'success': '1111', 'msg': ''}
             return JsonResponse(data)
         except Exception as e:
             print('>>>>>>>>>>>>>>更新失败！原因如下：', e)
-            data = {'fail':'4444','msg':'插入失败'}
+            data = {'fail': '4444', 'msg': '插入失败'}
             return JsonResponse(data)
-
-
-
-
 
 
 #  TODO  采购机器人业务管理页
@@ -137,8 +121,6 @@ def purchasing_created(request):
 
 # TODO 第一步数据确认
 def purchasing_created_data(request):
-
-
     return render(request, '200')
 
 
@@ -161,7 +143,6 @@ def purchaes_requisitions_create(request):
 # TODO  采购机器人第二步数据
 
 def purchaes_requisitions_create_data(request):
-
     user_name = request.COOKIES.get('username')
 
     # TODO 请购单编号
@@ -272,11 +253,10 @@ def purchaes_order_create(request):
     return render(request, 'purchaes_order_4.html')
 
 
-
 # TODO  采购合同 获取所有请购单信息
 def set_contract_by_purchase_number(request):
     user_name = request.COOKIES.get('username')
-    sql = "select purchase_number from purchase_apply_table  where user_name = '%s'"%user_name
+    sql = "select purchase_number from purchase_apply_table  where user_name = '%s'" % user_name
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
@@ -293,7 +273,7 @@ def set_contract_by_purchase_number(request):
             , "count": 1
             , "data": data_list
         }
-        return  JsonResponse(data)
+        return JsonResponse(data)
     else:
         data = {
             "fail": "4444"
@@ -302,9 +282,6 @@ def set_contract_by_purchase_number(request):
             , "data": data_list
         }
         return JsonResponse(data)
-
-
-
 
 
 # TODO  采购合同机器人  数据入库
@@ -319,7 +296,7 @@ def set_purchaes_order_create_data(request):
     supplier_name = request.POST.get('supplier_name')
 
     #  TODO  税率
-    tax_rate  = request.POST.get('tax_rate')
+    tax_rate = request.POST.get('tax_rate')
 
     #  TODO  不含税单价
     free_tax_unit_price = request.POST.get('free_tax_unit_price')
@@ -334,7 +311,7 @@ def set_purchaes_order_create_data(request):
     summary_price = request.POST.get('summary_price')
 
     # TODO 需求日期
-    demand_date  = request.POST.get('demand_date')
+    demand_date = request.POST.get('demand_date')
 
     # TODO  申请人
     applicant = request.POST.get('applicant')
@@ -343,29 +320,28 @@ def set_purchaes_order_create_data(request):
     application_sector = request.POST.get('application_sector')
 
     # TODO   申请日期
-    application_date  = request.POST.get('application_date')
+    application_date = request.POST.get('application_date')
 
     #  TODO  部门负责人
-    department_head  = request.POST.get('department_head')
+    department_head = request.POST.get('department_head')
 
     # TODO  公司负责人
-    company_head  = request.POST.get('company_head')
+    company_head = request.POST.get('company_head')
 
-    print(purchase_number,contract_number,supplier_name, tax_rate,free_tax_unit_price, count,summary_price,demand_date,
-          applicant,application_sector, application_date,department_head,company_head)
-
-
+    print(purchase_number, contract_number, supplier_name, tax_rate, free_tax_unit_price, count, summary_price,
+          demand_date,
+          applicant, application_sector, application_date, department_head, company_head)
 
     #  TODO  插入数据库
     #  TODO  1.获取机器人名字, 2,获取请购信息
 
-    sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" %purchase_number
+    sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" % purchase_number
     goods_name = str(DB.select_one(sql)[0])
-    print('----------------goods_name--------',goods_name)
+    print('----------------goods_name--------', goods_name)
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-合同申请与审批'
-    gmt_create = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
-    gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     contract_apply_status = '1113'
     recommended_date = '2020-12-10'
     print(gmt_modified, gmt_create, contract_apply_status, business_name)
@@ -374,9 +350,9 @@ def set_purchaes_order_create_data(request):
         DB.get_insert(table='purchase_contract_table',
                       values=(gmt_create, gmt_modified, purchase_number, contract_number, supplier_name,
                               tax_rate, free_tax_unit_price, count
-                              ,summary_price, demand_date
-                              ,applicant, application_sector,application_date,
-                              department_head, company_head, user_name,contract_apply_status, business_name),
+                              , summary_price, demand_date
+                              , applicant, application_sector, application_date,
+                              department_head, company_head, user_name, contract_apply_status, business_name),
                       fields="(gmt_create, gmt_modified,purchase_number,contract_number,supplier_name,"
                              "tax_rate,free_tax_unit_price,count,"
                              "summary_price,demand_date,"
@@ -385,8 +361,8 @@ def set_purchaes_order_create_data(request):
     except Exception as e:
         print('插入失败！')
         data = {
-            'code':'400',
-            'msg':'插入数据库失败'
+            'code': '400',
+            'msg': '插入数据库失败'
         }
         return JsonResponse(data)
     #
@@ -420,7 +396,6 @@ def set_purchaes_order_create_data(request):
     except:
         print('写入数据库失败！')
 
-
     data = {
         "code": '200'
         , "msg": "失败！"
@@ -435,24 +410,16 @@ def set_purchaes_storage_create_data(request):
         return HttpResponse('200')
 
 
-
 # 第六步数据提交地址
-
-
-
 
 
 #  TODO  入库数据确定
 def set_purchaes_storage_create_data(request):
-
-    return JsonResponse({'sucess':'200'})
-
-
+    return JsonResponse({'sucess': '200'})
 
 
 #  TODO  采购机器人 弹框第五步
 def purchaes_order_determine(request):
-
     return render(request, 'purchaes_order_determine_5.html')
 
 
@@ -476,12 +443,9 @@ def purchaes_reimburse_determine(request):
     return render(request, 'purchaes_reimburse_determine_9.html')
 
 
-
 #  TODO 采购  报销数据确定
 def set_purchaes_reimburse_create_data(request):
-    return JsonResponse({'sucess':'200'})
-
-
+    return JsonResponse({'sucess': '200'})
 
 
 #  TODO  采购机器人 弹框第十步
@@ -494,10 +458,9 @@ def purchaes_payment_determine(request):
     return render(request, 'purchaes_payment_determine_11.html')
 
 
-
 # TODO  采购 报账数据提交
 def set_purchaes_payment_create_data(request):
-    return JsonResponse({'sucess':'200'})
+    return JsonResponse({'sucess': '200'})
 
 
 #  TODO  采购机器人 弹框第十二步
@@ -509,21 +472,20 @@ def purchaes_business_data_display(request):
 
 #  TODO  任务 信息
 def set_purchase_robot_jobs_info(request):
-
-    data_list  =[]
+    data_list = []
     user_name = request.COOKIES.get('username')
     # sql = "select  id,job_no,job_name, job_type,job_start_time,job_status   from  job_list_summary where  job_type like '采购%%' and user_name_id= '%s' order by id desc "%user_name
     user_jobs = Job_list_summary.objects.filter(Q(user_name_id=user_name) & Q(job_type__contains='采购'))
     # user_jobs = DB.select_all(sql_info=sql)
     # user_jobs = DB.get_select(table='job_list_summary',fields='(id,job_no,job_name, job_type,job_start_time,job_status)', condition = user_name)
-    print(' 已完成：：：：：：：：：：：：：：：：：',user_jobs)
+    print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
 
     for i in user_jobs:
         # print(i)
         data_dic = {
-            'id':i.id
-            ,"job_no":i.job_no
-            ,"job_name": i.job_name
+            'id': i.id
+            , "job_no": i.job_no
+            , "job_name": i.job_name
             , "job_type": i.job_type
             , "job_start_time": str(i.job_start_time)
             , "job_status": run_status[i.job_status]
@@ -537,7 +499,6 @@ def set_purchase_robot_jobs_info(request):
         , "data": data_list
     }
 
-
     return JsonResponse(data)
 
 
@@ -546,7 +507,7 @@ def set_purchase_robot_buession_info(request):
     #  TODO 返回 未完成列表 数据
 
     user_name = request.COOKIES.get('username')
-    sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   "%user_name
+    sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   " % user_name
     print(sql)
     user_jobs = DB.select_all(sql_info=sql)
 
@@ -556,14 +517,14 @@ def set_purchase_robot_buession_info(request):
     if user_jobs:
         for i in user_jobs:
             data_dic = {
-                 "id":i[6]
-                ,"business_name": i[0]
+                "id": i[6]
+                , "business_name": i[0]
                 , "gmt_create": str(i[1])
                 , "application_depart": i[2]
-                ,'robot_name':'采购请购机器人'
+                , 'robot_name': '采购请购机器人'
                 , "applicant": i[3]
                 , "purchase_apply_status": run_status[i[4]]
-                , "gmt_modified":str(i[5])
+                , "gmt_modified": str(i[5])
             }
             data_list.append(data_dic)
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>业务信息查询成功')
@@ -584,7 +545,6 @@ def set_purchase_robot_buession_info(request):
         return JsonResponse(data)
 
 
-
 # TODO  创建请购单数据
 def set_create_purchase_number(request):
     # TODO  判断 数据库是否有 CG000001
@@ -595,7 +555,7 @@ def set_create_purchase_number(request):
         buessines_info = DB.get_select_one(sql_info=sql)[0]
         print(buessines_info)
 
-        if buessines_info == False  or  buessines_info  == 0:
+        if buessines_info == False or buessines_info == 0:
             purchase_number = "CG0000" + str(id)
             return HttpResponse(purchase_number)
         else:
@@ -606,6 +566,7 @@ def set_create_purchase_number(request):
 
         purchase_number = "CG0000" + str(id)
         return HttpResponse(purchase_number)
+
 
 # from teach_task.models import  Class
 # from  system_config.models import  purchase_contract_table
@@ -623,16 +584,17 @@ def set_create_purchase_number(request):
 
 #  TODO  创建查看共功能数据
 def set_view_information_data(request):
-    user_name  = request.COOKIES.get('username')
+    user_name = request.COOKIES.get('username')
     id = request.GET.get('id')
-    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(id)
+    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(
+        id)
     print(sql)
 
     try:
         views_info = DB.select_one(sql)
         if views_info:
             r_name = views_info[-1].split('-')[1]
-            print('---------------------------------', id,views_info)
+            print('---------------------------------', id, views_info)
             project_name = []
 
             if r_name == '采购申请与审批':
@@ -654,12 +616,9 @@ def set_view_information_data(request):
                     'code': '200'
                     , 'msg': ''
                     , 'data': views_info
-                    ,'project_name':project_name
-                    ,'r_name':r_name
+                    , 'project_name': project_name
+                    , 'r_name': r_name
                 }
-
-
-
 
                 return JsonResponse(result)
 
@@ -676,28 +635,28 @@ def set_view_information_data(request):
                 project_name.append('申请部门')
                 project_name.append('申请日期')
 
-
                 result = {
-                    'code':'200'
-                    ,'msg':''
-                    ,'data':views_info
-                        }
-                return  JsonResponse(result)
+                    'code': '200'
+                    , 'msg': ''
+                    , 'data': views_info
+                }
+                return JsonResponse(result)
 
         else:
-                data = {
-                    'code':'400',
-                    'msg':'查询不到数据'
-                }
-                return JsonResponse(data)
-    except Exception as e :
+            data = {
+                'code': '400',
+                'msg': '查询不到数据'
+            }
+            return JsonResponse(data)
+    except Exception as e:
         data = {
-            'code':'400'
-            ,'msg':'查询异常'
+            'code': '400'
+            , 'msg': '查询异常'
 
         }
-        print('错误异常打印',e )
-        return  JsonResponse(data)
+        print('错误异常打印', e)
+        return JsonResponse(data)
+
 
 #  TODO  返回查看页面
 def set_view_information(request):
