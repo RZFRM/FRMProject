@@ -11,13 +11,6 @@
             </div>
 
             <div class="layui-card-body">
-                {#                <div class="demoTable">#}
-                {#                    搜索ID：#}
-                {#                    <div class="layui-inline">#}
-                {#                        <input class="layui-input" name="id" id="demoReload" autocomplete="off">#}
-                {#                    </div>#}
-                {#                    <button class="layui-btn" data-type="reload">搜索</button>#}
-                {#                </div>#}
                 <table class="layui-hide" id="test" lay-filter="test"></table>
             </div>
         </div>
@@ -28,20 +21,19 @@
 {% block script_info %}
 
     <script type="text/html" id="toolbarDemo">
-        <button type="button" id="Added" class="layui-btn layui-btn-sm layui-btn-danger"
+        <div style="margin:10px 0px">
+            <button type="button" id="Added" class="layui-btn layui-btn-sm layui-btn-danger"
                 style="width:120px;border-radius:2%;float: left;margin-right: 30px">
             <i class="layui-icon layui-icon-add-1"></i>
             新增业务
-        </button>
-        {#        <div class="layui-btn-container" style="float:left">#}
-        {#            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">批量导入</button>#}
-        {#        </div>#}
-        <div class="layui-input-block" style="float: right;margin-right: 2%;">
-            <input type="text" autocomplete="off" placeholder="搜索业务" class="layui-input"
-                   style="float: left;width:300px;height:31px;">
-            <button class="layui-btn layui-btn-sm" data-type="reload" style="float: left;width: 80px;">搜索</button>
+            </button>
+            <div class="layui-input-block" style="float: right;margin-right: 2%;">
+                <input type="text" autocomplete="off" placeholder="搜索业务" class="layui-input"
+                       style="float: left;width:300px;height:31px;">
+                <button class="layui-btn layui-btn-sm" data-type="reload" style="float: left;width: 80px;">搜索</button>
+            </div>
+            <div style="clear: both"></div>
         </div>
-        <div style="clear: both"></div>
     </script>
 
     <script type="text/html" id="barDemo">
@@ -49,10 +41,6 @@
                 style="width:50%;margin-left:30%;">查看
         </button>
     </script>
-
-
-
-    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 
     <script>
@@ -74,7 +62,6 @@
             })
         }
     </script>
-
 
     <script>
         layui.use(['table', 'jquery'], function () {
@@ -104,11 +91,6 @@
                 }
                 , page: true
             });
-
-            {#layer.alert("用户序号："+data.id+",业务名称"+data.business_name+",创建时间:"+data.gmt_create)#}
-            //头工具栏事件
-
-            //头工具栏事件
 
             // 点击触发
             layui.$("#big_num").on("click", function () {
@@ -140,8 +122,6 @@
                     success: function () {
                     }
                 })
-
-
             });
 
             //弹出一个iframe层  新增业务
@@ -151,9 +131,10 @@
                     title: '采购业务填报',
                     shadeClose: true,
                     shade: false,
+                    id: 'toolbarDemo'+1,
                     maxmin: true, //开启最大化最小化按钮
                     area: ["742px", '72.5%'],
-                    content: '/purchaes_requisitions_create'
+                    content: '/purchaes_order_create'
                 });
             });
 
@@ -182,7 +163,6 @@
                 active[type] ? active[type].call(this) : '';
             });
 
-
             //监听行工具事件
             table.on('tool(test)', function (obj) {
                 var data = obj.data;//获得当前行数据（json格式的键值对）
@@ -199,10 +179,9 @@
                         area: ['43.65%', '65%'],
                         content: '/view_information',
                         success: function (layero, index) {
-                            var iframe = window['layui-layer-iframe' + index];
-                            {#iframe.getDataFromOption(data);#}
+                            {#var iframe = window['layui-layer-iframe' + index];#}
 
-                             var body = layer.getChildFrame('body', index);//建立父子联系
+                            var body = layer.getChildFrame('body', index);//建立父子联系
                             body.find('input').val(data.id);
                         }
                     })
