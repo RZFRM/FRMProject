@@ -63,39 +63,41 @@
             , cols: [[
                 {checkbox: true, fixed: true}
                 , {field: 'a', title: '序号', width: "5%"}
-                , {field: 'b', title: '姓名', width: "15%"}
-                , {field: 'c', title: '用户名', width: "15%"}
-                , {field: 'd', title: '密码', width: "10%"}
-                , {field: 'e', title: '手机号码',width:"25%"}
-                , {field: 'f', title: '状态', width: "10%"}
-                , {field: 'g', title: '创建人', width: "10%"}
-                , {field: 'h', title: '操作时间', width: "15%"}
+                , {field: 'b', title: '学校代码', width: "10%"}
+                , {field: 'c', title: '学校名称', width: "20%"}
+                , {field: 'd', title: '办学层次', width: "10%"}
+                , {field: 'e', title: '办学类型',width:"10%"}
+                , {field: 'f', title: '省份', width: "5%"}
+                , {field: 'g', title: '城市', width: "5%"}
+                , {field: 'h', title: '教务管理员', width: "10%"}
+                , {field: 'g', title: '创建人', width: "5%"}
+                , {field: 'h', title: '操作', width: "20%"}
             ]]
             , page: true
         });
 
-        {#var $ = layui.$, active = {#}
-        {#    reload: function () {#}
-        {#        var demoReload = $('#demoReload');#}
-        {##}
-        {#        //执行重载#}
-        {#        table.reload('testReload', {#}
-        {#            page: {#}
-        {#                curr: 1 //重新从第 1 页开始#}
-        {#            }#}
-        {#            , where: {#}
-        {#                key: {#}
-        {#                    id: demoReload.val()#}
-        {#                }#}
-        {#            }#}
-        {#        }, 'data');#}
-        {#    }#}
-        {#;#}
+        var $ = layui.$, active = {
+            reload: function () {
+                var demoReload = $('#demoReload');
 
-        {#$('.demoTable .layui-btn').on('click', function(){#}
-        {#  var type = $(this).data('type');#}
-        {#  active[type] ? active[type].call(this) : '';#}
-        {#);#}
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        key: {
+                            id: demoReload.val()
+                        }
+                    }
+                }, 'data');
+            }
+        ;
+
+        $('.demoTable .layui-btn').on('click', function(){
+          var type = $(this).data('type');
+          active[type] ? active[type].call(this) : '';
+        );
     });
 </script>
 
