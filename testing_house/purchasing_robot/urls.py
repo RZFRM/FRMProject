@@ -27,14 +27,14 @@ urlpatterns = [
     url('purchasing_created_data', views.purchasing_created_data, name='purchasing_created'),
     url('purchaes_order_create_data', views.set_purchaes_order_create_data, name='purchaes_requisitions_create'),
     url('purchaes_storage_create_data', views.set_purchaes_storage_create_data, name='purchaes_requisitions_create'),
-    url('purchaes_reimburse_create_data', views.set_purchaes_reimburse_create_data, name='purchaes_requisitions_create'),
+    url('purchaes_reimburse_create_data', views.set_purchaes_reimburse_create_data,
+        name='purchaes_requisitions_create'),
     url('purchaes_payment_create_data', views.set_purchaes_payment_create_data, name='purchaes_requisitions_create'),
+    url('contract_by_purchase_number', views.set_contract_by_purchase_number, name='合同关联请购单'),
     url('contract_by_purchase_number', views.set_contract_by_purchase_number, name = '合同关联请购单'),
     url('warehousing_by_purchase_number', views.set_warehousing_by_purchase_number, name = '入库关联请购单'),
     url('invoice_by_purchase_number', views.set_invoice_by_purchase_number, name = '发票关联请购单'),
     url('pyment_by_purchase_number', views.set_pyment_by_purchase_number, name = '付款关联请购单'),
-
-
 
     url('purchasing_created', views.purchasing_created, name='purchasing_created'),
     url('purchaes_requisitions_create', views.purchaes_requisitions_create, name='purchaes_requisitions_create'),
@@ -59,7 +59,6 @@ urlpatterns = [
     url('create_purchase_number', views.set_create_purchase_number, name='set_purchase_robot_jobs_info'),
     url('view_information_data', views.set_view_information_data, name='set_view_information'),
     url('view_information', views.set_view_information, name='set_view_information'),
-
 
     # url('purchase_delete_jobs_info', views.set_purchase_deletjobs_info, name='delete_jobs'),
     # url('purchase_stop_jobs_info', views.set_purchase_stopjobs_info, name='stop_jobs'),

@@ -96,11 +96,12 @@ class Task(View):
                          {"name": "课程管理", "url": ""}, {"name": "案例管理", "url": ""}]
 
             task_edu = [{"name": "实训任务", "url": ""}, {"name": "实训任务卡", "url": ""}, {"name": "教学管理", "url": ""},
-                         {"name": "学生管理", "url": "/student_jump"}, {"name": "教师管理", "url": "/teacher_jump"},
-                         {"name": "班级管理", "url": "/class_jump"}, {"name": "专业管理", "url": "/major_jump"},
-                         {"name": "教务管理", "url": "/teach_jump"}]
+                        {"name": "学生管理", "url": "/student_jump"}, {"name": "教师管理", "url": "/teacher_jump"},
+                        {"name": "班级管理", "url": "/class_jump"}, {"name": "专业管理", "url": "/major_jump"},
+                        {"name": "教务管理", "url": "/teach_jump"}]
 
-            task_teach = [{"name": "实训任务", "url": ""}, {"name": "实训任务卡", "url": ""}, {"name": "教学管理", "url": ""},{"name": "学生管理", "url": "/student_jump"}]
+            task_teach = [{"name": "实训任务", "url": ""}, {"name": "实训任务卡", "url": ""}, {"name": "教学管理", "url": ""},
+                          {"name": "学生管理", "url": "/student_jump"}]
 
             task_student = [{"name": "实训任务", "url": ""}, {"name": "实训任务卡", "url": ""}]
 
@@ -1482,21 +1483,36 @@ def course(request):
 
 class Course_task(View):
     """课程管理，任务查看，与简介设置"""
-
     def get(self, request):
         """课程管理，任务展示"""
-        sql = "select task_name from task"
+        sql = "select task_name,task_state from task"
         try:
             task_name_list = SqlModel().select_all(sql)
             if task_name_list:
                 task_list = []
                 for i in task_name_list:
-                    task_list.append(i[0])
-                return JsonResponse({"result": task_list})
+                    data = {
+                        "a": i[0],
+                        "b": i[1]
+                    }
+                    task_list.append(data)
+                data_dict = {
+                    "code": 0,
+                    "data": task_list
+                }
+                return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": ""})
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
     def post(self, request):
         """简介设置"""
@@ -1507,7 +1523,7 @@ class Course_task(View):
         try:
             task_info = SqlModel().select_one(sql)
             if task_info:
-                sql_up = "updata task set task_recommend='%s' where task_name='%s'" % (task_recommend, task_name)
+                sql_up = "update task set task_recommend='%s' where task_name='%s'" % (task_recommend, task_name)
                 res = SqlModel().insert_or_update(sql_up)
                 if res:
                     return JsonResponse({"result": "设置成功"})
@@ -1517,3 +1533,130 @@ class Course_task(View):
                 return JsonResponse({"result": "fail", "msg": "该名称不存在，请重试"})
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+class Report_require_answer(View):
+    """实训报告的要求和答案"""
+    def get(self, request):
+        """设置实训报告的要求"""
+        report_name = request.GET.get("report_name")
+        report_require = request.GET.get("report_require")
+        sql = "select * from report where report_name = '%s'"
+        try:
+            res = SqlModel().select_one(sql)
+            if res:
+                sql_up = "update report set report_require='%s' where report_name = '%s'" % (report_require, report_name)
+                res_up = SqlModel().insert_or_update(sql_up)
+                if res_up:
+                    return JsonResponse({"result": "设置成功"})
+                else:
+                    return JsonResponse({"result": "fail", "msg": "设置失败"})
+            else:
+                return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+    def post(self, request):
+        """设置实训报告的答案"""
+        report_name = request.POST.get("report_name")
+        report_answer = request.POST.get("report_answer")
+        sql = "select * from report where report_name='%s'" % report_name
+        try:
+            res = SqlModel().select_one(sql)
+            if res:
+                sql_up = "update report set report_answer='%s' where report_name='%s'" % (report_answer, report_name)
+                res_up = SqlModel().insert_or_update(sql_up)
+                if res_up:
+                    return JsonResponse({"result": "设置成功"})
+                else:
+                    return JsonResponse({"result": "fail", "msg": "设置失败"})
+            else:
+                return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def task_teach_design(request):
+    """课程管理，设置 教学设计"""
+    task_name = request.POST.get("task_name")
+    file = request.FILES.get("a")
+    position = "\media\%s" % str(file)
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media", str(file))
+
+    try:
+        with open(MEDIA_ROOT, "wb") as f:
+            for i in file.chunks():
+                f.write(i)
+
+        sql = "select * from teach_design where design_name='%s‘ and task_name='%s'" % (str(file),task_name)
+
+        res = SqlModel().select_one(sql)
+        if res:
+            return JsonResponse({"result": "fail", "msg": "该任务已经配置该教学设计文件"})
+        else:
+            sql_add = "insert into teach_design (design_name,design_position,task_name) values ('%s','%s','%s')"% (str(file),position,task_name)
+            res_add = SqlModel().insert_or_update(sql_add)
+            if res_add:
+                return JsonResponse({"result": "设置成功"})
+            else:
+                return JsonResponse({"result": "fail", "msg": "设置失败,请重试"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def process(request):
+    """课程管理，设置 流程图"""
+    task_name = request.POST.get("task_name")
+    file = request.FILES.get("a")
+    process_position = "\picture\%s" % str(file)
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, "picture", str(file))
+
+    try:
+        with open(MEDIA_ROOT, "wb") as f:
+            for i in file.chunks():
+                f.write(i)
+
+        sql = "select * from process where process_name='%s' and task_name='%s'" % (str(file), task_name)
+        res = SqlModel().select_one(sql)
+        if res:
+            return JsonResponse({"result": "fail", "msg": "该任务已经配置该流程图"})
+        else:
+            sql_add = "insert into process (process_name,process_position,task_name) values ('%s','%s','%s')" % (str(file), process_position, task_name)
+            res_add = SqlModel().insert_or_update(sql_add)
+            if res_add:
+                return JsonResponse({"result": "设置成功"})
+            else:
+                return JsonResponse({"result": "fail", "msg": "设置失败,请重试"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def course_ware(request):
+    """课程管理，课件 设置"""
+    task_name = request.POST.get("task_name")
+    file = request.FILES.get("a")
+    course_position = "\media\%s" % str(file)
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media", str(file))
+
+    try:
+        with open(MEDIA_ROOT, "wb") as f:
+            for i in file.chunks():
+                f.write(i)
+
+        sql = "select * from course where course_name='%s' and task_name='%s'" % (str(file), task_name)
+        res = SqlModel().select_one(sql)
+        if res:
+            return JsonResponse({"result": "fail", "msg": "该任务已经配置该流程图"})
+        else:
+            sql_add = "insert into course (course_name,course_position,task_name) values ('%s','%s','%s')" % (str(file), course_position, task_name)
+            res_add = SqlModel().insert_or_update(sql_add)
+            if res_add:
+                return JsonResponse({"result": "设置成功"})
+            else:
+                return JsonResponse({"result": "fail", "msg": "设置失败,请重试"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
