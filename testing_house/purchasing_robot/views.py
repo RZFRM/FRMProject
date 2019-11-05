@@ -486,13 +486,18 @@ def set_purchaes_storage_create_data(request):
 
     #  TODO  插入数据库
     #  TODO  1.获取机器人名字, 2,获取请购信息
-    return JsonResponse({'code': '200'})
-
-
+    # return JsonResponse({'code': '200'})
 
     sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" %purchase_number
-    goods_name = str(DB.select_one(sql)[0])
-    print('----------------goods_name--------',goods_name)
+
+    try:
+        goods_name = str(DB.select_one(sql)[0])
+        print('----------------goods_name--------', goods_name)
+    except Exception as e:
+        print('请购单异常', e)
+        data = {'fail': '4444'}
+        return JsonResponse(data)
+
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-点验入库'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
@@ -663,8 +668,13 @@ def set_purchaes_reimburse_create_data(request):
     return JsonResponse({'code': '200'})
 
     sql = "select  goods_number  from purchase_warehousing_table  where  purchase_number = '%s'" % purchase_number
-    goods_name = str(DB.select_one(sql)[0])
-    print('----------------goods_name--------', goods_name)
+    try:
+        goods_name = str(DB.select_one(sql)[0])
+        print('----------------goods_name--------', goods_name)
+    except Exception as e:
+        print('请购单异常', e)
+        data = {'fail': '4444'}
+        return JsonResponse(data)
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-采购报销申请与审批'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -777,8 +787,6 @@ def purchaes_payment_determine(request):
 # TODO  采购 报账数据提交
 def set_purchaes_payment_create_data(request):
     user_name = request.COOKIES.get('username')
-
-
     contract_number  = request.POST.get('contract_number')
     payment_reason = request.POST.get('payment_reason')
     payment_money= request.POST.get('payment_money')

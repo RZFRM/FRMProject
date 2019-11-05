@@ -53,7 +53,8 @@
                         class="xing">*</span>关联合同号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
 
-                    <select name="contract_number" lay-verify="required" lay-search="" style="width:100%;height: 30px;" id="contract">
+                    <select name="contract_number" lay-verify="required" lay-search="" style="width:100%;height: 30px;"
+                            id="contract">
 
                         <option datas="" value="">直接选择或搜索选择</option>
                     </select>
@@ -133,10 +134,10 @@
                 type: "post",
                 data: $(data.form).serialize(),
                 success: function (data) {
-                    if (data.code == 200) {
-                        location.href = "/purchaes_storage_determine";
+                    if (data.fail == 4444) {
+                          layer.msg = '123132';
                     } else {
-                        msg = data.msg;
+                        location.href = "/purchaes_storage_determine";
                     }
                 }
             });
