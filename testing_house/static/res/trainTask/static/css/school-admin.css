@@ -3,9 +3,9 @@
 .school-head{
     display: flex;
     flex-wrap: nowrap;
-    width:1651px;
+    width:1400px;
     height:50px;
-    line-height: 68px;
+    line-height: 50px;
     background:rgba(242,242,242,1);
     margin: 0 auto;
 }
@@ -13,6 +13,9 @@
     margin-left: 796px;
     z-index: 999;
     border-radius: 4px;
+}
+.layui-table-tool {
+    display: none;
 }
 .layui-groups>.layui-btn{
     width:77px;

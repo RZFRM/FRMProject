@@ -8,36 +8,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
+    <link rel="stylesheet" href="../../static/res/trainTask/static/js/school-admin.js" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <style type="text/css">
+    .layui-table-body{overflow-x: hidden !important;}
+
+    .layui-card-body{
+        width: 1418px;
+        margin: auto;
+        background:rgba(255,255,255,1);
+    }
+    .layui-table-cell,layui-table-tool-panel li{
+            height:auto;
+            overflow:visible;
+            text-overflow:inherit;
+            white-space:normal;
+
+            line-height:24px;
+            }
+        .layui-table-fixed-l{
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
 <div class="layui-col-train-teach">
     <div class="layui-card">
-        <div class="layui-card-header" style="width: 1920px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+        <div class="layui-card-header" style="width: 1400px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
             学校管理
         </div>
     </div>
-</div>
-<div class="school-head" id="school-head">
+
+<div class="school-head" id="school-head" >
     <div class="btn-groups">
         <div class="layui-groups">
-            <button type="button" class="layui-btn">新增</button>
-            <button type="button" class="layui-btn">修改</button>
-            <button type="button" class="layui-btn">删除</button>
+            <button type="button" class="layui-btn add1">新增</button>
+            <button type="button" class="layui-btn ">修改</button>
+            <button type="button" class="layui-btn del">删除</button>
         </div>
     </div>
-    <div class="demoTable">
+    <div class="demoTable" >
         <div class="layui-inline">
             <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索姓名">
         </div>
-        <button class="layui-btn" data-type="reload" style="margin-right: ">搜索</button>
+        <button class="layui-btn" data-type="reload" >搜索</button>
     </div>
 </div>
 
-<div class="layui-card-body">
-    <table class="layui-hide" id="table_user" lay-filter="user"></table>
-</div>>
-
+    <div class="layui-card-body" >
+        <table class="layui-hide" id="table_user" lay-filter="user"></table>
+    </div>
+</div>
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
@@ -49,8 +70,7 @@
             , laydate = layui.laydate;
 
 
-        layer.msg(215458)
-        console.log(123)
+
 
 
         //方法级渲染
@@ -62,16 +82,16 @@
             ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', align:"center",title: '序号', width: "5%",templet: '#xuhao'}
-                , {field: 'b', align:"center",title: '学校代码', width: "10%"}
-                , {field: 'c', align:"center",title: '学校名称', width: "20%"}
-                , {field: 'd', align:"center",title: '办学层次', width: "10%"}
-                , {field: 'e', align:"center",title: '办学类型',width:"10%"}
-                , {field: 'f', align:"center",title: '省份', width: "10%"}
-                , {field: 'g', align:"center",title: '城市', width: "10%"}
-                , {field: 'h', align:"center",title: '教务管理员', width: "10%"}
-                , {field: 'g', align:"center",title: '创建人', width: "5%"}
-                , {field: 'h', align:"center",title: '操作', width: "10%"}
+                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
+                , {field: 'a', align:"center",title: '学校代码', width: "10%"}
+                , {field: 'b', align:"center",title: '学校名称', width: "15%"}
+                , {field: 'c', align:"center",title: '办学层次', width: "8%"}
+                , {field: 'd', align:"center",title: '办学类型',width:"7%"}
+                , {field: 'e', align:"center",title: '省份', width: "10%"}
+                , {field: 'f', align:"center",title: '城市', width: "10%"}
+                , {field: 'g', align:"center",title: '教务管理员', width: "10%"}
+                , {field: 'h', align:"center",title: '创建人', width: "10%"}
+                , {field: 'i', align:"center",title: '操作', width: "15%"}
             ]]
             , page: true
         });
@@ -99,11 +119,14 @@
         {#  let type = $(this).data('type');#}
         {#  active[type] ? active[type].call(this) : '';#}
         {#);#}
+
+
+
+
+
     });
 </script>
 
-        <script type="text/html" id="xuhao">
-            {d.LAY_TABLE_INDEX+1}
-        </script>
+
 </body>
 </html>

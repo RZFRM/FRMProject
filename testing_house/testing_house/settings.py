@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'teach_task.apps.TeachTaskConfig',
 
 
-
 ]
 
 MIDDLEWARE = [
