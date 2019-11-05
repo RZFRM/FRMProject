@@ -43,7 +43,19 @@ INSTALLED_APPS = [
     'purchasing_robot',
     'mptt',
     'teach_task.apps.TeachTaskConfig',
-    'fixed_assets_robot',
+
+    'Inventory_accounting',
+    'Sales',
+    'Employee_salary',
+    'permanent_assets',
+    'General_ledger_business',
+    'Online_banking_payment',
+    'Online_banking_inquiry',
+    'Financial_statements',
+    'Invoice_inspection',
+    'Invoice_certification',
+    'Corporate_tax_quarterly_report',
+    'FixedAssets_robot',
 
 ]
 

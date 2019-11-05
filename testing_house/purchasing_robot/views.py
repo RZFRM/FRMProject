@@ -442,6 +442,7 @@ def set_warehousing_by_purchase_number(request):
     return JsonResponse(data)
 
 
+
 #  TODO  采购机器人 弹框第五步
 def purchaes_order_determine(request):
 
@@ -453,7 +454,6 @@ def purchaes_order_determine(request):
 
 #  TODO  入库数据确定
 def set_purchaes_storage_create_data(request):
-
 
 
     # TODO  请购单号
@@ -635,13 +635,6 @@ def purchaes_reimburse_determine(request):
 
 
 
-#  TODO 采购  报销数据确定
-def set_purchaes_reimburse_create_data(request):
-    return JsonResponse({'sucess': '200'})
-
-
-
-
 
 #  TODO 采购  发票数据确定
 def set_purchaes_reimburse_create_data(request):
@@ -727,8 +720,6 @@ def set_purchaes_reimburse_create_data(request):
         }
 
         return JsonResponse(data)
-
-
 
 
 
@@ -878,6 +869,11 @@ def set_purchaes_payment_create_data(request):
 
 
 
+
+
+#  TODO  采购机器人 弹框第十一步
+def purchaes_payment_determine(request):
+    return render(request, 'purchaes_payment_determine_11.html')
 
 
 

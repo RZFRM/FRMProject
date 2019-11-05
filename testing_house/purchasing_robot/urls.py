@@ -30,11 +30,13 @@ urlpatterns = [
     url('purchaes_reimburse_create_data', views.set_purchaes_reimburse_create_data,
         name='purchaes_requisitions_create'),
     url('purchaes_payment_create_data', views.set_purchaes_payment_create_data, name='purchaes_requisitions_create'),
+
     url('contract_by_purchase_number', views.set_contract_by_purchase_number, name='合同关联请购单'),
     url('contract_by_purchase_number', views.set_contract_by_purchase_number, name = '合同关联请购单'),
     url('warehousing_by_purchase_number', views.set_warehousing_by_purchase_number, name = '入库关联请购单'),
     url('invoice_by_purchase_number', views.set_invoice_by_purchase_number, name = '发票关联请购单'),
     url('pyment_by_purchase_number', views.set_pyment_by_purchase_number, name = '付款关联请购单'),
+
 
     url('purchasing_created', views.purchasing_created, name='purchasing_created'),
     url('purchaes_requisitions_create', views.purchaes_requisitions_create, name='purchaes_requisitions_create'),
@@ -42,8 +44,10 @@ urlpatterns = [
         name='purchaes_requisitions_determine'),
     url('purchaes_order_create', views.purchaes_order_create, name='purchaes_order_create'),
     url('purchaes_order_determine', views.purchaes_order_determine, name='purchaes_order_determine'),
+
     url('purchaes_storage_create', views.purchaes_storage_create, name='purchaes_storage_create'),
     url('purchaes_storage_determine', views.purchaes_storage_determine, name='purchaes_storage_determine'),
+
     url('purchaes_reimburse_create', views.purchaes_reimburse_create, name='purchaes_reimburse_create'),
     url('purchaes_reimburse_determine', views.purchaes_reimburse_determine, name='purchaes_reimburse_determine'),
     url('purchaes_payment_create', views.purchaes_payment_create, name='purchaes_payment_create'),

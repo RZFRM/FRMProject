@@ -7,7 +7,13 @@ from django.db import models
 # # # TODO   采购请购机器人数据表
 
 
+
+
+
 # # # # TODO   采购请购机器人数据表
+
+# # # # TODO   采购请购机器人数据表
+
 
 class purchase_apply_table(models.Model):
     id= models.AutoField(primary_key=True,verbose_name="id")
@@ -39,10 +45,9 @@ class purchase_apply_table(models.Model):
     class Meta:
         db_table = 'purchase_apply_table'
 
-#
-#
 
 #
+
 # # #
 # # # # TODO   采购合同机器人数据表
 # # #
@@ -71,6 +76,7 @@ class purchase_contract_table(models.Model):
     demand_date = models.CharField(max_length=50, null=True, verbose_name='需求日期')
 
 
+
     def __str__(self):
         return self.contract_number
 
@@ -79,12 +85,19 @@ class purchase_contract_table(models.Model):
 
 
 
+    def __str__(self):
+        return self.contract_number
+
+    class Meta:
+        db_table = 'purchase_contract_table'
 
 
 
 # TODO   采购入库机器人数据表
 
 class purchase_warehousing_table(models.Model):
+
+
     id = models.AutoField(primary_key=True, verbose_name="id")
     gmt_create = models.DateTimeField(null=True, verbose_name='创建时间')
     user_name = models.CharField(max_length=20, null=True, verbose_name='用户名')
@@ -95,8 +108,11 @@ class purchase_warehousing_table(models.Model):
     warehouse_number = models.CharField(max_length=20, null=True, verbose_name='仓库编号')
     warehouse_date = models.CharField(max_length=20, null=True, verbose_name='入库日期')
     application = models.CharField(max_length=20, null=True, verbose_name='点验人员')
+
+
     purchase_warehousing_status = models.CharField(max_length=20, null=True, verbose_name='入库状态')
     business_name = models.CharField(max_length=50, null=True, verbose_name='业务名称')
+
 
     def __str__(self):
         return self.warehouse_number
@@ -126,6 +142,7 @@ class purchase_invoice_table(models.Model):
     application_sector = models.CharField(max_length=20, null=True, verbose_name='申请部门')
     department_head = models.CharField(max_length=20, null=True, verbose_name='部门领导')
     company_head = models.CharField(max_length=20, null=True, verbose_name='公司领导')
+
     purchase_invoice_status = models.CharField(max_length=20, null=True, verbose_name='发票状态')
     business_name = models.CharField(max_length=50, null=True, verbose_name='业务名称')
 
@@ -161,8 +178,10 @@ class purchase_payment_table(models.Model):
     application_sector = models.CharField(max_length=20, null=True, verbose_name='申请部门')
     department_head = models.CharField(max_length=20, null=True, verbose_name='部门领导')
     company_head = models.CharField(max_length=20, null=True, verbose_name='公司领导')
+
     purchase_payment_status = models.CharField(max_length=20, null=True, verbose_name='付款状态')
     business_name = models.CharField(max_length=50, null=True, verbose_name='业务名称')
+
 
     def __str__(self):
         return self.payment_object

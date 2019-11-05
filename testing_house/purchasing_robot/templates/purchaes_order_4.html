@@ -13,12 +13,6 @@
             margin: 0 auto;
         }
 
-        ul {
-            position: absolute;
-            top: 95px;
-            left: 17px;
-        }
-
         .atitle > span {
             margin: 0 auto;
         }
@@ -45,27 +39,16 @@
     <div class="atitle">
         <span>采购合同申请</span>
     </div>
-    <ul>
-        <li class="ULI"><a lay-href="/purchaes_requisitions_create" class="ULIP"></a></li>
-        <li class="ULI"><a lay-href="/purchaes_requisitions_determine" class="ULIP"></a></li>
-        <li class="ULI"><a lay-href="/purchaes_order_create" class="ULIP"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-    </ul>
 
     <div style="height: 422px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">关联请购单：</label>
+                <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;"><span
+                        class="xing">*</span>关联合同号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select lay-verify="required" id="xm" name="purchase_number" lay-filter="xmFilter"
-                            style="width:100%;height: 30px;" lay-search="" lay-ignore>
-                        <option value="">请输入您的请购单号</option>
+                    <select lay-verify="required" lay-search="" style="width:100%;height: 30px;" id="xm"
+                            name="purchase_number" lay-filter="xmFilter">
+                        <option value="">直接选择或搜索选择</option>
                     </select>
                 </div>
             </div>
@@ -195,6 +178,7 @@
             , $ = layui.jquery
             , laydate = layui.laydate;
 
+
         //第四步弹框 关联请购单编号
         $(function () {
             $.ajax({
@@ -202,10 +186,11 @@
                 type: "post",
                 datatype: "json",
                 success: function (res) {
+                    console.log(res);
                     for (let index in res.data) {
                         $("#xm").append(`<option value="${res.data[index]}">${res.data[index]}</option>`)
                     }
-                    layui.form.render("select", "xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                    layui.form.render("select", "component-form-group");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
                 }
             });
         });
