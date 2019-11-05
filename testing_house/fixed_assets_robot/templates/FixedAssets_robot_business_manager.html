@@ -62,7 +62,7 @@
             dict.append('job_no', t.job_no)
             console.log(dict)
             layui.$.ajax({
-                url: '/detail_data',
+                url: '/fixed_assets/detail_data',
                 type: 'post',
                 data: dict,
                 processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
@@ -84,7 +84,7 @@
 
                 elem: '#test'
                 , max_height: 1000
-                , url: '/purchase_robot_buession_info'
+                , url: '/fixed_assets/purchase_fa_robot_buession_info'
                 , toolbar: '#toolbarDemo'
                 , title: '用户数据表'
                 , cols: [[
@@ -131,7 +131,7 @@
                 batch_start.append('csrfmiddlewaretoken', '{{ csrf_token }}')
                 console.log(batch_start)
                 layui.$.ajax({
-                    url: '/batch_running',
+                    url: '/fixed_assets/batch_running',
                     type: 'post',
                     data: batch_start,
                     processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
@@ -152,7 +152,7 @@
                     shade: false,
                     maxmin: true, //开启最大化最小化按钮
                     area: ["742px", '72.5%'],
-                    content: '/purchaes_order_create'
+                    content: '/fixed_assets/purchaes_order_create'
                 });
             });
 
@@ -196,7 +196,7 @@
                         shade: false,
                         maxmin: true, //开启最大化最小化按钮
                         area: ['43.65%', '65%'],
-                        content: '/view_information',
+                        content: '/fixed_assets/view_information',
                         success: function (layero, index) {
                             var iframe = window['layui-layer-iframe' + index];
                             {#iframe.getDataFromOption(data);#}
