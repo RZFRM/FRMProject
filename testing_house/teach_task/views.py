@@ -26,12 +26,12 @@ def school_jump(request):
 
 def province_jump(request):
     """教务页面跳转"""
-    return render(request, "teach-admin.html")
+    return render(request, "province-admin.html")
 
 
 def major_jump(request):
     """专业页面跳转"""
-    return render(request, "professional-admin.html")
+    return render(request, "major-admin.html")
 
 
 def class_jump(request):
