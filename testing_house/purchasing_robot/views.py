@@ -811,4 +811,6 @@ def set_view_information_data(request):
 
 #  TODO  返回查看页面
 def set_view_information(request):
+
+    sales_number = request.POST.get('sales_number',0)
     return render(request, "view_details.html", locals())

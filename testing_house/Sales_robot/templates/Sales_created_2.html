@@ -92,11 +92,11 @@
         //通用表单提交(AJAX方式)
         form.on('submit(demo1)', function (data) {
             $.ajax({
-                url: "/purchasing_created_data",
+                url: "/",
                 type: "post",
                 data: $(data.form).serialize(),
                 success: function () {
-                    location.href ="/purchaes_requisitions_create";
+                    location.href ="/";
                 }
             });
         });
