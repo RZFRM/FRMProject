@@ -8,19 +8,21 @@ from mptt.models import MPTTModel
 
 # TODO 用户信息表
 class User(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name='管理员id')
+    admin_name = models.CharField(max_length=10, null=True, verbose_name='登入人员名字')
     user_name = models.CharField(max_length=50, null=None, unique=True)
-    user_password = models.CharField(max_length=100, null=None)
+    user_pass = models.CharField(max_length=100, null=None)
     user_agent_no = models.CharField(max_length=100, null=True)
-    user_email = models.EmailField(max_length=100, null=True)
-    user_phone = models.IntegerField(null=True)
+    admin_type = models.CharField(max_length=10,null=True, verbose_name='分类，1：内部，2：教务，3：老师，4:学生 5:公司')
+    phone = models.BigIntegerField(null=True, verbose_name='电话')
+    school_code = models.IntegerField(null=True, verbose_name='学校编号')
+    admin_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
+                                   verbose_name=u"有效性", max_length=10)
+    create_name = models.CharField(max_length=10,null=True)
     create_time= models.DateTimeField(auto_now_add=True, null=True)
-    finall_time = models.DateTimeField(auto_created=True, null=True)
-    address = models.CharField(max_length=100, null=True)
-    user_heard_image=models.CharField(max_length=500, null=True)
 
     def __str__(self):
         return self.user_name
-
 
     class Meta:
         db_table = 'user'
@@ -244,8 +246,8 @@ class EmpSalary(models.Model):
 class Job_list_summary(models.Model):
 
     user_name = models.ForeignKey(User, to_field='user_name', on_delete=models.CASCADE)
-    job_id = models.CharField(max_length=8, null=True)
-    job_no = models.CharField(max_length=8)
+    job_id = models.CharField(max_length=50, null=True)
+    job_no = models.CharField(max_length=40)
     isa_job_no = models.CharField(max_length=200, null=True)
     job_type = models.CharField(max_length=200, null=True)
     job_name = models.CharField(max_length=32)
@@ -259,19 +261,12 @@ class Job_list_summary(models.Model):
     job_error = models.CharField(max_length=32, null=True)
 
 
-
-
-
     def __str__(self):
         return self.job_no
 
     class Meta:
         db_table = "job_list_summary"
         verbose_name = '任务列表'
-
-
-
-
 
 
 

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>专业管理/新增/修改</title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        .forn {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        ul {
+            position: absolute;
+            top: 95px;
+            left: 17px;
+        }
+        .atitle>span{
+            margin-left: 5px;
+            width:61px;
+            height:15px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+        }
+        .atitle>button {
+            width:27px;
+            height:25px;
+            border: none;
+            background:rgba(248,248,248,1);
+            margin-left: 600px;
+        }
+
+     .task_name {
+           display: flex;
+           flex-wrap: wrap;
+           margin: 30px auto;
+           width: 530px;
+       }
+        .task_name>div>p {
+            width:71px;
+            height:14px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+            display: inline;
+        }
+        .intro {
+            width:390px;
+            height:31px;
+            background:rgba(255,255,255,1);
+            border:1px solid rgba(220,220,220,1);
+        }
+        .intro2 {
+            width:71px;
+            height:14px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+        }
+        .yao1{
+            width:71px;
+            height:15px;
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+        }
+        .area1 {
+            width:390px;
+            height:266px;
+            background:rgba(255,255,255,1);
+            border:1px solid rgba(220,220,220,1);
+            box-shadow:0px 0px 4px 0px rgba(1, 2, 2, 0.35);
+        }
+        .btn {
+            width: 105px;
+            height: 39px;
+            background: rgba(55, 38, 89, 1);
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 39px;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            left: 44%;
+            bottom: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>课程管理</span>
+        <button>X</button>
+    </div>
+
+    <div>
+        <p>任务简介</p>
+    </div>
+    <div style="height: 425px;overflow: auto;padding-top:25px;margin: 0 auto">
+        <form class="layui-form forn" action="" lay-filter="component-form-group">
+            <div class="layui-form-item layui-form-text" style="    margin-left: -117px;">
+                <label class="layui-form-label yao1">任务名称：</label>
+                   <div class="layui-input-block" >
+                      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入任务名称" class="layui-input intro" >
+                    </div>
+              </div>
+                <div class="layui-form-item layui-form-text" style="margin-left: -129px">
+                    <label class="layui-form-label intro2">任务简介:</label>
+                        <div class="layui-input-block" >
+                          <textarea placeholder="请输入描述内容" class="layui-textarea area1" name="desc" style="margin-left: 14px"></textarea>
+                        </div>
+                </div>
+            <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
+
+        </form>
+    </div>
+</div>
+</div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+
+        //button提交监听
+        form.on('submit(demo6)', function (data) {
+            //通用表单提交(AJAX方式)
+            $.ajax({
+                url: "/purchaes_storage_create_data",
+                type: "post",
+                data: $(data.form).serialize(),
+                success: function () {
+                    location.href = "/purchaes_storage_determine";
+                }
+            });
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -13,17 +13,12 @@
             color: rgba(51, 51, 51, 1);
         }
 
-        ul {
-            float: left;
-            margin: 50px 0 0 17px;
-            text-align: center;
+        .approve {
+            width: 350px;
+            margin: 0 auto;
+            padding-top: 123px;
         }
 
-        .approve{
-            width: 350px;
-            margin:0 auto;
-            padding-top:123px;
-        }
         .good {
             float: left;
             height: 210px;
@@ -36,25 +31,31 @@
             border: 1px solid #c6c6c6;
             margin-left: 14px;
         }
-        .more{
+
+        .more {
             float: right;
         }
-        .more>div+div{
-            margin-top:55px;
+
+        .more > div + div {
+            margin-top: 55px;
         }
-        .more>div>p+p{
-            margin-top:6px;
+
+        .more > div > p + p {
+            margin-top: 6px;
         }
-        .more>div>p:first-child{
-            color:#333;
+
+        .more > div > p:first-child {
+            color: #333;
             font-size: 16px;
             font-weight: bold;
         }
-        .more>div>p:last-child{
-            color:#333;
+
+        .more > div > p:last-child {
+            color: #333;
             font-size: 14px;
             font-weight: 400;
         }
+
         .btn {
             width: 105px;
             height: 39px;
@@ -77,20 +78,8 @@
     <div class="atitle">
         <span>采购点验入库</span>
     </div>
-    <ul>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-    </ul>
     <div class="approve">
-            <div class="good">
+        <div class="good">
             <img src="../../static/pic/zhengque.png" alt="">
             <span></span>
             <img src="../../static/pic/zhengque.png" alt="">
@@ -98,17 +87,31 @@
         <div class="more">
             <div>
                 <p>已入库</p>
-                <p>2020/12/10  9:03:42</p>
+                <p>2020/12/10 9:03:42</p>
             </div>
             <div>
                 <p>采购入库机器人：<span>已成功创建任务  （<a href="#">查看</a>）</span></p>
-                <p>2020/12/10  9:03:46</p>
+                <p>2020/12/10 9:03:46</p>
             </div>
         </div>
         <div style="clear: both"></div>
     </div>
-    <button class="btn" onclick="javascript:window.location.href='/purchaes_reimburse_create'">下一步</button>
+    <button class="layui-btn btn" lay-submit="" lay-filter="demo7" id="wicket" >完成</button>
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(["form", "layer", "jquery"], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.jquery;
+
+        //关闭当前窗口
+        $("#wicket").click(function () {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            window.parent.location.reload();//刷新父页面
+        })
+    })
+</script>
 </body>
 </html>

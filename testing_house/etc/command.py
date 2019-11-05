@@ -9,8 +9,9 @@ run_status = {'1110': '正在执行', '1111': '待执行', '1112': '未执行',
 
 # TODO  机器人信息        ----------------
 robot_name =  {
-    '采购申请机器人':'purchase_requisition_RPA_Yes',
-    '个税机器人':'GeShui'
+    '采购申请机器人':'purchase_requisition_RPA_NoOCR',
+    '个税机器人':'GeShui',
+    '采购合同机器人':'purchase_order_RPA'
 }
 
 # TODO  货物信息          ----------------
