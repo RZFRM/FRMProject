@@ -6,18 +6,11 @@
 
     <div class="layui-col-md12">
         <div class="layui-card">
-            <div class="layui-card-header"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;固定资产采购业务机器人 &nbsp;>&nbsp;
+            <div class="layui-card-header"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售业务机器人 &nbsp;>&nbsp;
                 业务管理
             </div>
 
             <div class="layui-card-body">
-                {#                <div class="demoTable">#}
-                {#                    搜索ID：#}
-                {#                    <div class="layui-inline">#}
-                {#                        <input class="layui-input" name="id" id="demoReload" autocomplete="off">#}
-                {#                    </div>#}
-                {#                    <button class="layui-btn" data-type="reload">搜索</button>#}
-                {#                </div>#}
                 <table class="layui-hide" id="test" lay-filter="test"></table>
             </div>
         </div>
@@ -50,10 +43,6 @@
     </script>
 
 
-
-    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-
-
     <script>
         detail = function (t) {
             console.log(t.job_no)
@@ -62,7 +51,7 @@
             dict.append('job_no', t.job_no)
             console.log(dict)
             layui.$.ajax({
-                url: '/fixed_assets/detail_data',
+                url: '/detail_data',
                 type: 'post',
                 data: dict,
                 processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
@@ -74,7 +63,6 @@
         }
     </script>
 
-
     <script>
         layui.use(['table', 'jquery'], function () {
             var table = layui.table,
@@ -84,7 +72,7 @@
 
                 elem: '#test'
                 , max_height: 1000
-                , url: '/fixed_assets/purchase_fa_robot_buession_info'
+                , url: '/set_sales_robot_buession_info'
                 , toolbar: '#toolbarDemo'
                 , title: '用户数据表'
                 , cols: [[
@@ -103,11 +91,6 @@
                 }
                 , page: true
             });
-
-            {#layer.alert("用户序号："+data.id+",业务名称"+data.business_name+",创建时间:"+data.gmt_create)#}
-            //头工具栏事件
-
-            //头工具栏事件
 
             // 点击触发
             layui.$("#big_num").on("click", function () {
@@ -131,7 +114,7 @@
                 batch_start.append('csrfmiddlewaretoken', '{{ csrf_token }}')
                 console.log(batch_start)
                 layui.$.ajax({
-                    url: '/fixed_assets/batch_running',
+                    url: '/batch_running',
                     type: 'post',
                     data: batch_start,
                     processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
@@ -139,20 +122,19 @@
                     success: function () {
                     }
                 })
-
-
             });
 
             //弹出一个iframe层  新增业务
             layui.$('#Added').on('click', function () {
                 layer.open({
                     type: 2,
-                    title: '采购业务填报',
+                    title: '销售业务填报',
                     shadeClose: true,
                     shade: false,
+                    id: 'toolbarDemo'+1,
                     maxmin: true, //开启最大化最小化按钮
                     area: ["742px", '72.5%'],
-                    content: '/fixed_assets/purchaes_order_create'
+                    content: '/Sales_requisition_1'
                 });
             });
 
@@ -181,7 +163,6 @@
                 active[type] ? active[type].call(this) : '';
             });
 
-
             //监听行工具事件
             table.on('tool(test)', function (obj) {
                 var data = obj.data;//获得当前行数据（json格式的键值对）
@@ -196,10 +177,9 @@
                         shade: false,
                         maxmin: true, //开启最大化最小化按钮
                         area: ['43.65%', '65%'],
-                        content: '/fixed_assets/view_information',
+                        content: '/view_information',
                         success: function (layero, index) {
-                            var iframe = window['layui-layer-iframe' + index];
-                            {#iframe.getDataFromOption(data);#}
+                            {#var iframe = window['layui-layer-iframe' + index];#}
 
                             var body = layer.getChildFrame('body', index);//建立父子联系
                             body.find('input').val(data.id);
@@ -215,7 +195,7 @@
                     {#        shade: false,#}
                     {#        maxmin: true, //开启最大化最小化按钮#}
                     {#        area: ['43.65%', '62%'],#}
-                    {#        content:"FA_view_details.html",#}
+                    {#        content:"view_details.html",#}
                     {#    });#}
                     {#    console.log(result);#}
                     {#,"json");#}

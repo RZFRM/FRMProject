@@ -36,12 +36,12 @@ DB = Mysql_client_FRM()
 
 
 #  TODO  固定资产机器人基础配置页
-def pruchasing_robot_base(request):
+def pruchasing_fa_robot_base(request):
     return render(request, 'FixedAssets_robot_base_manager.html')
 
 
 # TODO  固定资产机器人基础配置页面
-def pruchasing_robot_base_data(request):
+def pruchasing_fa_robot_base_data(request):
     user_name = request.COOKIES.get('username')
     # person_tax_install_path = request.POST.get('person_tax_install_path')
     company_name = ''
@@ -99,33 +99,33 @@ def pruchasing_robot_base_data(request):
             return JsonResponse(data)
 
 
-#  TODO  采购机器人业务管理页
-def pruchasing_robot_business(request):
+#  TODO  固定资产采购机器人业务管理页
+def pruchasing_fa_robot_business(request):
     user_name = request.COOKIES.get('user_name')
     print(user_name)
     # update_sql(user_name)
     return render(request, 'FixedAssets_robot_business_manager.html', locals())
 
 
-#  TODO  采购机器人任务管理页
-def pruchasing_robot_jobs(request):
+#  TODO  固定资产采购机器人任务管理页
+def pruchasing_fa_robot_jobs(request):
     user_name = request.COOKIES.get('user_name')
     # update_sql(user_name)
-    return render(request, 'purchasing_robot_jobs_manager.html')
+    return render(request, 'FixedAssets_robot_jobs_manager.html')
 
 
-#  TODO  采购机器人 弹框第一步
-def purchasing_created(request):
-    return render(request, 'purchasing_created_1.html')
+#  TODO  固定资产采购机器人 弹框第一步
+def purchasing_fa_created(request):
+    return render(request, 'FA_purchasing_created_1.html')
 
 
 # TODO 第一步数据确认
-def purchasing_created_data(request):
+def purchasing_fa_created_data(request):
     return render(request, '200')
 
 
-#  TODO  采购机器人 弹框第二步
-def purchaes_requisitions_create(request):
+#  TODO  固定资产采购机器人 弹框第二步
+def purchaes_fa_requisitions_create(request):
     # user_name = request.COOKIES.get('username')
     # modules = request.POST.get("modules")
     #
@@ -136,13 +136,13 @@ def purchaes_requisitions_create(request):
     #
     # purchase_number = 'CG0000007'
     # print(locals())
-    # return  render(request, 'purchaes_storage_6.html')
-    return render(request, 'purchaes_requisitions_2.html', locals())
+    # return  render(request, 'FA_purchaes_storage_6.html')
+    return render(request, 'FA_purchaes_requisitions_2.html', locals())
 
 
-# TODO  采购机器人第二步数据
+# TODO 固定资产采购机器人第二步数据
 
-def purchaes_requisitions_create_data(request):
+def purchaes_fa_requisitions_create_data(request):
     user_name = request.COOKIES.get('username')
 
     # TODO 请购单编号
@@ -243,18 +243,18 @@ def purchaes_requisitions_create_data(request):
     return HttpResponse(200)
 
 
-#  TODO  采购机器人 弹框第三步
-def purchaes_requisitions_determine(request):
-    return render(request, 'purchaes_requisitions_determine_3.html')
+#  TODO  固定资产采购机器人 弹框第三步
+def purchaes_fa_requisitions_determine(request):
+    return render(request, 'FA_purchaes_requisitions_determine_3.html')
 
 
-#  TODO  采购机器人 弹框第四步
-def purchaes_order_create(request):
-    return render(request, 'purchaes_order_4.html')
+#  TODO  固定资产采购机器人 弹框第四步
+def purchaes_fa_order_create(request):
+    return render(request, 'FA_purchaes_order_4.html')
 
 
-# TODO  采购合同 获取所有请购单信息
-def set_contract_by_purchase_number(request):
+# TODO  固定资产采购合同 获取所有请购单信息
+def set_fa_contract_by_purchase_number(request):
     user_name = request.COOKIES.get('username')
     sql = "select purchase_number from FA_purchase_requisition_table  where user_name = '%s'" % user_name
 
@@ -284,8 +284,8 @@ def set_contract_by_purchase_number(request):
         return JsonResponse(data)
 
 
-# TODO  采购合同机器人  数据入库
-def set_purchaes_order_create_data(request):
+# TODO  固定资产采购合同机器人  数据入库
+def set_fa_purchaes_order_create_data(request):
     # TODO  请购单号
     purchase_number = request.POST.get('purchase_number')
 
@@ -405,7 +405,7 @@ def set_purchaes_order_create_data(request):
 
 
 # 第六步数据提交地址
-def set_purchaes_storage_create_data(request):
+def set_fa_purchaes_storage_create_data(request):
     if request.POST:
         return HttpResponse('200')
 
@@ -414,64 +414,64 @@ def set_purchaes_storage_create_data(request):
 
 
 #  TODO  入库数据确定
-def set_purchaes_storage_create_data(request):
+def set_fa_purchaes_storage_create_data(request):
     return JsonResponse({'sucess': '200'})
 
 
-#  TODO  采购机器人 弹框第五步
-def purchaes_order_determine(request):
-    return render(request, 'purchaes_order_determine_5.html')
+#  TODO  固定资产采购机器人 弹框第五步
+def purchaes_fa_order_determine(request):
+    return render(request, 'FA_purchaes_order_determine_5.html')
 
 
-#  TODO  采购机器人 弹框第六步
-def purchaes_storage_create(request):
-    return render(request, 'purchaes_storage_6.html')
+#  TODO  固定资产采购机器人 弹框第六步
+def purchaes_fa_storage_create(request):
+    return render(request, 'FA_purchaes_storage_6.html')
 
 
-#  TODO  采购机器人 弹框第七步
-def purchaes_storage_determine(request):
-    return render(request, 'purchaes_storage_determine_7.html')
+#  TODO  固定资产采购机器人 弹框第七步
+def purchaes_fa_storage_determine(request):
+    return render(request, 'FA_purchaes_storage_determine_7.html')
 
 
-#  TODO  采购机器人 弹框第八步
-def purchaes_reimburse_create(request):
-    return render(request, 'purchaes_reimburse_8.html')
+#  TODO  固定资产采购机器人 弹框第八步
+def purchaes_fa_reimburse_create(request):
+    return render(request, 'FA_purchaes_reimburse_8.html')
 
 
-#  TODO  采购机器人 弹框第九步
-def purchaes_reimburse_determine(request):
-    return render(request, 'purchaes_reimburse_determine_9.html')
+#  TODO  固定资产采购机器人 弹框第九步
+def purchaes_fa_reimburse_determine(request):
+    return render(request, 'FA_purchaes_reimburse_determine_9.html')
 
 
 #  TODO 采购  报销数据确定
-def set_purchaes_reimburse_create_data(request):
+def set_fa_purchaes_reimburse_create_data(request):
     return JsonResponse({'sucess': '200'})
 
 
-#  TODO  采购机器人 弹框第十步
-def purchaes_payment_create(request):
-    return render(request, 'purchaes_payment_10.html')
+#  TODO  固定资产采购机器人 弹框第十步
+def purchaes_fa_payment_create(request):
+    return render(request, 'FA_purchaes_payment_10.html')
 
 
-#  TODO  采购机器人 弹框第十一步
-def purchaes_payment_determine(request):
-    return render(request, 'purchaes_payment_determine_11.html')
+#  TODO  固定资产采购机器人 弹框第十一步
+def purchaes_fa_payment_determine(request):
+    return render(request, 'FA_purchaes_payment_determine_11.html')
 
 
-# TODO  采购 报账数据提交
-def set_purchaes_payment_create_data(request):
+# TODO  采购报账数据提交
+def set_fa_purchaes_payment_create_data(request):
     return JsonResponse({'sucess': '200'})
 
 
-#  TODO  采购机器人 弹框第十二步
-def purchaes_business_data_display(request):
-    return render(request, 'purchaes_business_data_display_12.html')
+#  TODO  固定资产采购机器人 弹框第十二步
+def purchaes_fa_business_data_display(request):
+    return render(request, 'FA_purchaes_business_data_display_12.html')
 
 
 #  TODO  任务列表信息
 
 #  TODO  任务 信息
-def set_purchase_robot_jobs_info(request):
+def set_fa_purchase_robot_jobs_info(request):
     data_list = []
     user_name = request.COOKIES.get('username')
     # sql = "select  id,job_no,job_name, job_type,job_start_time,job_status   from  job_list_summary where  job_type like '采购%%' and user_name_id= '%s' order by id desc "%user_name
@@ -503,7 +503,7 @@ def set_purchase_robot_jobs_info(request):
 
 
 #  TODO  业务信息一览表
-def set_purchase_robot_buession_info(request):
+def set_fa_purchase_robot_buession_info(request):
     #  TODO 返回 未完成列表 数据
 
     user_name = request.COOKIES.get('username')
@@ -521,7 +521,7 @@ def set_purchase_robot_buession_info(request):
                 , "business_name": i[0]
                 , "gmt_create": str(i[1])
                 , "application_depart": i[2]
-                , 'robot_name': '固定资产采购请购机器人'
+                , 'robot_name': '固定资产请购机器人'
                 , "applicant": i[3]
                 , "purchase_apply_status": run_status[i[4]]
                 , "gmt_modified": str(i[5])
@@ -546,7 +546,7 @@ def set_purchase_robot_buession_info(request):
 
 
 # TODO  创建请购单数据
-def set_create_purchase_number(request):
+def set_fa_create_purchase_number(request):
     # TODO  判断 数据库是否有 CG000001
     user_name = request.COOKIES.get('username')
     id = 1
@@ -583,7 +583,7 @@ def set_create_purchase_number(request):
 
 
 #  TODO  创建查看共功能数据
-def set_view_information_data(request):
+def set_fa_view_information_data(request):
     user_name = request.COOKIES.get('username')
     id = request.GET.get('id')
     sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from FA_purchase_requisition_table where id = ' + str(id)
@@ -621,7 +621,7 @@ def set_view_information_data(request):
 
                 return JsonResponse(result)
 
-            elif r_name == '采购合同机器人':
+            elif r_name == '固定资产采购合同机器人':
 
                 project_name.append('单据编号')
                 project_name.append('采购用途')
@@ -658,5 +658,5 @@ def set_view_information_data(request):
 
 
 #  TODO  返回查看页面
-def set_view_information(request):
-    return render(request, "view_details.html", locals())
+def set_fa_view_information(request):
+    return render(request, "FA_view_details.html", locals())

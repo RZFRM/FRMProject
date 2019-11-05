@@ -1580,9 +1580,9 @@ def task_teach_design(request):
     """课程管理，设置 教学设计"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
-    position = "\media\%s" % str(file)
+    position = "\document\%s" % str(file)
 
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media", str(file))
+    MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
         with open(MEDIA_ROOT, "wb") as f:
@@ -1605,13 +1605,13 @@ def task_teach_design(request):
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
-def process(request):
-    """课程管理，设置 流程图"""
+def document(request):
+    """课程管理，设置 XX文件"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
-    process_position = "\picture\%s" % str(file)
+    process_position = "\document\%s" % str(file)
 
-    MEDIA_ROOT = os.path.join(BASE_DIR, "picture", str(file))
+    MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
         with open(MEDIA_ROOT, "wb") as f:
@@ -1637,9 +1637,9 @@ def course_ware(request):
     """课程管理，课件 设置"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
-    course_position = "\media\%s" % str(file)
+    course_position = "\document\%s" % str(file)
 
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media", str(file))
+    MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
         with open(MEDIA_ROOT, "wb") as f:
@@ -1649,7 +1649,7 @@ def course_ware(request):
         sql = "select * from course where course_name='%s' and task_name='%s'" % (str(file), task_name)
         res = SqlModel().select_one(sql)
         if res:
-            return JsonResponse({"result": "fail", "msg": "该任务已经配置该流程图"})
+            return JsonResponse({"result": "fail", "msg": "该任务已经配置该文件"})
         else:
             sql_add = "insert into course (course_name,course_position,task_name) values ('%s','%s','%s')" % (str(file), course_position, task_name)
             res_add = SqlModel().insert_or_update(sql_add)
