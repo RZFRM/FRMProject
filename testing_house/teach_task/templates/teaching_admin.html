@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
      <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
+
     <style>
         .table_content {
             width:1615px;
@@ -104,20 +105,20 @@
         //方法级渲染
         table.render({
             elem: '#table_user'
-            , url: '/school'
+            , url: '/task'
             , toolbar: 'school-head'
             , max_height: 1000
             ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
                 , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
-                , {field: 'b', align:"center",title: '姓名', width: "15%"}
-                , {field: 'c', align:"center",title: '用户名', width: "15%"}
-                , {field: 'd', align:"center",title: '密码', width: "10%"}
-                , {field: 'e', align:"center",title: '手机号码',width:"25%"}
-                , {field: 'f', align:"center",title: '状态', width: "10%"}
-                , {field: 'g', align:"center",title: '创建人', width: "10%"}
-                , {field: 'h', align:"center",title: '操作时间', width: "10%"}
+                , {field: 'a', align:"center",title: '姓名', width: "15%"}
+                , {field: 'b', align:"center",title: '用户名', width: "15%"}
+                , {field: 'c', align:"center",title: '密码', width: "10%"}
+                , {field: 'd', align:"center",title: '手机号码',width:"25%"}
+                , {field: 'e', align:"center",title: '状态', width: "10%"}
+                , {field: 'f', align:"center",title: '创建人', width: "10%"}
+                , {field: 'g', align:"center",title: '操作时间', width: "10%"}
             ]]
             , page: true
         });

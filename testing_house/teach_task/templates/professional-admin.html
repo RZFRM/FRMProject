@@ -62,25 +62,22 @@
             , laydate = layui.laydate;
 
 
-        layer.msg(215458)
-        console.log(123)
-
 
         //方法级渲染
         table.render({
             elem: '#table_user'
-            , url: '/school'
+            , url: '/major'
             , toolbar: 'school-head'
             , max_height: 1000
             ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', title: '序号', width: "20%",type:'numbers'}
-                , {field: 'b', title: '专业代码', width: "20%"}
-                , {field: 'c', title: '专业名称', width: "20%"}
-                , {field: 'd', title: '状态', width: "20%"}
-                , {field: 'e', title: '创建人员',width:"20%"}
-
+                , {field: 'a', align:"center", title: '序号', width: "10%",type:'numbers'}
+                , {field: 'a', align:"center", title: '专业代码', width: "20%"}
+                , {field: 'b', align:"center",title: '专业名称', width: "20%"}
+                , {field: 'c', align:"center", title: '状态', width: "10%"}
+                , {field: 'd', align:"center",title: '创建人员',width:"20%"}
+                , {field: 'e', align:"center",title: '操作时间',width:"20%"}
             ]]
             , page: true
         });
