@@ -193,8 +193,8 @@ class Case(models.Model):
         db_table = 'case'
 
 
-class Document(models.Model):
-    """文件 表"""
+class Case_document(models.Model):
+    """案例模块 文件 表"""
     document_id = models.AutoField(primary_key=True, verbose_name="文件id")
     document_name = models.CharField(max_length=50, null=True, verbose_name="文件名称")
     document_position = models.CharField(max_length=50, null=True, verbose_name="文件位置")
@@ -204,7 +204,7 @@ class Document(models.Model):
         return self.document_name
 
     class Meta:
-        db_table = 'document'
+        db_table = 'case_document'
 
 
 class Picture(models.Model):

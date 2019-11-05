@@ -174,8 +174,9 @@
             let param = data.field;
             //发生请求
             $.post("/school", param, function (result) {
-                console.log(result);
+
             })
+            return false;
         });
     });
 
