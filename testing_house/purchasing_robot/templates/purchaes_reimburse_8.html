@@ -60,9 +60,17 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>发票号码：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" lay-verify="required|contract" class="layui-input"
-                           placeholder="请填写您的发票号码！" name="incoive_number"
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                    <select lay-verify="required" lay-search="" lay-filter="test" style="width:100%;height: 30px;" name="incoive_number">
+                        <option value="">直接选择或搜索选择</option>
+                        <option value="20002310">20002310</option>
+                        <option value="20002311">20002311</option>
+                        <option value="20002312">20002312</option>
+                        <option value="20002313">20002313</option>
+                        <option value="20002314">20002314</option>
+                        <option value="20002315">20002315</option>
+                        <option value="20002316">20002316</option>
+                        <option value="20002317">20002317</option>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -92,7 +100,7 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">申请日期：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="2020-12-17" readonly
+                    <input type="text" autocomplete="off" class="layui-input" value="2018-12-17" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;" name="application_date">
                 </div>
             </div>
@@ -106,7 +114,7 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">申请部门：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="封边打孔车间（二车间）" readonly
+                    <input type="text" autocomplete="off" class="layui-input" value="二车间" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;" name="application_sector">
                 </div>
             </div>
@@ -122,6 +130,13 @@
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" value="孙鸿" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <div class="layui-form-item" style="display: none">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">对应公司名称：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" id="unit" class="layui-input" name="supplier_name" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <button class="layui-btn btn" lay-submit="" lay-filter="demo8">提交</button>
@@ -183,22 +198,27 @@
                 }
             },
         });
-    });
 
-
-    layui.use('upload', function () {
-        var $ = layui.jquery
-            , upload = layui.upload;
-
-        //拖拽上传
-        upload.render({
-            elem: '#test10'
-            , url: '/upload/'
-            , done: function (res) {
-                console.log(res)
+        form.on('select(test)', function (data) {
+            if(data.value == "20002310"){
+                $("#unit").val("1002")
+            }else if(data.value == "20002311"){
+                $("#unit").val("1002")
+            }else if(data.value == "20002312"){
+                $("#unit").val("1002")
+            }else if(data.value == "20002313"){
+                $("#unit").val("1002")
+            }else if(data.value == "20002314"){
+                $("#unit").val("1002")
+            }else if(data.value == "20002315"){
+                $("#unit").val("1002")
+            }else if(data.value == "20002316"){
+                $("#unit").val("1002")
+            }else if(data.value == "20002317"){
+                $("#unit").val("1002")
             }
         });
-    })
+    });
 </script>
 </body>
 </html>
