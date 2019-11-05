@@ -337,8 +337,14 @@ def set_purchaes_order_create_data(request):
     #  TODO  1.获取机器人名字, 2,获取请购信息
 
     sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" % purchase_number
-    goods_name = str(DB.select_one(sql))
-    print('----------------goods_name--------', goods_name)
+    try:
+        goods_name = str(DB.select_one(sql)[0])
+        print('----------------goods_name--------', goods_name)
+    except Exception as e:
+        print('请购单异常',e)
+        data = {'fail':'4444'}
+        return  JsonResponse(data)
+
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-合同申请与审批'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -362,7 +368,7 @@ def set_purchaes_order_create_data(request):
     except Exception as e:
         print('插入失败！')
         data = {
-            'code': '400',
+            'fail': '4444',
             'msg': '插入数据库失败'
         }
         return JsonResponse(data)
@@ -457,7 +463,7 @@ def set_purchaes_storage_create_data(request):
 
 
     # TODO  请购单号
-    purchase_number = request.POST.get('purchase_number')
+
 
    #   TODO 合同编号
     contract_number  = request.POST.get('contract_number')
@@ -473,8 +479,9 @@ def set_purchaes_storage_create_data(request):
 
     # TODO   点验人
     application  = request.POST.get('application')
-
-    print('----------------------',contract_number, approval_date, warehouse_number,warehouse_date,application )
+    purchase_number = contract_number.split(',')[0]
+    contract_number = contract_number.split(',')[1]
+    print('----------------------',purchase_number,contract_number, approval_date, warehouse_number,warehouse_date,application )
 
 
     #  TODO  插入数据库
@@ -483,7 +490,7 @@ def set_purchaes_storage_create_data(request):
 
 
 
-    sql = "select  goods_number  from purchase_warehousing_table  where  purchase_number = '%s'" %purchase_number
+    sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" %purchase_number
     goods_name = str(DB.select_one(sql)[0])
     print('----------------goods_name--------',goods_name)
     user_name = request.COOKIES.get('username')
@@ -596,14 +603,12 @@ def set_invoice_by_purchase_number(request):
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
+
     print(user_jobs)
     if user_jobs:
-
-        for i in user_jobs:
-            data_list.append(i[0])
         print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
-
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data_list.append(user_jobs)
         data = {
             "scuess": "200"
             , "msg": ""
@@ -737,14 +742,12 @@ def set_pyment_by_purchase_number(request):
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
+
     print(user_jobs)
     if user_jobs:
-
-        for i in user_jobs:
-            data_list.append(i[0])
         print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
-
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data_list.append(user_jobs)
         data = {
             "scuess": "200"
             , "msg": ""
@@ -760,7 +763,6 @@ def set_pyment_by_purchase_number(request):
             , "data": data_list
         }
     return JsonResponse(data)
-
 
 
 #  TODO  采购机器人 弹框第十一步
