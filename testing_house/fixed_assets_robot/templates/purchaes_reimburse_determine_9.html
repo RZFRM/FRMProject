@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>第五步</title>
+    <title>第九步</title>
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
         .found span {
@@ -13,12 +13,17 @@
             color: rgba(51, 51, 51, 1);
         }
 
-        .approve {
-            width: 350px;
-            margin: 0 auto;
-            padding-top: 123px;
+        ul {
+            float: left;
+            margin: 50px 0 0 17px;
+            text-align: center
         }
 
+        .approve{
+            width: 350px;
+            margin:0 auto;
+            padding-top:123px;
+        }
         .good {
             float: left;
             height: 210px;
@@ -31,31 +36,25 @@
             border: 1px solid #c6c6c6;
             margin-left: 14px;
         }
-
-        .more {
+        .more{
             float: right;
         }
-
-        .more > div + div {
-            margin-top: 55px;
+        .more>div+div{
+            margin-top:55px;
         }
-
-        .more > div > p + p {
-            margin-top: 6px;
+        .more>div>p+p{
+            margin-top:6px;
         }
-
-        .more > div > p:first-child {
-            color: #333;
+        .more>div>p:first-child{
+            color:#333;
             font-size: 16px;
             font-weight: bold;
         }
-
-        .more > div > p:last-child {
-            color: #333;
+        .more>div>p:last-child{
+            color:#333;
             font-size: 14px;
             font-weight: 400;
         }
-
         .btn {
             width: 105px;
             height: 39px;
@@ -76,8 +75,20 @@
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>采购合同审批</span>
+        <span>采购报销审批</span>
     </div>
+    <ul>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+    </ul>
     <div class="approve">
         <div class="good">
             <img src="../../static/pic/zhengque.png" alt="">
@@ -89,35 +100,22 @@
         <div class="more">
             <div>
                 <p>部门负责人：<span>徐蓉（已同意）</span></p>
-                <p>2020/12/6 11:23:01</p>
+                <p>2020/12/17  10:11:25</p>
             </div>
             <div>
                 <p>公司负责人：<span>孙鸿（已同意）</span></p>
-                <p>2020/12/6 11:48:09</p>
+                <p>2020/12/17  10:59:31</p>
             </div>
             <div>
-                <p>采购合同机器人：<span>已成功创建任务  （<a href="#">查看</a>）</span></p>
-                <p>2020/12/6 11:48:12</p>
+                <p>采购报账机器人：<span>已成功创建任务  （<a href="#">查看</a>）</span></p>
+                <p>2020/12/17  10:59:33</p>
             </div>
         </div>
         <div style="clear: both"></div>
     </div>
-    <button class="layui-btn btn" lay-submit="" lay-filter="demo5" id="wicket" >完成</button>
+
+    <button class="btn" onclick="javascript:window.location.href='/purchaes_payment_create'">下一步</button>
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
-<script>
-    layui.use(["form", "layer", "jquery"], function () {
-        var form = layui.form,
-            layer = layui.layer,
-            $ = layui.jquery;
-
-        //关闭当前窗口
-        $("#wicket").click(function () {
-            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-            parent.layer.close(index); //再执行关闭
-            window.parent.location.reload();//刷新父页面
-        })
-    })
-</script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>第五步</title>
+    <title>第三步</title>
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
         .found span {
@@ -13,10 +13,16 @@
             color: rgba(51, 51, 51, 1);
         }
 
+        ul {
+            float: left;
+            margin: 50px 0 0 17px;
+            text-align: center
+        }
+
         .approve {
             width: 350px;
             margin: 0 auto;
-            padding-top: 123px;
+            padding-top: 15%;
         }
 
         .good {
@@ -76,8 +82,20 @@
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>采购合同审批</span>
+        <span>采购申批</span>
     </div>
+    <ul>
+        <li class="ULI"><a lay-href="/purchaes_requisitions_create" class="ULIP"></a></li>
+        <li class="ULI"><a lay-href="/purchaes_requisitions_determine" class="ULIP"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+    </ul>
     <div class="approve">
         <div class="good">
             <img src="../../static/pic/zhengque.png" alt="">
@@ -89,23 +107,25 @@
         <div class="more">
             <div>
                 <p>部门负责人：<span>徐蓉（已同意）</span></p>
-                <p>2020/12/6 11:23:01</p>
+                <p>2020-12-06</p>
             </div>
             <div>
                 <p>公司负责人：<span>孙鸿（已同意）</span></p>
-                <p>2020/12/6 11:48:09</p>
+                <p>2020-12-06</p>
             </div>
             <div>
-                <p>采购合同机器人：<span>已成功创建任务  （<a href="#">查看</a>）</span></p>
-                <p>2020/12/6 11:48:12</p>
+                <p>采购申请机器人：<span>已成功创建任务  （<a href="#">查看</a>）</span></p>
+                <p>2020-12-6</p>
             </div>
         </div>
         <div style="clear: both"></div>
     </div>
-    <button class="layui-btn btn" lay-submit="" lay-filter="demo5" id="wicket" >完成</button>
+    {#    <a class="btn" href="purchaes_order_create" class="layui-btn">下一步</a>#}
+    <button class="layui-btn btn" lay-submit="" lay-filter="demo2" id="wicket">完成</button>
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
+
     layui.use(["form", "layer", "jquery"], function () {
         var form = layui.form,
             layer = layui.layer,
@@ -115,7 +135,6 @@
         $("#wicket").click(function () {
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index); //再执行关闭
-            window.parent.location.reload();//刷新父页面
         })
     })
 </script>

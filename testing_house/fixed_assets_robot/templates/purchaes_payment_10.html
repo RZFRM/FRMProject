@@ -45,12 +45,8 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;"><span
                         class="xing">*</span>关联合同号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="purchase_number" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="contract_number" lay-verify="required" lay-search="" id="contract" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">直接选择或搜索选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
                     </select>
                 </div>
             </div>
@@ -112,39 +108,39 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px;">申请日期：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" value="2020-12-17" readonly autocomplete="off" class="layui-input"
+                    <input type="text" value="2020/12/17  14:35:44" readonly autocomplete="off" class="layui-input"
                            style="min-height: 30px;line-height: 30px; height: 30px;" name="application_date">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">申请人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="纪晶" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application">
+                    <input type="text" autocomplete="off" class="layui-input" value="纪晶" readonly name="application"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">申请部门：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="封边打孔车间" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application_sector">
+                    <input type="text" autocomplete="off" class="layui-input" value="封边打孔车间" readonly name="application_sector"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">部门负责人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="徐蓉" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="department_head">
+                    <input type="text" autocomplete="off" class="layui-input" value="徐蓉" readonly name="department_head"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">公司负责人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="孙鸿" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                    <input type="text" autocomplete="off" class="layui-input" value="孙鸿" readonly name="company_head"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
-            <button class="layui-btn btn" type="submit" lay-submit="" lay-filter="demo10">提交</button>
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo10">提交</button>
             {#            <a class="btn" href="purchaes_payment_determine" class="layui-btn">提交</a>#}
         </form>
     </div>
@@ -157,6 +153,24 @@
             , layer = layui.layer
             , $ = layui.jquery
             , layedit = layui.layedit;
+
+
+        $(function () {
+            $.ajax({
+                url: "/pyment_by_purchase_number",
+                type: "post",
+                datatype: "json",
+                success: function (res) {
+                    console.log(res);
+                    for (let index in res.data) {
+                        $("#contract").append(`<option value="${res.data[index]}">${res.data[index]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                }
+            });
+        });
+
+
 
         //自定义验证规则
         form.verify({

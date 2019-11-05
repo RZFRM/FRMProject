@@ -15,8 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
- #上传文件大小，改成50M
+# 上传文件大小，改成50M
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 15021440	#上传数据大小，也改成了50M
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -28,7 +27,6 @@ SECRET_KEY = 'x#1+%oc6k68*2jps11q71-+foy507((!7mtomj$g04+=7laku)'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -44,7 +42,20 @@ INSTALLED_APPS = [
     'getRobot',
     'purchasing_robot',
     'mptt',
-    'teach_task.apps.TeachTaskConfig'
+    'teach_task.apps.TeachTaskConfig',
+
+    'Inventory_accounting',
+    'Sales',
+    'Employee_salary',
+    'permanent_assets',
+    'General_ledger_business',
+    'Online_banking_payment',
+    'Online_banking_inquiry',
+    'Financial_statements',
+    'Invoice_inspection',
+    'Invoice_certification',
+    'Corporate_tax_quarterly_report',
+    'FixedAssets_robot',
 
 ]
 
@@ -83,7 +94,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'testing_house.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -99,29 +109,28 @@ WSGI_APPLICATION = 'testing_house.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'FinceRobotManager',
-#         'USER': 'rzgc',
-#         'PASSWORD': 'Rzgcchampion2019',
-#         'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
-#         'PORT': '3306'
-#
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'FinceRobotManager',
-        'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': '192.168.1.152',
-        'PORT': '3306',
-
+        'USER': 'rzgc',
+        'PASSWORD': 'Rzgcchampion2019',
+        'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
+        'PORT': '3306'
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'FinceRobotManager',
+#         'USER': 'root',
+#         'PASSWORD': '123456',
+#         'HOST': '192.168.1.152',
+#         'PORT': '3306',
+#
+#     }
+# }
 
 
 # Password validation
@@ -142,7 +151,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -156,16 +164,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
- #上传文件大小，改成25M
-DATA_UPLOAD_MAX_MEMORY_SIZE = 26214400	#上传数据大小，也改成了25M
+# 上传文件大小，改成25M
+DATA_UPLOAD_MAX_MEMORY_SIZE = 26214400  # 上传数据大小，也改成了25M
 MAX_FILE_SIZE = 104857600
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
-FILE_UPLOAD_MAX_MEMORY_SIZE = 50*1024*1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024

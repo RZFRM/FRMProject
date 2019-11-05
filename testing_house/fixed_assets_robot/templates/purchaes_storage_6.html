@@ -45,42 +45,53 @@
     <div class="atitle">
         <span>采购点验入库</span>
     </div>
+    <ul>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+    </ul>
 
     <div style="height: 425px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;"><span
-                        class="xing">*</span>关联合同号：</label>
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
+                        class="xing">*</span>合同编号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-<<<<<<< HEAD
-                    <select name="contract_number" lay-verify="required" lay-search="" style="width:100%;height: 30px;" id="contract">
-=======
-                    <select lay-verify="required" lay-search="" style="width:100%;height: 30px;" id="contract">
->>>>>>> 3eba8de618c1dbe1db042269c8332e05d7dc46c2
-                        <option datas="" value="">直接选择或搜索选择</option>
+                    <select name="modules" lay-verify="required" lay-search="" id="asd" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="" dataidx="">直接选择或搜索选择</option>
+                        <option value="1" dataidx="123">CG-2020110328</option>
+                        <option value="2" dataidx="124">CG-2020120101</option>
+                        <option value="3" dataidx="125">CG-2020120102</option>
+                        <option value="4" dataidx="126">CG-2020120608</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">审批时间：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="2020-12-06" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="approval_date">
+                    <input type="text" autocomplete="off" class="layui-input" value="2020/12/6  11:48:09" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">仓库名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" name="warehouse_number" class="layui-input" value="材料库"
-                           readonly
+                    <input type="text" autocomplete="off" name="" class="layui-input" value="材料库" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">入库时间：</lable>
                 <div class="layui-input-block" style="min-height: 30px;" name="warehouse_date">
-                    <input type="text" autocomplete="off" class="layui-input" value="2020-12-10" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="warehouse_date">
+                    <input type="text" autocomplete="off" class="layui-input" value="2020/12/10  9:03:42" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -89,14 +100,14 @@
                 <div class="layui-input-block" style="min-height: 30px;">
                     <select name="application" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请填写点验人员的姓名</option>
-                        <option value="谢宏">谢宏</option>
-                        <option value="刘霞">刘霞</option>
-                        <option value="纪晶">纪晶</option>
+                        <option value="1">谢宏</option>
+                        <option value="2">刘霞</option>
+                        <option value="3">纪晶</option>
                     </select>
                 </div>
             </div>
-            <button class="layui-btn btn" lay-submit="" lay-filter="demo6">提交</button>
-            {#            <a class="layui-btn btn" href="purchaes_storage_determine" class="layui-btn">提交</a>#}
+            <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
+{#            <a class="layui-btn btn" href="purchaes_storage_determine" class="layui-btn">提交</a>#}
         </form>
     </div>
 </div>
@@ -110,41 +121,24 @@
             , $ = layui.jquery
             , laydate = layui.laydate;
 
-
-        $(function () {
-            $.ajax({
-                url: "/warehousing_by_purchase_number",
-                type: "post",
-                datatype: "json",
-                success: function (res) {
-                    var date = res.data[0];
-                    for (let index in date) {
-                        $("#contract").append(`<option value="${date[index]}">${(date[index])[1]}</option>`)
-                    }
-                    layui.form.render("select", "component-form-group");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
-                }
-            });
+        //日期
+        laydate.render({
+            elem: '#date'
         });
 
+        var aaa = $("#asd").find("option:selected").attr("dataidx");
+        console.log(aaa)
+
+        //button提交监听
         form.on('submit(demo6)', function (data) {
-            var bc = $("#contract").val();
-            console.log(bc);
             //通用表单提交(AJAX方式)
             $.ajax({
                 url: "/purchaes_storage_create_data",
                 type: "post",
-                data: $(data.form).serialize()+bc,
-                success: function (data) {
-                    if (data.code == 200) {
-                        location.href = "/purchaes_storage_determine";
-                    } else {
-                        msg = data.msg;
-                    }
+                data: $(data.form).serialize(),
+                success: function () {
+                    location.href = "/purchaes_storage_determine";
                 }
-            });
-            //日期
-            laydate.render({
-                elem: '#date'
             });
         });
     });

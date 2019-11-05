@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{%  load  static  %}
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,97 +10,40 @@
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
-        .forn {
-            width: 350px;
-            margin: 0 auto;
-        }
+        .elect{
 
-        ul {
-            position: absolute;
-            top: 95px;
-            left: 17px;
-        }
-
-        .atitle > span {
-            margin: 0 auto;
         }
 
         .btn {
             width: 105px;
             height: 39px;
-            background: rgba(55, 38, 89, 1);
-            border-radius: 4px;
-            font-size: 14px;
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
             text-align: center;
+            margin: auto;
             line-height: 39px;
-            border: 0;
-            color: #fff;
             cursor: pointer;
-            position: absolute;
-            left: 44%;
-            bottom: 32px;
+        }
+
+        .btn + .btn {
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>创建新业务名称</span>
+        <span>选择机器人业务</span>
     </div>
-    <ul>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-    </ul>
-
-    <div style="height: 339px;overflow: auto;margin-top:25%">
-        <form class="layui-form forn" action="" lay-filter="component-form-group">
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>业务名称：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入您的业务名称"
-                           style="min-height: 30px;line-height: 30px; height: 30px;" lay-verify="required"
-                           lay-reqtext="用户名是必填项，岂能为空？">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">采购类型：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="纪晶"
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
-                </div>
-            </div>
-            {#                      <a class="btn" href="purchaes_requisitions_create" class="layui-btn">完成</a>#}
-            <button class="layui-btn btn" lay-submit="" lay-filter="demo1">提交</button>
-        </form>
+    <div class="elect" style="margin:50px auto 0">
+        <a class="btn" href="purchaes_requisitions_create">物资请购</a>
+        <a class="btn" href="purchaes_order_create">采购合同</a>
+        <a class="btn" href="purchaes_storage_create">物资入库</a>
+        <a class="btn" href="purchaes_reimburse_create">报销审批</a>
+        <a class="btn" href="purchaes_payment_create">付款审批</a>
     </div>
 </div>
-<script src="{% static "/layuiadmin/layui/layui.js" %}"></script>
-<script>
-    layui.use(['form','jquery'], function () {
-        var form = layui.form,
-             $ = layui.jquery;
-
-        //通用表单提交(AJAX方式)
-        form.on('submit(demo1)', function (data) {
-            $.ajax({
-                url: "/purchasing_created_data",
-                type: "post",
-                data: $(data.form).serialize(),
-                success: function () {
-                    location.href ="/purchaes_requisitions_create";
-                }
-            });
-        });
-    })
-</script>
 </body>
 </html>

@@ -13,6 +13,16 @@
             margin: 0 auto;
         }
 
+        ul {
+            position: absolute;
+            top: 95px;
+            left: 17px;
+        }
+
+        .atitle > span {
+            margin: 0 auto;
+        }
+
         .btn {
             width: 105px;
             height: 39px;
@@ -33,8 +43,20 @@
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>物资请购</span>
+        <span>采购申请</span>
     </div>
+    <ul>
+        <li class="ULI"><a lay-href="javascript:;" class="ULIP"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+    </ul>
 
     <div style="height: 417px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="">
@@ -171,7 +193,6 @@
             , $ = layui.jquery
             , laydate = layui.laydate;
 
-        //获得页面上的数据
         $(function () {
             $.ajax({
                 url: "/create_purchase_number",
@@ -185,6 +206,14 @@
                 }
             });
             return false;
+        });
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
         });
 
         //自定义验证规则
@@ -205,7 +234,6 @@
                 }
             }
         });
-        //提交form表单
         form.on('submit(demo2)', function (data) {
             //通用表单提交(AJAX方式)
             $.ajax({
@@ -222,7 +250,6 @@
             return false;  //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
 
-        //根据货物名称自动生成单位
         form.on('select(test)', function (data) {
             if(data.value == "002"){
                 $("#unit").val("盘")
@@ -245,7 +272,6 @@
     })
     ;
 
-    //计算总价方式
     function checkInt(o) {
         theV = isNaN(parseInt(o.value)) ? 0 : parseInt(o.value);
         if (theV != o.value) {

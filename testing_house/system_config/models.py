@@ -246,8 +246,8 @@ class EmpSalary(models.Model):
 class Job_list_summary(models.Model):
 
     user_name = models.ForeignKey(User, to_field='user_name', on_delete=models.CASCADE)
-    job_id = models.CharField(max_length=8, null=True)
-    job_no = models.CharField(max_length=8)
+    job_id = models.CharField(max_length=50, null=True)
+    job_no = models.CharField(max_length=40)
     isa_job_no = models.CharField(max_length=200, null=True)
     job_type = models.CharField(max_length=200, null=True)
     job_name = models.CharField(max_length=32)
