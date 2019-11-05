@@ -122,6 +122,7 @@ class Task(models.Model):
     task_id = models.AutoField(primary_key=True, verbose_name="任务id")
     task_name = models.CharField(max_length=50, verbose_name="任务名称")
     task_recommend = models.CharField(max_length=1000, null=True, verbose_name="任务简介")
+    task_require = models.CharField(max_length=1024, null=True, verbose_name="任务要求")
     task_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),
                                   verbose_name=u"有效性", max_length=10)
     course_name = models.CharField(max_length=50, null=True, verbose_name="课程名称")
