@@ -30,7 +30,6 @@ urlpatterns = [
     url('purchaes_reimburse_create_data', views.set_purchaes_reimburse_create_data,
         name='purchaes_requisitions_create'),
     url('purchaes_payment_create_data', views.set_purchaes_payment_create_data, name='purchaes_requisitions_create'),
-
     url('contract_by_purchase_number', views.set_contract_by_purchase_number, name='合同关联请购单'),
     url('contract_by_purchase_number', views.set_contract_by_purchase_number, name = '合同关联请购单'),
     url('warehousing_by_purchase_number', views.set_warehousing_by_purchase_number, name = '入库关联请购单'),
