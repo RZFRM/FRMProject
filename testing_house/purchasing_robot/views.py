@@ -1083,5 +1083,3 @@ def set_view_information(request):
     sales_number = request.POST.get('sales_number',0)
     return render(request, "view_details.html", locals())
 
-    return render(request, "view_details.html", locals())
-
