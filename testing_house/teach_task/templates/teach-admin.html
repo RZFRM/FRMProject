@@ -32,9 +32,9 @@
 <div class="school-head" id="school-head">
     <div class="btn-groups">
         <div class="layui-groups">
-            <button type="button" class="layui-btn">新增</button>
-            <button type="button" class="layui-btn">修改</button>
-            <button type="button" class="layui-btn">删除</button>
+            <button type="button" id="add_sch" class="layui-btn add_teach">新增</button>
+            <button type="button" id="add_sch" class="layui-btn update_teach">修改</button>
+            <button type="button" id="add_sch" class="layui-btn del_teach">删除</button>
         </div>
     </div>
     <div class="demoTable">
@@ -81,29 +81,16 @@
             ]]
             , page: true
         });
-
-        {#var $ = layui.$, active = {#}
-        {#    reload: function () {#}
-        {#        var demoReload = $('#demoReload');#}
-        {##}
-        {#        //执行重载#}
-        {#        table.reload('testReload', {#}
-        {#            page: {#}
-        {#                curr: 1 //重新从第 1 页开始#}
-        {#            }#}
-        {#            , where: {#}
-        {#                key: {#}
-        {#                    id: demoReload.val()#}
-        {#                }#}
-        {#            }#}
-        {#        }, 'data');#}
-        {#    }#}
-        {#;#}
-
-        {#$('.demoTable .layui-btn').on('click', function(){#}
-        {#  var type = $(this).data('type');#}
-        {#  active[type] ? active[type].call(this) : '';#}
-        {#);#}
+        //获取弹框页面
+         $("#add_teach").on('click', function () {
+            console.log("data");
+            //页面层
+            layer.open({
+                type: 2,
+                area: ['800px', '600px'],//宽高
+                content: 'school_update'
+            });
+        });
     });
 </script>
 
