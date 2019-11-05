@@ -9,11 +9,26 @@
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <style type="text/css">
+        .layui-table-body{overflow-x: hidden !important;}
+        .layui-card-body{
+        margin: auto;
+        background:rgba(255,255,255,1);
+    }
+        .layui-card-body{
+        width: 1418px;
+        margin: auto;
+        background:rgba(255,255,255,1);
+    }
+        .layui-table-fixed-l{
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
 <div class="layui-col-train-teach">
     <div class="layui-card">
-        <div class="layui-card-header" style="width: 1920px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+        <div class="layui-card-header" style="width: 1400px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
             教师管理
         </div>
     </div>
@@ -62,14 +77,14 @@
             ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', title: '序号', width: "5%"}
-                , {field: 'b', title: '姓名', width: "15%"}
-                , {field: 'c', title: '用户名', width: "15%"}
-                , {field: 'd', title: '密码', width: "10%"}
-                , {field: 'e', title: '手机号码',width:"25%"}
-                , {field: 'f', title: '状态', width: "10%"}
-                , {field: 'g', title: '创建人', width: "10%"}
-                , {field: 'h', title: '操作时间', width: "15%"}
+                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
+                , {field: 'b', align:"center",title: '姓名', width: "15%"}
+                , {field: 'c', align:"center", title: '用户名', width: "15%"}
+                , {field: 'd', align:"center",title: '密码', width: "10%"}
+                , {field: 'e', align:"center",title: '手机号码',width:"10%"}
+                , {field: 'f', align:"center",title: '状态', width: "10%"}
+                , {field: 'g', align:"center", title: '创建人', width: "10%"}
+                , {field: 'h', align:"center",title: '操作时间', width: "25%"}
             ]]
             , page: true
         });
