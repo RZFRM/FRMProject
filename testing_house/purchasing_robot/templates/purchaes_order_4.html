@@ -44,7 +44,7 @@
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;"><span
-                        class="xing">*</span>关联合同号：</label>
+                        class="xing">*</span>关联请购号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <select lay-verify="required" lay-search="" style="width:100%;height: 30px;" id="xm"
                             name="purchase_number" lay-filter="xmFilter">
@@ -217,10 +217,10 @@
                 type: "post",
                 data: $(data.form).serialize(),
                 success: function (data) {
-                    if (data.code == 200) {
-                        location.href = "/purchaes_order_determine";
+                    if (data.fail == 4444) {
+                        layer.msg("关联请购单编号错误，请重新选择")
                     } else {
-                        msg = data.msg;
+                        location.href = "/purchaes_order_determine";
                     }
                 }
             });

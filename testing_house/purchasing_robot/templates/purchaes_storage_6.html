@@ -52,11 +52,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;"><span
                         class="xing">*</span>关联合同号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-<<<<<<< HEAD
                     <select name="contract_number" lay-verify="required" lay-search="" style="width:100%;height: 30px;" id="contract">
-=======
-                    <select lay-verify="required" lay-search="" style="width:100%;height: 30px;" id="contract">
->>>>>>> 3eba8de618c1dbe1db042269c8332e05d7dc46c2
                         <option datas="" value="">直接选择或搜索选择</option>
                     </select>
                 </div>
@@ -71,9 +67,10 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">仓库名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" name="warehouse_number" class="layui-input" value="材料库"
-                           readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                    <select lay-verify="required" lay-search="" style="width:100%;height: 30px;" name="warehouse_number">
+                        <option value="">直接选择或搜索选择</option>
+                        <option value="001">材料库</option>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">
