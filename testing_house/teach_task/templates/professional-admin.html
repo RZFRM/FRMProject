@@ -9,11 +9,24 @@
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+
+    <style>
+        .layui-table-body{overflow-x: hidden !important;}
+
+        .layui-card-body{
+            width: 1418px;
+            margin: auto;
+            background:rgba(255,255,255,1);
+        }
+        .layui-table-fixed-l{
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
 <div class="layui-col-train-teach">
     <div class="layui-card">
-        <div class="layui-card-header" style="width: 1920px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+        <div class="layui-card-header" style="width: 1400px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
             专业管理
         </div>
     </div>
@@ -36,7 +49,7 @@
 
 <div class="layui-card-body">
     <table class="layui-hide" id="table_user" lay-filter="user"></table>
-</div>>
+</div>
 
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
@@ -62,15 +75,12 @@
             ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', title: '序号', width: "5%"}
-                , {field: 'b', title: '专业代码', width: "15%"}
-                , {field: 'c', title: '专业名称', width: "15%"}
-                , {field: 'd', title: '状态', width: "10%"}
-                , {field: 'e', title: '创建人员',width:"15%"}
-                , {field: 'f', title: '省份', width: "5%"}
-                , {field: 'g', title: '城市', width: "5%"}
-                , {field: 'h', title: '教务管理员', width: "15%"}
-                , {field: 'i', title: '创建人员', width: "15%"}
+                , {field: 'a', title: '序号', width: "20%",type:'numbers'}
+                , {field: 'b', title: '专业代码', width: "20%"}
+                , {field: 'c', title: '专业名称', width: "20%"}
+                , {field: 'd', title: '状态', width: "20%"}
+                , {field: 'e', title: '创建人员',width:"20%"}
+
             ]]
             , page: true
         });

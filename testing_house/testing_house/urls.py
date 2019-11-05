@@ -23,5 +23,10 @@ urlpatterns = [
     path('', include('getRobot.urls')),
     path('', include('purchasing_robot.urls')),
     path('', include('teach_task.urls')),
+<<<<<<< HEAD
     path('', include('sales_robot.urls')),
+=======
+    path('fixed_assets/', include('fixed_assets_robot.urls')),
+
+>>>>>>> df813c5ae6bcfecbead5482eb8164e661219bb91
 ]

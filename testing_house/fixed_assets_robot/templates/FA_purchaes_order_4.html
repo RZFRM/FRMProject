@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第四步</title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        .forn {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        ul {
+            position: absolute;
+            top: 95px;
+            left: 17px;
+        }
+
+        .atitle > span {
+            margin: 0 auto;
+        }
+
+        .btn {
+            width: 105px;
+            height: 39px;
+            background: rgba(55, 38, 89, 1);
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 39px;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            left: 44%;
+            bottom: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>采购合同申请</span>
+    </div>
+    <ul>
+        <li class="ULI"><a lay-href="/purchaes_requisitions_create" class="ULIP"></a></li>
+        <li class="ULI"><a lay-href="/purchaes_requisitions_determine" class="ULIP"></a></li>
+        <li class="ULI"><a lay-href="/purchaes_order_create" class="ULIP"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+        <li><a href="javascript:;"></a></li>
+    </ul>
+
+    <div style="height: 422px;overflow: auto;padding-top:25px">
+        <form class="layui-form forn" action="" lay-filter="component-form-group">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">关联请购单：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select lay-verify="required" id="xm" name="purchase_number" lay-filter="xmFilter"
+                            style="width:100%;height: 30px;" lay-search="" lay-ignore>
+                        <option value="">请输入您的请购单号</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>合同编号：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" name="contract_number" lay-verify="required|contract"
+                           class="layui-input" placeholder="请填写编号"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
+                        class="xing">*</span>供应商：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select lay-verify="required" lay-search="" style="width:100%;height: 30px;" name="supplier_name">
+                        <option value="">直接选择或搜索选择</option>
+                        <option value="大通厂">大通厂</option>
+                        <option value="光明厂">光明厂</option>
+                        <option value="神龙厂">神龙厂</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 13px 5px 0px;width: 97px;"><span
+                        class="xing">*</span>税率/征收率：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="tax_rate" lay-verify="required" lay-search="" lay-filter="revenue" id="revenue"
+                            style="width:100%;height: 30px;" onblur="abc()">
+                        <option value="">直接选择或搜索选择</option>
+                        <option value="13">13%</option>
+                        <option value="9">9%</option>
+                        <option value="6">6%</option>
+                        <option value="0">0%</option>
+                        <option value="3">3%</option>
+                        <option value="5">5%</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 0px;width: 95px;"><span
+                        class="xing">*</span>不含税单价：
+                </lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" lay-verify="required|number" class="layui-input"
+                           placeholder="请输入商品单价" onkeyup="abc()" id="money" name="free_tax_unit_price"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>数量：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" lay-verify="required|number" class="layui-input"
+                           placeholder="请输入数量" onkeyup="abc()" id="numbar" name="count"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:4px 15px 5px 0px;width: 95px;">总金额(含税)：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="0" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" id="txtTotal" name="summary_price">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>需求日期：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" name="demand_date" id="time1" lay-verify="date" placeholder="yyyy-MM-dd"
+                           autocomplete="off" class="layui-input">
+
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">申请人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="纪晶" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="applicant">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">申请部门：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="封边打孔车间（二车间）" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application_sector">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请日期：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="2020-12-07" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application_date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">部门负责人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="徐蓉" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="department_head">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">公司负责人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="孙鸿" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <div class="layui-form-item" style="display: none">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">机器人名称：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="采购合同机器人" name="job_type" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            {#            <a class="btn" href="purchaes_order_determine" class="layui-btn">提交</a>#}
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo4">提交</button>
+        </form>
+    </div>
+</div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        //第四步弹框 关联请购单编号
+        $(function () {
+            $.ajax({
+                url: "/contract_by_purchase_number",
+                type: "post",
+                datatype: "json",
+                success: function (res) {
+                    for (let index in res.data) {
+                        $("#xm").append(`<option value="${res.data[index]}">${res.data[index]}</option>`)
+                    }
+                    layui.form.render("select", "xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                }
+            });
+        });
+
+        //自定义验证规则
+        form.verify({
+            contract: function (value) {
+                if (!new RegExp("[A-Z0-9]{8}").test(value)) {
+                    return '只能是8位大写字母和数字';
+                }
+            },
+            quantity: function (value) {
+                if (!new RegExp("([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])").test(value)) {
+                    return '必须大于0'
+                }
+            }
+        });
+
+        //提交验证
+        form.on('submit(demo4)', function (data) {
+            //通用表单提交(AJAX方式)
+            $.ajax({
+                url: "/purchaes_order_create_data",
+                type: "post",
+                data: $(data.form).serialize(),
+                success: function (data) {
+                    if (data.code == 200) {
+                        location.href = "/purchaes_order_determine";
+                    } else {
+                        msg = data.msg;
+                    }
+                }
+            });
+            return false;  //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        function useLayDateMultiple(cls) {
+            //日期
+            var laydate = layui.laydate;
+            lay('#' + cls).each(function () {
+                laydate.render({
+                    elem: this,
+                    trigger: 'click'
+                });
+            });
+        };
+        useLayDateMultiple('time1');
+        useLayDateMultiple('time2');
+    })
+
+
+    //jsua1
+    function abc() {
+        var myselect = document.getElementById("revenue");//拿到select对象：
+        var index = myselect.selectedIndex; //拿到选中项的索引： selectedIndex代表的是你所选中项的index
+        var revenue = Number(myselect.options[index].value); //拿到选中项options的value：
+        var money = Number(document.getElementById("money").value);
+        var num = Number(document.getElementById("numbar").value);
+
+        if (money > 0 && num > 0) {
+            var txtTotal = document.getElementById("txtTotal");
+            txtTotal.value = (money * num * (revenue / 100 + 1)).toFixed(2);
+        }
+    }
+
+</script>
+</body>
+</html>

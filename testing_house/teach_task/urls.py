@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'class_down', views.Class_down.as_view()),
     url(r'class_updata', views.class_updata),
     url(r'class', views.Class.as_view()),
+    url(r'teach_design',views.task_teach_design),
     url(r'teacher_delete_search', views.Teacher_delete_search.as_view()),
     url(r'teacher_updata', views.teacher_updata),
     url(r'teacher', views.Teacher.as_view()),
@@ -37,7 +38,11 @@ urlpatterns = [
     url(r'student_batch_up', views.student_batch_up),
     url(r'student_batch_down', views.student_batch_down),
     url(r'student', views.Student.as_view()),
+    url(r'report_require_answer',views.Report_require_answer.as_view()),
     url(r'report', views.Report.as_view()),
+    url(r'course_ware',views.course_ware),
     url(r'course_add', views.course),
     url(r'course_task', views.Course_task.as_view()),
+    url(r'document',views.document),
+
 ]

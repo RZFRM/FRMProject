@@ -13,12 +13,6 @@
             margin: 0 auto;
         }
 
-        ul {
-            position: absolute;
-            top: 95px;
-            left: 17px;
-        }
-
         .atitle > span {
             margin: 0 auto;
         }
@@ -51,38 +45,22 @@
     <div class="atitle">
         <span>采购报销申请</span>
     </div>
-    <ul>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li class="ULI"><a href="javascript:;" class="ULIP"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-    </ul>
-
     <div style="height: 420px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;"><span
                         class="xing">*</span>关联合同号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="contract_number" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
-                        <option style="height: 32px" value="">直接选择或搜索选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
+                    <select name="contract_number" lay-verify="required" lay-search="" style="width:100%;height: 30px;"
+                            id="contract">
+                        <option value="">直接选择或搜索选择</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>发票号码：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" lay-verify="required" class="layui-input"
+                    <input type="text" autocomplete="off" lay-verify="required|contract" class="layui-input"
                            placeholder="请填写您的发票号码！" name="incoive_number"
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
@@ -146,7 +124,7 @@
                            style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
                 </div>
             </div>
-            <button class="layui-btn btn" type="submit" lay-submit="" lay-filter="demo8">提交</button>
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo8">提交</button>
             {#            <a class="btn" href="purchaes_reimburse_determine" class="layui-btn">提交</a>#}
         </form>
     </div>
@@ -154,7 +132,7 @@
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
-    layui.use(['form', 'layedit', 'laydate','jquery'], function () {
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
         var form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
@@ -162,15 +140,22 @@
             , laydate = layui.laydate;
 
 
-        //自定义验证规则
-        form.verify({
-            //报销金额
-            money: function (value) {
-                if (!new RegExp("^((\\d+(\.\\d?[1-9])?)|(\\d*[1-9]\\d*\\.\\d{0,2}))$").test(value)) {
-                    return '价格大于0,且最多有两位小数'
+        $(function () {
+            $.ajax({
+                url: "/invoice_by_purchase_number",
+                type: "post",
+                datatype: "json",
+                success: function (res) {
+                    console.log(res)
+                    var date = res.data[0];
+                    for (let index in date) {
+                        $("#contract").append(`<option value="${date[index]}">${(date[index])[1]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group");//更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
                 }
-            }
+            });
         });
+
         //监听提交
         form.on('submit(demo8)', function (data) {
             //通用表单提交(AJAX方式)
@@ -183,7 +168,23 @@
                 }
             });
         });
+
+        //自定义验证规则
+        form.verify({
+            //报销金额
+            money: function (value) {
+                if (!new RegExp("^((\\d+(\.\\d?[1-9])?)|(\\d*[1-9]\\d*\\.\\d{0,2}))$").test(value)) {
+                    return '价格大于0,且最多有两位小数'
+                }
+            },
+            contract: function (value) {
+                if (!new RegExp("[A-Z0-9]{8}").test(value)) {
+                    return '只能是8位大写字母和数字';
+                }
+            },
+        });
     });
+
 
     layui.use('upload', function () {
         var $ = layui.jquery
