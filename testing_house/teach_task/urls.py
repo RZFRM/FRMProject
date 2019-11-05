@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'class_jump', views.class_jump),
     url(r'teacher_jump', views.teacher_jump),
     url(r'student_jump', views.student_jump),
+    url(r'school_update', views.school_update),
+
 
     url(r'index', views.Index.as_view()),
     url(r'task', views.Task.as_view()),
@@ -43,6 +45,6 @@ urlpatterns = [
     url(r'course_ware',views.course_ware),
     url(r'course_add', views.course),
     url(r'course_task', views.Course_task.as_view()),
-    url(r'document',views.document),
+    url(r'course_document', views.course_document),
 
 ]
