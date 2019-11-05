@@ -1701,7 +1701,6 @@ def task_card(request):
         sql_up = "update task set task_require='%s' where task_name='%s'" % (task_require,task_name)
         SqlModel().insert_or_update(sql_up)
 
-
         sql_process = "select * from process where process_name='%s'" % str(task_process)
         res = SqlModel().select_one(sql_process)
         if not res:
@@ -1718,6 +1717,7 @@ def task_card(request):
                 if not res_case:
                     sql_case_add = "insert into case (case_name,task_name,create_name,create_time) values ('%s','%s','%s','%s')" % (i, task_name, create_name, now_time)
                     SqlModel().insert_or_update(sql_case_add)
+        return JsonResponse({"result": "设置成功"})
     except:
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
