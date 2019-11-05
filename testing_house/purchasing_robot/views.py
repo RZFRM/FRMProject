@@ -19,7 +19,22 @@ from IsearchAPI.ISAPI import rpa_rest
 from system_config.models import User, Job_list_summary, Application_info
 import time
 from sql_operating.mysql_class import *
+
+from etc.command import  *
+from  personal_center.views import  update_sql
+
+
+
+
+
+
+
+
+
+
+
 from etc.command import *
+
 
 
 # from  personal_center.views import   update_sql
@@ -337,8 +352,14 @@ def set_purchaes_order_create_data(request):
     #  TODO  1.获取机器人名字, 2,获取请购信息
 
     sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" % purchase_number
-    goods_name = str(DB.select_one(sql))
-    print('----------------goods_name--------', goods_name)
+    try:
+        goods_name = str(DB.select_one(sql)[0])
+        print('----------------goods_name--------', goods_name)
+    except Exception as e:
+        print('请购单异常',e)
+        data = {'fail':'4444'}
+        return  JsonResponse(data)
+
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-合同申请与审批'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -362,7 +383,7 @@ def set_purchaes_order_create_data(request):
     except Exception as e:
         print('插入失败！')
         data = {
-            'code': '400',
+            'fail': '4444',
             'msg': '插入数据库失败'
         }
         return JsonResponse(data)
@@ -457,7 +478,7 @@ def set_purchaes_storage_create_data(request):
 
 
     # TODO  请购单号
-    purchase_number = request.POST.get('purchase_number')
+
 
    #   TODO 合同编号
     contract_number  = request.POST.get('contract_number')
@@ -473,19 +494,30 @@ def set_purchaes_storage_create_data(request):
 
     # TODO   点验人
     application  = request.POST.get('application')
-
-    print('----------------------',contract_number, approval_date, warehouse_number,warehouse_date,application )
+    try:
+        purchase_number = contract_number.split(',')[0]
+        contract_number = contract_number.split(',')[1]
+        print('----------------------',purchase_number,contract_number, approval_date, warehouse_number,warehouse_date,application )
+    except Exception as e:
+        print('传回来的合同和请购信息有问题', e)
+        data = {'fail': '4444'}
+        return JsonResponse(data)
 
 
     #  TODO  插入数据库
     #  TODO  1.获取机器人名字, 2,获取请购信息
-    return JsonResponse({'code': '200'})
+    # return JsonResponse({'code': '200'})
 
+    sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" %purchase_number
 
+    try:
+        goods_name = str(DB.select_one(sql)[0])
+        print('----------------goods_name--------', goods_name)
+    except Exception as e:
+        print('请购单异常', e)
+        data = {'fail': '4444'}
+        return JsonResponse(data)
 
-    sql = "select  goods_number  from purchase_warehousing_table  where  purchase_number = '%s'" %purchase_number
-    goods_name = str(DB.select_one(sql)[0])
-    print('----------------goods_name--------',goods_name)
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-点验入库'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
@@ -499,7 +531,7 @@ def set_purchaes_storage_create_data(request):
                       values=(gmt_create, gmt_modified, user_name,purchase_number, approval_date,
                               contract_number,warehouse_number,warehouse_date,
                               application,purchase_warehousing_status, business_name),
-                      fields="(gmt_create, gmt_modified,user_name,approval_date,purchase_number,"
+                      fields="(gmt_create, gmt_modified,user_name,purchase_number,approval_date,"
                              "contract_number,warehouse_number,warehouse_date,"
                              "application,purchase_warehousing_status,business_name)")
 
@@ -507,7 +539,7 @@ def set_purchaes_storage_create_data(request):
     except Exception as e:
         print('插入失败！')
         data = {
-            'code':'400',
+            'fail':'4444',
             'msg':'插入数据库失败'
         }
         return JsonResponse(data)
@@ -533,12 +565,8 @@ def set_purchaes_storage_create_data(request):
         job_list_summary.job_start_time = localTime
         job_list_summary.job_status = '1111'
         job_list_summary.save()
-        data = {
-            "success": '1111'
-            , "msg": "成功！"
-            , "count": 1
-        }
-        return JsonResponse(data)
+
+        return JsonResponse({'code':'200'})
     except:
         print('写入数据库失败！')
         data = {
@@ -548,7 +576,6 @@ def set_purchaes_storage_create_data(request):
         }
 
         return JsonResponse(data)
-
 
 
 
@@ -596,14 +623,12 @@ def set_invoice_by_purchase_number(request):
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
+
     print(user_jobs)
     if user_jobs:
-
-        for i in user_jobs:
-            data_list.append(i[0])
         print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
-
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data_list.append(user_jobs)
         data = {
             "scuess": "200"
             , "msg": ""
@@ -641,7 +666,7 @@ def set_purchaes_reimburse_create_data(request):
 
     user_name  = request.COOKIES.get('username')
 
-    purchase_number = request.POST.get('purchase_number')
+
     contract_number  =request.POST.get('contract_number')
     incoive_number = request.POST.get('incoive_number')
     reimbursement_type  =request.POST.get('reimbursement_type')
@@ -653,29 +678,46 @@ def set_purchaes_reimburse_create_data(request):
     application_sector= request.POST.get('application_sector')
     department_head = request.POST.get('department_head')
     company_head = request.POST.get('company_head')
+    supplier_name =request.POST.get('supplier_name')
+
+    try:
+        purchase_number = contract_number.split(',')[0]
+        contract_number = contract_number.split(',')[1]
+        print('----------------------',purchase_number,contract_number )
+    except Exception as e:
+        print('传回来的合同和请购信息有问题', e)
+        data = {'fail': '4444'}
+        return JsonResponse(data)
     print(purchase_number,contract_number,incoive_number, reimbursement_type,reimbursement_money,money_details
      ,application_date, application ,application_sector ,department_head,company_head)
-    return JsonResponse({'code': '200'})
+    # return JsonResponse({'code': '200'})
 
-    sql = "select  goods_number  from purchase_warehousing_table  where  purchase_number = '%s'" % purchase_number
-    goods_name = str(DB.select_one(sql)[0])
-    print('----------------goods_name--------', goods_name)
+    sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" % purchase_number
+
+    try:
+        goods_name = str(DB.select_one(sql)[0])
+        print('----------------goods_name--------', goods_name)
+    except Exception as e:
+        print('请购单异常', e)
+        data = {'fail': '4444'}
+        return JsonResponse(data)
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-采购报销申请与审批'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     purchase_invoice_status = '1113'
+    supplier_name ='1002'
 
     try:
         DB.get_insert(table='purchase_invoice_table',
                       values=(gmt_create, gmt_modified, user_name, purchase_number,
                               contract_number, incoive_number,reimbursement_type,
                               reimbursement_money,money_details,supplier_name,application_date
-                             ,application,application_sector,department_head,company_head,business_name,purchase_invoice_status  ),
+                             ,application,application_sector,department_head,company_head,business_name,purchase_invoice_status ),
                       fields="(gmt_create, gmt_modified, user_name, purchase_number,"
                               "contract_number, incoive_number,reimbursement_type,"
                               "reimbursement_money,money_details,supplier_name,application_date"
-                             ",application,application_sector,department_head,company_head,business_name,purchase_invoice_status")
+                             ",application,application_sector,department_head,company_head,business_name,purchase_invoice_status)")
     except Exception as e:
         print('插入失败！')
         data = {
@@ -737,14 +779,12 @@ def set_pyment_by_purchase_number(request):
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
+
     print(user_jobs)
     if user_jobs:
-
-        for i in user_jobs:
-            data_list.append(i[0])
         print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
-
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
+        data_list.append(user_jobs)
         data = {
             "scuess": "200"
             , "msg": ""
@@ -762,7 +802,6 @@ def set_pyment_by_purchase_number(request):
     return JsonResponse(data)
 
 
-
 #  TODO  采购机器人 弹框第十一步
 def purchaes_payment_determine(request):
     return render(request, 'purchaes_payment_determine_11.html')
@@ -775,8 +814,6 @@ def purchaes_payment_determine(request):
 # TODO  采购 报账数据提交
 def set_purchaes_payment_create_data(request):
     user_name = request.COOKIES.get('username')
-
-
     contract_number  = request.POST.get('contract_number')
     payment_reason = request.POST.get('payment_reason')
     payment_money= request.POST.get('payment_money')
@@ -790,18 +827,34 @@ def set_purchaes_payment_create_data(request):
     application_sector= request.POST.get('application_sector')
     department_head= request.POST.get('department_head')
     company_head= request.POST.get('company_head')
+    try:
+        purchase_number = contract_number.split(',')[0]
+        contract_number = contract_number.split(',')[1]
+        print('----------------------', purchase_number, contract_number)
+    except Exception as e:
+        print('传回来的合同和请购信息有问题', e)
+        data = {'fail': '4444'}
+        return JsonResponse(data)
+
+
+
     print(contract_number, payment_bank, payment_reason, payment_money,payment_type,payment_date, payment_object,bank_account
           ,application, application_date, application_sector, department_head, company_head)
 
     #  TODO  插入数据库
     #  TODO  1.获取机器人名字, 2,获取请购信息
-    return JsonResponse({'code': '200'})
+    # return JsonResponse({'code': '200'})
 
 
 
-    sql = "select  goods_number  from purchase_warehousing_table  where  purchase_number = '%s'" %purchase_number
-    goods_name = str(DB.select_one(sql)[0])
-    print('----------------goods_name--------',goods_name)
+    sql = "select  goods_number  from purchase_apply_table  where  purchase_number = '%s'" %purchase_number
+    try:
+        goods_name = str(DB.select_one(sql)[0])
+        print('----------------goods_name--------', goods_name)
+    except Exception as e:
+        print('请购单异常', e)
+        data = {'fail': '4444'}
+        return JsonResponse(data)
     user_name = request.COOKIES.get('username')
     business_name = goods_numbers[goods_name] + '-采购付款申请与审批'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
@@ -811,12 +864,12 @@ def set_purchaes_payment_create_data(request):
     print(gmt_modified, gmt_create, purchase_payment_status, business_name)
 
     try:
-        DB.get_insert(table='purchase_contract_table',
-                      values=(gmt_create, gmt_modified, user_name,business_name,purchase_payment_status,
+        DB.get_insert(table='purchase_payment_table',
+                      values=(gmt_create, gmt_modified, user_name,business_name,purchase_payment_status,purchase_number,
                               contract_number, payment_bank, payment_reason, payment_money,payment_type,
                               payment_date, payment_object,bank_account,application, application_date,
                               application_sector, department_head, company_head),
-                      fields="(gmt_create, gmt_modified, user_name,business_name,purchase_payment_status,"
+                      fields="(gmt_create, gmt_modified, user_name,business_name,purchase_payment_status,purchase_number,"
                               "contract_number, payment_bank, payment_reason, payment_money,payment_type,"
                               "payment_date, payment_object,bank_account,application, application_date,"
                               "application_sector, department_head, company_head)")
@@ -869,11 +922,11 @@ def set_purchaes_payment_create_data(request):
 
 
 
-
-
-#  TODO  采购机器人 弹框第十一步
-def purchaes_payment_determine(request):
-    return render(request, 'purchaes_payment_determine_11.html')
+#
+#
+# #  TODO  采购机器人 弹框第十一步
+# def purchaes_payment_determine(request):
+#     return render(request, 'purchaes_payment_determine_11.html')
 
 
 
@@ -882,7 +935,6 @@ def purchaes_business_data_display(request):
     return render(request, 'purchaes_business_data_display_12.html')
 
 
-#  TODO  任务列表信息
 
 #  TODO  任务 信息
 def set_purchase_robot_jobs_info(request):
@@ -920,24 +972,37 @@ def set_purchase_robot_buession_info(request):
     #  TODO 返回 未完成列表 数据
 
     user_name = request.COOKIES.get('username')
-    sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   " % user_name
-    print(sql)
-    user_jobs = DB.select_all(sql_info=sql)
+    sql_apply = "select  business_name, gmt_create,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   " % user_name
+    # sql_contract = "select  business_name, gmt_create,applicant,contract_apply_status,gmt_modified,id  from  purchase_contract_table  where user_name = '%s'  order by id  desc    " %user_name
+    # sql_warehousing = "select  business_name, gmt_create,application,purchase_warehousing_status,gmt_modified,id  from  purchase_warehousing_table  where user_name = '%s'  order by id  desc"%user_name
+    # sql_invoice = "select  business_name, gmt_create,application,purchase_invoice_status,gmt_modified,id  from  purchase_invoice_table  where user_name = '%s'  order by id  desc  " %user_name
+    # sql_payment ="select  business_name, gmt_create,application,purchase_payment_status,gmt_modified,id  from  purchase_payment_table  where user_name = '%s'  order by id  desc    "%user_name
 
-    print(user_jobs)
+    apply_info = DB.select_all(sql_info=sql_apply)
+    # contract_info = DB.select_all(sql_info=sql_contract)
+    # warehousing_info = DB.select_all(sql_info=sql_warehousing)
+    # invoice_info = DB.select_all(sql_info=sql_invoice)
+    # payment_info = DB.select_all(sql_info=sql_payment)
+    user_jobs = []
+    for i in [apply_info]:
+        for x in i :
+            user_jobs.append(x)
+
+
+    print('apply',user_jobs)
     data_list = []
-    # print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
+    print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
     if user_jobs:
         for i in user_jobs:
             data_dic = {
-                "id": i[6]
+                "id": i[5]
                 , "business_name": i[0]
                 , "gmt_create": str(i[1])
-                , "application_depart": i[2]
+                , "application_depart":'封装打孔二车间'
                 , 'robot_name': '采购请购机器人'
-                , "applicant": i[3]
-                , "purchase_apply_status": run_status[i[4]]
-                , "gmt_modified": str(i[5])
+                , "applicant": i[2]
+                , "purchase_apply_status": run_status[i[3]]
+                , "gmt_modified": str(i[4])
             }
             data_list.append(data_dic)
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>业务信息查询成功')
@@ -1073,4 +1138,8 @@ def set_view_information_data(request):
 
 #  TODO  返回查看页面
 def set_view_information(request):
+
+
+    sales_number = request.POST.get('sales_number',0)
     return render(request, "view_details.html", locals())
+

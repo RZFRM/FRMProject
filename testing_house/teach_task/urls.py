@@ -43,6 +43,6 @@ urlpatterns = [
     url(r'course_ware',views.course_ware),
     url(r'course_add', views.course),
     url(r'course_task', views.Course_task.as_view()),
-    url(r'process',views.process),
+    url(r'document',views.document),
 
 ]
