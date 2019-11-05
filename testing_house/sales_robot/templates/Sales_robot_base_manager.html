@@ -5,7 +5,7 @@
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md12">
                 <div class="layui-card">
-                    <div class="layui-card-header">固定资产采购业务机器人基础设置</div>
+                    <div class="layui-card-header">销售机器人基础设置</div>
                     <div class="layui-card-body" pad15 style="height: 1000px;">
                         <form class="layui-form">
                             {% csrf_token %}
@@ -89,7 +89,7 @@
             form.on('submit(save)', function (data) {
                 //通用表单提交(AJAX方式)
                 $.ajax({
-                    url: "/fixed_assets/pruchasing_fa_robot_base_data",
+                    url: "/Sales_robot_base_data",
                     type: "post",
                     data: $(data.form).serialize(),
                     success: function (data) {

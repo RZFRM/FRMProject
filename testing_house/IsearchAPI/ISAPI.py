@@ -73,7 +73,7 @@ def rpa_rest(host,rest_type,data_json,add_pr,token,port=10080,try_times=2, timeo
             return get_field_json
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     '''
     获取服务端所有流程
     (proc_code:'',如果填了值就是获取一个流程)流程的json格式：返回值json： {'code': 0, 'msg': 'success', 
@@ -134,8 +134,8 @@ if __name__ == '__main__':
     #          add_pr='/rapi/rcall.action?', token='a56d8e1e413c43baa989c5feeb2d5fdb')
 
     # TODO  停止任务
-    rpa_rest(host='http://192.168.1.151', rest_type='stop-job', data_json={"job_no": "d4b5cce1-b608-4a4c-9c93-42024610d205"},
-             add_pr='/rapi/rcall.action?', token='a56d8e1e413c43baa989c5feeb2d5fdb')
+    # rpa_rest(host='http://192.168.1.151', rest_type='stop-job', data_json={"job_no": "d4b5cce1-b608-4a4c-9c93-42024610d205"},
+    #          add_pr='/rapi/rcall.action?', token='a56d8e1e413c43baa989c5feeb2d5fdb')
 
 
 

@@ -8,9 +8,9 @@ let school_name=document.getElementById("school_name").value; //获取学校名�
 
 let school_code=document.getElementById('school_code').value;//获取学校代码
 
-let school_rank=document.getElementById('school_rank');//获取办学层次
-let indexRank=school_rank.selectedIndex;//获取办学层次索引
-let school_rankId=school_rank.options[index].value;//获取当前下拉框索引值
+let school_rank_obj=document.getElementById('school_rank');//获取办学层次
+let indexRank=school_rank_obj.selectedIndex;//获取办学层次索引
+let school_rankId=school_rank_obj.options[index].value;//获取当前下拉框索引值
 
 
 
