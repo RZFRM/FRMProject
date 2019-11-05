@@ -160,7 +160,7 @@ def Sales_requisition_data_1(request):
     Application_sector = request.POST.get('Application_sector')  # 申请部门
     Application_Date = request.POST.get('Application_Date')  # 申请日期
     Department_Head = request.POST.get('Department_Head')  # 部门负责人
-    Company_Representative = request.POST.get('Company_Representative')  # 公司负责人
+    Company_Representative = request.POST.get('Company_Representative')  # 公司负责人 Company_Representative
     print(user_name,job_type,Contract_Number,Client_Name,Business_Type,Sales_Type,Product_Name,Quantity,Unit,Excluding_tax_univalent,Tax_Rate_Or_Levy_Rate,Total_Amount,Delivery_dates,Applicant,Application_sector, \
             Application_Date,Department_Head,Company_Representative
           )
@@ -237,7 +237,9 @@ def Sales_requisition_data_1(request):
 def set_sales_robot_buession_info(request):
     #  TODO 返回 未完成列表 数据
     user_name = request.COOKIES.get('username')
-    sql = "select  business_type, gmt_create,application_sector,applicant,sales_apply_status,gmt_modified,id  from  sales_apply_table  where user_name = '%s'  order by id  desc   "%user_name
+    sql = "select business_type, gmt_create,application_sector,applicant,sales_apply_status,gmt_modified,id  from  sales_apply_table  where user_name = '%s'  order by id  desc   "%user_name
+
+
     print(sql)
     user_jobs = DB.select_all(sql_info=sql)
 
@@ -256,6 +258,7 @@ def set_sales_robot_buession_info(request):
                 , "purchase_apply_status": run_status[i[4]]
                 , "gmt_modified":str(i[5])
             }
+
             data_list.append(data_dic)
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>业务信息查询成功')
         data = {

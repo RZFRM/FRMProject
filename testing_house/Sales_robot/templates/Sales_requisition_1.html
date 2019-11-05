@@ -232,20 +232,6 @@
             , $ = layui.jquery
             , laydate = layui.laydate;
 
-        $(function () {
-            $.ajax({
-                url: "/Sales_requisition_data_1",
-                type: "post",
-                datatype: "json",
-                success: function (data) {
-                    //重新渲染页面元素  单据
-                    layui.use('element', function () {
-                        $("#purchase").val(data)
-                    });
-                }
-            });
-            return false;
-        });
 
         //日期
         laydate.render({

@@ -110,16 +110,6 @@ DATABASES = {
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'FinceRobotManager',
-        'USER': 'rzgc',
-        'PASSWORD': 'Rzgcchampion2019',
-        'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
-        'PORT': '3306'
-    }
-}
 
 # DATABASES = {
 #     'default': {
