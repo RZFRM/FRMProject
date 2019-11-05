@@ -1,102 +1,5 @@
-<<<<<<< HEAD:testing_house/teach_task/templates/teach-admin.html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Layui</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-        <style type="text/css">
-        .layui-table-body{overflow-x: hidden !important;}
-            .layui-card-body{
-                width: 1418px;
-                margin: auto;
-                background:rgba(255,255,255,1);
-            }
-            .layui-table-fixed-l{
-            opacity: 0;
-        }
-        </style>
-</head>
-<body>
-<div class="layui-col-train-teach">
-    <div class="layui-card">
-        <div class="layui-card-header" style="width: 1400px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
-            教务管理
-        </div>
-    </div>
-</div>
-<div class="school-head" id="school-head">
-    <div class="btn-groups">
-        <div class="layui-groups">
-            <button type="button" id="add_sch" class="layui-btn add_teach">新增</button>
-            <button type="button" id="add_sch" class="layui-btn update_teach">修改</button>
-            <button type="button" id="add_sch" class="layui-btn del_teach">删除</button>
-        </div>
-    </div>
-    <div class="demoTable">
-        <div class="layui-inline">
-            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索任务名称">
-        </div>
-        <button class="layui-btn" data-type="reload">搜索</button>
-    </div>
-</div>
-
-<div class="layui-card-body">
-    <table class="layui-hide" id="table_user" lay-filter="user"></table>
-</div>
-
-<script src="../../static/res/layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-<script>
-    layui.use(['table', 'layedit', 'laydate', 'jquery'], function () {
-        var table = layui.table
-            , layer = layui.layer
-            , layedit = layui.layedit
-            , $ = layui.jquery
-            , laydate = layui.laydate;
 
 
-
-        //方法级渲染
-        table.render({
-             elem: '#table_user'
-            , url: '/education'
-            , toolbar: 'school-head'
-            , max_height: 1000
-            , type:"get"
-            , cols: [[
-                {checkbox: true, fixed: true}
-                , {field: 'a', align:"center", title: '序号', width: "5%",type:'numbers'}
-                , {field: 'a', align:"center", title: '姓名', width: "10%"}
-                , {field: 'b', align:"center",title: '用户名', width: "20%" }
-                , {field: 'c', align:"center",title: '密码', width: "15%"}
-                , {field: 'd', align:"center",title: '手机号码', width: "15%"}
-                , {field: 'e', align:"center",title: '状态',width:"10%"}
-                , {field: 'f', align:"center",title: '创建人', width: "10%"}
-                , {field: 'g', align:"center",title: '操作时间', width: "15%"}
-            ]]
-            , page: true
-        });
-        //获取弹框页面
-         $("#add_teach").on('click', function () {
-            console.log("data");
-            //页面层
-            layer.open({
-                type: 2,
-                area: ['800px', '600px'],//宽高
-                content: 'school_update'
-            });
-        });
-    });
-</script>
-
-</body>
-=======
 <!DOCTYPE html>
 <html>
 <head>
@@ -207,5 +110,4 @@
 </script>
 
 </body>
->>>>>>> ef7251e5058946ae2e8932193eefa833df5e24b8:testing_house/teach_task/templates/province-admin.html
 </html>
