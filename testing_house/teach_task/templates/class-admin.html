@@ -72,22 +72,22 @@
         //方法级渲染
         table.render({
             elem: '#table_user'
-            , url: '/school'
+            , url: '/class'
             , toolbar: 'school-head'
             , max_height: 1000
             ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', title: '序号', width: "5%",type:'numbers'}
-                , {field: 'b', title: '班级名称', width: "10%"}
-                , {field: 'c', title: '班级编号', width: "10%"}
-                , {field: 'd', title: '所属专业', width: "10%"}
-                , {field: 'e', title: '授课教师',width:"15%"}
-                , {field: 'f', title: '状态', width: "10%"}
-                , {field: 'g', title: '开课时间', width: "10%"}
-                , {field: 'h', title: '关课时间', width: "10%"}
-                , {field: 'i', title: '创建人员', width: "10%"}
-                , {field: 'h', title: '操作时间', width: "10%"}
+                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
+                , {field: 'a', align:"center",title: '班级名称', width: "10%"}
+                , {field: 'b', align:"center",title: '班级编号', width: "10%"}
+                , {field: 'c', align:"center",title: '所属专业', width: "10%"}
+                , {field: 'd', align:"center",title: '授课教师',width:"10%"}
+                , {field: 'e', align:"center",title: '状态', width: "10%"}
+                , {field: 'f', align:"center",title: '开课时间', width: "10%"}
+                , {field: 'g', align:"center",title: '关课时间', width: "10%"}
+                , {field: 'h', align:"center",title: '创建人员', width: "10%"}
+                , {field: 'i', align:"center",title: '操作时间', width: "15%"}
             ]]
             , page: true
         });

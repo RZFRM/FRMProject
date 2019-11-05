@@ -7,6 +7,10 @@
     <title>学校/新增/修改</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <script type="text/javascript" src="../../static/res/trainTask/static/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../../static/res/trainTask/static/js/jquery-3.4.1.js"></script>
+
+
     <style>
         .forn {
             width: 350px;
@@ -59,7 +63,7 @@
     </style>
 </head>
 <body>
-<div class="Popout">
+<div class="Popout" id="add_update_school">
     <div class="atitle">
         <span>学校管理</span>
         <button>X</button>
@@ -72,14 +76,14 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">学校名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入学校名称" disabled
+                    <input type="text" name="school_name" autocomplete="off" class="layui-input" placeholder="请输入学校名称"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">学校代码：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入学校代码" disabled
+                    <input type="text" name="school_code" autocomplete="off" class="layui-input" placeholder="请输入学校代码"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
@@ -87,12 +91,11 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>办学层次：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="school_rank" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
+                        <option value="1">本科</option>
+                        <option value="2">专科</option>
+                        <option value="3">中专</option>
                     </select>
                 </div>
             </div>
@@ -100,7 +103,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>办学类型：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="school_type" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
                         <option value="1">CG-2020110328</option>
                         <option value="2">CG-2020120101</option>
@@ -113,7 +116,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>所在省份：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="school_province" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
                         <option value="1">CG-2020110328</option>
                         <option value="2">CG-2020120101</option>
@@ -126,7 +129,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>所在城市：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="school_city" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
                         <option value="1">CG-2020110328</option>
                         <option value="2">CG-2020120101</option>
@@ -139,7 +142,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>教务管理员：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="admin_name" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
                         <option value="1">CG-2020110328</option>
                         <option value="2">CG-2020120101</option>
@@ -149,7 +152,7 @@
                 </div>
             </div>
 
-            <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
+            <button class="btn" type="button" lay-submit lay-filter="btn_school">提交</button>
 
         </form>
     </div>
@@ -158,28 +161,32 @@
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
     layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
-        var form = layui.form
+        let   form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
 
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
-
-        //button提交监听
-        form.on('submit(demo6)', function (data) {
-            //通用表单提交(AJAX方式)
-            $.ajax({
-                url: "/purchaes_storage_create_data",
-                type: "post",
-                data: $(data.form).serialize(),
-                success: function () {
-                    location.href = "/purchaes_storage_determine";
+        //点击保存新增
+        form.on('submit(btn_school)', function (data) {
+            //
+            console.log(data.field);
+            let param = data.field;
+            //发生请求
+            $.post("/school", param, function (result) {
+                console.log(result);
+            })
+            /*$.ajax({
+                url:'/school',
+                type:'POST',
+                dataType:'json',
+                contentType:'application/json;charset=UTF-8',
+                data:JSON.stringify(param),
+                success:function(data, status){
+                    console.log(data);
                 }
-            });
+            });*/
+
         });
     });
 
