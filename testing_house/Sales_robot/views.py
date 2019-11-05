@@ -127,7 +127,6 @@ def Sales_robot_jobs(request):
 #
 
 
-
 #  TODO  销售机器人 跳转到弹框第一步
 def Sales_requisition_1(request):
     return render(request, 'Sales_requisition_1.html')
