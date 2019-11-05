@@ -1,83 +1,115 @@
 {% extends "base_iframe.html" %}
 {% load staticfiles %}
 {% block iframe_info %}
+    <style>
+        .names{
+            width:830px;
+            color:#333;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0 20px 80px;
+        }
+    </style>
     <div class="layui-fluid">
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md12">
                 <div class="layui-card">
                     <div class="layui-card-header">采购业务机器人基础设置</div>
-                    <div class="layui-card-body" pad15 style="height: 1000px;">
-                        <form class="layui-form" action='pruchasing_robot_base_data' method="post">
+                    <div class="layui-card-body" pad15 style="height:743px">
+                        <form class="layui-form">
                             {% csrf_token %}
-                            <div class="layui-form-item"  style="margin-bottom: 5px;">
+                            <div class="layui-form-item">
+                                <sapn style="margin-left: 174px;font-weight: bold;color:red">提示：
+                                    以下配置信息必须正确无误，如需修改，须参照案例格式规范填写，否则机器人将无法正常执行。
+                                </sapn>
+                                <hr>
+                            </div>
+                            <p class="names">用友U810.1软件</p>
+                            <div class="layui-form-item" style="margin-bottom: 5px;">
                                 <label class="layui-form-label" style="width: 200px;">U8软件安装路径:</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="person_tax_install_path"
-                                           value="C:\ProgramData\Microsoft\Windows\Start Menu\Programs\用友U8V10.1" disabled class="layui-input"
-                                           style="width: 600px;">
-
-                                    {#                  <select name="role" lay-verify="">#}
-                                    {#                    <option value="1" selected>超级管理员</option>#}
-                                    {#                    <option value="2" disabled>普通管理员</option>#}
-                                    {#                    <option value="3" disabled>审核员</option>#}
-                                    {#                    <option value="4" disabled>编辑人员</option>#}
-                                    {#                  </select>#}
+                                    <input type="text" name="u8_install_path"
+                                           placeholder="请输入您的安装路径"
+                                           class="layui-input" style="width: 600px;">
                                 </div>
-
                             </div>
                             <div class="layui-form-item" style="width: 800px;">
                                 <p class="layui-form-label" style="width: 600px; margin-left: 215px;">
                                     默认安装路径为：C:\ProgramData\Microsoft\Windows\Start Menu\Programs\用友U8V10.1</p>
                             </div>
 
-                            {#　　　　　　　　　　　　　　TODO　　　登录公司名称#}
-
+                            {#                           //登录公司名称#}
                             <div class="layui-form-item">
                                 <label class="layui-form-label" style="width: 200px;">默认账套:&nbsp;&nbsp;&nbsp;</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="company_name" value="[002](default)星辉家具有限责任公司" disabled class="layui-input" style="width: 600px;">
+                                    <input type="text" name="account_set" value="[002](default)星辉家具有限责任公司"
+                                           class="layui-input" style="width: 600px;">
                                 </div>
-                                {#                                <div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>#}
                             </div>
 
-                            {#                            TODO  纳税人识别号  #}
+                            {#                              TODO  纳税人识别号#}
                             <div class="layui-form-item">
                                 <label class="layui-form-label" style="width: 200px;">操作员:&nbsp;&nbsp;&nbsp;</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="operator" value="000001" disabled class="layui-input" style="width: 600px;">
+                                    <input type="text" name="operator" value="000001" class="layui-input"
+                                           style="width: 600px;">
                                 </div>
-                                {#                                <div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>#}
                             </div>
 
-                            {#                             TODO　　登陆密码　#}
+                            {#                            //TODO　　登陆密码#}
                             <div class="layui-form-item">
                                 <label class="layui-form-label" style="width: 200px;">密码:&nbsp;&nbsp;&nbsp;</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" name="password" value="********" disabled class="layui-input" style="width: 600px;">
+                                    <input type="password" name="password" class="layui-input" placeholder="请输入您的账套密码"
+                                           style="width: 600px;">
                                 </div>
                             </div>
-
+                            <p class="names">网上银行</p>
                             <div class="layui-form-item">
-                                <div class="layui-input-block" style="margin-left: 300px;">
-                                    <button type="submit" class="layui-btn layadmin-backlog-body" lay-filter="setmyinfo"
-                                            style="width: 100px;">修改
+                                <label class="layui-form-label" style="width: 200px;">地址:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="account_set" placeholder="请输入您的发票验真地址"
+                                           class="layui-input" style="width: 600px;">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">账户:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="operator" placeholder="请输入您的银行账户" class="layui-input"
+                                           style="width: 600px;">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">密码:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="password" name="password" class="layui-input" placeholder="请输入您的银行密码"
+                                           style="width: 600px;">
+                                </div>
+                            </div>
+                             <p class="names">发票认证管理平台</p>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">地址:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="account_set" placeholder="请输入您的发票验真地址"
+                                           class="layui-input" style="width: 600px;">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" style="width:830px;">
+                                <div class="layui-input-block" style="margin-left: 53.5%;margin-top:40px">
+                                    <button lay-submit="" lay-filter="save" class="layui-btn"
+                                            style="width: 100px;">保存
                                     </button>
-                                    {#                                    <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>#}
+                                    {#<button type="reset" class="layui-btn layui-btn-primary">重新填写</button>#}
                                 </div>
                             </div>
-                            <div class="layui-form-item">
-                                <hr>
-                                   <sapn style="margin-left: 174px;font-weight: bold">提示：	以上配置信息必须正确无误，如有变化，须立即修改，否则机器人将无法正常执行。</sapn>
-                                </div>
-                            </form>
-                        </div>
+                        </form>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
 {% endblock %}
 {% block script_info %}
     <script>
@@ -86,5 +118,30 @@
         }).extend({
             index: '/lib/index'
         }).use(['index', 'set']);
+
+        layui.use(['form', 'layedit', 'jquery'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , $ = layui.jquery;
+
+            //提交验证
+            form.on('submit(save)', function (data) {
+                //通用表单提交(AJAX方式)
+                $.ajax({
+                    url: "/pruchasing_robot_base_data",
+                    type: "post",
+                    data: $(data.form).serialize(),
+                    success: function (data) {
+                        if(data.fail==4444){
+                            alert(data.msg)
+                        }else{
+                            alert("保存成功")
+                        }
+                    }
+                });
+                return false;  //阻止表单跳转。
+            });
+        })
     </script>
 {% endblock %}

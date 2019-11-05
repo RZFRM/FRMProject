@@ -11,7 +11,7 @@ from IsearchAPI.ISAPI import rpa_rest
 from sql_operating.mysql_class import *
 from IsearchAPI.Baidu_TicketIdentification import *
 from sql_operating.mysql_class import Mysql_client
-from .models import User, Job_list_summary, Application_info
+# from .models import User, Job_list_summary, Application_info
 import time
 
 
@@ -30,7 +30,7 @@ import time
 
 
 
-DB = Mysql_client()
+DB = Mysql_client_FRM()
 
 
 flow_name = {'1':'OPSkey','3':'Tax'}
@@ -73,28 +73,53 @@ def index(request):
     elif request.method =='POST':
         user_name_code = request.POST.get('username')
         user_pawd_code = request.POST.get('pwd')
-        print('POST:', user_name_code)
+        print('POST:', user_name_code, user_pawd_code)
         # print('POST:', check_code)
-        mysql_username = User.objects.filter(user_name=user_name_code).first()
-        mysql_password = User.objects.filter(user_password=user_pawd_code)
-        print(111111111111111)
+        sql_name   = "select user_name from user where user_name = '%s' "%user_name_code
+        user_name = DB.get_select_one(sql_name)
+        try:
+
+            mysql_username = user_name[0]
+            print('-----------mysql_username',mysql_username)
+        except Exception as e:
+            print(False)
+            data = {
+                'code':'400'
+                ,'msg':'用户不存在'
+            }
+            return data
+
+        sql = "select user_pass from user where user_name = '%s' "%user_name_code
+        user_pass = DB.get_select_one(sql)
+        mysql_password = user_pass[0]
+        print('----------------',mysql_password)
         print(mysql_username)
-        if mysql_username:
+        if mysql_username == user_name_code:
             if mysql_password:
                 # resp.set_cookie('key', 'value', max_age='过期时间')
                 client_cookie = request.COOKIES.get('username')
+                data = {'code': '200',
+                        'msg': '登录成功！'}
+            elif user_pawd_code == user_pass:
 
                 return JsonResponse({'result': 'success','username':user_name_code})
-            return JsonResponse({'result': 'fail'})
+            else:
+                data = {'code':'300',
+                        'msg':'登录失败'}
+                return  JsonResponse(data)
+            data = {'code': '200',
+                    'msg': '登录成功！'}
+
+            return JsonResponse({'result': 'success','username':user_name_code})
         else:
             return JsonResponse({'result': 'fail'})
 
         # token = edu_mysql_found_user(user_code)
 
-        token = 1
-        print('Token:====',token)
-        print('locals()==============',locals())
-        auto_excution()
+        # token = 1
+        # print('Token:====',token)
+        # print('locals()==============',locals())
+        # auto_excution()
 
 
 
@@ -944,7 +969,7 @@ def client_info(request):
         print('用户不存在！')
     print(All_No)
 
-    data = {'200':'200'}
+    data = {'success':'200'}
     return JsonResponse(data)
 
 def set_personalIncomeTax(request):

@@ -7,11 +7,12 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="{% static "layuiadmin/layui/css/layui.css" %}" media="all">
     <link rel="stylesheet" href="{% static "layuiadmin/style/admin.css" %}" media="all">
 
-    <script  src="{%  static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/jquery.min.js" %}"></script>
 </head>
 <body class="layui-layout-body" style="background-color: #f2f2f2">
 <div id="LAY_app">
@@ -23,17 +24,17 @@
                         <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
                     </a>
                 </li>
-          <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a lay-href="{% url 'home_page' %}" title="首页">
-              <i class="layui-icon layui-icon-website"></i>
-            </a>
-          </li>
-          <li class="layui-nav-item" lay-unselect>
-            <a href="javascript:;" layadmin-event="refresh" title="刷新">
-              <i class="layui-icon layui-icon-refresh-3"></i>
-            </a>
-          </li>
-        </ul>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a lay-href="{% url 'home_page' %}" title="首页">
+                        <i class="layui-icon layui-icon-website"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;" layadmin-event="refresh" title="刷新">
+                        <i class="layui-icon layui-icon-refresh-3"></i>
+                    </a>
+                </li>
+            </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
                 <li class="layui-nav-item" lay-unselect>
                     <a lay-href="{% url 'my_news' %}" layadmin-event="message" lay-text="消息中心">
@@ -67,9 +68,6 @@
                         <dd style="text-align: center;"><a href="{% url 'login' %}">退出</a></dd>
                     </dl>
                 </li>
-<!-- {#                <li class="layui-nav-item layui-hide-xs" lay-unselect>#}
-{#                    <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>#}
-{#                </li>#} -->
                 <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
                     <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
@@ -80,23 +78,10 @@
                 <div class="layui-logo" lay-href="{% url 'home_page' %}">
                     <span>RZ-FRM</span>
                 </div>
-                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-<!-- {#                    <li data-name="user" class="layui-nav-item layui-nav-itemed">#}
-{#                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">#}
-{#                            <i class="layui-icon layui-icon-user"></i>#}
-{#                            <cite>个人中心</cite>#}
-{#                        </a>#}
-{#                        <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">我的消息</a></dd>#}
-{#                        </dl>#}
-{#                    </li>#} -->
-
-
-
-
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
+                    lay-filter="layadmin-system-side-menu">
                     <li data-name="user" class="layui-nav-item ">
-                    
+
                         <!-- <i class="layui-icon layui-icon-face-smile-fine"></i>
                         <a lay-href="{% url 'home_page' %}">我的机器人</a> -->
                         <a href="javascript:;" lay-tips="个人中心" lay-direction="2">
@@ -107,105 +92,105 @@
                             <dd>
                                 <a href="javascript:;">采购业务机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a lay-href="/purchasing_robot_business_manager">业务管理</a></dd>
-                                    <dd ><a lay-href="/purchasing_robot_jobs_manager">任务管理</a></dd>
-                                    <dd ><a lay-href="/pruchasing_robot_base">基础配置</a></dd>
+                                    <dd><a lay-href="/purchasing_robot_business_manager">业务管理</a></dd>
+                                    <dd><a lay-href="/purchasing_robot_jobs_manager">任务管理</a></dd>
+                                    <dd><a lay-href="/pruchasing_robot_base">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
                                 <a href="javascript:;">存货核算机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
                                 <a href="javascript:;">销售业务机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="/Sales_robot_business_manager:;">业务管理</a></dd>
+                                    <dd><a href="/Sales_robot_jobs_manager:;">任务管理</a></dd>
+                                    <dd><a href="/Sales_robot_base:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
                                 <a href="javascript:;">职工薪酬机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">资产核算机器人</a>
+                                <a href="javascript:;">固定资产机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">费用报销机器人</a>
+                                <a href="javascript:;">总账业务机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">银行付款机器人</a>
+                                <a href="javascript:;">网银付款机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">收款核算机器人</a>
+                                <a href="javascript:;">网银查询机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
                                 <a href="javascript:;">会计报表机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">个税申报机器人</a>
+                                <a href="javascript:;">发票查验机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
-                                <a href="javascript:;">企税申报机器人</a>
+                                <a href="javascript:;">发票认证机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
+                                </dl>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;">企税季报机器人</a>
+                                <dl class="layui-nav-child">
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                             <dd>
                                 <a href="javascript:;">增值税申报机器人</a>
                                 <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
-                                </dl>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;">其他税费申报机器人</a>
-                                <dl class="layui-nav-child">
-                                    <dd ><a href="javascript:;">业务管理</a></dd>
-                                    <dd ><a href="javascript:;">任务管理</a></dd>
-                                    <dd ><a href="javascript:;">基础配置</a></dd>
+                                    <dd><a href="javascript:;">业务管理</a></dd>
+                                    <dd><a href="javascript:;">任务管理</a></dd>
+                                    <dd><a href="javascript:;">基础配置</a></dd>
                                 </dl>
                             </dd>
                         </dl>
@@ -217,112 +202,18 @@
                             <cite>机器人任务列表</cite>
                         </a>
                         <dl class="layui-nav-child">
-<!-- {#                          <dd data-name="console" class="layui-this"><a lay-href={% url 'home_page' %}>首页</a></dd>#} -->
-                            <dd ><a lay-href="/unfinished_jobs">未完成任务</a></dd>
-<!-- {#                            <dd ><a lay-href={% url 'unfinis' %}>未完成</a></dd>#} -->
-                            <dd ><a lay-href='/completed_jobs'>已完成任务</a></dd>
-                            <dd ><a lay-href='/ashcan_jobs'>任务回收站</a></dd>
+                            <!-- {#                          <dd data-name="console" class="layui-this"><a lay-href={% url 'home_page' %}>首页</a></dd>#} -->
+                            <dd><a lay-href="/unfinished_jobs">未完成任务</a></dd>
+                            <!-- {#                            <dd ><a lay-href={% url 'unfinis' %}>未完成</a></dd>#} -->
+                            <dd><a lay-href='/completed_jobs'>已完成任务</a></dd>
+                            <dd><a lay-href='/ashcan_jobs'>任务回收站</a></dd>
                         </dl>
-                         <dl class="layui-nav-child">
+                        <dl class="layui-nav-child">
 
-<!-- {#                              <dd><a lay-href="{% url 'set_email' %}">创建任务</a></dd>#}
+                            <!-- {#                              <dd><a lay-href="{% url 'set_email' %}">创建任务</a></dd>#}
 {#                                <dd data-name="console"><a lay-href="{% url 'my_news' %}">任务列表</a></dd>#} -->
-                         </dl>
+                        </dl>
                     </li>
-
-{#                     <li data-name="user" class="layui-nav-item ">#}
-{#                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">#}
-{#                            <i class="layui-icon layui-icon-align-center"></i>#}
-{#                            <cite>报表中心</cite>#}
-{#                        </a>#}
-{#<!-- {#                        <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd ><a lay-href='/detail_page'> </a></dd>#}
-{#                            <dd ><a lay-href="{% url 'my_news' %}">已完成</a></dd>#}
-{#                            <dd ><a lay-href="{% url 'my_news'%}">我的消息</a></dd>#}
-{#                        </dl>#} -->
-{#                         <dl class="layui-nav-child">#}
-{##}
-{#<!-- {#                              <dd><a lay-href="{% url 'set_email' %}">创建任务</a></dd>#}
-{#                                <dd data-name="console"><a lay-href="{% url 'my_news' %}">任务列表</a></dd>#} -->
-{#                         </dl>#}
-{#                    </li>#}
-<!-- {##}
-{#                    <li data-name="user" class="layui-nav-item ">#}
-{#                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">#}
-{#                            <i class="layui-icon layui-icon-menu-fill"></i>#}
-{#                            <cite>任务管理</cite>#}
-{#                        </a>#}
-{#                        <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">执行状态</a></dd>#}
-{#                        </dl>#}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">任务编号</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">任务机器人</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">业务数据</a></dd>#}
-{#                        </dl>#}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">管理</a></dd>#}
-{#                        </dl>#}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">已完成任务</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{##}
-{##}
-{##}
-{#                    </li>#}
-{##}
-{#                    <li data-name="user" class="layui-nav-item ">#}
-{#                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">#}
-{#                            <i class="layui-icon layui-icon-chat"></i>#}
-{#                            <cite>消息管理</cite>#}
-{#                        </a>#}
-{#                        <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">运行通知</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{##}
-{##}
-{#                         <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'home_page' %}">首页</a></dd>#}
-{#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">消息页</a></dd>#}
-{#                        </dl>#}
-{##}
-{##}
-{#                    </li>#}
-{##}
-{##} -->
-{#                    <li data-name="user" class="layui-nav-item ">#}
-{#                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">#}
-{#                            <i class="layui-icon layui-icon-voice"></i>#}
-{#                            <cite>机器人设置</cite>#}
-{#                        </a>#}
-{#                        <dl class="layui-nav-child">#}
-{#                            <dd data-name="console" class="layui-this"><a lay-href="/set_person_tax_config">个人所得税机器人</a></dd>#}
-{#<!-- {#                            <dd data-name="console"><a lay-href="{% url 'my_news' %}">我的消息</a></dd>#} -->#}
-{#                        </dl>#}
-{#                    </li>#}
 
 
                     <li data-name="user" class="layui-nav-item ">
@@ -331,11 +222,40 @@
                             <cite>机器人初始设置</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'set_config' %}">安装与配置</a></dd>
+                            <dd data-name="console" class="layui-this"><a lay-href="{% url 'set_config' %}">安装与配置</a>
+                            </dd>
 
                         </dl>
                     </li>
-<!-- {##}
+                    <li data-name="user" class="layui-nav-item ">
+                        <a href="javascript:;" lay-tips="个人中心" lay-direction="2">
+                            <i class="layui-icon layui-icon-read"></i>
+                            <cite>机器人实训教学</cite>
+                        </a>
+                        <dl class="layui-nav-child" id="dl_child">
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 实训任务</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href='javascript:;'><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教学管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学生管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教师管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 班级管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 专业管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 教务管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="/school_jump" id="add">#}
+{#                                <img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学校管理</a></dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 课程管理</a>#}
+{#                            </dd>#}
+{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 案例管理</a>#}
+{#                            </dd>#}
+                        </dl>
+                    </li>
+                    <!-- {##}
 {##}
 {#                    <li data-name="set" class="layui-nav-item">#}
 {#                        <a href="javascript:;" lay-tips="系统管理" lay-direction="2">#}
@@ -392,7 +312,8 @@
             </div>
             <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
                 <ul class="layui-tab-title" id="LAY_app_tabsheader">
-                    <li lay-id="{% url 'home_page' %}" lay-attr="{% url 'home_page' %}" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                    <li lay-id="{% url 'home_page' %}" lay-attr="{% url 'home_page' %}" class="layui-this"><i
+                            class="layui-icon layui-icon-home"></i></li>
                 </ul>
             </div>
         </div>
@@ -413,6 +334,36 @@
     }).extend({
         index: '/lib/index'
     }).use('index');
+
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        $('#add').on('click', function () {
+            location.href = "/testing_house/teach_task/templates/school-admin.html";
+        });
+        $(function () {
+            $.ajax({
+                url: "/task",
+                type: "get",
+                datatype: "json",
+                success: function (res) {
+                     for (let index in res.result) {
+                         let student = eval(res.result[index]);
+                         console.log();
+                        $("#dl_child").append(`<dd><a lay-href="${student.url}"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; ${student.name}</a>
+                            </dd>`)
+                    }
+                    layui.form.render("select", "xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                }
+            });
+            return false;
+        });
+    })
+
 
 </script>
 <script>
@@ -436,7 +387,6 @@
 
     </script>
     -->
-
 
 
 </body>

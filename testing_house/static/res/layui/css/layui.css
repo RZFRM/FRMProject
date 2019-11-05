@@ -1658,7 +1658,10 @@ a cite {
 .layui-card-body {
     position: relative;
     padding: 10px 15px;
-    line-height: 24px
+    line-height: 24px;
+    width:1684px;
+height:743px;
+background:rgba(255,255,255,1);
 }
 
 .layui-card-body[pad15] {
@@ -3113,6 +3116,8 @@ a cite {
 }
 
 .layui-table-body {
+    overflow-x: hidden;
+    width: 1615px;
     position: relative;
     overflow: auto;
     margin-right: -1px;
@@ -3161,15 +3166,16 @@ a cite {
     width: 50px
 }
 
-.layui-table-tool {
-    position: relative;
-    z-index: 890;
-    width: 100%;
-    min-height: 50px;
-    line-height: 30px;
-    padding: 10px 15px;
-    border-width: 0 0 1px
-}
+/*.layui-table-tool {*/
+/*    display: none;*/
+/*    position: relative;*/
+/*    z-index: 890;*/
+/*    width: 100%;*/
+/*    min-height: 50px;*/
+/*    line-height: 30px;*/
+/*    padding: 10px 15px;*/
+/*    border-width: 0 0 1px*/
+/*}*/
 
 .layui-table-tool .layui-btn-container {
     margin-bottom: -10px

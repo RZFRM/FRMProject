@@ -1,22 +1,22 @@
 import pymysql
-from  etc.MysqlSetting import *
-
+from etc.MysqlSetting import *
+from testing_house.settings import DATABASES
 
 
 class SqlModel(object):
     def __init__(self):
-        self.host = "192.168.1.152"
-        self.user = "root"
-        self.passwd = "123456"
+        self.host = DATABASES["default"]["HOST"]
+        self.user = DATABASES["default"]["USER"]
+        self.passwd = DATABASES["default"]["PASSWORD"]
         self.dbname = "FinceRobotManager"
         try:
-            self.db = pymysql.connect(self.host,self.user,self.passwd,self.dbname)
+            self.db = pymysql.connect(self.host, self.user, self.passwd, self.dbname)
         except Exception as e:
-            print("数据库连接错误，错误内容%s" % e)   # 后期需替换成log形式
+            print("数据库连接错误，错误内容%s" % e)  # 后期需替换成log形式
 
         self.cursor = self.db.cursor()
 
-    def select_all(self,sql_info):
+    def select_all(self, sql_info):
         """返回的是一个[[],[]] 如果空返回[]"""
         try:
             res = self.cursor.execute(sql_info)
@@ -55,7 +55,7 @@ class SqlModel(object):
             self.cursor.close()
             self.db.close()
 
-    def insert_or_update(self,sql_info):
+    def insert_or_update(self, sql_info):
         """成功返回True,失败False"""
         try:
             self.cursor.execute(sql_info)
@@ -69,18 +69,17 @@ class SqlModel(object):
             self.cursor.close()
             self.db.close()
 
-    def insert(self,table,field,value):
+    def insert(self, table, field, value):
         """成功返回True,失败False"""
 
         a = ()
 
-        sql = "insert into %s%s value %s" % (table,field,value)
-
-
+        sql = "insert into %s%s value %s" % (table, field, value)
 
 
 class Mysql_base(object):
     ''' 数据库操作基本类, 包含于业务无关的的操作方法'''
+
     def __init__(self, host, user, passwd, dbname, port):
         self.host = host
         self.user = user
@@ -88,7 +87,6 @@ class Mysql_base(object):
         self.dbname = dbname
         self.port = port
         self.conn = self.connect()
-
 
     def connect(self):
         conn = pymysql.connect(self.host, self.user, self.passwd, self.dbname, self.port)
@@ -117,12 +115,9 @@ class Mysql_base(object):
             self.conn.commit()
             return results
         except Exception as e:
-            print("<<<<<<<<<<<<<<<<:",e)
+            print("<<<<<<<<<<<<<<<<:", e)
             print('DataBase Select Error: %s' % e)
             # TODO(blkart): raise SelectError
-
-
-
 
     def select_one(self, sql_info):
         """返回的是一个[1,1] 为空返回[]"""
@@ -134,22 +129,25 @@ class Mysql_base(object):
                 res_list = []
                 for i in result:
                     res_list.append(i)
+                cursor.close()
+                # self.conn.commit()
                 return res_list
             else:
+                cursor.close()
                 return []
+
+
         except Exception as e:
             print("数据库查询错误，错误内容:%s" % e)
-        finally:
-            cursor.close()
-            self.conn.commit()
-
 
     def select_all(self, sql_info):
         """返回的是一个[1,1] 为空返回[]"""
         try:
             print(sql_info)
+            print(">>>>>>>>>>>>>>")
             cursor = self.conn.cursor()
             res = cursor.execute(sql_info)
+            print("=============:", res)
             result = cursor.fetchall()
             if res:
                 print("====================")
@@ -160,17 +158,13 @@ class Mysql_base(object):
                     for j in i:
                         res_list2.append(j)
                     res_list.append(res_list2)
+                cursor.close()
                 return res_list
             else:
+                cursor.close()
                 return []
         except Exception as e:
             print("数据库查询错误，错误内容:%s" % e)
-        finally:
-            cursor.close()
-            self.conn.commit()
-
-
-
 
     def insert(self, table, values, fields=None):
 
@@ -220,13 +214,10 @@ class Mysql_base(object):
             # TODO(blkart): raise UpdateError
 
 
-
-
-
-
 #  TODO  查询 远程FRM数据库的信息  回写咱们的数据库
 class Mysql_client(Mysql_base):
     ''' TODO 与业务有关的数据库操作方法'''
+
     def __init__(self):
         self.host = I_MYSQL_HOST
         self.user = I_MYSQL_USERNAME
@@ -235,9 +226,8 @@ class Mysql_client(Mysql_base):
         self.port = I_MYSQL_PORT
         super().__init__(self.host, self.user, self.passwd, self.dbname, self.port)
 
-
     def add_invoice(self, args):
-        print('add_voice===values===:',args)
+        print('add_voice===values===:', args)
         # TODO: 处理插入异常
         self.insert('general_invoice', args,
                     "(invoice_code, invoice_number, invoice_data,"
@@ -245,21 +235,19 @@ class Mysql_client(Mysql_base):
                     "invoice_type, PurchaserName, AmountInWords,AmountInFiguers)"
                     )
 
-
-    def get_rpa_exe(self, fields=None,condition=None):
+    def get_rpa_exe(self, fields=None, condition=None):
         try:
             print(type(fields), fields)
             print(11)
-            rpa_info = self.select(table = 'T_RPA_JOB', fields = fields, condition=condition);
+            rpa_info = self.select(table='T_RPA_JOB', fields=fields, condition=condition);
             print(11)
-            print('rpa_info ===============',rpa_info)
+            print('rpa_info ===============', rpa_info)
         except Exception  as e:
             rpa_info = '没有获取数据'
-            print('数据获取失败',e)
+            print('数据获取失败', e)
         return rpa_info
 
-
-    def get_invoice(self,):
+    def get_invoice(self, ):
         pass
 
     class Mysql_client(Mysql_base):
@@ -314,30 +302,37 @@ class Mysql_client_FRM(Mysql_base):
 
     def get_select_one(self, sql_info):
         try:
-            print(">>>>>>>>>>>>>>>>>>>>>>",sql_info)
-            purchase_id  = self.select_one(sql_info)
-            print('查询请购信息表id===:',purchase_id)
-            return   purchase_id
+            print(">>>>>>>>>>>>>>>>>>>>>>", sql_info)
+            purchase_id = self.select_one(sql_info)
+            print('查询请购信息表id===:', purchase_id)
+            return purchase_id
         except Exception as e:
-            print('没有id请从1开始',e )
+            print('没有id请从1开始', e)
             return False
-        # TODO: 处理插入异常
 
+    def get_select(self, table, fields, condition, order_by=None, limit=None, desc=False):
 
+        print('查找语句')
+        select_info = self.select(table=table, fields=fields, condition=condition, order_by=order_by, limit=limit,
+                                  desc=desc)
+        if select_info:
+            return select_info
+        else:
+            select_info = '查询失败！'
+            return select_info
 
-    def get_select_all(self,sql_info):
+    def get_select_all(self, sql_info):
         try:
             print(">>>>>>>>>>>>>>>>>>>>>>")
-            purchase_id  = self.select_all(sql_info)
-            print('查询请购信息表id===:',purchase_id)
-            return   purchase_id
+            purchase_info = self.select_all(sql_info)
+            print('查询请购信息表id===:')
+            return purchase_info
         except Exception as e:
-            print('没有id请从1开始',e )
+            print('没有id请从1开始', e)
             return False
         # TODO: 处理插入异常
 
-
-    def get_insert(self,table,values,fields=None):
+    def get_insert(self, table, values, fields=None):
         try:
             self.insert(table, values, fields)
         except Exception as e:
@@ -351,8 +346,6 @@ class Mysql_client_FRM(Mysql_base):
         except Exception as e:
             print('更新语句执行失败！！', e)
             return False
-
-
 
     def get_rpa_exe(self, filed=None):
         try:

@@ -28,17 +28,21 @@
 {% block script_info %}
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm"  lay-event="getCheckData"> </button>
+{#            <button class="layui-btn layui-btn-sm"  lay-event="getCheckData"> </button>#}
             <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">开始</button>
             <button class="layui-btn layui-btn-sm" lay-event="isAll">停止</button>
             <button class="layui-btn layui-btn-sm" lay-event="del">删除</button>
-            <div class="layui-inline" style="width: 150px; height: 30px; margin-left: 50%; ">
-                <input class="layui-input" name="id" id="demoReload" autocomplete="off" style="border-radius: 5%">
-            </div>
-            <button class="layui-btn " data-type="reload" style="margin-left: 5px; margin-right: 5px;">搜索</button>
+{#            <div class="layui-inline" style="width: 150px; height: 30px; margin-left: 50%; ">#}
+{#                <input class="layui-input" name="id" id="demoReload" autocomplete="off" style="border-radius: 5%">#}
+{#            </div>#}
+{#            <button class="layui-btn " data-type="reload" style="margin-left: 5px; margin-right: 5px;">搜索</button>#}
             {#            <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off">#}
             {#            <button class="layui-btn" data-type="reload">搜索</button>#}
-
+            <div class="layui-input-block" style="float: right;margin-right: 2%;">
+            <input type="text" autocomplete="off" placeholder="搜索业务" class="layui-input"
+                   style="float: left;width:300px;height:31px;">
+            <button class="layui-btn layui-btn-sm" data-type="reload" style="float: left;width: 80px;">搜索</button>
+        </div>
 
         </div>
     </script>

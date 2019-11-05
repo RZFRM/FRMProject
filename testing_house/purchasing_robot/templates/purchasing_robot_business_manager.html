@@ -11,13 +11,6 @@
             </div>
 
             <div class="layui-card-body">
-                {#                <div class="demoTable">#}
-                {#                    搜索ID：#}
-                {#                    <div class="layui-inline">#}
-                {#                        <input class="layui-input" name="id" id="demoReload" autocomplete="off">#}
-                {#                    </div>#}
-                {#                    <button class="layui-btn" data-type="reload">搜索</button>#}
-                {#                </div>#}
                 <table class="layui-hide" id="test" lay-filter="test"></table>
             </div>
         </div>
@@ -28,31 +21,26 @@
 {% block script_info %}
 
     <script type="text/html" id="toolbarDemo">
-        <button type="button" id="Added" class="layui-btn layui-btn-sm layui-btn-danger"
+        <div style="margin:10px 0px">
+            <button type="button" id="Added" class="layui-btn layui-btn-sm layui-btn-danger"
                 style="width:120px;border-radius:2%;float: left;margin-right: 30px">
             <i class="layui-icon layui-icon-add-1"></i>
-            新增任务
-        </button>
-        {#        <div class="layui-btn-container" style="float:left">#}
-        {#            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">批量导入</button>#}
-        {#        </div>#}
-        <div class="layui-input-block" style="float: right;margin-right: 2%;">
-            <input type="text" autocomplete="off" placeholder="搜索业务" class="layui-input"
-                   style="float: left;width:300px;height:31px;">
-            <button class="layui-btn layui-btn-sm" data-type="reload" style="float: left;width: 80px;">搜索</button>
+            新增业务
+            </button>
+            <div class="layui-input-block" style="float: right;margin-right: 2%;">
+                <input type="text" autocomplete="off" placeholder="搜索业务" class="layui-input"
+                       style="float: left;width:300px;height:31px;">
+                <button class="layui-btn layui-btn-sm" data-type="reload" style="float: left;width: 80px;">搜索</button>
+            </div>
+            <div style="clear: both"></div>
         </div>
-        <div style="clear: both"></div>
     </script>
 
     <script type="text/html" id="barDemo">
-        <button type="button" lay-event="lookUp" id="lookUp" class="layui-btn layui-btn-sm layui-btn-danger"
+        <button type="button" lay-event="lookUp" id="lookUp" class="layui-btn layui-btn-sm"
                 style="width:50%;margin-left:30%;">查看
         </button>
     </script>
-
-
-
-    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 
     <script>
@@ -75,13 +63,13 @@
         }
     </script>
 
-
     <script>
         layui.use(['table', 'jquery'], function () {
             var table = layui.table,
                 $ = layui.$;
 
             table.render({
+
                 elem: '#test'
                 , max_height: 1000
                 , url: '/purchase_robot_buession_info'
@@ -89,26 +77,20 @@
                 , title: '用户数据表'
                 , cols: [[
                     {type: 'checkbox', fixed: 'left'}
-                    , {type: 'numbers', title: '序号', sort: true, width: "4%"}
-                    , {field: 'id', title: 'ID', hide: true}
+                    , {type: 'numbers', title: '序号', width: "4%"}
                     , {field: 'business_name', title: '业务名称', width: "15%"}
                     , {field: 'gmt_create', title: '创建时间', width: "15%", sort: true}
-                    , {field: 'application_depart', title: '申请部门', width: "15%"}
+                    , {field: 'application_depart', title: '申请部门', width: "17.2%"}
                     , {field: 'applicant', title: '申请人', width: "10%"}
                     , {field: 'purchase_apply_status', title: '业务状态', width: "10%", sort: true}
-                    , {field: 'gmt_modified', title: '处理时间', width: "15%", sort: true}
+                    , {field: 'gmt_modified', title: '处理时间', width: "16%", sort: true}
                     , {fixed: '', title: '操作', toolbar: '#barDemo', width: "10%"}
                 ]]
-                 , done: function (res, curr, count) { // 隐藏列
+                , done: function (res, curr, count) { // 隐藏列
                     $(".layui-table-box").find("[data-field='id']").css("display", "none");
                 }
                 , page: true
             });
-
-            {#layer.alert("用户序号："+data.id+",业务名称"+data.business_name+",创建时间:"+data.gmt_create)#}
-            //头工具栏事件
-
-            //头工具栏事件
 
             // 点击触发
             layui.$("#big_num").on("click", function () {
@@ -140,8 +122,6 @@
                     success: function () {
                     }
                 })
-
-
             });
 
             //弹出一个iframe层  新增业务
@@ -151,9 +131,10 @@
                     title: '采购业务填报',
                     shadeClose: true,
                     shade: false,
+                    id: 'toolbarDemo'+1,
                     maxmin: true, //开启最大化最小化按钮
                     area: ["742px", '72.5%'],
-                    content: '/purchaes_requisitions_create'
+                    content: '/purchasing_created'
                 });
             });
 
@@ -182,30 +163,42 @@
                 active[type] ? active[type].call(this) : '';
             });
 
-
             //监听行工具事件
             table.on('tool(test)', function (obj) {
-                var data = obj.data;   //获得当前行数据（json格式的键值对）
-                console.log(data.id);
+                var data = obj.data;//获得当前行数据（json格式的键值对）
+
                 if (obj.event === 'lookUp') {
                     //弹出一个iframe层  查看按钮
-                        layer.open({
-                            id: "check",
-                            type: 2,
-                            title: '查看数据',
-                            shadeClose: true,
-                            shade: false,
-                            maxmin: true, //开启最大化最小化按钮
-                            area: ['43.65%', '62%'],
-                            content:'/view_information',
-                            success: function (layero,index) {
-                                //在layer.open的success方法中拿到子页面的body对象
-                                var body = layer.getChildFrame('body', index);
-                                //直接获取当前按钮
-                                body.contents().find("#lookUp").val(data.id);
-                                console.log(data.id)
-                            }
-                        })
+                    layer.open({
+                        id: "check",
+                        type: 2,
+                        title: '查看数据',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['43.65%', '65%'],
+                        content: '/view_information',
+                        success: function (layero, index) {
+                            {#var iframe = window['layui-layer-iframe' + index];#}
+
+                            var body = layer.getChildFrame('body', index);//建立父子联系
+                            body.find('input').val(data.id);
+                        }
+                    })
+
+
+                    {#$.post('/view_information?id=' + data.id, data, function (result,statue) {#}
+                    {#    layer.open({#}
+                    {#        type:2 ,#}
+                    {#        title: '查看数据',#}
+                    {#        shadeClose: true,#}
+                    {#        shade: false,#}
+                    {#        maxmin: true, //开启最大化最小化按钮#}
+                    {#        area: ['43.65%', '62%'],#}
+                    {#        content:"view_details.html",#}
+                    {#    });#}
+                    {#    console.log(result);#}
+                    {#,"json");#}
                 }
 
 
@@ -253,7 +246,7 @@
 
 
                 {#    layer.confirm('真的要停止吗？', function (index) {#}
-                        {#obj.del();#}
+                {#obj.del();#}
                 {#        var start_class = "layui-btn  layui-btn-xs"#}
                 {#        var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"#}
                 {#        var stop = obj.tr[2].children[0].children[0].children[1]#}

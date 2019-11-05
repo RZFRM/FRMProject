@@ -57,6 +57,7 @@
         .blodd {
             font-size: 18px !important;
             font-weight: bold;
+            margin-top:30px;
         }
 
         .blod {
@@ -65,35 +66,37 @@
 
         .procedure > img {
             width: 75%;
+            cursor: pointer;
         }
 
         .procedure_a {
             width: 80%;
             height: 161px;
-            color: #fff;
+            color: #2F9688;
             display: block;
             font-size: 24px;
             margin: 0 auto 15%;
             text-align: center;
-            background: #0A998C;
+            background: #fff;
             text-decoration: none;
-            padding-top: 0%;
+            border:2px dashed #2F9688;
+            cursor: pointer;
         }
 
         a:hover {
-            color: #fff;
+            color: #2F9688;
         }
 
         .anew{
-            color: #ff2600 !important;
+            color: #2F9688 !important;
             font-size:16px !important;
             font-weight: bold !important;
+            margin-top: 19px;
         }
 
         .overlay {
-            background-color: #000;
-            opacity: 1.0;
-            filter: alpha(opacity=100);
+            background-color: rgba(0,0,0,.7);
+            opacity: 1;
             position: fixed;
             top: 0;
             left: 0;
@@ -122,7 +125,8 @@
             <div class="procedure" style="padding-top: 10%">
                 <a class="procedure_a"
                    href="http://support.i-search.com.cn:8090/isrpa_online_world/upload/iS-RPA-Robot-9.0.0.exe">
-                    <span style="margin:15% 0 2% 0;display: inline-block;">点击下载</span> <br>安装程序
+                    <img style="margin:12% 0 5% 0;display: inline-block;" src="{% static 'robotInstall/download.png' %}" alt="">
+                    <p>点击下载</p>
                 </a>
                 <p class="blodd">说明：</p>
                 <span>第一步：<span class="blod">下载机器人客户端</span>安装程序（约308MB）。</span><br>
@@ -135,14 +139,13 @@
             <div class="head client">上传客户端注册文件</div>
             <div class="procedure" style="padding-top: 10%">
                 <a id="clientInfo" name="clientInfo" class="procedure_a">
-                    <span id="clientInfo_first" style="margin:15% 0 2% 0;display: inline-block;">点击上传</span><br>
-                    <span id="clientInfo_last">注册文件</span>
+                    <img id="clientInfo_img" style="margin:12% 0 5% 0;display: inline-block;" src="{% static 'robotInstall/uploading.png' %}" alt="">
+                    <br><span id="clientInfo_first">点击上传</span>
                 </a>
                 <p class="blodd">说明：</p>
                 <span>注册文件不带有任何用户计算机信息，仅用于机器人服务器与客户端建立连接，该注册文件默认存储于客户端安装路径下：</span>
-                <span>第二步：安装机器人客户端软件，<span>强烈建议按默认路径安装。</span></span>
-                <p>路径：C:\iS-RPA\logs\2019-08-29 文件名</p>
-                <p>文件名：ClientManHelper.log</p>
+                <p style="margin-top:30px;font-weight: bold">路 径：C:\iS-RPA\logs\2019-08-29</p>
+                <p style="font-weight: bold">文件名：ClientManHelper.log</p>
                 <p class="blodd">提示：</p>
                 <span>每次用不同计算机操作机器人，需重新上传注册文件，否则无法连接服务器。</span>
             </div>
@@ -151,12 +154,12 @@
             <div class="head client">设置服务器网址</div>
             <div class="procedure" style="padding-top:15px;">
                 <span>第一步：在任务栏右下角找到机器人客户端图标，双击打开。</span><br>
-                <img src="{% static 'robotInstall/img1.png' %}" alt=""><br>
-                <span>第二步：在机器人客户端右上角点击“ ”，在出现的菜单中点击 <span>“设置”</span></span><br>
-                <img src="{% static 'robotInstall/img3.png' %}" alt=""><br>
+                <img class="thumbnail" src="{% static 'robotInstall/img1.png' %}" alt=""><br>
+                <span>第二步：在机器人客户端右上角点击“ <img src="{% static 'robotInstall/jiantou.png' %}" alt=""> ”，在出现的菜单中点击 <span>“设置”</span></span><br>
+                <img class="thumbnail" src="{% static 'robotInstall/img2.png' %}" alt=""><br>
                 <span>第三步：在 <span class="blod">“设置”</span>界面的 <span class="blod">“服务器地址”</span>栏输入：<span class="blod">rpa.chinaive.com</span>，点击 <span
                         class="blod">确定</span></span><br>
-                <img src="{% static 'robotInstall/img2.png' %}" alt="">
+                <img class="thumbnail" src="{% static 'robotInstall/img3.png' %}" alt="">
             </div>
         </div>
         <div style="clear: both;"></div>
@@ -181,16 +184,24 @@
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 }
                 , done: function (data) {
-                    if(data.success=="200"){
-                        $("#clientInfo").css("background","#66BEB6");
-                        $("#clientInfo_first").html("上传成功");
+                    if(data.success =="200"){
+                        $("#clientInfo").empty();
+                        $("#clientInfo").css("border","2px dashed #739E98");
+                        //移除图片
+                        $("#clientInfo_img").remove();
+                        $("<span>上传成功</span>").appendTo($("#clientInfo")).css({"color":"#739E98","margin":"36px 0 7px","display":"inline-block"});
+                        //写一个24小时格式的时间
                         var onedate = new Date().toLocaleString('chinese', { hour12: false });
-                        $("#clientInfo_last").html(onedate).css("font-size","16px");
+                        $("<p></p>").html(onedate).appendTo($("#clientInfo")).css("font-size","16px");
+                        //插入一句话
                         $("<p class='anew'>重新上传</p>").appendTo($("#clientInfo"));
+                    }else{
+
                     }
                 }
                 , error: function () {
                     //请求异常回调
+                    console.log(123)
                 }
             });
         });
@@ -201,7 +212,7 @@
         };
 
         function addExpand() {
-            var imgs = document.getElementsByTagName("img");
+            var imgs = document.getElementsByClassName("thumbnail");
             imgs[0].focus();
             for (var i = 0; i < imgs.length; i++) {
                 imgs[i].onclick = expandPhoto;
@@ -226,7 +237,7 @@
 
         function restore() {
             document.body.removeChild(document.getElementById("overlay"));
-            document.body.removeChild(document.getElementById("expand"));
+            {#document.body.removeChild(document.getElementById("expand"));#}
         }
     </script>
 {% endblock %}
