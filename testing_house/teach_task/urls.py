@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'class_jump', views.class_jump),
     url(r'teacher_jump', views.teacher_jump),
     url(r'student_jump', views.student_jump),
-    url(r'school_update',views.school_update),
+    url(r'school_update', views.school_update),
 
 
     url(r'index', views.Index.as_view()),

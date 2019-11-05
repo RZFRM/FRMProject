@@ -50,7 +50,7 @@ def student_jump(request):
 
 def school_update(request):
     """学校管理  新增窗口"""
-    return render(request, "school_admin_new_update.html")
+    return render(request, "school_new_update.html")
 
 
 class Index(View):
