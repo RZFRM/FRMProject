@@ -511,7 +511,7 @@ def set_purchaes_storage_create_data(request):
                       values=(gmt_create, gmt_modified, user_name,purchase_number, approval_date,
                               contract_number,warehouse_number,warehouse_date,
                               application,purchase_warehousing_status, business_name),
-                      fields="(gmt_create, gmt_modified,user_name,approval_date,purchase_number,"
+                      fields="(gmt_create, gmt_modified,user_name,purchase_number,approval_date,"
                              "contract_number,warehouse_number,warehouse_date,"
                              "application,purchase_warehousing_status,business_name)")
 
@@ -519,7 +519,7 @@ def set_purchaes_storage_create_data(request):
     except Exception as e:
         print('插入失败！')
         data = {
-            'code':'400',
+            'fail':'4444',
             'msg':'插入数据库失败'
         }
         return JsonResponse(data)
@@ -545,12 +545,8 @@ def set_purchaes_storage_create_data(request):
         job_list_summary.job_start_time = localTime
         job_list_summary.job_status = '1111'
         job_list_summary.save()
-        data = {
-            "success": '1111'
-            , "msg": "成功！"
-            , "count": 1
-        }
-        return JsonResponse(data)
+
+        return JsonResponse({'code':'200'})
     except:
         print('写入数据库失败！')
         data = {
@@ -560,7 +556,6 @@ def set_purchaes_storage_create_data(request):
         }
 
         return JsonResponse(data)
-
 
 
 
@@ -1083,4 +1078,10 @@ def set_view_information_data(request):
 
 #  TODO  返回查看页面
 def set_view_information(request):
+<<<<<<< HEAD
+
+    sales_number = request.POST.get('sales_number',0)
     return render(request, "view_details.html", locals())
+=======
+    return render(request, "view_details.html", locals())
+>>>>>>> df813c5ae6bcfecbead5482eb8164e661219bb91

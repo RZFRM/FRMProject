@@ -38,9 +38,19 @@ I_MYSQL_DATABASE_NAME = 'isa'
 
 #  mysql  -u root -h 192.168.1.152 -p123456  -P 3306
 #TODO  FRM   PlatForm
-FRM_MYSQL_HOST_ALI = '39.100.105.181'
+FRM_MYSQL_HOST_ALI = 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com'
 FRM_MYSQL_PORT_ALI = 3306
-FRM_MYSQL_USERNAME_ALI = 'personal_tax'
-FRM_MYSQL_PASSWORD_ALI = 'Rzgcchampion2019<>?'
+FRM_MYSQL_USERNAME_ALI = 'rzgc'
+FRM_MYSQL_PASSWORD_ALI = 'Rzgcchampion2019'
 FRM_MYSQL_DATABASE_NAME_ALI = 'FinceRobotManager'
+
+#  TODO  云端版
+
+#  mysql  -u root -h 192.168.1.152 -p123456  -P 3306
+#TODO  FRM   PlatForm
+# FRM_MYSQL_HOST_ALI = '39.100.105.181'
+# FRM_MYSQL_PORT_ALI = 3306
+# FRM_MYSQL_USERNAME_ALI = 'personal_tax'
+# FRM_MYSQL_PASSWORD_ALI = 'Rzgcchampion2019<>?'
+# FRM_MYSQL_DATABASE_NAME_ALI = 'FinceRobotManager'
 
