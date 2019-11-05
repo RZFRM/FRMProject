@@ -26,12 +26,12 @@ def school_jump(request):
 
 def province_jump(request):
     """教务页面跳转"""
-    return render(request, "teach-admin.html")
+    return render(request, "province-admin.html")
 
 
 def major_jump(request):
     """专业页面跳转"""
-    return render(request, "professional-admin.html")
+    return render(request, "major-admin.html")
 
 
 def class_jump(request):
@@ -47,6 +47,26 @@ def teacher_jump(request):
 def student_jump(request):
     """学生页面跳转"""
     return render(request, "students_admin.html")
+
+
+def school_update(request):
+    """学校管理  新增跳转"""
+    return render(request, "school_new_update.html")
+
+
+def province_update(request):
+    """教务管理  新增跳转"""
+    return render(request, "teach_admin_new_update.html")
+
+
+def major_update(request):
+    """专业管理  新增跳转"""
+    return render(request, "major_new_update.html")
+
+
+def class_update(request):
+    """班级管理 新增跳转"""
+    return render(request, "class_admin_new_update.html")
 
 
 class Index(View):
@@ -1605,7 +1625,7 @@ def task_teach_design(request):
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
-def document(request):
+def course_document(request):
     """课程管理，设置 XX文件"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
@@ -1646,12 +1666,12 @@ def course_ware(request):
             for i in file.chunks():
                 f.write(i)
 
-        sql = "select * from course where course_name='%s' and task_name='%s'" % (str(file), task_name)
+        sql = "select * from course_ware where course_name='%s' and task_name='%s'" % (str(file), task_name)
         res = SqlModel().select_one(sql)
         if res:
             return JsonResponse({"result": "fail", "msg": "该任务已经配置该文件"})
         else:
-            sql_add = "insert into course (course_name,course_position,task_name) values ('%s','%s','%s')" % (str(file), course_position, task_name)
+            sql_add = "insert into course_ware (course_name,course_position,task_name) values ('%s','%s','%s')" % (str(file), course_position, task_name)
             res_add = SqlModel().insert_or_update(sql_add)
             if res_add:
                 return JsonResponse({"result": "设置成功"})
@@ -1659,4 +1679,46 @@ def course_ware(request):
                 return JsonResponse({"result": "fail", "msg": "设置失败,请重试"})
     except:
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def task_card(request):
+    """设置实训任务卡"""
+    username = request.COOKIES.get("username")
+    task_name = request.POST.get("task_name")
+    task_require = request.POST.get("task_require")
+    task_process = request.FILES.get("a")
+    task_case_list = request.POST.get("task_case")
+    now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
+
+    process_position = "\picture\%s" % str(task_process)
+    MEDIA_ROOT = os.path.join(BASE_DIR, "picture", str(task_process))
+
+    try:
+        with open(MEDIA_ROOT, "wb") as f:
+            for i in task_process.chunks():
+                f.write(i)
+
+        sql_up = "update task set task_require='%s' where task_name='%s'" % (task_require,task_name)
+        SqlModel().insert_or_update(sql_up)
+
+        sql_process = "select * from process where process_name='%s'" % str(task_process)
+        res = SqlModel().select_one(sql_process)
+        if not res:
+            sql_add = "insert into process (process_name,process_position,task_name) values ('%s','%s','%s')" % (str(task_process), process_position, task_name)
+            SqlModel().insert_or_update(sql_add)
+
+        sql_name = "select admin_name from user where user_name ='%s'" % username
+        create_name = SqlModel().select_one(sql_name)[0]
+
+        if task_case_list:
+            for i in task_case_list:
+                sql_q = "select * from case where case_name='%s' and task_name='%s'" % (i, task_name)
+                res_case = SqlModel().select_one(sql_q)
+                if not res_case:
+                    sql_case_add = "insert into case (case_name,task_name,create_name,create_time) values ('%s','%s','%s','%s')" % (i, task_name, create_name, now_time)
+                    SqlModel().insert_or_update(sql_case_add)
+        return JsonResponse({"result": "设置成功"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
 

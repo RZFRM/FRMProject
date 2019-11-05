@@ -161,17 +161,62 @@ class Teach_design(models.Model):
     class Meta:
         db_table = 'teach_design'
 
-#
-# class Course_ware(models.Model):
-#     """课件 表"""
-#     course_id = models.AutoField(primary_key=True, verbose_name="课件id")
-#     course_name = models.CharField(max_length=50, null=True, verbose_name="课件名称")
-#     course_position = models.CharField(max_length=50, null=True, verbose_name="课件位置")
-#     task_name = models.CharField(max_length=50, null=True, verbose_name="任务名称")
-#
-#     def __str__(self):
-#         return self.course_name
-#
-#     class Meta:
-#         db_table = 'course'
-#
+
+class Course_ware(models.Model):
+    """课件 表"""
+    course_id = models.AutoField(primary_key=True, verbose_name="课件id")
+    course_name = models.CharField(max_length=50, null=True, verbose_name="课件名称")
+    course_position = models.CharField(max_length=50, null=True, verbose_name="课件位置")
+    task_name = models.CharField(max_length=50, null=True, verbose_name="任务名称")
+
+    def __str__(self):
+        return self.course_name
+
+    class Meta:
+        db_table = 'course_ware'
+
+
+class Case(models.Model):
+    """案例 表"""
+    case_id = models.AutoField(primary_key=True, verbose_name="案例id")
+    case_name = models.CharField(max_length=50, verbose_name="案例名称")
+    case_recommend = models.CharField(max_length=1024, null=True, verbose_name="业务描述")
+    case_state = models.CharField(max_length=11, default="True", verbose_name="案例状态")
+    task_name = models.CharField(max_length=50, null=True, verbose_name="任务名称")
+    create_name = models.CharField(max_length=11, null=True, verbose_name="创建人")
+    create_time = models.DateTimeField(null=True, verbose_name="操作时间")
+
+    def __str__(self):
+        return self.case_name
+
+    class Meta:
+        db_table = 'case'
+
+
+class Case_document(models.Model):
+    """案例模块 文件 表"""
+    document_id = models.AutoField(primary_key=True, verbose_name="文件id")
+    document_name = models.CharField(max_length=50, null=True, verbose_name="文件名称")
+    document_position = models.CharField(max_length=50, null=True, verbose_name="文件位置")
+    case_name = models.CharField(max_length=50, null=True, verbose_name="案例名称")
+
+    def __str__(self):
+        return self.document_name
+
+    class Meta:
+        db_table = 'case_document'
+
+
+class Picture(models.Model):
+    """图片 表"""
+    picture_id = models.AutoField(primary_key=True, verbose_name="图片id")
+    picture_name = models.CharField(max_length=50, verbose_name="图片名字")
+    picture_position = models.CharField(max_length=50, null=True, verbose_name="图片位置")
+    case_name = models.CharField(max_length=50, null=True, verbose_name="案例名称")
+
+    def __str__(self):
+        return self.picture_name
+
+    class Meta:
+        db_table = 'picture'
+
