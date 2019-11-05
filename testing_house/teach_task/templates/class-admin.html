@@ -9,11 +9,27 @@
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+
+    <style type="text/css">
+        .layui-table-body{overflow-x: hidden !important;}
+        .layui-card-body{
+        margin: auto;
+        background:rgba(255,255,255,1);
+        }
+        .layui-table-fixed-l{
+            opacity: 0;
+        }
+        .layui-card-body{
+        width: 1418px;
+        margin: auto;
+        background:rgba(255,255,255,1);
+        }
+    </style>
 </head>
 <body>
 <div class="layui-col-train-teach">
     <div class="layui-card">
-        <div class="layui-card-header" style="width: 1920px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+        <div class="layui-card-header" style="width: 1400px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
             班级管理
         </div>
     </div>
@@ -36,7 +52,7 @@
 
 <div class="layui-card-body">
     <table class="layui-hide" id="table_user" lay-filter="user"></table>
-</div>>
+</div>
 
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
@@ -62,7 +78,7 @@
             ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', title: '序号', width: "5%"}
+                , {field: 'a', title: '序号', width: "5%",type:'numbers'}
                 , {field: 'b', title: '班级名称', width: "10%"}
                 , {field: 'c', title: '班级编号', width: "10%"}
                 , {field: 'd', title: '所属专业', width: "10%"}

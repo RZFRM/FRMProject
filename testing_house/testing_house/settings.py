@@ -43,19 +43,6 @@ INSTALLED_APPS = [
     'purchasing_robot',
     'mptt',
     'teach_task.apps.TeachTaskConfig',
-    'fixed_assets_robot',
-    'Inventory_accounting',
-    'Sales',
-    'Employee_salary',
-    'permanent_assets',
-    'General_ledger_business',
-    'Online_banking_payment',
-    'Online_banking_inquiry',
-    'Financial_statements',
-    'Invoice_inspection',
-    'Invoice_certification',
-    'Corporate_tax_quarterly_report',
-    'VAT_return',
 
 ]
 
@@ -97,42 +84,28 @@ WSGI_APPLICATION = 'testing_house.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'FinceRobotManager',
+#         'USER': 'personal_tax',
+#         'PASSWORD': 'Rzgcchampion2019<>?',
+#         'HOST': '39.100.105.181',
+#         'PORT': '3306'
+#
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'FinceRobotManager',
-        'USER': 'personal_tax',
-        'PASSWORD': 'Rzgcchampion2019<>?',
-        'HOST': '39.100.105.181',
+        'USER': 'rzgc',
+        'PASSWORD': 'Rzgcchampion2019',
+        'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
         'PORT': '3306'
-
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'FinceRobotManager',
-#         'USER': 'rzgc',
-#         'PASSWORD': 'Rzgcchampion2019',
-#         'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
-#         'PORT': '3306'
-#     }
-# }
-#
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'FinceRobotManager',
-#         'USER': 'root',
-#         'PASSWORD': '123456',
-#         'HOST': '192.168.1.152',
-#         'PORT': '3306',
-#
-#     }
-# }
-
 
 # DATABASES = {
 #     'default': {
