@@ -261,7 +261,7 @@ def purchaes_order_create(request):
 def set_contract_by_purchase_number(request):
     user_name = request.COOKIES.get('username')
 
-    sql = "select purchase_number from purchase_contract_table  where user_name = '%s'" % user_name
+    sql = "select purchase_number from purchase_apply_table  where user_name = '%s'" % user_name
 
     user_jobs = DB.get_select_all(sql_info=sql)
     data_list = []
@@ -347,11 +347,11 @@ def set_purchaes_order_create_data(request):
         return JsonResponse(data)
 
     user_name = request.COOKIES.get('username')
-    business_name = goods_numbers[goods_name] + '-合同申请与审批'
+    business_name = goods_numbers[goods_name] + '-采购合同申请与审批'
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     contract_apply_status = '1113'
-    recommended_date = '2020-12-10'
+    recommended_date = '2018-12-10'
     print(gmt_modified, gmt_create, contract_apply_status, business_name)
 
     try:
@@ -922,14 +922,25 @@ def set_purchase_robot_buession_info(request):
     invoice_info = DB.select_all(sql_info=sql_invoice)
     payment_info = DB.select_all(sql_info=sql_payment)
     user_jobs = []
-    for i in [warehousing_info,apply_info, contract_info, invoice_info, payment_info]:
-        for x in i:
-            user_jobs.append(x)
-
+    data_list = []
+    try:
+        for i in [warehousing_info, apply_info, contract_info, invoice_info, payment_info]:
+            for x in i:
+                user_jobs.append(x)
+    except Exception as e:
+        data = {
+            "code": 0
+            , "msg": "查询失败！"
+            , "count": 1
+            , "data": data_list
+        }
+        return  JsonResponse(data)
     # print('apply', user_jobs)
     data_list = []
+
     # print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
     if user_jobs:
+
         for i in user_jobs:
             data_dic = {
                 "id": i[5]
@@ -998,74 +1009,167 @@ def set_create_purchase_number(request):
 #
 #
 #
-
+import json
 
 #  TODO  创建查看共功能数据
 def set_view_information_data(request):
+    body = request.body
+
+    body1 = json.loads(body)
     user_name = request.COOKIES.get('username')
-    id = request.GET.get('id')
-    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(
-        id)
-    print(sql)
-
+    # id = request.GET.get('id')
+    # r_name = request.POST.get('re')
+    print(body1)
+    r_name = '采购报销申请与审批'
     try:
-        views_info = DB.select_one(sql)
-        if views_info:
-            r_name = views_info[-1].split('-')[1]
-            print('---------------------------------', id, views_info)
-            project_name = []
+        # if views_info:
+        #     r_name = views_info[-1].split('-')[1]
 
-            if r_name == '采购申请与审批':
+            # print('---------------------------------', id, views_info,r_name)
+        project_name = []
 
-                project_name.append('单据编号')
-                project_name.append('采购用途')
-                project_name.append('货物名称')
-                project_name.append('建议单价')
-                project_name.append('单位')
-                project_name.append('数量')
-                project_name.append('建议金额')
-                project_name.append('申请人')
-                project_name.append('申请部门')
-                project_name.append('申请日期')
+        if r_name == '采购申请与审批':
+            sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,applicant, application_depart,recommended_date,business_name from purchase_apply_table where id = ' + str(id)
+            print(sql)
+            views_info = DB.select_one(sql)
 
-                views_info[2] = goods_numbers[views_info[2]]
-                views_info.pop()
-                result = {
-                    'code': '200'
-                    , 'msg': ''
-                    , 'data': views_info
-                    , 'project_name': project_name
-                    , 'r_name': r_name
-                }
+            project_name.append('单据编号')
+            project_name.append('采购用途')
+            project_name.append('货物名称')
+            project_name.append('建议单价')
+            project_name.append('单位')
+            project_name.append('数量')
+            project_name.append('建议金额')
+            project_name.append('申请人')
+            project_name.append('申请部门')
+            project_name.append('申请日期')
 
-                return JsonResponse(result)
+            views_info[2] = goods_numbers[views_info[2]]
+            views_info.pop()
+            result = {
+                'code': '200'
+                , 'msg': ''
+                , 'data': views_info
+                , 'project_name': project_name
+                , 'r_name': r_name
+            }
 
-            elif r_name == '采购合同机器人':
+            return JsonResponse(result)
 
-                project_name.append('单据编号')
-                project_name.append('采购用途')
-                project_name.append('货物名称')
-                project_name.append('建议单价')
-                project_name.append('单位')
-                project_name.append('数量')
-                project_name.append('建议金额')
-                project_name.append('申请人')
-                project_name.append('申请部门')
-                project_name.append('申请日期')
+        elif r_name == '采购合同申请与审批':
+            sql = 'select contract_number,approval_date,warehouse_number,warehouse_date,application,business_name  from  purchase_warehousing_table where id = ' + str(id)
+            print(sql)
+            views_info = DB.select_one(sql)
 
-                result = {
-                    'code': '200'
-                    , 'msg': ''
-                    , 'data': views_info
-                }
-                return JsonResponse(result)
+            project_name.append('关联请购单号')
+            project_name.append('合同编号')
+            project_name.append('供应商')
+            project_name.append('税率/征收率')
+            project_name.append('不含税单价')
+            project_name.append('数量')
+            project_name.append('总金额(含税)')
+            project_name.append('需求日期')
+            project_name.append('申请人')
+            project_name.append('申请部门')
+            project_name.append('申请日期')
+            project_name.append('部门负责人')
+            project_name.append('公司负责人')
 
+            views_info[2] = company_info[views_info[2]]
+            views_info.pop()
+            result = {
+                'code': '200'
+                , 'msg': ''
+                , 'data': views_info
+                , 'project_name': project_name
+                , 'r_name': r_name
+            }
+
+            return JsonResponse(result)
+        elif r_name == '点验入库':
+            sql = 'select contract_number,approval_date,warehouse_number,warehouse_date,application,business_name from  purchase_warehousing_table where id = ' + str(id)
+            print(sql)
+            views_info = DB.select_one(sql)
+
+
+            project_name.append('关联合同单号')
+            project_name.append('审批时间')
+            project_name.append('仓库名称')
+            project_name.append('入库时间')
+            project_name.append('点验人员')
+
+            views_info[2] = warehouse_name[views_info[2]]
+            views_info.pop()
+            result = {
+                'code': '200'
+                , 'msg': ''
+                , 'data': views_info
+                , 'project_name': project_name
+                , 'r_name': r_name
+            }
+
+            return JsonResponse(result)
+        elif r_name == '采购报销申请与审批':
+            sql = 'select contract_number,incoive_number,reimbursement_type ,reimbursement_money ,money_details, application_date,application,application_sector,department_head,company_head,business_name from  purchase_invoice_table where  id = '+str(id)
+            print(sql)
+            views_info = DB.select_one(sql)
+
+            project_name.append('关联请购单号')
+            project_name.append('发票号码')
+            project_name.append('报销类别')
+            project_name.append('报销金额')
+            project_name.append('费用明细')
+            project_name.append('申请日期')
+            project_name.append('申请人')
+            project_name.append('申请部门')
+            project_name.append('部门负责人')
+            project_name.append('公司负责人')
+            # views_info[2] = warehouse_name[views_info[2]]
+            views_info.pop()
+            result = {
+                'code': '200'
+                , 'msg': ''
+                , 'data': views_info
+                , 'project_name': project_name
+                , 'r_name': r_name
+            }
+
+            return JsonResponse(result)
+
+
+        elif r_name == '采购付款申请与审批':
+            sql = 'select contract_number,incoive_number,reimbursement_type ,reimbursement_money ,money_details, application_date,application,application_sector,department_head,company_head,business_name from  purchase_invoice_table where  id = '+str(id)
+            print(sql)
+            views_info = DB.select_one(sql)
+
+            project_name.append('关联请购单号')
+            project_name.append('发票号码')
+            project_name.append('报销类别')
+            project_name.append('报销金额')
+            project_name.append('费用明细')
+            project_name.append('申请日期')
+            project_name.append('申请人')
+            project_name.append('申请部门')
+            project_name.append('部门负责人')
+            project_name.append('公司负责人')
+            # views_info[2] = warehouse_name[views_info[2]]
+            views_info.pop()
+            result = {
+                'code': '200'
+                , 'msg': ''
+                , 'data': views_info
+                , 'project_name': project_name
+                , 'r_name': r_name
+            }
+
+            return JsonResponse(result)
         else:
             data = {
                 'code': '400',
                 'msg': '查询不到数据'
             }
             return JsonResponse(data)
+
     except Exception as e:
         data = {
             'code': '400'
