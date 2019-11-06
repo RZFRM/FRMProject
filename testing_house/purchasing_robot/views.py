@@ -932,24 +932,24 @@ def set_purchase_robot_buession_info(request):
     user_name = request.COOKIES.get('username')
     # TODO  5 个业务表联查
     sql_apply = "select  business_name, gmt_create,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   " % user_name
-    # sql_contract = "select  business_name, gmt_create,applicant,contract_apply_status,gmt_modified,id  from  purchase_contract_table  where user_name = '%s'  order by id  desc    " %user_name
+    sql_contract = "select  business_name, gmt_create,applicant,contract_apply_status,gmt_modified,id  from  purchase_contract_table  where user_name = '%s'  order by id  desc    " %user_name
     sql_warehousing = "select  business_name, gmt_create,application,purchase_warehousing_status,gmt_modified,id  from  purchase_warehousing_table  where user_name = '%s'  order by id  desc" % user_name
     sql_invoice = "select  business_name, gmt_create,application,purchase_invoice_status,gmt_modified,id  from  purchase_invoice_table  where user_name = '%s'  order by id  desc  " % user_name
-    # sql_payment = "select  business_name, gmt_create,application,purchase_payment_status,gmt_modified,id  from  purchase_payment_table  where user_name = '%s'  order by id  desc    " % user_name
+    sql_payment = "select  business_name, gmt_create,application,purchase_payment_status,gmt_modified,id  from  purchase_payment_table  where user_name = '%s'  order by id  desc    " % user_name
 
     apply_info = DB.select_all(sql_info=sql_apply)
-    # contract_info = DB.select_all(sql_info=sql_contract)
+    contract_info = DB.select_all(sql_info=sql_contract)
     warehousing_info = DB.select_all(sql_info=sql_warehousing)
     invoice_info = DB.select_all(sql_info=sql_invoice)
-    # payment_info = DB.select_all(sql_info=sql_payment)
+    payment_info = DB.select_all(sql_info=sql_payment)
     user_jobs = []
-    for i in [warehousing_info,apply_info]:
+    for i in [warehousing_info,apply_info, contract_info, invoice_info, payment_info]:
         for x in i:
             user_jobs.append(x)
 
-    print('apply', user_jobs)
+    # print('apply', user_jobs)
     data_list = []
-    print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
+    # print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
     if user_jobs:
         for i in user_jobs:
             data_dic = {
@@ -970,7 +970,7 @@ def set_purchase_robot_buession_info(request):
             , "count": 1
             , "data": data_list
         }
-        print(data)
+        # print(data)
         return JsonResponse(data)
     else:
 
