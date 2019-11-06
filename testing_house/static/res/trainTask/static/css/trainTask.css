@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     margin: 0;
     padding: 0
@@ -228,4 +229,246 @@ span {
     color:#FF4800;
     line-height:28px;
     margin: 82px 52px 35px 0;
+=======
+body {
+    margin: 0;
+    padding: 0
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+p {
+    margin: 0
+}
+span {
+    margin: 0;
+}
+.title-task {
+    width:100%;
+    text-align: left;
+    height:25px;
+    background:rgba(255,255,255,1);
+    border-bottom: 1px solid rgba(242,242,242,1);
+    margin-bottom: 5px;
+}
+.training {
+    width: 100%;
+}
+.title-task>li {
+    width:57px;
+    height:15px;
+    font-size:14px;
+    margin-left: 50px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(0,0,0,1);
+    line-height:25px;
+    display: inline-block;
+}
+.financial_robot {
+    margin: 0 auto;
+    width:1651px;
+    height:50px;
+    display: flex;
+    flex-wrap: nowrap;
+    background:rgba(242,242,242,1);
+}
+.financial_robot>span:nth-child(1){
+    margin-right: 740px;
+    margin: 0 auto;
+    width:181px;
+    height:18px;
+    font-size:18px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgba(51,51,51,1);
+    line-height:50px;
+}
+.financial_robot>span:nth-child(2) {
+    width:94px;
+    height:19px;
+    font-size:17px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgba(255,72,0,1);
+    line-height:28px;
+    margin: 10px 10px 0 0;
+
+}
+.tasks {
+    margin: 0 auto;
+    border: 1px solid rgba(242,242,242,1);
+    width:1684px;
+    height:743px;
+    background:rgba(255,255,255,1);
+    text-align: center;
+
+ }
+.tasks>h2 {
+    margin: 0 auto;
+    width:237px;
+    height:15px;
+    font-size:16px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(0,0,0,1);
+    line-height:15px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+.tasks>h4 {
+    display: inline-block;
+    width:1027px;
+    height:43px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(0,0,0,1);
+    line-height:28px;
+    margin-bottom: 23px;
+}
+.tasks>.task-first-second {
+    display: flex;
+    flex-wrap: nowrap;
+    margin:0 auto;
+    overflow: hidden;
+    margin-left: 21px;
+}
+.tasks>.task-first-second>div {
+    margin: 0 auto;
+
+    width:800px;
+    height:228px;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 0px 19px 1px rgba(0, 0, 0, 0.18);
+    border-radius:8px;
+    margin-bottom: 26px;
+
+}
+.tasks>.task-third-fouth>div {
+    margin: 0 auto;
+    display: inline-block;
+    width:800px;
+    height:228px;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 0px 11px 0px rgba(0, 0, 0, 0.18);
+    border-radius:8px;
+    margin-bottom: 144px;
+}
+
+.tasks>.task-first-second>.task1 {
+    display: inline;
+    width:800px;
+    height:228px;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 0px 19px 1px rgba(0, 0, 0, 0.18);
+    border-radius:8px;
+
+}
+.tasks>.task-first-second>.task1>.Title-1 {
+    width:240px;
+    height:16px;
+    font-size:16px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgba(255,72,0,1);
+    line-height:20px;
+    margin: 47px 575px 25px 49px;
+}
+.tasks>.task-first-second>.task1>.title1-content {
+    width:493px;
+    height:15px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(55,55,55,1);
+    line-height:28px;
+    margin-left: 79px ;
+}
+.tasks>.task-first-second>.task1>.train-c-s {
+    display: flex;
+    flex-wrap: nowrap;
+
+}
+.tasks>.task-first-second>.task1>.train-c-s>p:nth-child(1) {
+    width:70px;
+    height:15px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:#FF4800;
+    line-height:28px;
+    margin-right: 47px;
+    margin: 75px 0 35px 544px;
+}
+.tasks>.task-first-second>.task1>.train-c-s>p:nth-child(2){
+    width:87px;
+    height:15px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:#FF4800;
+    line-height:28px;
+    margin: 75px 52px 35px 0;
+}
+
+/*任务三四*/
+.tasks>.task-third-fouth>.task1 {
+    display: inline-block;
+    width:800px;
+    height:228px;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 0px 19px 1px rgba(0, 0, 0, 0.18);
+    border-radius:8px;
+    margin-left: 21px;
+}
+.tasks>.task-third-fouth>.task1>.Title-1 {
+    width:285px;
+    height:16px;
+    font-size:16px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgba(255,72,0,1);
+    line-height:20px;
+    margin: 47px 575px 25px 49px;
+}
+.tasks>.task-third-fouth>.task1>.title1-content {
+    width:493px;
+    height:15px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(55,55,55,1);
+    line-height:28px;
+    margin-left: 79px ;
+}
+.tasks>.task-third-fouth>.task1>.train-c-s {
+    display: flex;
+    flex-wrap: nowrap;
+
+}
+.tasks>.task-third-fouth>.task1>.train-c-s>p:nth-child(1) {
+    width:70px;
+    height:15px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:#FF4800;
+    line-height:28px;
+    margin-right: 47px;
+    margin: 75px 0 35px 544px;
+}
+.tasks>.task-third-fouth>.task1>.train-c-s>p:nth-child(2){
+    width:87px;
+    height:15px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:#FF4800;
+    line-height:28px;
+    margin: 75px 52px 35px 0;
+>>>>>>> 590b11581b255c3b430df1bda7c0526d3b1a852e
 }

@@ -306,6 +306,8 @@ def set_stopjobs_info(request):
 def set_start_jobs_info(request):
     job_no = request.POST.get('job_no')
     job_type = request.POST.get('job_type')
+    print("heihei", job_no, job_type)
+
     robot_flow = robot_name[job_type]
 
     #  TODO  没有个税机器人  先拿U8  机器人测试

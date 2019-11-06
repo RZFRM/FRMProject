@@ -23,9 +23,22 @@ urlpatterns = [
     path('', include('getRobot.urls')),
     path('', include('purchasing_robot.urls')),
     path('', include('teach_task.urls')),
+    path('', include('sales_robot.urls')),
+    path('', include('inventory_accounting_robot.urls')),
+
+    path('', include('employee_salary_robot.urls')),
+    path('', include('permanent_assets_robot.urls')),
+    path('', include('general_ledger_business_robot.urls')),
+    path('', include('online_banking_payment_robot.urls')),
+    path('', include('online_banking_inquiry_robot.urls')),
+    path('', include('financial_statements_robot.urls')),
+    path('', include('invoice_inspection_robot.urls')),
+    path('', include('invoice_certification_robot.urls')),
+    path('', include('corporate_tax_quarterly_report_robot.urls')),
+    path('', include('vat_return_robot.urls')),
+
     path('fixed_assets/', include('fixed_assets_robot.urls')),
     path('', include('sales_robot.urls')),
     path('inventory_accounting/', include('inventory_accounting_robot.urls')),
-
 
 ]

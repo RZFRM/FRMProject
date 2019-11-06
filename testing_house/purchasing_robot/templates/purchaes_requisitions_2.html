@@ -226,22 +226,24 @@
 
         //根据货物名称自动生成单位
         form.on('select(test)', function (data) {
-            if(data.value == "002"){
-                $("#unit").val("盘")
-            }else if(data.value == "003"){
+            if(data.value == "201"){
+                $("#unit").val("张")
+            }else if(data.value == "202"){
+                $("#unit").val("张")
+            }else if(data.value == "203"){
+                $("#unit").val("根")
+            }else if(data.value == "204"){
                 $("#unit").val("套")
-            }else if(data.value == "004"){
-                $("#unit").val("套")
-            }else if(data.value == "007"){
+            }else if(data.value == "205"){
+                $("#unit").val("张")
+            }else if(data.value == "206"){
                 $("#unit").val("个")
-            }else if(data.value == "008"){
+            }else if(data.value == "207"){
                 $("#unit").val("件")
-            }else if(data.value == "009"){
+            }else if(data.value == "208"){
                 $("#unit").val("打")
-            }else if(data.value == "010"){
+            }else if(data.value == "209"){
                 $("#unit").val("套")
-            }else if(data.value == "011"){
-                $("#unit").val("次")
             }
         });
     })
