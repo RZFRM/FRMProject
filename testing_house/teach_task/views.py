@@ -19,6 +19,16 @@ from .common import province_city
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
+def course_jump(request):
+    """课程页面跳转"""
+    return render(request, "course_admin.html")
+
+
+def case_jump(request):
+    """案例页面跳转"""
+    return render(request, "case_admin.html")
+
+
 def school_jump(request):
     """学校页面跳转"""
     return render(request, "school-admin.html")
@@ -47,6 +57,16 @@ def teacher_jump(request):
 def student_jump(request):
     """学生页面跳转"""
     return render(request, "students_admin.html")
+
+
+def teaching_jump(request):
+    """教学管理 页面跳转"""
+    return render(request, "teaching_admin.html")
+
+
+def task_jump(request):
+    """实训任务 页面跳转"""
+    return render(request, " trainTask.html")
 
 
 def school_update(request):
