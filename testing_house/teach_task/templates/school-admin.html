@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
-    <link rel="stylesheet" href="../../static/res/trainTask/static/js/school-admin.js" media="all">
+    <link rel="stylesheet" href="../../static/res/trainTask/static/js/school_admin.js">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style type="text/css">
     .layui-table-body{overflow-x: hidden !important;}
@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-<div class="layui-col-train-teach">
+<div class="layui-col-train-teach" >
     <div class="layui-card">
         <div class="layui-card-header" style="width: 1400px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
             学校管理
@@ -42,9 +42,9 @@
 <div class="school-head" id="school-head" >
     <div class="btn-groups">
         <div class="layui-groups">
-            <button type="button" class="layui-btn add1">新增</button>
-            <button type="button" class="layui-btn ">修改</button>
-            <button type="button" class="layui-btn del">删除</button>
+            <button type="button" id="add_sch" class="layui-btn add_sch">新增</button>
+            <button type="button" id="update_sch"  class="layui-btn update_sch">修改</button>
+            <button type="button" id="del_sch"  class="layui-btn del_sch">删除</button>
         </div>
     </div>
     <div class="demoTable" >
@@ -62,16 +62,13 @@
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['table', 'layedit', 'laydate', 'jquery'], function () {
-        var table = layui.table
+    layui.use(['form','table', 'layedit', 'laydate', 'jquery'], function () {
+        let table = layui.table
             , layer = layui.layer
             , layedit = layui.layedit
             , $ = layui.jquery
-            , laydate = layui.laydate;
-
-
-
-
+            , laydate = layui.laydate
+            , form = layui.form;
 
         //方法级渲染
         table.render({
@@ -79,52 +76,42 @@
             , url: '/school'
             , toolbar: 'school-head'
             , max_height: 1000
-            ,type:"get"
+            , type: "get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
-                , {field: 'a', align:"center",title: '学校代码', width: "10%"}
-                , {field: 'b', align:"center",title: '学校名称', width: "15%"}
-                , {field: 'c', align:"center",title: '办学层次', width: "8%"}
-                , {field: 'd', align:"center",title: '办学类型',width:"7%"}
-                , {field: 'e', align:"center",title: '省份', width: "10%"}
-                , {field: 'f', align:"center",title: '城市', width: "10%"}
-                , {field: 'g', align:"center",title: '教务管理员', width: "10%"}
-                , {field: 'h', align:"center",title: '创建人', width: "10%"}
-                , {field: 'i', align:"center",title: '操作', width: "15%"}
+                , {field: 'a', align: "center", title: '序号', width: "5%", type: 'numbers'}
+                , {field: 'a', align: "center", title: '学校代码', width: "10%"}
+                , {field: 'b', align: "center", title: '学校名称', width: "15%"}
+                , {field: 'c', align: "center", title: '办学层次', width: "8%"}
+                , {field: 'd', align: "center", title: '办学类型', width: "7%"}
+                , {field: 'e', align: "center", title: '省份', width: "10%"}
+                , {field: 'f', align: "center", title: '城市', width: "10%"}
+                , {field: 'g', align: "center", title: '教务管理员', width: "10%"}
+                , {field: 'h', align: "center", title: '创建人', width: "10%"}
+                , {field: 'i', align: "center", title: '创建时间', width: "15%"}
             ]]
-            , page: true
+            , page: true,
+
         });
 
-
-        {#let $ = layui.$, active = {#}
-        {#    reload: function () {#}
-        {#        let demoReload = $('#demoReload');#}
-        {##}
-        {#        //执行重载#}
-        {#        table.reload('testReload', {#}
-        {#            page: {#}
-        {#                curr: 1 //重新从第 1 页开始#}
-        {#            }#}
-        {#            , where: {#}
-        {#                key: {#}
-        {#                    id: demoReload.val()#}
-        {#                }#}
-        {#            }#}
-        {#        }, 'data');#}
-        {#    }#}
-        {#;#}
-        {##}
-        {#$('.demoTable .layui-btn').on('click', function(){#}
-        {#  let type = $(this).data('type');#}
-        {#  active[type] ? active[type].call(this) : '';#}
-        {#);#}
-
+        /*点击新增按钮*/
+//新增页面是哪个
+        
+        $("#add_sch").on('click', function () {
+            console.log("data");
+            //页面层
+            layer.open({
+                type: 2,
+                area: ['800px', '600px'],//宽高
+                content: 'school_update'
+            });
+        });
 
 
 
 
     });
+
 </script>
 
 

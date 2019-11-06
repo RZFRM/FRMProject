@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('teach_task.urls')),
     path('', include('sales_robot.urls')),
     path('', include('inventory_accounting_robot.urls')),
+<<<<<<< HEAD
     path('', include('employee_salary_robot.urls')),
     path('',include('permanent_assets_robot.urls')),
     path('',include('general_ledger_business_robot.urls')),
@@ -38,6 +39,13 @@ urlpatterns = [
 
 
 
+=======
+
+
+    path('fixed_assets/', include('fixed_assets_robot.urls')),
+    path('', include('sales_robot.urls')),
+    path('inventory_accounting/', include('inventory_accounting_robot.urls')),
+>>>>>>> e817401ec32dada10fd47c8a919a1b50ffb31618
 
 
 ]

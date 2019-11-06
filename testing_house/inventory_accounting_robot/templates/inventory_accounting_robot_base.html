@@ -65,6 +65,7 @@
                                            style="width: 600px;">
                                 </div>
                             </div>
+<<<<<<< HEAD
                             <p class="names">网上银行</p>
                             <div class="layui-form-item">
                                 <label class="layui-form-label" style="width: 200px;">地址:&nbsp;&nbsp;&nbsp;</label>
@@ -95,6 +96,8 @@
                                            class="layui-input" style="width: 600px;">
                                 </div>
                             </div>
+=======
+>>>>>>> e817401ec32dada10fd47c8a919a1b50ffb31618
                             <div class="layui-form-item" style="width:830px;">
                                 <div class="layui-input-block" style="margin-left: 53.5%;margin-top:40px">
                                     <button lay-submit="" lay-filter="save" class="layui-btn"
@@ -129,7 +132,11 @@
             form.on('submit(save)', function (data) {
                 //通用表单提交(AJAX方式)
                 $.ajax({
+<<<<<<< HEAD
                     url: "/pruchasing_robot_base_data",
+=======
+                    url: "/",
+>>>>>>> e817401ec32dada10fd47c8a919a1b50ffb31618
                     type: "post",
                     data: $(data.form).serialize(),
                     success: function (data) {
