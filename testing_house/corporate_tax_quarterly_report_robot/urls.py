@@ -37,5 +37,11 @@ urlpatterns = [
     # 销售机器人 弹框第一步 跳转
     url('corporate_tax_quarterly_requisition_1', views.corporate_tax_quarterly_requisition_1,
         name='corporate_tax_quarterly_requisition_1'),
+    # 业务信息一览表
+    url('corporate_tax_quarterly_business_info', views.set_corporate_tax_quarterly_business_info),
+    # 任务信息一览表
+    url('corporate_tax_quarterly_jobs_info', views.set_corporate_tax_quarterly_jobs_info),
+
+
 
 ]

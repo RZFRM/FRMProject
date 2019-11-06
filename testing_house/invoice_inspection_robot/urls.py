@@ -35,5 +35,8 @@ urlpatterns = [
     # 销售机器人 弹框第一步 跳转
     url('invoice_inspection_requisition_1', views.invoice_inspection_requisition_1,
         name='invoice_inspection_requisition_1'),
-
+    # 业务信息一览表
+    url('invoice_inspection_business_info', views.set_invoice_inspection_business_info),
+    # 任务信息一览表
+    url('invoice_inspection_jobs_info', views.set_invoice_inspection_jobs_info),
 ]

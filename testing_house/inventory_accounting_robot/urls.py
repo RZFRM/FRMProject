@@ -49,7 +49,10 @@ urlpatterns = [
     # 销售机器人 弹框第六步 跳转
     url('inventory_storage_determine_7', views.inventory_storage_determine_7, name='inventory_storage_determine_7'),
 
-
+    # 业务信息一览表
+    url('stock_valuations_business_info', views.set_stock_valuations_business_info),
+    # 任务信息一览表
+    url('stock_valuations_jobs_info', views.set_stock_valuations_jobs_info),
 
 
 ]

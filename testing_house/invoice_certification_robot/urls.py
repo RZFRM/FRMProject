@@ -36,4 +36,9 @@ urlpatterns = [
     url('invoice_certification_requisition_1', views.invoice_certification_requisition_1,
         name='invoice_certification_requisition_1'),
 
+    # 业务信息一览表
+    url('invoice_certification_robot_business_info', views.set_invoice_certification_business_info),
+    # 任务信息一览表
+    url('invoice_certification_robot_jobs_info', views.set_invoice_certification_jobs_info),
+
 ]
