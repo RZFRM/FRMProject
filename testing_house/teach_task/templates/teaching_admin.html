@@ -11,13 +11,13 @@
 
     <style>
         .table_content {
-            width:1615px;
+            width:100%;
             height:88px;
             background:rgba(250,250,250,1);
             border:1px solid rgba(232,232,232,1);
         }
         .layui-card-body{
-        width:1684px;
+        width:100%;
         height:743px;
         background:rgba(255,255,255,1);
     }
@@ -40,12 +40,12 @@
 <body>
     <div class="layui-col-train-teach">
         <div class="layui-card" >
-            <div class="layui-card-header" style="width: 1920px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+            <div class="layui-card-header" style="width:100%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
                 教学管理
             </div>
         </div>
     </div>
-    <div class="school-head" id="school-head" style="width: 1400px;height: 50px;margin-top: 5px">
+    <div class="school-head" id="school-head" style="width: 100%;height: 50px;margin-top: 5px">
         <div class="btn-groups">
             <div class="layui-groups teach1" >
                 教学管理
@@ -53,13 +53,13 @@
         </div>
         <div class="demoTable search1">
             <div class="layui-inline" style="margin-left: 150px">
-                <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索姓名">
+                <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索任务名称">
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
         </div>
     </div>
-    <div class="table_content" style="margin: 0 auto;margin-top: 10px">
-        <table class="layui-table" id="table_user" lay-data="{url:'/test/table/demo2.json?v=3', cellMinWidth: 80, page: true}">
+    <div class="table_content" style="margin: 0 auto">
+        <table class="layui-table" id="table_user" >
               <thead>
                 <tr>
                   <th lay-data="{field:'username', width:80}" rowspan="3">序号</th>
@@ -83,18 +83,13 @@
               </thead>
         </table>
     </div>
-     <script type="text/html" id="barDemo">
-      <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">按钮1</a>
-      <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">按钮2</a>
-    </script>
-
 
 
     <script src="../../static/layuiadmin/layui/layui.js"></script>
     <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
         <script>
         layui.use(['table', 'layedit', 'laydate', 'jquery'], function () {
-        var table = layui.table
+        let table = layui.table
             , layer = layui.layer
             , layedit = layui.layedit
             , $ = layui.jquery
@@ -109,17 +104,17 @@
             , toolbar: 'school-head'
             , max_height: 1000
             ,type:"get"
-            , cols: [[
-                {checkbox: true, fixed: true}
-                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
-                , {field: 'a', align:"center",title: '姓名', width: "15%"}
-                , {field: 'b', align:"center",title: '用户名', width: "15%"}
-                , {field: 'c', align:"center",title: '密码', width: "10%"}
-                , {field: 'd', align:"center",title: '手机号码',width:"25%"}
-                , {field: 'e', align:"center",title: '状态', width: "10%"}
-                , {field: 'f', align:"center",title: '创建人', width: "10%"}
-                , {field: 'g', align:"center",title: '操作时间', width: "10%"}
-            ]]
+            {#, cols: [[#}
+            {#    {checkbox: true, fixed: true}#}
+            {#    , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}#}
+            {#    , {field: 'a', align:"center",title: '姓名', width: "15%"}#}
+            {#    , {field: 'b', align:"center",title: '用户名', width: "15%"}#}
+            {#    , {field: 'c', align:"center",title: '密码', width: "10%"}#}
+            {#    , {field: 'd', align:"center",title: '手机号码',width:"25%"}#}
+            {#    , {field: 'e', align:"center",title: '状态', width: "10%"}#}
+            {#    , {field: 'f', align:"center",title: '创建人', width: "10%"}#}
+            {#    , {field: 'g', align:"center",title: '操作时间', width: "10%"}#}
+            {#]]#}
             , page: true
         });
 
