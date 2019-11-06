@@ -142,7 +142,7 @@
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
-            <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
+            <button class="btn" type="submit" lay-submit="" lay-filter="stu_check">提交</button>
             <div class="remind">
                 <p style="margin: 20% 0 0 17%">提示：</p>
                 <p style="position: absolute; bottom:6%;left: 45%">提交后不允许更改</p>
@@ -167,17 +167,11 @@
             elem: '#date'
         });
 
-        //button提交监听
-        form.on('submit(demo6)', function (data) {
-            //通用表单提交(AJAX方式)
-            $.ajax({
-                url: "/purchaes_storage_create_data",
-                type: "post",
-                data: $(data.form).serialize(),
-                success: function () {
-                    location.href = "/purchaes_storage_determine";
-                }
-            });
+        form.on('submit("stu_check)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: ''
+            })
+            return false;
         });
     });
 
