@@ -3,14 +3,14 @@
 .school-head{
     display: flex;
     flex-wrap: nowrap;
-    width:1400px;
+    width:98%;
     height:50px;
     line-height: 50px;
     background:rgba(242,242,242,1);
     margin: 0 auto;
 }
 .demoTable{
-    margin-left: 796px;
+    margin-left: 45%;
     z-index: 999;
     border-radius: 4px;
 }
