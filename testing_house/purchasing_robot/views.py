@@ -23,6 +23,16 @@ from sql_operating.mysql_class import *
 from etc.command import  *
 from  personal_center.views import  update_sql
 
+
+
+
+
+
+
+
+
+
+
 from etc.command import *
 
 
@@ -1087,5 +1097,4 @@ def set_view_information(request):
 
     sales_number = request.POST.get('sales_number',0)
     return render(request, "view_details.html", locals())
-
 

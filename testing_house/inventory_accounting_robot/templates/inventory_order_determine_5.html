@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第十一步</title>
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        .found span {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(51, 51, 51, 1);
+        }
+
+        .approve {
+            width: 350px;
+            margin: 0 auto;
+            padding-top: 15%;
+        }
+
+        .good {
+            float: left;
+            height: 210px;
+            width: 32px;
+        }
+
+        .good > span {
+            height: 60px;
+            display: inline-block;
+            border: 1px solid #c6c6c6;
+            margin-left: 14px;
+        }
+
+        .more {
+            float: right;
+        }
+
+        .more > div + div {
+            margin-top: 55px;
+        }
+
+        .more > div > p + p {
+            margin-top: 6px;
+        }
+
+        .more > div > p:first-child {
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .more > div > p:last-child {
+            color: #333;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .btn {
+            width: 105px;
+            height: 39px;
+            background: rgba(55, 38, 89, 1);
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 39px;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            left: 44%;
+            bottom: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>物资出库审批</span>
+    </div>
+    <div class="approve">
+        <div class="good">
+            <img src="../../static/pic/zhengque.png" alt="">
+            <span></span>
+            <img src="../../static/pic/zhengque.png" alt="">
+            <span></span>
+            <img src="../../static/pic/zhengque.png" alt="">
+        </div>
+        <div class="more">
+            <div>
+                <p>部门负责人：<span>周宇（已同意）</span></p>
+                <p>2018-12-20</p>
+            </div>
+            <div>
+                <p>公司负责人：<span>李宏（已同意）</span></p>
+                <p>2018-12-20</p>
+            </div>
+            <div>
+                <p>销售开票机器人：<span>已添加到任务列表  （<a href="#">查看</a>）</span></p>
+                <p>2020-12-20</p>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+    {#    <button class="btn" onclick="javascript:window.location.href='/purchaes_business_data_display'">下一步</button>#}
+    <button class="layui-btn btn" lay-submit="" lay-filter="demo9" id="wicket">完成</button>
+</div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(["form", "layer", "jquery"], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.jquery;
+
+        //关闭当前窗口
+        $("#wicket").click(function () {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            window.parent.location.reload();//刷新父页面
+        })
+    })
+</script>
+</body>
+</html>
