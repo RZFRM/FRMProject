@@ -1,3 +1,136 @@
+<<<<<<< HEAD
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
+     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
+
+    <style>
+        .table_content {
+            width:1615px;
+            height:88px;
+            background:rgba(250,250,250,1);
+            border:1px solid rgba(232,232,232,1);
+        }
+        .layui-card-body{
+            width:1684px;
+            height:743px;
+            background:rgba(255,255,255,1);
+        }
+        .demoTable {
+            width:412px;
+            height:43px;
+        }
+        .teach1{
+            width:72px;
+            height:18px;
+            font-size:18px;
+            font-family:Microsoft YaHei;
+            font-weight:bold;
+            color:rgba(51,51,51,1);
+            line-height:61px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="layui-col-train-teach">
+        <div class="layui-card" >
+            <div class="layui-card-header" style="width: 1400px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+                教学管理
+            </div>
+        </div>
+    </div>
+    <div class="school-head" id="school-head" style="width: 100%;height: 50px;margin-top: 5px">
+        <div class="btn-groups">
+            <div class="layui-groups teach1" >
+                教学管理
+            </div>
+        </div>
+        <div class="demoTable search1">
+            <div class="layui-inline" style="margin-left: 150px">
+                <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索姓名">
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+        </div>
+    </div>
+    <div class="table_content" style="margin: 0 auto;margin-top: 10px">
+        <table class="layui-table" id="table_user" lay-data="{url:'/test/table/demo2.json?v=3', cellMinWidth: 80, page: true}">
+              <thead>
+                <tr>
+                  <th lay-data="{field:'username', width:80}" rowspan="3">序号</th>
+                  <th lay-data="{field:'amount', width:120}" rowspan="3">任务名称</th>
+                    <th lay-data="{field:'amount', width:120}" rowspan="3">介绍</th>
+                  <th lay-data="{align:'center'}" colspan="2">实训卡及案例</th>
+                    <th lay-data="{align:'center'}" colspan="3">实训报告</th>
+                  <th lay-data="{fixed: 'right', width: 160, align: 'center', toolbar: '#barDemo'}" rowspan="3">教学设计</th>
+                  <th lay-data="{fixed: 'right', width: 160, align: 'center', toolbar: '#barDemo'}" rowspan="3">课件</th>
+                  <th lay-data="{fixed: 'right', width: 160, align: 'center', toolbar: '#barDemo'}" rowspan="3">流程图</th>
+                </tr>
+                <tr>
+                  <th lay-data="{field:'province'}" rowspan="2">状态</th>
+                  <th lay-data="{field:'city'}" rowspan="2" >查看</th>
+                    <th lay-data="{field:'province'}" rowspan="2">权重</th>
+                  <th lay-data="{field:'city'}" rowspan="2">状态</th>
+                </tr>
+                <tr>
+                  <th lay-data="{field:'house'}" >参考答案</th>
+                </tr>
+              </thead>
+        </table>
+    </div>
+
+     <div class="layui-card-body" >
+        <table class="layui-hide" id="table_user" lay-filter="user"></table>
+    </div>
+
+
+
+
+
+
+    <script src="../../static/layuiadmin/layui/layui.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+        <script>
+        layui.use(['table', 'layedit', 'laydate', 'jquery'], function () {
+        let table = layui.table
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+
+
+        //方法级渲染
+        table.render({
+            elem: '#table_user'
+            , url: '/teaching_jump'
+            , toolbar: 'school-head'
+            , max_height: 1000
+            ,type:"get"
+                , cols: [[
+                {checkbox: true, fixed: true}
+                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
+                , {field: 'a', align:"center",title: '姓名', width: "15%"}
+                , {field: 'b', align:"center",title: '用户名', width: "15%"}
+                , {field: 'c', align:"center",title: '密码', width: "10%"}
+                , {field: 'd', align:"center",title: '手机号码',width:"25%"}
+                , {field: 'e', align:"center",title: '状态', width: "10%"}
+                , {field: 'f', align:"center",title: '创建人', width: "10%"}
+                , {field: 'g', align:"center",title: '操作时间', width: "10%"}
+            ]]
+            , page: true
+        });
+
+    });
+        </script>
+</body>
+=======
 <!doctype html>
 <html lang="en">
 <head>
@@ -148,4 +281,5 @@
     });
         </script>
 </body>
+>>>>>>> 590b11581b255c3b430df1bda7c0526d3b1a852e
 </html>
