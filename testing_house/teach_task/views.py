@@ -66,7 +66,7 @@ def teaching_jump(request):
 
 def task_jump(request):
     """实训任务 页面跳转"""
-    return render(request, " trainTask.html")
+    return render(request, "trainTask.html")
 
 
 def school_update(request):
