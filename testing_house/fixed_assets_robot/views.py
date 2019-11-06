@@ -109,8 +109,9 @@ def pruchasing_fa_robot_business(request):
 
 #  TODO  固定资产采购机器人任务管理页
 def pruchasing_fa_robot_jobs(request):
-    user_name = request.COOKIES.get('user_name')
+    # user_name = request.COOKIES.get('user_name')
     # update_sql(user_name)
+
     return render(request, 'FixedAssets_robot_jobs_manager.html')
 
 
@@ -506,8 +507,9 @@ def set_fa_purchase_robot_jobs_info(request):
 def set_fa_purchase_robot_buession_info(request):
     #  TODO 返回 未完成列表 数据
 
-    user_name = request.COOKIES.get('username')
-    sql = "select business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  FA_purchase_requisition_table  where user_name = '%s'  order by id  desc   " % user_name
+    # user_name = request.COOKIES.get('username')
+    # sql = "select business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  FA_purchase_requisition_table  where user_name = '%s'  order by id  desc   " % user_name
+    sql = "select business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  FA_purchase_requisition_table  where user_name = 'rzgc'  order by id  desc   "
     print(sql)
     user_jobs = DB.select_all(sql_info=sql)
 
@@ -547,24 +549,25 @@ def set_fa_purchase_robot_buession_info(request):
 
 # TODO  创建请购单数据
 def set_fa_create_purchase_number(request):
-    # TODO  判断 数据库是否有 CG000001
-    user_name = request.COOKIES.get('username')
-    id = 1
+    # TODO  判断 数据库是否有 0000000015
+    # user_name = request.COOKIES.get('username')
+    id = 15
     try:
-        sql = "select id from FA_purchase_requisition_table  where  user_name ='%s'  order by id desc  limit 1 ;" % user_name
+        # sql = "select id from FA_purchase_requisition_table  where  user_name ='%s'  order by id desc  limit 1 ;" % user_name
+        sql = "select id from FA_purchase_requisition_table  where  user_name ='rzgc'  order by id desc  limit 1 "
         buessines_info = DB.get_select_one(sql_info=sql)[0]
         print(buessines_info)
 
         if buessines_info == False or buessines_info == 0:
-            purchase_number = "CG0000" + str(id)
+            purchase_number = "00000000" + str(id)
             return HttpResponse(purchase_number)
         else:
             id = int(buessines_info) + 1
-            purchase_number = "CG0000" + str(id)
+            purchase_number = "00000000" + str(id)
             return HttpResponse(purchase_number)
     except Exception as e:
 
-        purchase_number = "CG0000" + str(id)
+        purchase_number = "00000000" + str(id)
         return HttpResponse(purchase_number)
 
 
@@ -586,7 +589,8 @@ def set_fa_create_purchase_number(request):
 def set_fa_view_information_data(request):
     user_name = request.COOKIES.get('username')
     id = request.GET.get('id')
-    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from FA_purchase_requisition_table where id = ' + str(id)
+    sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from FA_purchase_requisition_table where id = ' + str(
+        id)
     print(sql)
 
     try:

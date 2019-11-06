@@ -45,13 +45,15 @@ urlpatterns = [
     url('purchaes_fa_payment_create', views.purchaes_fa_payment_create, name='purchaes_payment_create'),
     url('purchaes_fa_payment_determine', views.purchaes_fa_payment_determine, name='purchaes_payment_determine'),
     url('purchaes_fa_business_data_display', views.purchaes_fa_business_data_display, name='purchaes_business_data_display'),
-
     url('pruchasing_fa_robot_base', views.pruchasing_fa_robot_base, name='set_robot'),
+
+
     url('purchasing_fa_robot_business_manager', views.pruchasing_fa_robot_business, name='set_robot'),
     url('purchasing_fa_robot_jobs_manager', views.pruchasing_fa_robot_jobs, name='set_prokject'),
     # url('purchasing_robot_create', views.pruchasing_robot_create, name='purchasing_robot_create'),
     url('purchase_fa_robot_buession_info', views.set_fa_purchase_robot_buession_info, name='set_purchase_robot_jobs_info'),
     url('purchase_fa_robot_jobs_info', views.set_fa_purchase_robot_jobs_info, name='set_purchase_robot_jobs_info'),
+
     url('create_fa_purchase_number', views.set_fa_create_purchase_number, name='set_purchase_robot_jobs_info'),
     url('view_fa_information_data', views.set_fa_view_information_data, name='set_view_information'),
     url('view_fa_information', views.set_fa_view_information, name='set_view_information'),

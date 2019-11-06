@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 # # # TODO   销售申请(订单)机器人数据表
-class sales_apply_table(models.Model):
+class sale_apply_table(models.Model):
     id= models.AutoField(primary_key=True,verbose_name="id")
     user_name = models.CharField(max_length=20, null=True, verbose_name='用户名字')
     gmt_create= models.DateTimeField(null=True, verbose_name='创建时间')
@@ -31,6 +31,6 @@ class sales_apply_table(models.Model):
         return self.contract_number
 
     class Meta:
-        db_table = 'sales_apply_table'
+        db_table = 'sale_apply_table'
 
 

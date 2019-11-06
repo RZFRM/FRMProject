@@ -19,8 +19,7 @@ from django.shortcuts import render, redirect
 import pandas as pd
 import xlrd
 import uuid
-from system_config.models import CorpsInfo, MakeTaxMidPerson, User, EmpBaseInfo, EmpTaxInfo, EmpSalary, JobList, \
-    CorpsInfo
+from sales_robot.models import *
 from IsearchAPI.ISAPI import rpa_rest
 from system_config.models import User, Job_list_summary, Application_info
 import time
@@ -41,13 +40,13 @@ DB = Mysql_client_FRM()
 
 
 #  TODO  销售机器人基础配置页
-def Sales_robot_base(request):
+def sales_robot_bases(request):
     return render(request, 'Sales_robot_base_manager.html')
 
 
 # TODO  销售机器人基础配置页面
-def Sales_robot_base_datas(request):
-
+def sales_robot_base_datas(request):
+    print('基础配置数据返回成功')
     user_name = request.COOKIES.get('username')
     # person_tax_install_path = request.POST.get('person_tax_install_path')
     company_name = ''
@@ -110,139 +109,37 @@ def Sales_robot_base_datas(request):
 
 
 
-#  TODO  销售机器人业务管理页
-def Sales_robot_business(request):
-    user_name = request.COOKIES.get('user_name')
-    print(user_name)
-    # update_sql(user_name)
+#  TODO  跳转 销售机器人业务管理页
+def sales_robot_business_manager(request):
     return render(request, 'Sales_robot_business_manager.html', locals())
 
 
-#  TODO  销售机器人任务管理页
-def Sales_robot_jobs(request):
-    user_name = request.COOKIES.get('user_name')
-    # update_sql(user_name)
+#  TODO  跳转 销售机器人任务管理页
+def sales_robot_jobs_manager(request):
     return render(request, 'Sales_robot_jobs_manager.html')
 
-#
 
-
-#  TODO  销售机器人 跳转到弹框第一步
-def Sales_requisition_1(request):
-    return render(request, 'Sales_requisition_1.html')
-
-# TODO  销售机器人 弹框第一步 数据处理
-def Sales_requisition_data_1(request):
-    print("AAAAAAA")
-
-    """
-    销售业务机器人 第一步新增业务 销售订单填写后 数据提交到该处处理
-    :param request:
-    :return:
-    """
-    # 接收销售申请传过来的数据
-    user_name = request.COOKIES.get('username')     # 用户名
-    job_type = request.POST.get('job_type') # 机器人名称
-
-    Contract_Number = request.POST.get('sales_number')     # 销售订单编号
-    Client_Name = request.POST.get('Client_Name')   # 客户名称
-    Business_Type = request.POST.get('Business_Type')   # 业务类型
-    Sales_Type = request.POST.get('Sales_Type')   # 销售类型
-    Product_Name = request.POST.get('Product_Name')   # 产品名称
-    Quantity = request.POST.get('Quantity') # 数量
-    Unit = request.POST.get('Unit') # 单位
-    Excluding_tax_univalent = request.POST.get('Excluding_tax_univalent')  # 不含税单价
-    Tax_Rate_Or_Levy_Rate = request.POST.get('Tax_Rate_Or_Levy_Rate')  # 税率/征收率
-    Total_Amount = request.POST.get('Total_Amount')  # 总金额
-    Delivery_dates = request.POST.get('Delivery_dates')  # 交货日期
-    Applicant = request.POST.get('Applicant')  # 申请人
-    Application_sector = request.POST.get('Application_sector')  # 申请部门
-    Application_Date = request.POST.get('Application_Date')  # 申请日期
-    Department_Head = request.POST.get('Department_Head')  # 部门负责人
-    Company_Representative = request.POST.get('Company_Representative')  # 公司负责人 Company_Representative
-    print(user_name,job_type,Contract_Number,Client_Name,Business_Type,Sales_Type,Product_Name,Quantity,Unit,Excluding_tax_univalent,Tax_Rate_Or_Levy_Rate,Total_Amount,Delivery_dates,Applicant,Application_sector, \
-            Application_Date,Department_Head,Company_Representative
-          )
-    return HttpResponse('aaa')
-    # 额外数据
-    gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-    gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-    sales_apply_status = '1113'
-    # recommended_date = '2020-12-10'
-
-    #  TODO  插入数据库
-    #
-    # sales_sql = ""
-
-    # 数据库 操作 sales_apply_table, 插入数据
-    try:
-        DB.get_insert(table='sales_apply_table',
-                      values=(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,
-                              Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,
-                              Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant,
-                              Application_sector,
-                              Application_Date, Department_Head, Company_Representative
-                             ),
-                      fields="""(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,
-                              Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,
-                              Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant,
-                              Application_sector, 
-                              Application_Date, Department_Head, Company_Representative)""")
-    except Exception as e:
-        print('插入失败！')
-        data = {
-            'code': '400',
-            'msg': '插入数据库失败'
-        }
-        return JsonResponse(data)
-
-    # #
-    # # #  TODO  创建任务信息
-    # #
-    job_no = create_uuid()              # 任务编号
-    jobs_name = '销售-' + Product_Name + '-订单填制'
-    print('job_no ============================', job_no)
-
-    # # TODO  获取开始时间写入数据库  用户名  写入数据库
-    localTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    print(localTime)
-    #
-    # # TODO  写入数据库
-    try:
-        job_list_summary = Job_list_summary()
-        job_list_summary.job_type = '销售合同机器人'
-        job_list_summary.job_no = job_no
-        job_list_summary.job_id = Contract_Number
-        job_list_summary.job_name = jobs_name
-        job_list_summary.user_name_id = user_name
-        job_list_summary.job_start_time = localTime
-        job_list_summary.job_status = '1111'
-        job_list_summary.save()
-        data = {
-            "code": '200'
-            , "msg": "成功！"
-            , "count": 1
-        }
-        print('任务创建成功',data)
-        return JsonResponse(data)
-    except:
-        print('写入数据库失败！')
-
-
-
+from sql_operating.mysql_class import SqlModel
 
 
 #  TODO  业务信息一览表
 def set_sales_robot_buession_info(request):
+    print('aaaa')
     #  TODO 返回 未完成列表 数据
     user_name = request.COOKIES.get('username')
-    sql = "select business_type, gmt_create,application_sector,applicant,sales_apply_status,gmt_modified,id  from  sales_apply_table  where user_name = '%s'  order by id  desc   "%user_name
+    # user_name = request.POST.get('username')
+    print(user_name)
 
+    sql = "select business_type, gmt_create,application_sector,applicant,sales_apply_status,gmt_modified,id  from  sale_apply_table  where user_name = '%s'  order by id  desc   "%user_name
+    #sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   " % user_name
 
     print(sql)
-    user_jobs = DB.select_all(sql_info=sql)
+    user_jobs = SqlModel().select_all(sql)
+    # user_jobs = DB.select_all(sql_info=sql)
 
     print(user_jobs)
+
+    # return HttpResponse("ok")
     data_list = []
     # print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
     if user_jobs:
@@ -280,7 +177,6 @@ def set_sales_robot_buession_info(request):
 #  TODO  任务列表信息
 #  TODO  任务 信息
 def set_sales_robot_jobs_info(request):
-
     data_list  =[]
     user_name = request.COOKIES.get('username')
     # sql = "select  id,job_no,job_name, job_type,job_start_time,job_status   from  job_list_summary where  job_type like '采购%%' and user_name_id= '%s' order by id desc "%user_name
@@ -312,5 +208,177 @@ def set_sales_robot_jobs_info(request):
     return JsonResponse(data)
 
 
-def Sales_created_2(request):
-    return render(request,'Sales_created_2.html')
+
+
+
+#  TODO  # 新建业务展示页面
+def sales_requisition_first_1(request):
+    return render(request, 'sales_requisition_first_1.html')
+
+
+
+#  TODO  跳转 销售订单机器人
+def sales_requisition_2(request):
+    return render(request, 'Sales_requisition_2.html')
+
+# TODO  销售机器人 弹框第一步 数据处理
+def sales_requisition_data_2(request):
+
+
+    """
+    销售业务机器人 第一步新增业务 销售订单填写后 数据提交到该处处理
+    :param request:
+    :return:
+    """
+    # 接收销售申请传过来的数据
+    user_name = request.COOKIES.get('username')     # 用户名
+    job_type = request.POST.get('job_type') # 机器人名称
+
+    Contract_Number = request.POST.get('Contract_Number')     # 销售订单编号
+    Client_Name = request.POST.get('supplier_name')   # 客户名称
+    Business_Type = request.POST.get('Business_Type')   # 业务类型
+    Sales_Type = request.POST.get('Sales_Type')   # 销售类型
+    Product_Name = request.POST.get('Product_Name')   # 产品名称
+    Quantity = request.POST.get('Quantity') # 数量
+    Unit = request.POST.get('Unit') # 单位
+    Excluding_tax_univalent = request.POST.get('Excluding_tax_univalent')  # 不含税单价
+    Tax_Rate_Or_Levy_Rate = request.POST.get('Tax_Rate_Or_Levy_Rate')  # 税率/征收率
+    Total_Amount = request.POST.get('Total_Amount')  # 总金额
+    Delivery_dates = request.POST.get('Delivery_dates')  # 交货日期
+    Applicant = request.POST.get('Applicant')  # 申请人
+    Application_sector = request.POST.get('Application_sector')  # 申请部门
+    Application_Date = request.POST.get('Application_Date')  # 申请日期
+    Department_Head = request.POST.get('Department_Head')  # 部门负责人
+    Company_Representative = request.POST.get('Company_Representative')  # 公司负责人 Company_Representative
+
+
+
+    print(user_name,job_type,Contract_Number,Client_Name,Business_Type,Sales_Type,Product_Name,Quantity,Unit,Excluding_tax_univalent,Tax_Rate_Or_Levy_Rate,Total_Amount,Delivery_dates,Applicant,Application_sector, \
+            Application_Date,Department_Head,Company_Representative
+          )
+    # return HttpResponse('200')
+
+    # 额外数据
+    gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    sales_apply_status = '1113'
+    # recommended_date = '2020-12-10'
+
+    #  TODO  插入数据库
+    #
+    # sales_sql = ""
+
+    # 数据库 操作 sales_apply_table, 插入数据
+    try:
+        SqlModel().insert(table='sale_apply_table',
+                      value=(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,
+                              Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,
+                              Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant,
+                              Application_sector,
+                              Application_Date, Department_Head, Company_Representative
+                             ),
+                      field="(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,"
+                              "Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,"
+                              "Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant,"
+                              "Application_sector, "
+                              "Application_Date, Department_Head, Company_Representative)")
+        print("AAAAAAAAAAA")
+        # DB.get_insert(table='sale_apply_table',
+        #               values=(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,
+        #                       Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,
+        #                       Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant,
+        #                       Application_sector,
+        #                       Application_Date, Department_Head, Company_Representative
+        #                      ),
+        #               fields="(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,"
+        #                       "Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,"
+        #                       "Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant,"
+        #                       "Application_sector, "
+        #                       "Application_Date, Department_Head, Company_Representative)")
+    except Exception as e:
+        print('插入失败！',e)
+        data = {
+            'code': '400',
+            'msg': '插入数据库失败'
+        }
+        return JsonResponse(data)
+
+    # #
+    print("BBBBBBBBBB")
+    # # #  TODO  创建任务信息
+    # #
+    job_no = create_uuid()              # 任务编号
+    jobs_name = '销售-' + Product_Name + '-订单填制'
+    print('job_no ============================', job_no)
+
+    # # TODO  获取开始时间写入数据库  用户名  写入数据库
+    localTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    print(localTime)
+    #
+    # # TODO  写入数据库
+    try:
+        job_list_summary = Job_list_summary()
+        job_list_summary.job_type = '销售合同机器人'
+        job_list_summary.job_no = job_no
+        job_list_summary.job_id = Contract_Number
+        job_list_summary.job_name = jobs_name
+        job_list_summary.user_name_id = user_name
+        job_list_summary.job_start_time = localTime
+        job_list_summary.job_status = '1111'
+        job_list_summary.save()
+        data = {
+            "code": '200'
+            , "msg": "成功！"
+            , "count": 1
+        }
+        print('任务创建成功',data)
+        return JsonResponse(data)
+    except:
+        print('写入数据库失败！')
+
+
+# TODO 跳转到销售合同审批
+def sales_created_3(request):
+    return render(request,'sales_created_3.html')
+
+# # TODO 跳转到物资出库
+def sales_created_goods(request):
+    return render(request,'sales_created_goods.html')
+
+# # TODO 物资出库 数据处理
+def sales_created_data_goods(request):
+    return HttpResponse('200')
+
+# # TODO 跳转到物资出库同意申请
+def sales_created_agree_goods(request):
+    return render(request,'sales_created_agree_goods.html')
+
+
+# TODO 跳转到销售开票
+def sales_created_billing(request):
+    return render(request,'sales_created_billing.html')
+
+
+#
+# TODO 跳转到销售收款查询
+def sales_collection_inquiry(request):
+    return render(request,'sales_collection_inquiry.html')
+
+# # TODO 跳转到第六步
+# def sales_created_6(request):
+#     return render(request,'Sales_created_6.html')
+#
+# # TODO 跳转到第七步
+# def sales_created_7(request):
+#     return render(request,'Sales_created_7.html')
+#
+# # TODO 跳转到第八步
+# def sales_created_8(request):
+#     return render(request,'Sales_created_8.html')
+#
+# # TODO 跳转到第九步
+# def sales_created_9(request):
+#     return render(request,'Sales_created_9.html')
+#
+
+

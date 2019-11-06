@@ -1,19 +1,36 @@
 {% extends "base_iframe.html" %}
 {% load staticfiles %}
 {% block iframe_info %}
+    <style>
+        .names{
+            width:830px;
+            color:#333;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0 20px 80px;
+        }
+    </style>
     <div class="layui-fluid">
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md12">
                 <div class="layui-card">
-                    <div class="layui-card-header">销售机器人基础设置</div>
-                    <div class="layui-card-body" pad15 style="height: 1000px;">
+                    <div class="layui-card-header">存货核算机器人基础设置</div>
+                    <div class="layui-card-body" pad15 style="height:743px">
                         <form class="layui-form">
                             {% csrf_token %}
+                            <div class="layui-form-item">
+                                <sapn style="margin-left: 174px;font-weight: bold;color:red">提示：
+                                    以下配置信息必须正确无误，如需修改，须参照案例格式规范填写，否则机器人将无法正常执行。
+                                </sapn>
+                                <hr>
+                            </div>
+                            <p class="names">用友U810.1软件</p>
                             <div class="layui-form-item" style="margin-bottom: 5px;">
                                 <label class="layui-form-label" style="width: 200px;">U8软件安装路径:</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="u8_install_path"
-                                           value="C:\ProgramData\Microsoft\Windows\Start Menu\Programs\用友U8V10.1"
+                                           placeholder="请输入您的安装路径"
                                            class="layui-input" style="width: 600px;">
                                 </div>
                             </div>
@@ -48,20 +65,35 @@
                                            style="width: 600px;">
                                 </div>
                             </div>
-
+                            <p class="names">网上银行</p>
                             <div class="layui-form-item">
-                                <div class="layui-input-block" style="margin-left: 29%;">
+                                <label class="layui-form-label" style="width: 200px;">地址:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="account_set" value="http://www.icbc.com.cn/icbc/" readonly
+                                           class="layui-input" style="width: 600px;">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">账户:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="operator" value="0502122052035641775" readonly class="layui-input"
+                                           style="width: 600px;">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">密码:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="password" name="password" class="layui-input" value="********" readonly
+                                           style="width: 600px;">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" style="width:830px;">
+                                <div class="layui-input-block" style="margin-left: 53.5%;margin-top:40px">
                                     <button lay-submit="" lay-filter="save" class="layui-btn"
                                             style="width: 100px;">保存
                                     </button>
                                     {#<button type="reset" class="layui-btn layui-btn-primary">重新填写</button>#}
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <hr>
-                                <sapn style="margin-left: 174px;font-weight: bold">提示：
-                                    以上配置信息必须正确无误，如有变化，须立即修改，否则机器人将无法正常执行。
-                                </sapn>
                             </div>
                         </form>
                     </div>
@@ -89,7 +121,7 @@
             form.on('submit(save)', function (data) {
                 //通用表单提交(AJAX方式)
                 $.ajax({
-                    url: "/Sales_robot_base_data",
+                    url: "/",
                     type: "post",
                     data: $(data.form).serialize(),
                     success: function (data) {

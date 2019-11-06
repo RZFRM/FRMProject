@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第十步</title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        .forn {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        .atitle > span {
+            margin: 0 auto;
+        }
+
+        .btn {
+            width: 105px;
+            height: 39px;
+            background: rgba(55, 38, 89, 1);
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 39px;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            left: 44%;
+            bottom: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>付款审批</span>
+    </div>
+    <div style="height: 410px;overflow: auto;padding-top:25px">
+        <form class="layui-form forn" action="" lay-filter="component-form-group">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;"><span
+                        class="xing">*</span>关联合同号：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="contract_number" lay-verify="required" lay-search="" style="width:100%;height: 30px;"
+                            id="contract">
+                        <option value="">直接选择或搜索选择</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>付款事由：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" lay-verify="required" autocomplete="off" class="layui-input"
+                           placeholder="请说明的的付款事由" name="payment_reason"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>金额：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" lay-verify="required" autocomplete="off" class="layui-input"
+                           placeholder="请输入您的付款金额" name="payment_money"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">付款方式：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="网银转账" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="payment_type">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>支付日期：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" name="payment_date" id="time1" lay-verify="date" placeholder="yyyy-MM-dd"
+                           autocomplete="off"
+                           class="layui-input" style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>支付对象：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" lay-verify="required" autocomplete="off" class="layui-input"
+                           placeholder="请输入您的支付对象" name="payment_object"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>开户行：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" lay-verify="required" autocomplete="off" class="layui-input"
+                           placeholder="请输入您的开户行" name="payment_bank"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>银行账户：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" lay-verify="required" autocomplete="off" class="layui-input"
+                           placeholder="请输入您的银行账户" name="bank_account"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px;">申请日期：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" value="2018-12-17" readonly autocomplete="off" class="layui-input"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application_date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">申请人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="纪晶" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">申请部门：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="封边打孔车间" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application_sector">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">部门负责人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="徐蓉" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="department_head">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">公司负责人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="孙鸿" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <button class="layui-btn btn" type="submit" lay-submit="" lay-filter="demo10">提交</button>
+            {#            <a class="btn" href="purchaes_payment_determine" class="layui-btn">提交</a>#}
+        </form>
+    </div>
+</div>
+</div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , $ = layui.jquery
+            , layedit = layui.layedit;
+
+
+        $(function () {
+            $.ajax({
+                url: "/invoice_by_purchase_number",
+                type: "post",
+                datatype: "json",
+                success: function (res) {
+                    console.log(res)
+                    var date = res.data[0];
+                    for (let index in date) {
+                        $("#contract").append(`<option value="${date[index]}">${(date[index])[1]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group");//更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                }
+            });
+        });
+
+
+        //监听提交
+        form.on('submit(demo10)', function (data) {
+            //通用表单提交(AJAX方式)
+            $.ajax({
+                url: "/purchaes_payment_create_data",
+                type: "post",
+                data: $(data.form).serialize(),
+                success: function () {
+                    location.href = "/purchaes_payment_determine";
+                }
+            });
+        });
+        
+    });
+</script>
+</body>
+</html>

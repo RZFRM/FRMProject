@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第二步</title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        .forn {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        ul {
+            position: absolute;
+            top: 95px;
+            left: 17px;
+        }
+
+        .atitle > span {
+            margin: 0 auto;
+        }
+
+        .btn {
+            width: 105px;
+            height: 39px;
+            background: rgba(55, 38, 89, 1);
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 39px;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            left: 44%;
+            bottom: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>物资入库</span>
+    </div>
+
+    <div style="height: 425px;overflow: auto;padding-top:25px">
+        <form class="layui-form forn" action="" lay-filter="component-form-group">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;"><span
+                        class="xing">*</span>关联合同号：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="contract_number" lay-verify="required" lay-search="" style="width:100%;height: 30px;"
+                            id="contract">
+                        <option datas="" value="">直接选择或搜索选择</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">审批时间：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="2018-12-06" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="approval_date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">仓库名称：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select lay-verify="required" lay-search="" style="width:100%;height: 30px;"
+                            name="warehouse_number">
+                        <option value="">直接选择或搜索选择</option>
+                        <option value="001">材料库</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">入库时间：</lable>
+                <div class="layui-input-block" style="min-height: 30px;" name="warehouse_date">
+                    <input type="text" autocomplete="off" class="layui-input" value="2018-12-10" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="warehouse_date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
+                        class="xing">*</span>点验人员：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="application" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="">请填写点验人员的姓名</option>
+                        <option value="谢宏">谢宏</option>
+                        <option value="刘霞">刘霞</option>
+                        <option value="纪晶">纪晶</option>
+                    </select>
+                </div>
+            </div>
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo6">提交</button>
+        </form>
+    </div>
+</div>
+</div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+
+        $(function () {
+            $.ajax({
+                url: "/warehousing_by_purchase_number",
+                type: "post",
+                datatype: "json",
+                success: function (res) {
+                    var date = res.data[0];
+                    for (let index in date) {
+                        $("#contract").append(`<option value="${date[index]}">${(date[index])[1]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                }
+            });
+        });
+
+        form.on('submit(demo6)', function (data) {
+            //通用表单提交(AJAX方式)
+            $.ajax({
+                url: "/purchaes_storage_create_data",
+                type: "post",
+                data: $(data.form).serialize(),
+                success: function (data) {
+                    console.log(data);
+                    if (data.fail == 4444) {
+                        layer.msg = '123132';
+
+                    } else {
+                        location.href = "/purchaes_storage_determine";
+
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+</body>
+</html>
