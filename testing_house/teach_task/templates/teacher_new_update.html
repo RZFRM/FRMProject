@@ -124,7 +124,7 @@
                 <p>1.设置为无效后，该账号无法登陆。</p>
                 <p>2.教师账号未添加学生可删除，否则不可删除。</p>
             </div>
-            <button class="btn" type="submit" lay-submit="" lay-filter="demo6">提交</button>
+            <button class="btn" type="submit" lay-submit="" lay-filter="teacher_btn">提交</button>
 
         </form>
     </div>
@@ -139,22 +139,13 @@
             , $ = layui.jquery
             , laydate = layui.laydate;
 
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
 
-        //button提交监听
-        form.on('submit(demo6)', function (data) {
-            //通用表单提交(AJAX方式)
-            $.ajax({
-                url: "/purchaes_storage_create_data",
-                type: "post",
-                data: $(data.form).serialize(),
-                success: function () {
-                    location.href = "/purchaes_storage_determine";
-                }
-            });
+
+        form.on('submit("teacher_btn)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: ''
+            })
+            return false;
         });
     });
 

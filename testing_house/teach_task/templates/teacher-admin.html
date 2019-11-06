@@ -36,7 +36,7 @@
 <div class="school-head" id="school-head">
     <div class="btn-groups">
         <div class="layui-groups">
-            <button type="button" class="layui-btn">新增</button>
+            <button type="button" class="layui-btn" id="add4">新增</button>
             <button type="button" class="layui-btn">修改</button>
             <button type="button" class="layui-btn">删除</button>
         </div>
@@ -45,7 +45,7 @@
         <div class="layui-inline">
             <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索用户名">
         </div>
-        <button class="layui-btn" data-type="reload">搜索</button>
+        <button class="layui-btn" data-type="reload" >搜索</button>
     </div>
 </div>
 
@@ -86,28 +86,19 @@
             , page: true
         });
 
-        {#var $ = layui.$, active = {#}
-        {#    reload: function () {#}
-        {#        var demoReload = $('#demoReload');#}
-        {##}
-        {#        //执行重载#}
-        {#        table.reload('testReload', {#}
-        {#            page: {#}
-        {#                curr: 1 //重新从第 1 页开始#}
-        {#            }#}
-        {#            , where: {#}
-        {#                key: {#}
-        {#                    id: demoReload.val()#}
-        {#                }#}
-        {#            }#}
-        {#        }, 'data');#}
-        {#    }#}
-        {#;#}
-
-        {#$('.demoTable .layui-btn').on('click', function(){#}
-        {#  var type = $(this).data('type');#}
-        {#  active[type] ? active[type].call(this) : '';#}
-        {#);#}
+        $("#add4").on('click', function () {
+            //console.log("data");
+            //页面层
+            layer.open({
+                title:'教师管理',
+                type: 2,
+                area: ['800px', '600px'],//宽高
+                content: 'school_update'
+            });
+            layer.style(index, {
+              background:'#fff',
+            });
+        });
     });
 </script>
 

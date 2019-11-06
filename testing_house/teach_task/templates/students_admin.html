@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -161,6 +163,7 @@
 
 </body>
 =======
+>>>>>>> 7ddd34d83be7b38004647a4ae7c3fbf4688ec4b3
 <!DOCTYPE html>
 <html>
 <head>
@@ -184,8 +187,11 @@
           height:50px;
           background:rgba(242,242,242,1);
       }
-      .nav-2 {
-
+      .nav-2>.nav-button {
+          width: 100px;
+          border-radius: 4px;
+          height: 34px;
+          line-height: 27px;
       }
       .nav-3 {
           width:412px;
@@ -202,7 +208,7 @@
          .layui-btn{
           width: 100px;
           border-radius: 4px;
-          height: 37px;
+          height: 36px;
           line-height: 27px;
       }
         .layui-table-header{
@@ -223,7 +229,7 @@
             <div class="layui-groups">
                 <div class="nav-1" >
                     <div class="nav-2">
-                        <button type="button" class="layui-btn">新增</button>
+                        <button type="button" class="layui-btn" id="add5">新增</button>
                         <button type="button" class="layui-btn">修改</button>
                         <button type="button" class="layui-btn">删除</button>
                         <button class="nav-button">批量导入</button>
@@ -277,47 +283,35 @@
             ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', title: '序号', width: "5%",type:'numbers'}
-                , {field: 'a', title: '学号', width: "5%"}
-                , {field: 'b', title: '姓名', width: "5%"}
-                , {field: 'c', title: '专业', width: "10%"}
-                , {field: 'd', title: '班级',width:"5%"}
-                , {field: 'e', title: '手机', width: "10%"}
-                , {field: 'f', title: '注册时间', width: "10%"}
-                , {field: 'g', title: '登陆次数', width: "5%"}
-                , {field: 'h', title: '学习总时长', width: "10%"}
-                , {field: 'i', title: '最近登录时间', width: "10%"}
-                , {field: 'j', title: '最近学习时长', width: "10%"}
-                , {field: 'k', title: '实训报告', width: "15%"}
+                , {field: 'a', align: "center",title: '序号', width: "5%",type:'numbers'}
+                , {field: 'a', align: "center",title: '学号', width: "5%"}
+                , {field: 'b', align: "center",title: '姓名', width: "5%"}
+                , {field: 'c', align: "center",title: '专业', width: "6%"}
+                , {field: 'd', align: "center",title: '班级',width:"5%"}
+                , {field: 'e', align: "center",title: '手机', width: "10%"}
+                , {field: 'f', align: "center",title: '注册时间', width: "12%"}
+                , {field: 'g', align: "center",title: '登陆次数', width: "10%"}
+                , {field: 'h', align: "center",title: '学习总时长', width: "10%"}
+                , {field: 'i', align: "center",title: '最近登录时间', width: "10%"}
+                , {field: 'j', align: "center",title: '最近学习时长', width: "10%"}
+                , {field: 'k', align: "center",title: '实训报告', width: "12%"}
             ]]
             , page: true
         });
 
-        {#var $ = layui.$, active = {#}
-        {#    reload: function () {#}
-        {#        var demoReload = $('#demoReload');#}
-        {##}
-        {#        //执行重载#}
-        {#        table.reload('testReload', {#}
-        {#            page: {#}
-        {#                curr: 1 //重新从第 1 页开始#}
-        {#            }#}
-        {#            , where: {#}
-        {#                key: {#}
-        {#                    id: demoReload.val()#}
-        {#                }#}
-        {#            }#}
-        {#        }, 'data');#}
-        {#    }#}
-        {#;#}
 
-        {#$('.demoTable .layui-btn').on('click', function(){#}
-        {#  var type = $(this).data('type');#}
-        {#  active[type] ? active[type].call(this) : '';#}
-        {#);#}
+        $("#add5").on('click', function () {
+            //console.log("data");
+            //页面层
+            layer.open({
+                title:'学生管理',
+                type: 2,
+                area: ['800px', '600px'],//宽高
+                content: 'school_update'
+            });
+            layer.style(index, {
+              background:'#fff',
+            });
+        });
     });
 </script>
-
-</body>
->>>>>>> 590b11581b255c3b430df1bda7c0526d3b1a852e
-</html>
