@@ -138,7 +138,7 @@ span {
     margin: 47px 575px 25px 49px;
 }
 .tasks>.task-first-second>.task1>.title1-content {
-    width:88%;
+    width:77%;
     height:15px;
     font-size:14px;
     font-family:Microsoft YaHei;
@@ -185,7 +185,7 @@ span {
 
 }
 .tasks>.task-third-fouth>.task1>.Title-1 {
-    width:43%;
+    width:55%;
     height:16px;
     font-size:16px;
     font-family:Microsoft YaHei;
@@ -218,14 +218,15 @@ span {
     color:#FF4800;
     line-height:28px;
     margin-right: 47px;
-    margin: 82px 0px 8px 386px;
+    margin: 82px 0px 8px 290px;
 }
-.tasks>.task-third-fouth>.task1>.train-c-s>p:nth-child(2){
-    width:87px;
-    height:15px;
-    font-size:14px;
-    font-family:Microsoft YaHei;
-    font-weight:400;
-    color:#FF4800;
-    line-height:28px;
+.tasks>.task-third-fouth>.task1>.train-c-s>p:nth-child(2) {
+    width: 87px;
+    height: 15px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #FF4800;
+    line-height: 28px;
     margin: 82px 52px 35px 0;
+}
