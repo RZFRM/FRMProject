@@ -57,8 +57,49 @@
                 </div>
             </div>
         </div>
+
+        <div class="layui-card-body" >
+            <table class="layui-hide" id="table_user" lay-filter="user"></table>
+        </div>
     </div>
 
     <script src="../../static/layuiadmin/layui/layui.js"></script>
+
+    <script>
+    layui.use(['form','table', 'layedit', 'laydate', 'jquery'], function () {
+        let table = layui.table
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate
+            , form = layui.form;
+
+        //方法级渲染
+        table.render({
+            elem: '#table_user'
+            , url: '/task'
+            , toolbar: 'school-head'
+            , max_height: 1000
+            , type: "get"
+            , cols: [[
+                {checkbox: true, fixed: true}
+                , {field: 'a', align: "center", title: '序号', width: "5%", type: 'numbers'}
+                , {field: 'a', align: "center", title: '学校代码', width: "10%"}
+                , {field: 'b', align: "center", title: '学校名称', width: "15%"}
+                , {field: 'c', align: "center", title: '办学层次', width: "8%"}
+                , {field: 'd', align: "center", title: '办学类型', width: "7%"}
+                , {field: 'e', align: "center", title: '省份', width: "10%"}
+                , {field: 'f', align: "center", title: '城市', width: "10%"}
+                , {field: 'g', align: "center", title: '教务管理员', width: "10%"}
+                , {field: 'h', align: "center", title: '创建人', width: "10%"}
+                , {field: 'i', align: "center", title: '创建时间', width: "15%"}
+            ]]
+            , page: true,
+        });
+
+
+    });
+
+</script>
 </body>
 </html>

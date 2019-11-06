@@ -91,13 +91,12 @@
                 , {field: 'i', align: "center", title: '创建时间', width: "15%"}
             ]]
             , page: true,
-
         });
 
         /*点击新增按钮*/
         
-        $("#add_sch").on('click', function () {
-            console.log("data");
+        $("#add_sch,#update_sch").on('click', function () {
+            //console.log("data");
             //页面层
             layer.open({
                 type: 2,
@@ -105,14 +104,6 @@
                 content: 'school_update'
             });
         });
-        /*点击删除按钮*/
-         $("#del_sch").on('click', function () {
-            console.log("data");
-            let delNo='numbers';
-            console.log(delNo);
-        });
-
-
     });
 
 </script>
