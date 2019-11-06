@@ -89,7 +89,7 @@
             form.on('submit(save)', function (data) {
                 //通用表单提交(AJAX方式)
                 $.ajax({
-                    url: "/pruchasing_robot_base_data",
+                    url: "/fixed_assets/pruchasing_fa_robot_base_data",
                     type: "post",
                     data: $(data.form).serialize(),
                     success: function (data) {

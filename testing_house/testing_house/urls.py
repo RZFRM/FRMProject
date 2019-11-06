@@ -27,4 +27,9 @@ urlpatterns = [
     path('', include('inventory_accounting_robot.urls')),
 
 
+    path('fixed_assets/', include('fixed_assets_robot.urls')),
+    path('', include('sales_robot.urls')),
+    path('inventory_accounting/', include('inventory_accounting_robot.urls')),
+
+
 ]

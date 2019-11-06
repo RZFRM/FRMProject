@@ -52,6 +52,7 @@ def inventory_accounting_robot_jobs(request):
 def inventory_accounting_requisition_1(request):
     return render(request, 'inventory_accounting_requisition_1.html')
 
+<<<<<<< HEAD
 # TODO  存货核算机器人 弹框第一步 数据处理
 def inventory_accounting_robot_requisition_data_1(request):
     pass
@@ -80,3 +81,9 @@ def inventory_purchaes_storage_6(request):
 #  TODO  存货核算机器人 跳转到弹框第七步
 def inventory_storage_determine_7(request):
     return render(request, 'inventory_storage_determine_7.html')
+=======
+
+# TODO  存货核算机器人 弹框第一步 数据处理
+def inventory_accounting_robot_requisition_data_1(request):
+    pass
+>>>>>>> 0cafe9658e3209b754f7e144664905ccdc9e8027
