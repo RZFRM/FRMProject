@@ -36,5 +36,10 @@ urlpatterns = [
     # 销售机器人 弹框第一步 跳转
     url('general_ledger_business_requisition_1', views.general_ledger_business_requisition_1,
         name='general_ledger_business_requisition_1'),
+    # 业务信息
+    url('business_general_ledger_business_info', views.set_business_general_ledger_business_info),
+    # 任务信息
+    url('business_general_ledger_jobs_info', views.set_business_general_ledger_jobs_info),
+
 
 ]

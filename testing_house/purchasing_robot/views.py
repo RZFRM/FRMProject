@@ -999,11 +999,15 @@ def set_create_purchase_number(request):
 #
 #
 
-
+import json
 #  TODO  创建查看共功能数据
 def set_view_information_data(request):
+    body1 = request.body
+    body1 = json.loads(body1)
     user_name = request.COOKIES.get('username')
-    id = request.GET.get('id')
+    id = body1['id']
+    r_name =body1['name']
+    print('//////////////////////////////////-----',r_name,id)
     sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,recommended_date,applicant, application_depart,business_name from purchase_apply_table where id = ' + str(
         id)
     print(sql)

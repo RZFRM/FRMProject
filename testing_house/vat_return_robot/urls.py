@@ -31,6 +31,10 @@ urlpatterns = [
     url('vat_return_robot_jobs', views.vat_return_robot_jobs, name='vat_return_robot_jobs'),
     # 销售机器人 弹框第一步 跳转
     url('vat_return_requisition_1', views.vat_return_requisition_1, name='vat_return_requisition_1'),
+    # 业务管理一览表
+    url('vat_return_business_info', views.set_vat_return_business_info),
+    # 任务管理一览表
+    url('vat_return_jobs_info', views.set_vat_return_jobs_info),
 
 ]
 
