@@ -1068,7 +1068,8 @@ class Student(View):
         """学生页面展示"""
         username = request.COOKIES.get("username")
         # username = request.GET.get("username")
-        student_class = request.GET.get("student_class")
+        # student_class = request.GET.get("student_class")
+        student_class ="18级会计1班"
         sql = "select school_code from user where user_name = '%s'" % username
 
         try:
