@@ -19,8 +19,11 @@ from IsearchAPI.ISAPI import rpa_rest
 from system_config.models import User, Job_list_summary, Application_info
 import time
 from sql_operating.mysql_class import *
+from  personal_center.views import  update_sql
 from etc.command import *
-# from  personal_center.views import   update_sql
+
+
+
 
 
 # TODO 生成8位唯一任务编号
