@@ -9,6 +9,11 @@ urlpatterns = [
     url(r'class_jump', views.class_jump),
     url(r'teacher_jump', views.teacher_jump),
     url(r'student_jump', views.student_jump),
+    url(r'course_jump', views.course_jump),
+    url(r'case_jump', views.case_jump),
+    url(r'teaching_jump',views.teaching_jump),
+    url(r'task_jump',views.task_jump),
+
     url(r'school_update', views.school_update),
     url(r'province_update', views.province_update),
     url(r'major_update', views.major_update),

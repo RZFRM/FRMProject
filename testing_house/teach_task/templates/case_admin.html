@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,23 +9,27 @@
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-        <style type="text/css">
+    <style type="text/css">
         .layui-table-body{overflow-x: hidden !important;}
-            .layui-card-body{
-                width: 1418px;
-                margin: auto;
-                background:rgba(255,255,255,1);
-            }
-            .layui-table-fixed-l{
+        .layui-card-body{
+        margin: auto;
+        background:rgba(255,255,255,1);
+    }
+        .layui-card-body{
+        width: 1418px;
+        margin: auto;
+        background:rgba(255,255,255,1);
+    }
+        .layui-table-fixed-l{
             opacity: 0;
         }
-        </style>
+    </style>
 </head>
 <body>
 <div class="layui-col-train-teach">
     <div class="layui-card">
         <div class="layui-card-header" style="width: 1400px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
-            教务管理
+            案例管理
         </div>
     </div>
 </div>
@@ -41,7 +43,7 @@
     </div>
     <div class="demoTable">
         <div class="layui-inline">
-            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索任务名称">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索案例名称">
         </div>
         <button class="layui-btn" data-type="reload">搜索</button>
     </div>
@@ -65,24 +67,25 @@
 
         //方法级渲染
         table.render({
-             elem: '#table_user'
-            , url: '/education'
+            elem: '#table_user'
+            , url: '/teacher'
             , toolbar: 'school-head'
             , max_height: 1000
-            , type:"get"
+            ,type:"get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', align:"center", title: '序号', width: "5%",type:'numbers'}
-                , {field: 'a', align:"center", title: '姓名', width: "10%"}
-                , {field: 'b', align:"center",title: '用户名', width: "20%" }
-                , {field: 'c', align:"center",title: '密码', width: "15%"}
-                , {field: 'd', align:"center",title: '手机号码', width: "15%"}
-                , {field: 'e', align:"center",title: '状态',width:"10%"}
-                , {field: 'f', align:"center",title: '创建人', width: "10%"}
-                , {field: 'g', align:"center",title: '操作时间', width: "15%"}
+                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
+                , {field: 'a', align:"center",title: '姓名', width: "15%"}
+                , {field: 'b', align:"center", title: '用户名', width: "15%"}
+                , {field: 'c', align:"center",title: '密码', width: "10%"}
+                , {field: 'd', align:"center",title: '手机号码',width:"10%"}
+                , {field: 'e', align:"center",title: '状态', width: "10%"}
+                , {field: 'f', align:"center", title: '创建人', width: "10%"}
+                , {field: 'g', align:"center",title: '操作时间', width: "25%"}
             ]]
             , page: true
         });
+
     });
 </script>
 
