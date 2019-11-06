@@ -34,6 +34,21 @@ urlpatterns = [
     url('inventory_accounting_robot_jobs', views.inventory_accounting_robot_jobs, name='inventory_accounting_robot_jobs'),
     # 销售机器人 弹框第一步 跳转
     url('inventory_accounting_requisition_1', views.inventory_accounting_requisition_1, name='inventory_accounting_requisition_1'),
+<<<<<<< HEAD
+    # 销售机器人 弹框第二步 跳转
+    url('inventory_accounting_requisitions_2', views.inventory_accounting_requisitions_2, name='inventory_accounting_requisitions_2'),
+    # 销售机器人 弹框第三步 跳转
+    url('inventory_requisitions_determine_3', views.inventory_requisitions_determine_3, name='inventory_requisitions_determine_3'),
+    # 销售机器人 弹框第四步 跳转
+    url('inventory_purchaes_order_4', views.inventory_purchaes_order_4, name='inventory_purchaes_order_4'),
+    # 销售机器人 弹框第五步 跳转
+    url('inventory_order_determine_5', views.inventory_order_determine_5, name='inventory_order_determine_5'),
+    # 销售机器人 弹框第七步 跳转
+    url('inventory_purchaes_storage_6', views.inventory_purchaes_storage_6, name='inventory_purchaes_storage_6'),
+    # 销售机器人 弹框第六步 跳转
+    url('inventory_storage_determine_7', views.inventory_storage_determine_7, name='inventory_storage_determine_7'),
+=======
+>>>>>>> 0cafe9658e3209b754f7e144664905ccdc9e8027
 
 
 

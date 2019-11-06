@@ -23,8 +23,13 @@ urlpatterns = [
     path('', include('getRobot.urls')),
     path('', include('purchasing_robot.urls')),
     path('', include('teach_task.urls')),
+    path('', include('sales_robot.urls')),
+    path('', include('inventory_accounting_robot.urls')),
+
+
     path('fixed_assets/', include('fixed_assets_robot.urls')),
     path('', include('sales_robot.urls')),
     path('inventory_accounting/', include('inventory_accounting_robot.urls')),
+
 
 ]
