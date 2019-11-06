@@ -70,7 +70,10 @@ urlpatterns = [
     # 固定机器人 弹框第十二步 跳转
     url('permanent_assets_requisition_011', views.permanent_assets_requisition_011,
         name='permanent_assets_requisition_011'),
-
+    # 业务管理一览表
+    url('fixed_assets_robot_business_info', views.set_fixed_assets_business_info),
+    # 任务管理一览表
+    url('fixed_assets_robot_jobs_info', views.set_fixed_assets_jobs_info),
 
 
 

@@ -35,5 +35,9 @@ urlpatterns = [
     # 销售机器人 弹框第一步 跳转
     url('financial_statements_requisition_1', views.financial_statements_requisition_1,
         name='financial_statements_requisition_1'),
+    # 业务信息一览表
+    url('financial_statements_business_info', views.set_financial_statements_business_info),
+    # 任务信息一览表
+    url('financial_statements_jobs_info', views.set_financial_statements_jobs_info),
 
 ]

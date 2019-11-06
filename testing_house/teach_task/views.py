@@ -328,14 +328,17 @@ class Edu(View):
         """教务页面展示"""
         username = request.COOKIES.get('username')
         # username = request.GET.get('username')
-        sql = "select school_code from user where user_name='%s'" % username
+        sql = "select school_code,admin_type from user where user_name='%s'" % username
         try:
-            school_code = SqlModel().select_one(sql)
-            if school_code:
-                school_code = school_code[0]
-                sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='2' and school_code='%s'" % int(
-                    school_code)
-                edu_list = SqlModel().select_all(sql)
+            school_code_list = SqlModel().select_one(sql)
+            if school_code_list:
+                school_code = school_code_list[0]
+                admin_type = school_code_list[1]
+                if admin_type == '1':
+                    sql_ = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='2'"
+                else:
+                    sql_ = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='2' and school_code='%s'" % int(school_code)
+                edu_list = SqlModel().select_all(sql_)
                 if edu_list:
                     data_list = []
                     for i in edu_list:
@@ -1706,7 +1709,7 @@ def task_card(request):
     username = request.COOKIES.get("username")
     task_name = request.POST.get("task_name")
     task_require = request.POST.get("task_require")
-    task_process = request.FILES.get("a")
+    task_process = request.FILES.get("task_process")
     task_case_list = request.POST.get("task_case")
     now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
 
@@ -1742,3 +1745,63 @@ def task_card(request):
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
+def task_state(request):
+    """课程管理，状态修改接口"""
+    task_name = request.GET.get("任务名称")
+    task_state = request.GET.get("任务状态")
+
+    sql = "update course set task_state='%s' where task_name='%s'" % (task_state, task_name)
+    try:
+        res = SqlModel().insert_or_update(sql)
+        if res:
+            return JsonResponse({"result": "设置成功"})
+        else:
+            return JsonResponse({"result": "fail", "msg": "设置失败,请重试"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+class Task_insert_delete(View):
+    """课程管理，任务添加与删除"""
+    def get(self,request):
+        task_name = request.GET.get("task_name")
+        sql = "select * from task where task_name='%s'" % task_name
+        try:
+            res = SqlModel().select_one(sql)
+            if res:
+                return JsonResponse({"result": "fail", "msg": "该任务已经存在，不能重复添加"})
+            else:
+                sql_add = "insert into task (task_name) values ('%s')" % task_name
+                res_add = SqlModel().insert_or_update(sql_add)
+                if res_add:
+                    return JsonResponse({"result": "添加成功"})
+                else:
+                    return JsonResponse({"result": "fail", "msg": "添加失败，请重试"})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+    def post(self,request):
+        """课程管理，任务删除，有关联的时候不可以删除
+        1、案例表  2、课件表  3、教学设计表 4、流程图表 5、还有一个没定名字的表没创建
+        """
+        task_name = request.POST.get("task_name")
+        sql = "select * from process where task_name = '%s'" % task_name
+        sql2 = "select * from teach_design where task_name = '%s'" % task_name
+        sql3 = "select * from course_ware where task_name = '%s'" % task_name
+        sql4 = "select * from case where task_name = '%s'" % task_name
+        try:
+            res = SqlModel().select_one(sql)
+            res2 = SqlModel().select_one(sql2)
+            res3 = SqlModel().select_one(sql3)
+            res4 = SqlModel().select_one(sql4)
+            if res or res2 or res3 or res4:
+                return JsonResponse({"result": "fail", "msg": "该任务有关联事项，不可以删除"})
+            else:
+                sql_delete = "delete from task where task_name ='%s'" % task_name
+                res_delete = SqlModel().insert_or_update(sql_delete)
+                if res_delete:
+                    return JsonResponse({"result": "删除成功"})
+                else:
+                    return JsonResponse({"result": "fail", "msg": "删除失败，请重试"})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统失败，请重试"})

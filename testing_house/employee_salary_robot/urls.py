@@ -39,5 +39,9 @@ urlpatterns = [
     # 销售机器人 弹框第二步 跳转
     url('employee_salary_robot_requisition_2', views.employee_salary_robot_requisition_2,
         name='employee_salary_requisition_2'),
+    # 业务信息一览表
+    url('worker_salary_business_info', views.set_worker_salary_business_info),
+    # 任务信息一览表
+    url('worker_salary_jobs_info', views.set_worker_salary_jobs_info),
 
 ]

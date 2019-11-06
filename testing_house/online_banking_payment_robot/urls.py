@@ -35,5 +35,10 @@ urlpatterns = [
     # 销售机器人 弹框第一步 跳转
     url('online_banking_payment_requisition_1', views.online_banking_payment_requisition_1,
         name='online_banking_payment_requisition_1'),
+    # 业务信息一览表
+    url('online_banking_payment_business_info', views.set_online_banking_payment_business_info),
+    # 任务信息一览表
+    url('online_banking_payment_jobs_info', views.set_online_banking_payment_jobs_info),
+
 
 ]
