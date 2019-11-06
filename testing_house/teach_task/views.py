@@ -1068,7 +1068,8 @@ class Student(View):
         """学生页面展示"""
         username = request.COOKIES.get("username")
         # username = request.GET.get("username")
-        student_class = request.GET.get("student_class")
+        student_class = request.GET.get("student_class")  #TODO 明天需要改回来
+        # student_class = "18级会计1班"
         sql = "select school_code from user where user_name = '%s'" % username
 
         try:
@@ -1076,8 +1077,7 @@ class Student(View):
             if school_code_list:
                 school_code = school_code_list[0]
 
-                sql_student = "select student_code,student_name,student_major,student_class,phone,create_time,amount,sum_time,late_time,study_time,score from student where student_class = '%s' and school_code = '%s'" % (
-                    student_class, school_code)
+                sql_student = "select student_code,student_name,student_major,student_class,phone,create_time,amount,sum_time,late_time,study_time,score from student where student_class = '%s' and school_code = '%s'" % (student_class, school_code)
                 student_list = SqlModel().select_all(sql_student)
                 if student_list:
                     data_list = []
