@@ -20,8 +20,8 @@
         <div class="tasks">
             <h2>2019年9月1日-2020年1月15日</h2>
             <h4>本课程以“行动导向”为教学理念，构造一个相对完整的制造业企业经营业务案例，基于ERP软件，仿真税务系统、仿真网上银行系统和财务机器人平台，在企业经营常见的业务场景下培养学生独立操作财务机器人</h4>
-            <div class="task-first-second">
-                <div class="task1">
+            <div class="task-first-second" >
+                <div class="task1" style="box-shadow: 0 0 -1px 1px;margin-top: 2px">
                     <div class="Title-1">任务一:了解财务机器人</div>
                     <div class="title1-content">通过本任务的学习，掌握RPA及财务机器人的基本概念，主要特征及发展趋势。</div>
                     <div class="train-c-s">
@@ -29,7 +29,7 @@
                         <p>实训得分</p>
                     </div>
                 </div>
-                <div class="task1">
+                <div class="task1" style="box-shadow: 0 0 -1px 1px;margin-top: 2px">
                     <div class="Title-1">任务二:总账业务机器人实训业务</div>
                     <div class="title1-content">   通过本任务的学习，掌握机器人如何采集各类费用报销业务的业务数据，格局业务类型选择不同的流程自动完成会计核算。掌握机器人的触发方式条件判断及业务冗余等设计方法</div>
                     <div class="train-c-s">
@@ -77,23 +77,23 @@
         //方法级渲染
         table.render({
             elem: '#table_user'
-            , url: '/task'
+            , url: '/task_jump'
             , toolbar: 'school-head'
             , max_height: 1000
             , type: "get"
-            , cols: [[
-                {checkbox: true, fixed: true}
-                , {field: 'a', align: "center", title: '序号', width: "5%", type: 'numbers'}
-                , {field: 'a', align: "center", title: '学校代码', width: "10%"}
-                , {field: 'b', align: "center", title: '学校名称', width: "15%"}
-                , {field: 'c', align: "center", title: '办学层次', width: "8%"}
-                , {field: 'd', align: "center", title: '办学类型', width: "7%"}
-                , {field: 'e', align: "center", title: '省份', width: "10%"}
-                , {field: 'f', align: "center", title: '城市', width: "10%"}
-                , {field: 'g', align: "center", title: '教务管理员', width: "10%"}
-                , {field: 'h', align: "center", title: '创建人', width: "10%"}
-                , {field: 'i', align: "center", title: '创建时间', width: "15%"}
-            ]]
+            {#, cols: [[#}
+            {#    {checkbox: true, fixed: true}#}
+            {#    , {field: 'a', align: "center", title: '序号', width: "5%", type: 'numbers'}#}
+            {#    , {field: 'a', align: "center", title: '学校代码', width: "10%"}#}
+            {#    , {field: 'b', align: "center", title: '学校名称', width: "15%"}#}
+            {#    , {field: 'c', align: "center", title: '办学层次', width: "8%"}#}
+            {#    , {field: 'd', align: "center", title: '办学类型', width: "7%"}#}
+            {#    , {field: 'e', align: "center", title: '省份', width: "10%"}#}
+            {#    , {field: 'f', align: "center", title: '城市', width: "10%"}#}
+            {#    , {field: 'g', align: "center", title: '教务管理员', width: "10%"}#}
+            {#    , {field: 'h', align: "center", title: '创建人', width: "10%"}#}
+            {#    , {field: 'i', align: "center", title: '创建时间', width: "15%"}#}
+            {#]]#}
             , page: true,
         });
 

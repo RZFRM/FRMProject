@@ -249,7 +249,7 @@
 {#                            </dd>#}
 {#                            <dd><a lay-href="/school_jump" id="add">#}
 {#                                <img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 学校管理</a></dd>#}
-{#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 课程管理</a>#}
+{#                            <dd><a lay-href="/course_jump" id="add1"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 课程管理</a>#}
 {#                            </dd>#}
 {#                            <dd><a lay-href="javascript:;"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; 案例管理</a>#}
 {#                            </dd>#}
@@ -345,6 +345,7 @@
         $('#add').on('click', function () {
             location.href = "/testing_house/teach_task/templates/school-admin.html";
         });
+
         $(function () {
             $.ajax({
                 url: "/task",
@@ -356,12 +357,14 @@
                          console.log();
                         $("#dl_child").append(`<dd><a lay-href="${student.url}"><img src="{% static 'robotInstall/10.png' %}" alt="">&nbsp; ${student.name}</a>
                             </dd>`)
+
                     }
                     layui.form.render("select", "xmFilter");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
                 }
             });
             return false;
         });
+
     })
 
 
