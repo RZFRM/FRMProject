@@ -193,7 +193,7 @@ def purchaes_requisitions_create_data(request):
     gmt_create_1 = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     gmt_modified_1 = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     purchase_apply_status = '1113'
-    recommended_date = '2020-12-09'
+    recommended_date = '2018-12-09'
     business_type = '普通采购'
     # print(gmt_modified, gmt_create, purchase_apply_status, business_name)
     try:
