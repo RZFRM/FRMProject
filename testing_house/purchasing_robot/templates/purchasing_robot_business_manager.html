@@ -123,7 +123,19 @@
             });
 
             //弹出一个iframe层  新增业务
-            layui.$('#Added').on('click', function () {
+            layui.$('#//弹出一个iframe层  新增业务\n' +
+                '            layui.$(\'#Added\').on(\'click\', function () {\n' +
+                '                layer.open({\n' +
+                '                    type: 2,\n' +
+                '                    title: \'采购业务填报\',\n' +
+                '                    shadeClose: true,\n' +
+                '                    shade: false,\n' +
+                '                    id: \'toolbarDemo\' + 1,\n' +
+                '                    maxmin: true, //开启最大化最小化按钮\n' +
+                '                    area: ["742px", \'72.5%\'],\n' +
+                '                    content: \'/purchasing_created\'\n' +
+                '                });\n' +
+                '            });').on('click', function () {
                 layer.open({
                     type: 2,
                     title: '新增业务',

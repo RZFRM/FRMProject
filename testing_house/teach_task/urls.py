@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
 
     url(r'school_jump', views.school_jump),
-    url(r'teach_jump', views.province_jump),
+    url(r'teach_jump', views.edu_jump),
     url(r'major_jump', views.major_jump),
     url(r'class_jump', views.class_jump),
     url(r'teacher_jump', views.teacher_jump),
@@ -15,11 +15,14 @@ urlpatterns = [
     url(r'task_jump',views.task_jump),
 
     url(r'school_update', views.school_update),
-    url(r'province_update', views.province_update),
+    url(r'edu_update', views.edu_update),
     url(r'major_update', views.major_update),
     url(r'class_update', views.class_update),
 
     url(r'index', views.Index.as_view()),
+    url(r'task_insert_delete',views.Task_insert_delete.as_view()),
+    url(r'task_state', views.task_state),
+    url(r'task_card', views.task_card),
     url(r'task', views.Task.as_view()),
     url(r'school_delete_search', views.School_delete_search.as_view()),
     url(r'school', views.School.as_view()),

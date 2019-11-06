@@ -94,20 +94,17 @@
         });
 
         /*点击新增按钮*/
-        
         $("#add_sch,#update_sch").on('click', function () {
             //console.log("data");
             //页面层
             layer.open({
+                title:'学校管理',
                 type: 2,
                 area: ['800px', '600px'],//宽高
-                content: 'school_update'
+                content: 'school_update',
+
             });
+
         });
     });
-
 </script>
-
-
-</body>
-</html>

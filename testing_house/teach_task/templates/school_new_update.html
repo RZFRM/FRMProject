@@ -64,10 +64,6 @@
 </head>
 <body>
 <div class="Popout" id="add_update_school">
-    <div class="atitle">
-        <span>学校管理</span>
-        <button>X</button>
-    </div>
     <div class="new_update">
         <p>新增/修改</p>
     </div>
@@ -94,7 +90,7 @@
                     <select name="school_rank" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
                         <option value="1">本科</option>
-                        <option value="2">专科</option>
+                        <option value="2">高职高专</option>
                         <option value="3">中专</option>
                     </select>
                 </div>
@@ -105,10 +101,9 @@
                 <div class="layui-input-block" style="min-height: 30px;">
                     <select name="school_type" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
+                        <option value="1">公办</option>
+                        <option value="2">民办</option>
+                        <option value="3">独立学院</option>
                     </select>
                 </div>
             </div>
@@ -168,19 +163,26 @@
             , laydate = layui.laydate;
 
         //点击保存新增
-        form.on('submit(btn_school)', function (data) {
-            //
-            console.log(data.field);
+        /*form.on('submit(btn_school)', function (data) {
+            //console.log(data.field);
             let param = data.field;
             //发生请求
             $.post("/school", param, function (result) {
-                   alert('新增成功');
+               alert('新增成功');
+            })
+            return false;
+        });*/
+
+
+        //监听提交
+        form.on('submit(btn_school)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '新增成功'
             })
             return false;
         });
 
-    });
 
+    });
 </script>
-</body>
-</html>
+</body>>
