@@ -1805,3 +1805,4 @@ class Task_insert_delete(View):
                     return JsonResponse({"result": "fail", "msg": "删除失败，请重试"})
         except:
             return JsonResponse({"result": "fail", "msg": "系统失败，请重试"})
+

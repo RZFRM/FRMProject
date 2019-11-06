@@ -7,21 +7,21 @@ admin_type = {
     "1": "超级管理员",
     "2": "教务人员",
     "3": "老师",
-    "4": "学生"
+    "4": "学生",
+    "5": "企业"
 }
 
 
-task_list = [{"name": "实训任务", "url": ""},
-             {"name": "实训任务卡", "url": ""},
-             {"name": "教学管理", "url": ""},
+task_list = [{"name": "实训任务", "url": "/task_jump"},
+             {"name": "教学管理", "url": "/teaching_jump"},
              {"name": "学生管理", "url": "/student_jump"},
              {"name": "教师管理", "url": "/teacher_jump"},
              {"name": "班级管理", "url": "/class_jump"},
              {"name": "专业管理", "url": "/major_jump"},
              {"name": "教务管理", "url": "/teach_jump"},
              {"name": "学校管理", "url": "/school_jump"},
-             {"name": "课程管理", "url": ""},
-             {"name": "案例管理", "url": ""}
+             {"name": "课程管理", "url": "/course_jump"},
+             {"name": "案例管理", "url": "/case_jump"}
              ]
 
 province_city = [{"name": "北京", "city": ["北京"]},
