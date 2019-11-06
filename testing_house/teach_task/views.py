@@ -335,7 +335,7 @@ class Edu(View):
                 school_code = school_code_list[0]
                 admin_type = school_code_list[1]
                 if admin_type == '1':
-                    sql_ = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user"
+                    sql_ = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='2'"
                 else:
                     sql_ = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='2' and school_code='%s'" % int(school_code)
                 edu_list = SqlModel().select_all(sql_)
