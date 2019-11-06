@@ -19,33 +19,7 @@ from IsearchAPI.ISAPI import rpa_rest
 from system_config.models import User, Job_list_summary, Application_info
 import time
 from sql_operating.mysql_class import *
-<<<<<<< HEAD
-
-from etc.command import  *
-from  personal_center.views import  update_sql
-
-
-
-
-
-
-
-
-=======
->>>>>>> 0cafe9658e3209b754f7e144664905ccdc9e8027
-
 from etc.command import *
-from personal_center.views import update_sql
-
-<<<<<<< HEAD
-
-from etc.command import *
-
-=======
-from etc.command import *
->>>>>>> 0cafe9658e3209b754f7e144664905ccdc9e8027
-
-
 # from  personal_center.views import   update_sql
 
 
