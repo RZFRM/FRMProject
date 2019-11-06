@@ -34,9 +34,9 @@ def school_jump(request):
     return render(request, "school-admin.html")
 
 
-def province_jump(request):
+def edu_jump(request):
     """教务页面跳转"""
-    return render(request, "province-admin.html")
+    return render(request, "edu-admin.html")
 
 
 def major_jump(request):
@@ -74,9 +74,9 @@ def school_update(request):
     return render(request, "school_new_update.html")
 
 
-def province_update(request):
+def edu_update(request):
     """教务管理  新增跳转"""
-    return render(request, "teach_admin_new_update.html")
+    return render(request, "edu_update.html")
 
 
 def major_update(request):
