@@ -17,10 +17,10 @@
             border:1px solid rgba(232,232,232,1);
         }
         .layui-card-body{
-        width:1684px;
-        height:743px;
-        background:rgba(255,255,255,1);
-    }
+            width:1684px;
+            height:743px;
+            background:rgba(255,255,255,1);
+        }
         .demoTable {
             width:412px;
             height:43px;
@@ -83,10 +83,13 @@
               </thead>
         </table>
     </div>
-     <script type="text/html" id="barDemo">
-      <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">按钮1</a>
-      <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">按钮2</a>
-    </script>
+
+     <div class="layui-card-body" >
+        <table class="layui-hide" id="table_user" lay-filter="user"></table>
+    </div>
+
+
+
 
 
 
@@ -94,7 +97,7 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
         <script>
         layui.use(['table', 'layedit', 'laydate', 'jquery'], function () {
-        var table = layui.table
+        let table = layui.table
             , layer = layui.layer
             , layedit = layui.layedit
             , $ = layui.jquery
@@ -109,7 +112,7 @@
             , toolbar: 'school-head'
             , max_height: 1000
             ,type:"get"
-            , cols: [[
+                , cols: [[
                 {checkbox: true, fixed: true}
                 , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
                 , {field: 'a', align:"center",title: '姓名', width: "15%"}
@@ -123,28 +126,6 @@
             , page: true
         });
 
-        {#var $ = layui.$, active = {#}
-        {#    reload: function () {#}
-        {#        var demoReload = $('#demoReload');#}
-        {##}
-        {#        //执行重载#}
-        {#        table.reload('testReload', {#}
-        {#            page: {#}
-        {#                curr: 1 //重新从第 1 页开始#}
-        {#            }#}
-        {#            , where: {#}
-        {#                key: {#}
-        {#                    id: demoReload.val()#}
-        {#                }#}
-        {#            }#}
-        {#        }, 'data');#}
-        {#    }#}
-        {#;#}
-
-        {#$('.demoTable .layui-btn').on('click', function(){#}
-        {#  var type = $(this).data('type');#}
-        {#  active[type] ? active[type].call(this) : '';#}
-        {#);#}
     });
         </script>
 </body>

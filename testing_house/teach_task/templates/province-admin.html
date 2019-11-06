@@ -34,7 +34,7 @@
 <div class="school-head" id="school-head">
     <div class="btn-groups">
         <div class="layui-groups">
-            <button type="button" class="layui-btn">新增</button>
+            <button type="button" class="layui-btn" id="add2">新增</button>
             <button type="button" class="layui-btn">修改</button>
             <button type="button" class="layui-btn">删除</button>
         </div>
@@ -43,7 +43,7 @@
         <div class="layui-inline">
             <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索任务名称">
         </div>
-        <button class="layui-btn" data-type="reload">搜索</button>
+        <button class="layui-btn" data-type="reload" >搜索</button>
     </div>
 </div>
 
@@ -54,8 +54,9 @@
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['table', 'layedit', 'laydate', 'jquery'], function () {
+    layui.use(['table', 'layedit', 'laydate','form','jquery'], function () {
         var table = layui.table
+            , form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
             , $ = layui.jquery
@@ -83,6 +84,21 @@
             ]]
             , page: true
         });
+
+
+
+        /*点击新增按钮*/
+
+        $("#add2").on('click', function () {
+            //console.log("data");
+            //页面层
+            layer.open({
+                type: 2,
+                area: ['742px', '570px'],//宽高
+                content: 'school_update'
+            });
+        });
+
     });
 </script>
 
