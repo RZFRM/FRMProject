@@ -75,7 +75,8 @@ class SqlModel(object):
         a = ()
 
         sql = "insert into %s%s value %s" % (table, field, value)
-
+        self.cursor.execute(sql)
+        self.db.commit()
 
 class Mysql_base(object):
     ''' 数据库操作基本类, 包含于业务无关的的操作方法'''

@@ -39,7 +39,7 @@
         </div>
     </div>
 
-<div class="school-head" id="school-head" >
+<div class="school-head" id="school-head" style="line-height: 36px" >
     <div class="btn-groups">
         <div class="layui-groups">
             <button type="button" id="add_sch" class="layui-btn add_sch">新增</button>
@@ -91,14 +91,12 @@
                 , {field: 'i', align: "center", title: '创建时间', width: "15%"}
             ]]
             , page: true,
-
         });
 
         /*点击新增按钮*/
-//新增页面是哪个
         
-        $("#add_sch").on('click', function () {
-            console.log("data");
+        $("#add_sch,#update_sch").on('click', function () {
+            //console.log("data");
             //页面层
             layer.open({
                 type: 2,
@@ -106,10 +104,6 @@
                 content: 'school_update'
             });
         });
-
-
-
-
     });
 
 </script>

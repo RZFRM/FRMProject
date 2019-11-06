@@ -1008,19 +1008,24 @@ def set_create_purchase_number(request):
 #
 #
 #
-#
-import json
+#import json
 
+
+
+import json
 #  TODO  创建查看共功能数据
 def set_view_information_data(request):
-    body = request.body
+    body1 = request.body
+    body1 = json.loads(body1)
+    id = body1['id']
+    r_name =body1['name']
+    r_name = r_name.split('-')[1]
+    print('//////////////////////////////////-----',r_name,id)
 
-    body1 = json.loads(body)
     user_name = request.COOKIES.get('username')
-    # id = request.GET.get('id')
-    # r_name = request.POST.get('re')
+
     print(body1)
-    r_name = '采购报销申请与审批'
+
     try:
         # if views_info:
         #     r_name = views_info[-1].split('-')[1]
@@ -1057,7 +1062,7 @@ def set_view_information_data(request):
             return JsonResponse(result)
 
         elif r_name == '采购合同申请与审批':
-            sql = 'select contract_number,approval_date,warehouse_number,warehouse_date,application,business_name  from  purchase_warehousing_table where id = ' + str(id)
+            sql = 'select purchase_number, contract_number,supplier_name,tax_rate,free_tax_unit_price,count,summary_price,demand_date,applicant,application_sector,application_date,department_head,company_head, business_name from purchase_contract_table  where id =  ' + str(id)
             print(sql)
             views_info = DB.select_one(sql)
 
@@ -1138,15 +1143,18 @@ def set_view_information_data(request):
 
 
         elif r_name == '采购付款申请与审批':
-            sql = 'select contract_number,incoive_number,reimbursement_type ,reimbursement_money ,money_details, application_date,application,application_sector,department_head,company_head,business_name from  purchase_invoice_table where  id = '+str(id)
+            sql = 'select contract_number,payment_reason, payment_money,payment_type,payment_date,payment_object,payment_bank,bank_account,application_date,application,application_sector, department_head, company_head ,business_name from  purchase_payment_table where id = '+str(id)
             print(sql)
             views_info = DB.select_one(sql)
 
             project_name.append('关联请购单号')
-            project_name.append('发票号码')
-            project_name.append('报销类别')
-            project_name.append('报销金额')
-            project_name.append('费用明细')
+            project_name.append('付款事由')
+            project_name.append('金额')
+            project_name.append('付款方式')
+            project_name.append('支付日期')
+            project_name.append('支付对象')
+            project_name.append('开户行')
+            project_name.append('银行账户')
             project_name.append('申请日期')
             project_name.append('申请人')
             project_name.append('申请部门')

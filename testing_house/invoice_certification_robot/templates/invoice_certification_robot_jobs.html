@@ -1,0 +1,281 @@
+{% extends "base_iframe.html" %}
+{% load staticfiles %}
+{% block iframe_info %}
+
+
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发票认证机器人 &nbsp;>&nbsp;
+                任务管理
+            </div>
+
+            <div class="layui-card-body">
+                <table class="layui-hide" id="test" lay-filter="test"></table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block script_info %}
+
+    <script type="text/html" id="toolbarDemo">
+    <div style="margin: 10px 0;">
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-danger"
+                style="width:120px;border-radius:4px;float:left;margin-right:30px;">
+            <i class="layui-icon layui-icon-add-1"></i>
+            新增任务
+        </button>
+        <div class="demoTable" style="float: left;">
+            <button class="layui-btn layui-btn-sm" data-type="getCheckData" style="margin-right: 10px">批量开始</button>
+            <button class="layui-btn layui-btn-sm">批量停止</button>
+        </div>
+        <div class="" style="float: right;margin-right: 2%;">
+            <input type="text" autocomplete="off" placeholder="搜索业务" class="layui-input"
+                   style="float: left;width:300px;height:31px;">
+            <button class="layui-btn layui-btn-sm" data-type="reload" style="float: left;width: 80px;">搜索</button>
+            <div style="clear: both"></div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+    </script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" id="start" lay-event="start">开始</a>
+        <a class="layui-btn  layui-btn-disabled layui-btn-xs" id='stop' lay-event="stop">停止</a>
+        <a lay-href="/home_page" class="layadmin-backlog-body  layui-btn layui-btn-normal layui-btn-xs"
+           lay-event="detail">详情</a>
+    </script>
+
+
+
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+
+    <script>
+        detail = function (t) {
+            console.log(t.job_no)
+            var dict = new FormData();
+            dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+            dict.append('job_no', t.job_no)
+            console.log(dict)
+            layui.$.ajax({
+                url: '/detail_data',
+                type: 'post',
+                data: dict,
+                processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                success: function () {
+                    alert(11)
+                }
+            })
+        }
+    </script>
+
+    <script>
+        layui.use(['table', 'layer', 'jquery'], function () {
+            var table = layui.table,
+                layer = layui.layer,
+                $ = layui.jquery;
+
+            table.render({
+                elem: '#test'
+                , max_height: 1000
+                , url: '/purchase_robot_jobs_info'
+                , toolbar: '#toolbarDemo'
+                , title: '用户数据表'
+                , cols: [[
+                    {type: 'checkbox', fixed: 'left'}
+                    , {type: 'numbers', title: '序号', width: "4%"}
+                    , {field: 'job_name', title: '任务名称', width: "30%"}
+                    , {field: 'job_type', title: '机器人类型', width: "20%"}
+                    , {field: 'job_start_time', title: '创建时间', width: "20%"}
+                    , {field: 'job_status', title: '状态', width: "13.2%", sort: true}
+                    , {fixed: '', title: '操作', toolbar: '#barDemo', width: "10%"}
+                ]]
+                , done: function () { // 隐藏列
+                    $("[data-field='id']").css('display', 'none');
+                }
+                , page: true
+            });
+
+            //头工具栏事件
+
+            //头工具栏事件
+
+            // 点击触发
+            layui.$("#big_num").on("click", function () {
+                //创建FormData用于存储文件内容
+                var checkStatus = table.checkStatus('test').data; //test即为基础参数id对应的值
+
+                var batch_start = new FormData();
+                console.log(checkStatus)
+                checkStatus.forEach(function (val, index) {
+                    console.log(val.job_no, index)
+                    batch_start.append(index, val.job_no)
+                })
+                console.log('------------------------------------------------------')
+
+                batch_start.append('user', 'xiaoming')
+
+                batch_start.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+                console.log(batch_start)
+                layui.$.ajax({
+                    url: '/batch_running',
+                    type: 'post',
+                    data: batch_start,
+                    processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                    contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                    success: function () {
+                    }
+                })
+
+
+            })
+
+
+            //  TODO  监听搜索框事件
+            var $ = layui.$, active = {
+                reload: function () {
+                    var demoReload = $('#demoReload');
+
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            key: {
+                                id: demoReload.val()
+                            }
+                        }
+                    }, 'data');
+                }
+            };
+
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+
+            //监听行工具事件
+            table.on('tool(test)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'del') {
+                    console.log(obj.data.id)
+                    var dict = new FormData();
+                    dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+                    dict.append('id', obj.data.id)
+
+                    layui.$.ajax({
+                        url: '/delete_jobs_info',
+                        type: 'post',
+                        data: dict,
+                        processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                        contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                        success: function () {
+                        }
+                    })
+
+
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'stop') {
+                    var dict = new FormData();
+                    dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+                    dict.append('id', obj.data.id)
+
+                    //判断当前按钮是否禁用
+                    var stop = obj.tr[0].children[6].children[0].children[1]
+                    if (stop.className.indexOf("layui-btn-disabled") > -1) {
+                        return  "当前按钮处于禁用状态";
+                    } else {
+                        layer.confirm('真的要停止吗？', function (index) {
+                            layui.$.ajax({
+                                url: '/stop_jobs_info',
+                                type: 'post',
+                                data: dict,
+                                processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                                contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                                success: function () {
+                                }
+                            })
+                            //开始和禁止按钮的样式互换
+                            var start_class = "layui-btn  layui-btn-xs"
+                            var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"
+                            var start = obj.tr[0].children[6].children[0].children[0]
+                            start.className = start_class;
+                            stop.className = stop_class;
+
+                            layer.close(index)
+                        });
+                    }
+                } else if (obj.event === 'start') {
+                    var dict = new FormData();
+                    {#console.log(obj.data)#}
+                    dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+                    dict.append('job_no', obj.data.job_no)
+                    dict.append('job_type', obj.data.job_type)
+
+                    var start = obj.tr[0].children[6].children[0].children[0]
+                    ////判断当前按钮是否禁用
+                    if (start.className.indexOf("layui-btn-disabled") > -1) {
+                        return  "当前按钮处于禁用状态";
+                    } else {
+                        //点击确认，进行数据传递
+                        layer.confirm('您确定开始吗？', function (index) {
+                            layui.$.ajax({
+                                url: '/start_jobs_info',
+                                type: 'post',
+                                data: dict,
+                                processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)
+                                contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）
+                                success: function () {
+                                    //获得页面上开始和停止按钮
+                                    {#var start = obj.tr[0].children[6].children[0].children[0]#}
+                                    var stop = obj.tr[0].children[6].children[0].children[1]
+                                    //修改开始，停止按钮的颜色以及是否禁用
+                                    var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"
+                                    var start_class = 'layui-btn layui-btn-warm layui-btn-xs'
+                                    //更换开始，停止按钮的样式
+                                    start.className = stop_class;
+                                    stop.className = start_class;
+                                }
+                            })
+                            layer.close(index)
+                        })
+                    }
+                } else if (obj.event === 'detail') {
+                    var data = obj.data;
+                    console.log(data)
+
+                    console.log(obj.data.job_no)
+                    var job_no = obj.data.job_no
+
+                    window.location.href = '/detail_data?job_no=' + job_no
+
+                }
+            });
+            var $ = layui.$, active = {
+                getCheckData: function () { //获取选中数据
+                    var checkStatus = table.checkStatus('idTest')
+                        , data = checkStatus.data;
+                    layer.alert("确定要全部开始吗？");
+                }
+                , getCheckLength: function () { //获取选中数目
+                    var checkStatus = table.checkStatus('idTest')
+                        , data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                }
+                , isAll: function () { //验证是否全选
+                    var checkStatus = table.checkStatus('idTest');
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
+                }
+            };
+        });
+    </script>
+{% endblock %}

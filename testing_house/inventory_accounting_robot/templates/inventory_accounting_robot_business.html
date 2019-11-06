@@ -185,7 +185,121 @@
                             body.find('input').val(data.id);
                         }
                     })
+
+
+                    {#$.post('/view_information?id=' + data.id, data, function (result,statue) {#}
+                    {#    layer.open({#}
+                    {#        type:2 ,#}
+                    {#        title: '查看数据',#}
+                    {#        shadeClose: true,#}
+                    {#        shade: false,#}
+                    {#        maxmin: true, //开启最大化最小化按钮#}
+                    {#        area: ['43.65%', '62%'],#}
+                    {#        content:"view_details.html",#}
+                    {#    });#}
+                    {#    console.log(result);#}
+                    {#,"json");#}
+
+
+
+                {##}
+                {#if (obj.event === 'del') {#}
+                {#    console.log(obj.data.id)#}
+                {#    var dict = new FormData();#}
+                {#    dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')#}
+                {#    dict.append('id', obj.data.id)#}
+                {##}
+                {#    layui.$.ajax({#}
+                {#        url: '/delete_jobs_info',#}
+                {#        type: 'post',#}
+                {#        data: dict,#}
+                {#        processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)#}
+                {#        contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）#}
+                {#        success: function () {#}
+                {#        }#}
+                {#    })#}
+                {##}
+                {##}
+                {#    layer.confirm('真的删除行么', function (index) {#}
+                {#        obj.del();#}
+                {##}
+                {#        layer.close(index);#}
+                {#    });#}
+                {##}
+                {##}
+                {#else #}
+
+
+                {#  else if (obj.event === 'stop') {#}
+                {#    var dict = new FormData();#}
+                {#    dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')#}
+                {#    dict.append('id', obj.data.id)#}
+                {#    layui.$.ajax({#}
+                {#        url: '/stop_jobs_info',#}
+                {#        type: 'post',#}
+                {#        data: dict,#}
+                {#        processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)#}
+                {#        contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）#}
+                {#        success: function () {#}
+                {#        }#}
+                {#    })#}
+
+
+                {#    layer.confirm('真的要停止吗？', function (index) {#}
+                {#obj.del();#}
+                {#        var start_class = "layui-btn  layui-btn-xs"#}
+                {#        var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"#}
+                {#        var stop = obj.tr[2].children[0].children[0].children[1]#}
+                {#        var start = obj.tr[2].children[0].children[0].children[0]#}
+
+                {#        stop.className = stop_class#}
+                {#        start.className = start_class#}
+                {#        var $ = layui.$#}
+                {#        layer.close(index)#}
+                {#    });#}
+                {# else if (obj.event === 'edit') {#}
+                {#    layer.alert("序号：" + data.id + '&nbsp;,' + '&nbsp;' + "业务名称:&nbsp;&nbsp;" + data.business_name + '&nbsp;&nbsp;&nbsp;' + "申请部门:" + "&nbsp;" + data.application_depart + "申请人: " + "&nbsp;" + data.applicant + "")#}
+                {# #}
+
+                {#else if (obj.event === 'start') {#}
+                {#    var dict = new FormData();#}
+                {#    console.log(obj.data)#}
+                {#    dict.append('csrfmiddlewaretoken', '{{ csrf_token }}')#}
+                {#    dict.append('job_no', obj.data.job_no)#}
+                {#    dict.append('job_type', obj.data.job_type)#}
+                {#    layui.$.ajax({#}
+                {#        url: '/start_jobs_info',#}
+                {#        type: 'post',#}
+                {#        data: dict,#}
+                {#        processData: false,// 告诉jQuery不要去处理发送的数据(必须设置)#}
+                {#        contentType: false, // 告诉jQuery不要去设置Content-Type请求头（必须设置）#}
+                {#        success: function () {#}
+                {#        }#}
+                {#    })#}
+
+
+                {#layer.confirm('您确定开始吗？', function (index) {#}
+                {#    var stop_class = "layui-btn layui-btn-disabled layui-btn-xs"#}
+                {#    var start_class = 'layui-btn layui-btn-warm layui-btn-xs'#}
+                {#    var stop = obj.tr[2].children[0].children[0].children[1]#}
+                {#    var start = obj.tr[2].children[0].children[0].children[0]#}
+                {#    stop.className = start_class#}
+                {#    start.className = stop_class#}
+                {#    layer.close(index)#}
+                {#    })#}
+                {# else if (obj.event === 'detail') {#}
+                {#    var data = obj.data;#}
+                {#    console.log(data)#}
+                {##}
+                {#    console.log(obj.data.job_no)#}
+                {#    var job_no = obj.data.job_no#}
+                {##}
+                {#    window.location.href = '/detail_data?job_no=' + job_no#}
+                {##}
+
+
                 }
+
             });
         });
     </script>

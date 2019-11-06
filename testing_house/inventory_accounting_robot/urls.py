@@ -32,6 +32,7 @@ urlpatterns = [
     url('inventory_accounting_robot_business', views.inventory_accounting_robot_business, name='inventory_accounting_robot_business'),
     # 存货核算机器人任务管理页 跳转
     url('inventory_accounting_robot_jobs', views.inventory_accounting_robot_jobs, name='inventory_accounting_robot_jobs'),
+
     # 销售机器人 弹框第一步 跳转
     url('inventory_accounting_requisition_1', views.inventory_accounting_requisition_1, name='inventory_accounting_requisition_1'),
 
@@ -48,7 +49,10 @@ urlpatterns = [
     # 销售机器人 弹框第六步 跳转
     url('inventory_storage_determine_7', views.inventory_storage_determine_7, name='inventory_storage_determine_7'),
 
-
+    # 业务信息一览表
+    url('stock_valuations_business_info', views.set_stock_valuations_business_info),
+    # 任务信息一览表
+    url('stock_valuations_jobs_info', views.set_stock_valuations_jobs_info),
 
 
 ]

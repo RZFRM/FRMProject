@@ -66,8 +66,7 @@
                   <th lay-data="{field:'amount', width:120}" rowspan="3">任务名称</th>
                   <th lay-data="{field:'amount', width:120}" rowspan="3">简介</th>
                   <th lay-data="{align:'center', width:120}" rowspan="3">实训卡/案例</th>
-                  <th lay-data="{align:'center'}" colspan="2">实训报告</th>
-                  <th lay-data="{align:'center'} " colspan="2">实训卡及案例</th>
+                  <th lay-data="{align:'center'}" colspan="2">实训报告</th>s
                   <th lay-data="{fixed: 'right', width: 160, align: 'center', toolbar: '#barDemo'}" rowspan="3">教学设计</th>
                   <th lay-data="{fixed: 'right', width: 160, align: 'center', toolbar: '#barDemo'}" rowspan="3">课件</th>
                   <th lay-data="{fixed: 'right', width: 160, align: 'center', toolbar: '#barDemo'}" rowspan="3">流程图</th>
@@ -77,8 +76,6 @@
                     <th lay-data="{align:'center'}" rowspan="2">要求</th>
                     <th lay-data="{align:'center'}" rowspan="2">答案</th>
                 </tr>
-
-
               </thead>
         </table>
     </div>
@@ -93,15 +90,13 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
         <script>
             layui.use(['table', 'layedit', 'laydate', 'jquery'], function () {
-        var table = layui.table
+            var table = layui.table
             , layer = layui.layer
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
 
 
-        layer.msg(215458)
-        console.log(123)
 
 
         //方法级渲染
@@ -113,45 +108,12 @@
             ,type:"post"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
-                , {field: 'b', align:"center",title: '任务名称', width: "10%",type:'numbers'}
-                , {field: 'c', align:"center",title: '简介', width: "15%"}
-                , {field: 'd', align:"center",title: '实训卡/案例', width: "10%"}
-                , {field: 'e', align:"center",title: '实训报告',width:"10%"}
-                , {field: 'f', align:"center",title: '教学设计', width: "10%"}
-                , {field: 'g', align:"center",title: '课件', width: "10%"}
-                , {field: 'h', align:"center",title: '流程图', width: "10%"}
-                , {field: 'g', align:"center",title: '状态', width: "10%"}
+                , {field: 'a', align:"center",title: '序号', width: "25%",type:'numbers'}
+                , {field: 'a', align:"center",title: '任务名称', width: "50%"}
+                , {field: 'b', align:"center",title: '简介', width: "25%"}
             ]]
             , page: true
         });
-
-
-        {#let $ = layui.$, active = {#}
-        {#    reload: function () {#}
-        {#        let demoReload = $('#demoReload');#}
-        {##}
-        {#        //执行重载#}
-        {#        table.reload('testReload', {#}
-        {#            page: {#}
-        {#                curr: 1 //重新从第 1 页开始#}
-        {#            }#}
-        {#            , where: {#}
-        {#                key: {#}
-        {#                    id: demoReload.val()#}
-        {#                }#}
-        {#            }#}
-        {#        }, 'data');#}
-        {#    }#}
-        {#;#}
-        {##}
-        {#$('.demoTable .layui-btn').on('click', function(){#}
-        {#  let type = $(this).data('type');#}
-        {#  active[type] ? active[type].call(this) : '';#}
-        {#);#}
-
-
-
 
 
     });

@@ -23,9 +23,9 @@
     <script type="text/html" id="toolbarDemo">
         <div style="margin:10px 0px">
             <button type="button" id="Added" class="layui-btn layui-btn-sm layui-btn-danger"
-                style="width:120px;border-radius:2%;float: left;margin-right: 30px">
-            <i class="layui-icon layui-icon-add-1"></i>
-            新增业务
+                    style="width:120px;border-radius:2%;float: left;margin-right: 30px">
+                <i class="layui-icon layui-icon-add-1"></i>
+                新增业务
             </button>
             <div class="layui-input-block" style="float: right;margin-right: 2%;">
                 <input type="text" autocomplete="off" placeholder="搜索业务" class="layui-input"
@@ -77,10 +77,10 @@
                 , title: '用户数据表'
                 , cols: [[
                     {type: 'checkbox', fixed: 'left'}
-                    , {type: 'numbers', title: '序号', width: "4%"}
+                    , {type: 'numbers', title: '序号', width: "4.1%"}
                     , {field: 'business_name', title: '业务名称', width: "15%"}
                     , {field: 'gmt_create', title: '创建时间', width: "15%", sort: true}
-                    , {field: 'application_depart', title: '申请部门', width: "17.2%"}
+                    , {field: 'application_depart', title: '申请部门', width: "16%"}
                     , {field: 'applicant', title: '申请人', width: "10%"}
                     , {field: 'purchase_apply_status', title: '业务状态', width: "10%", sort: true}
                     , {field: 'gmt_modified', title: '处理时间', width: "16%", sort: true}
@@ -97,9 +97,6 @@
             layui.$("#big_num").on("click", function () {
                 //创建FormData用于存储文件内容
                 var checkStatus = table.checkStatus('test').data; //test即为基础参数id对应的值
-                {#console.log(checkStatus.data) //获取选中行的数据#}
-                {#console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件#}
-                {#console.log(checkStatus.isAll) //表格是否全选#}
 
                 var batch_start = new FormData();
                 console.log(checkStatus)
@@ -132,7 +129,7 @@
                     title: '采购业务填报',
                     shadeClose: true,
                     shade: false,
-                    id: 'toolbarDemo'+1,
+                    id: 'toolbarDemo' + 1,
                     maxmin: true, //开启最大化最小化按钮
                     area: ["742px", '72.5%'],
                     content: '/purchasing_created'
@@ -180,10 +177,14 @@
                         area: ['43.65%', '65%'],
                         content: '/view_information',
                         success: function (layero, index) {
+
                             {#var iframe = window['layui-layer-iframe' + index];#}
+                            {#iframe.child('我是父布局传到子布局的值')#}
 
                             var body = layer.getChildFrame('body', index);//建立父子联系
-                            body.find('input').val(data.id);
+
+                            body.find('#id').val(data.id);
+                            body.find('#business_name').val(data.business_name);
 
                         }
                     })

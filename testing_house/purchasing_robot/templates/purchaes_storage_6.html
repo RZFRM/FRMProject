@@ -132,10 +132,8 @@
                 type: "post",
                 data: $(data.form).serialize(),
                 success: function (data) {
-                    console.log(data);
                     if (data.fail == 4444) {
-                        layer.msg = '123132';
-
+                        layer.msg("此合同已被占用请另选择！");
                     } else {
                         location.href = "/purchaes_storage_determine";
                     }
@@ -143,9 +141,7 @@
             });
             return false;
         });
-
     });
-
 </script>
 </body>
 </html>

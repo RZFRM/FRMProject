@@ -174,20 +174,11 @@
             let param = data.field;
             //发生请求
             $.post("/school", param, function (result) {
-                console.log(result);
+                   alert('新增成功');
             })
-            /*$.ajax({
-                url:'/school',
-                type:'POST',
-                dataType:'json',
-                contentType:'application/json;charset=UTF-8',
-                data:JSON.stringify(param),
-                success:function(data, status){
-                    console.log(data);
-                }
-            });*/
-
+            return false;
         });
+
     });
 
 </script>
