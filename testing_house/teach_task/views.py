@@ -34,9 +34,9 @@ def school_jump(request):
     return render(request, "school-admin.html")
 
 
-def province_jump(request):
+def edu_jump(request):
     """教务页面跳转"""
-    return render(request, "province-admin.html")
+    return render(request, "edu-admin.html")
 
 
 def major_jump(request):
@@ -74,9 +74,9 @@ def school_update(request):
     return render(request, "school_new_update.html")
 
 
-def province_update(request):
+def edu_update(request):
     """教务管理  新增跳转"""
-    return render(request, "teach_admin_new_update.html")
+    return render(request, "edu_update.html")
 
 
 def major_update(request):
@@ -335,7 +335,7 @@ class Edu(View):
                 school_code = school_code_list[0]
                 admin_type = school_code_list[1]
                 if admin_type == '1':
-                    sql_ = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user"
+                    sql_ = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='2'"
                 else:
                     sql_ = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='2' and school_code='%s'" % int(school_code)
                 edu_list = SqlModel().select_all(sql_)
@@ -1067,8 +1067,8 @@ class Student(View):
     def get(self, request):
         """学生页面展示"""
         username = request.COOKIES.get("username")
-        # username = request.GET.get("username")
-        student_class = request.GET.get("student_class")
+        # student_class = request.GET.get("student_class")  #TODO 明天需要改回来
+        student_class = "18级会计1班"
         sql = "select school_code from user where user_name = '%s'" % username
 
         try:
@@ -1076,8 +1076,7 @@ class Student(View):
             if school_code_list:
                 school_code = school_code_list[0]
 
-                sql_student = "select student_code,student_name,student_major,student_class,phone,create_time,amount,sum_time,late_time,study_time,score from student where student_class = '%s' and school_code = '%s'" % (
-                    student_class, school_code)
+                sql_student = "select student_code,student_name,student_major,student_class,phone,create_time,amount,sum_time,late_time,study_time,score from student where student_class = '%s' and school_code = '%s'" % (student_class, school_code)
                 student_list = SqlModel().select_all(sql_student)
                 if student_list:
                     data_list = []
@@ -1805,3 +1804,4 @@ class Task_insert_delete(View):
                     return JsonResponse({"result": "fail", "msg": "删除失败，请重试"})
         except:
             return JsonResponse({"result": "fail", "msg": "系统失败，请重试"})
+

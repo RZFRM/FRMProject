@@ -21,6 +21,7 @@ import time
 from sql_operating.mysql_class import *
 from  personal_center.views import  update_sql
 from etc.command import *
+from .models import  *
 
 
 
@@ -981,6 +982,8 @@ def set_create_purchase_number(request):
     id = 1
     try:
         sql = "select id from purchase_apply_table  where  user_name ='%s'  order by id desc  limit 1 ;" % user_name
+
+
         buessines_info = DB.get_select_one(sql_info=sql)[0]
         print(buessines_info)
 

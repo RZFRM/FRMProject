@@ -63,7 +63,7 @@ def financial_statements_robot_requisition_data_1(request):
 
 # 业务信息
 def set_financial_statements_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -86,18 +86,12 @@ def set_financial_statements_business_info(request):
 
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
     return JsonResponse(data)
 
 
 # 任务信息
 def set_financial_statements_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -113,11 +107,5 @@ def set_financial_statements_jobs_info(request):
             {'id': 5, 'job_name': '10月财务报告编制', 'job_start_time': '2019-11-2 11:00:00',
              'job_type': '报表机器人', 'job_status': '待执行'},
         ]
-    }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
     }
     return JsonResponse(data)

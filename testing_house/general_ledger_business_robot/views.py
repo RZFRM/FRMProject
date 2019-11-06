@@ -60,7 +60,7 @@ def general_ledger_business_robot_requisition_data_1(request):
 
 # 业务信息
 def set_business_general_ledger_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -85,18 +85,13 @@ def set_business_general_ledger_business_info(request):
              'purchase_apply_status': '已执行', 'gmt_modified': '2019-10-9'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
+
     return JsonResponse(data)
 
 
 # 任务信息
 def set_business_general_ledger_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -115,10 +110,5 @@ def set_business_general_ledger_jobs_info(request):
              'job_type': '付税机器人', 'job_status': '已执行'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
+
     return JsonResponse(data)

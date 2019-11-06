@@ -37,7 +37,7 @@
 <div class="school-head" id="school-head">
     <div class="btn-groups">
         <div class="layui-groups">
-            <button type="button" class="layui-btn">新增</button>
+            <button type="button" class="layui-btn" id="add4">新增</button>
             <button type="button" class="layui-btn">修改</button>
             <button type="button" class="layui-btn">删除</button>
         </div>
@@ -90,7 +90,17 @@
             , page: true
         });
 
+        $("#add4").on('click', function () {
+            //console.log("data");
+            //页面层
+            layer.open({
+                title:'班级管理',
+                type: 2,
+                area: ['800px', '600px'],//宽高
+                content: 'class_update'
+            });
 
+        });
     });
 </script>
 

@@ -185,7 +185,7 @@ def permanent_assets_requisition_012(request):
 
 # 业务管理
 def set_fixed_assets_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -207,18 +207,13 @@ def set_fixed_assets_business_info(request):
              'purchase_apply_status': '待执行', 'gmt_modified': '2019-11-3'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
+
     return JsonResponse(data)
 
 
 # 任务管理
 def set_fixed_assets_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -245,10 +240,5 @@ def set_fixed_assets_jobs_info(request):
              'job_type': '工资付款机器人', 'job_status': '已执行'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
+
     return JsonResponse(data)
