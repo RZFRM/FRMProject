@@ -54,7 +54,7 @@
         }
 
         /* 大屏 */
-        @media screen and (min-width: 1400px) {
+        @media screen and (min-width: 1600px) {
             .text {
                 width: 59%;
                 margin-top: 9%;
@@ -78,7 +78,7 @@
         }
 
         /*小屏*/
-        @media screen and (max-width: 1399px) {
+        @media screen and (max-width: 1599px) {
             .text {
                 width: 50%;
                 margin-top: 5%;
@@ -311,6 +311,7 @@
             // {#alert('input:'+val)#}
             // {#alert(num)#}
             if (val == num) {
+
                 $(".input-val").val('');
                 var username = $('#LAY-user-login-username').val()
                 var pwd = $('#LAY-user-login-password').val()
@@ -327,15 +328,14 @@
                     success(res) {
                         if (res['result'] == 'success') {
                             window.location.href = '/base' + '?future=' + 'waghs' + res['username'] + 'qwekj'
-
                             $.cookie('username', username);
                         } else {
                             alert("密码错误请重新输入！")
                         }
                     }
-
                 })
-            } else {
+            }
+            else {
                 alert('验证码错误！请重新输入！');
                 var username = $('#LAY-user-login-username').val()
                 var pwd = $('#LAY-user-login-password').val()

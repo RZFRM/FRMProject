@@ -63,7 +63,7 @@ def online_banking_inquiry_robot_requisition_data_1(request):
 
 # 业务信息
 def set_online_banking_inquiry_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -76,18 +76,13 @@ def set_online_banking_inquiry_business_info(request):
              'purchase_apply_status': '已执行', 'gmt_modified': '2019-11-1'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
+
     return JsonResponse(data)
 
 
 # 任务信息
 def set_online_banking_inquiry_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -99,10 +94,5 @@ def set_online_banking_inquiry_jobs_info(request):
 
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
+
     return JsonResponse(data)

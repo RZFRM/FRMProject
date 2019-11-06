@@ -63,7 +63,7 @@ def invoice_inspection_robot_requisition_data_1(request):
 
 # 业务信息
 def set_invoice_inspection_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -83,18 +83,12 @@ def set_invoice_inspection_business_info(request):
 
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
     return JsonResponse(data)
 
 
 # 任务信息
 def set_invoice_inspection_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -109,11 +103,5 @@ def set_invoice_inspection_jobs_info(request):
              'job_type': '批量发票认证机器人', 'job_status': '已执行'},
 
         ]
-    }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
     }
     return JsonResponse(data)
