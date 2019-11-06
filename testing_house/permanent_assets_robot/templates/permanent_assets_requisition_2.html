@@ -4,22 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>第一步</title>
+    <title>第二步</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
         .forn {
             width: 350px;
-            margin: 0 auto;
-        }
-
-        ul {
-            position: absolute;
-            top: 95px;
-            left: 17px;
-        }
-
-        .atitle > span {
             margin: 0 auto;
         }
 
@@ -43,182 +33,133 @@
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>销售申请</span>
+        <span>物资请购</span>
     </div>
-    <ul>
-        <li class="ULI"><a lay-href="javascript:;" class="ULIP"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-        <li><a href="javascript:;"></a></li>
-    </ul>
 
     <div style="height: 417px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="">
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">合同编号：</lable>
+                <lable class="layui-form-label" style="padding:5px 15px;">单据编号：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="sales_number"
-                           style="min-height: 30px;line-height: 30px; height: 30px;" id="sales_number">
+                    <input type="text" autocomplete="off" class="layui-input" name="purchase_number" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" id="purchase">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">客户名称：</lable>
+                <lable class="layui-form-label" style="padding:5px 15px;">采购类型：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="Client_Name" lay-verify="required" lay-filter="test" lay-search="" style="width:100%;height: 30px;">
-                        <option value="">直接选择或搜索选择</option>
-                        <option value="002">天地建筑工程有限公司</option>
-                        <option value="003">翔辉建筑工程有限公司</option>
-                        <option value="004">兴海建筑工程有限公司</option>
-                        <option value="007">德星建筑工程有限公司</option>
-                        <option value="008">正发建筑工程有限公司</option>
-                    </select>
-
+                    <input type="text" autocomplete="off" class="layui-input" value="直接采购" name="procurement_type"
+                           readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing">*</span>业务类型：</label>
+                        class="xing">*</span>采购用途：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="Business_Type" lay-verify="required" lay-filter="test" lay-search=""
+                    <select name="purchase_usesing" lay-verify="required" lay-search=""
                             style="width:100%;height: 30px;">
                         <option value="">直接选择或搜索选择</option>
-                        <option value="普通销售">普通销售</option>
+                        <option value="原材料">原材料</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing">*</span>销售类型：</label>
+                        class="xing">*</span>货物名称：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="Sales_Type" lay-verify="required" lay-filter="test" lay-search=""
-                            style="width:100%;height: 30px;">
+                    <select name="goods_number" lay-verify="required" lay-filter="test" lay-search="" style="width:100%;height: 30px;">
                         <option value="">直接选择或搜索选择</option>
-                        <option value="直接销售">直接销售</option>
+                        <option value="201">A板材</option>
+                        <option value="202">B板材</option>
+                        <option value="203">X铸管</option>
+                        <option value="204">a配件</option>
+                        <option value="205">b配件</option>
+                        <option value="206">包装箱</option>
+                        <option value="207">工具</option>
+                        <option value="208">手套</option>
+                        <option value="209">工作服</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing">*</span>产品名称：</label>
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>建议单价：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="Product_Name" lay-verify="required" lay-filter="test" lay-search=""
-                            style="width:100%;height: 30px;">
-                        <option value="">直接选择或搜索选择</option>
-                        <option value="甲类建材">甲类建材</option>
-                        <option value="乙类建材">乙类建材</option>
-                    </select>
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入建议单价" name="unit_price"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="recommended_unite_price_"
+                           onkeyup="checkInt(this)" id=txtPrice
+                           lay-verify="required|number|price">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>单位：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" id="unit" class="layui-input" placeholder="请输入单位  例:台,个"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" readonly name="specification">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>数量：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" name="Quantity" lay-verify="required|number|quantity" autocomplete="off"
+                    <input type="text" name="goods_count" lay-verify="required|number|quantity" autocomplete="off"
                            class="layui-input" placeholder="请输入数量" onkeyup="checkInt(this)" id=txtAmount
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
-
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>单位：</lable>
+                <lable class="layui-form-label" style="padding:5px 15px;">建议金额：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" id="Unit" class="layui-input" placeholder="请输入单位  例:台,个"
-                           style="min-height: 30px;line-height: 30px; height: 30px;"  name="Unit">
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入您的建议金额" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" id=txtTotal
+                           name="recommended_price">
                 </div>
             </div>
-
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>不含税单价：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入不含税单价" name="Excluding_tax_univalent"
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="Excluding_tax_univalent"
-                           onkeyup="checkInt(this)" id=txtPrice
-                           lay-verify="required|number|price">
-                </div>
-            </div>
-
-
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">税率/征收率：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入税率"
-                           style="min-height: 30px;line-height: 30px; height: 30px;" id=txtTotal onkeyup="checkInt(this)"
-                           name="Tax_Rate_Or_Levy_Rate">
-                </div>
-            </div>
-
-            <!--计算公式计算总金额-->
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">总金额：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder=""
-                           style="min-height: 30px;line-height: 30px; height: 30px;" id=txtTotal onkeyup="checkInt(this)"
-                           name="Total_Amount">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">交货日期：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="2020-12-16" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="Delivery_dates">
-                </div>
-            </div>
-
-
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px;"><span class="xing">*</span>申请人：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="Applicant" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="applicant" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
                         <option value="">直接选择或搜索选择</option>
-                        <option value="余静">余静</option>
+                        <option value="纪晶">纪晶</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请部门：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="销售部" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="Application_sector">
+                    <input type="text" autocomplete="off" class="layui-input" value="二车间" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application_depart">
                 </div>
             </div>
-
-            <!--需要修改-->
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请日期：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="2020-12-20" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="Application_Date">
+                    <input type="text" autocomplete="off" class="layui-input" value="2018-12-06" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="purchase_time">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">部门负责人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="王英" name="Department_Head" readonly
+                    <input type="text" autocomplete="off" class="layui-input" value="徐蓉" name="department_head" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">公司负责人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="李宏" name="Company_Representative" readonly
+                    <input type="text" autocomplete="off" class="layui-input" value="孙鸿" name="company_head" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item" style="display: none">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">机器人名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="销售申请机器人" name="job_type" readonly
+                    <input type="text" autocomplete="off" class="layui-input" value="采购申请机器人" name="job_type" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
-           <!-- {#            <a class="btn" href="purchaes_requisitions_determine" class="layui-btn">提交</a>#}-->
-            <button class="layui-btn btn" lay-submit="" lay-filter="demo1">提交</button>
+            {#            <a class="btn" href="purchaes_requisitions_determine" class="layui-btn">提交</a>#}
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo2">提交</button>
         </form>
         <div style="clear: both"></div>
     </div>
@@ -232,13 +173,20 @@
             , $ = layui.jquery
             , laydate = layui.laydate;
 
-
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
+        //获得页面上的数据
+        $(function () {
+            $.ajax({
+                url: "/create_purchase_number",
+                type: "post",
+                datatype: "json",
+                success: function (data) {
+                    //重新渲染页面元素  单据
+                    layui.use('element', function () {
+                        $("#purchase").val(data)
+                    });
+                }
+            });
+            return false;
         });
 
         //自定义验证规则
@@ -259,24 +207,24 @@
                 }
             }
         });
-        form.on('submit(demo1)', function (data) {
+        //提交form表单
+        form.on('submit(demo2)', function (data) {
             //通用表单提交(AJAX方式)
-            config.log('aaaaa')
             $.ajax({
-                url: "/Sales_requisition_data_1",
+                url: "/purchaes_requisitions_create_data",s
                 type: "post",
                 datatype: "json",
                 data: $(data.form).serialize(),
                 success: function (res) {
                     if (res == 200) {
-
-                        location.href = "/Sales_created_2"
+                        location.href = "/purchaes_requisitions_determine"
                     }
                 }
             });
             return false;  //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
 
+        //根据货物名称自动生成单位
         form.on('select(test)', function (data) {
             if(data.value == "002"){
                 $("#unit").val("盘")
@@ -299,6 +247,7 @@
     })
     ;
 
+    //计算总价方式
     function checkInt(o) {
         theV = isNaN(parseInt(o.value)) ? 0 : parseInt(o.value);
         if (theV != o.value) {

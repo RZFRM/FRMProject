@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第六步</title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        .forn {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        ul {
+            position: absolute;
+            top: 95px;
+            left: 17px;
+        }
+
+        .atitle > span {
+            margin: 0 auto;
+        }
+
+        .btn {
+            width: 105px;
+            height: 39px;
+            background: rgba(55, 38, 89, 1);
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 39px;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            left: 44%;
+            bottom: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>销售成本结转</span>
+    </div>
+
+    <div style="height: 425px;overflow: auto;padding-top:25px">
+        <form class="layui-form forn" action="" lay-filter="component-form-group">
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">所属期间：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="2018年12月20"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="approval_date" id="time2">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">任务名称：</lable>
+                <div class="layui-input-block" style="min-height: 30px;" name="warehouse_date">
+                    <input type="text" autocomplete="off" id="renwu" class="layui-input" placeholder="请输入任务名称"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="warehouse_date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">计划执行时间：</lable>
+                <div class="layui-input-block" style="min-height: 30px;" name="warehouse_date">
+                    <input type="text" autocomplete="off" class="layui-input" value="2018-12-20"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="warehouse_date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入申请人名称"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="department_head">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请部门：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入申请部门"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo" id="wicket">提交</button>
+        </form>
+    </div>
+</div>
+</div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+
+        $("#renwu").val($("#time2").val() + "计提折旧")
+
+       //关闭当前窗口
+        $("#wicket").click(function () {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            window.parent.location.reload();//刷新父页面
+        })
+    });
+
+</script>
+</body>
+</html>

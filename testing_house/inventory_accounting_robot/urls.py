@@ -32,6 +32,7 @@ urlpatterns = [
     url('inventory_accounting_robot_business', views.inventory_accounting_robot_business, name='inventory_accounting_robot_business'),
     # 存货核算机器人任务管理页 跳转
     url('inventory_accounting_robot_jobs', views.inventory_accounting_robot_jobs, name='inventory_accounting_robot_jobs'),
+
     # 销售机器人 弹框第一步 跳转
     url('inventory_accounting_requisition_1', views.inventory_accounting_requisition_1, name='inventory_accounting_requisition_1'),
 

@@ -1,0 +1,99 @@
+{% extends "base_iframe.html" %}
+{% load staticfiles %}
+{% block iframe_info %}
+    <style>
+        .names{
+            width:830px;
+            color:#333;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0 20px 80px;
+        }
+    </style>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">发票认证机器人基础设置</div>
+                    <div class="layui-card-body" pad15 style="height:743px">
+                        <form class="layui-form">
+                            {% csrf_token %}
+                            <div class="layui-form-item">
+                                <sapn style="margin-left: 174px;font-weight: bold;color:red">提示：
+                                    以下配置信息必须正确无误，如需修改，须参照案例格式规范填写，否则机器人将无法正常执行。
+                                </sapn>
+                                <hr>
+                            </div>
+                            <p class="names">发票认证管理平台</p>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width: 200px;">地址:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="account_set" value="http://fpdk.qh-n-tax.gov.cn/" readonly
+                                           class="layui-input" style="width: 600px;">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                    <label class="layui-form-label" style="width: 200px;">账户:&nbsp;&nbsp;&nbsp;</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="operator" value="" class="layui-input"
+                                               style="width: 600px;">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" style="width: 200px;">密码:&nbsp;&nbsp;&nbsp;</label>
+                                    <div class="layui-input-inline">
+                                        <input type="password" name="password" class="layui-input" placeholder="请输入您的账套密码"
+                                               style="width: 600px;">
+                                    </div>
+                                </div>
+                            <div class="layui-form-item" style="width:830px;">
+                                <div class="layui-input-block" style="margin-left: 53.5%;margin-top:40px">
+                                    <button lay-submit="" lay-filter="save" class="layui-btn"
+                                            style="width: 100px;">保存
+                                    </button>
+                                    {#<button type="reset" class="layui-btn layui-btn-primary">重新填写</button>#}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script_info %}
+    <script>
+        layui.config({
+            base: '{% static "/layuiadmin/" %}'
+        }).extend({
+            index: '/lib/index'
+        }).use(['index', 'set']);
+
+        layui.use(['form', 'layedit', 'jquery'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , $ = layui.jquery;
+
+            //提交验证
+            form.on('submit(save)', function (data) {
+                //通用表单提交(AJAX方式)
+                $.ajax({
+                    url: "/",
+                    type: "post",
+                    data: $(data.form).serialize(),
+                    success: function (data) {
+                        if(data.fail==4444){
+                            alert(data.msg)
+                        }else{
+                            alert("保存成功")
+                        }
+                    }
+                });
+                return false;  //阻止表单跳转。
+            });
+        })
+    </script>
+{% endblock %}

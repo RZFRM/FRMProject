@@ -19,33 +19,64 @@ from django.conf.urls import url
 
 urlpatterns = [
 
+
     #  TODO  销售机器人配置
     # 销售机器人基础配置页 数据
-    url('Sales_robot_base_datas', views.Sales_robot_base_datas),
-    # 销售机器人 弹框第一步 数据
-    url('Sales_requisition_data_1', views.Sales_requisition_data_1, name='Sales_requisition_data_1'),
+    url('sales_robot_base_datas', views.sales_robot_base_datas),
 
     # 销售机器人基础配置页 跳转
-    url('Sales_robot_base', views.Sales_robot_base),
+    url('sales_robot_base', views.sales_robot_bases),
 
     # 销售机器人业务管理页 跳转
-    url('Sales_robot_business_manager', views.Sales_robot_business, name='Sales_robot_business'),
+    url('sales_robot_business_manager', views.sales_robot_business_manager, name='sales_robot_business_manager'),
     # 销售机器人任务管理页 跳转
-    url('Sales_robot_jobs_manager', views.Sales_robot_jobs, name='Sales_robot_jobs'),
+    url('sales_robot_jobs_manager', views.sales_robot_jobs_manager, name='sales_robot_jobs_manager'),
+
 
     #销售业务信息一览表
     url('set_sales_robot_buession_info', views.set_sales_robot_buession_info, name='set_sales_robot_buession_info'),
-
-
-    # 销售机器人 弹框第一步 跳转
-    url('Sales_requisition_1', views.Sales_requisition_1, name='Sales_requisition_1'),
-
-    # 销售机器人从第一步完成后跳转到第二步
-    url('Sales_created_2', views.Sales_created_2, name='Sales_created_2'),
-
-
     # 任务信息一览表
-    url('set_sales_robot_jobs_info', views.set_sales_robot_jobs_info, name = 'set_sales_robot_jobs_info'),
+    url('set_sales_robot_jobs_info', views.set_sales_robot_jobs_info, name='set_sales_robot_jobs_info'),
+
+
+    # 新建业务展示页面
+    url('sales_requisition_first_1', views.sales_requisition_first_1, name='sales_requisition_first_1'),
+
+
+    # 销售合同 跳转 数据填写页面
+    url('sales_requisition_2', views.sales_requisition_2, name='sales_requisition_2'),
+
+    # # 销售合同 跳转 数据提交地址
+    url('sales_requisition_data_2', views.sales_requisition_data_2, name='sales_requisition_data_2'),
+    #
+    # 销售合同 成功后跳转页面
+    url('sales_created_3', views.sales_created_3, name='sales_created_3'),
+
+
+    #  跳转 物资出库
+    url('sales_created_goods', views.sales_created_goods, name='sales_created_goods'),
+    # 物资出库 数据提交
+    url('sales_created_data_goods', views.sales_created_data_goods, name='sales_created_data_goods'),
+
+    # 物资出库审批同意后跳转
+    url('sales_created_agree_goods', views.sales_created_agree_goods, name='sales_created_agree_goods'),
+
+
+    # 销售开票
+    url('sales_created_billing', views.sales_created_billing, name='sales_created_billing'),
+
+
+    # 收款查询
+    url('sales_collection_inquiry', views.sales_collection_inquiry, name='sales_collection_inquiry'),
+
+
+
+
+
+
+
+
+
 
 
 ]

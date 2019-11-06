@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>第一步</title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        .elect{
+
+        }
+
+        .btn {
+            width: 105px;
+            height: 39px;
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+            margin: auto;
+            line-height: 39px;
+            cursor: pointer;
+        }
+
+        .btn + .btn {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>选择机器人业务</span>
+    </div>
+    <div class="elect" style="margin:50px auto 0">
+        <a class="btn" href="">物资入库</a>
+        <a class="btn" href="">物资出库</a>
+        <a class="btn" href="">暂估入库</a>
+        <a class="btn" href="">采购合同</a>
+    </div>
+</div>
+</body>
+</html>

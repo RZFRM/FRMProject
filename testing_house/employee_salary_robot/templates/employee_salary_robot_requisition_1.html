@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第四步</title>
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
+    <style>
+        .forn {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        .atitle > span {
+            margin: 0 auto;
+        }
+
+        .btn {
+            width: 105px;
+            height: 39px;
+            background: rgba(55, 38, 89, 1);
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 39px;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            left: 44%;
+            bottom: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="Popout">
+    <div class="atitle">
+        <span>收款查询</span>
+    </div>
+
+    <div style="height: 422px;overflow: auto;padding-top:25px">
+        <form class="layui-form forn" action="" lay-filter="component-form-group">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:4px 15px 5px 0px;width: 95px;"><span
+                        class="xing">*</span>申请事项：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" name="supplier_name" lay-verify="required"
+                           class="layui-input" value="发放20XX年X月员工工资"
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">应付工资金额：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" placeholder="请填写应付工资金额" lay-verify="required"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">代扣五险一金：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" lay-verify="required" placeholder="请填写代扣五险一金"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">代扣个税金额：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" lay-verify="required" placeholder="请填写代扣个税金额"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">实发工资金额：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" lay-verify="required" placeholder="请填写实发工资金额"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" lay-verify="required" value="赵利" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请日期：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" value="2018-12-20"
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application_date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">部门负责人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" lay-verify="required" value="周宇" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">公司负责人：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" lay-verify="required" value="李宏" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" name="company_head">
+                </div>
+            </div>
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo1">提交</button>
+        </form>
+    </div>
+</div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+
+    layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+
+        //提交验证
+        form.on('submit(demo1)', function (data) {
+
+             $.ajax({
+                url: "/employee_salary_robot_requisition_data_1",
+                type: "post",
+                datatype: "json",
+                data: $(data.form).serialize(),
+                success: function (res) {
+                    if (res == 200) {
+                        location.href = "/employee_salary_robot_requisition_2"
+                    }
+                }
+            });
+
+        });
+        return false;  //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    });
+</script>
+</body>
+</html>
