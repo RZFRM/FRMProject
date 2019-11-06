@@ -26,7 +26,7 @@ class School(models.Model):
 
 class Major(models.Model):
     major_id = models.AutoField(primary_key=True, verbose_name='专业id')
-    major_code = models.IntegerField(unique=True, verbose_name='专业代码')
+    major_code = models.IntegerField(verbose_name='专业代码')
     major_name = models.CharField(max_length=50, verbose_name='专业名称')
     school_code = models.IntegerField(null=True, verbose_name='学校代码')
     major_state = models.CharField(default="True", choices=(("True", u"有效"), ("False", u"无效")),

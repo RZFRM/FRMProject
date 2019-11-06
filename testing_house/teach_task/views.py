@@ -129,21 +129,21 @@ class Task(View):
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
         if admin_type:
-            task_root = [{"name": "实训任务", "url": ""}, {"name": "教学管理", "url": ""},
+            task_root = [{"name": "实训任务", "url": "/task_jump"}, {"name": "教学管理", "url": "/teaching_jump"},
                          {"name": "学生管理", "url": "/student_jump"}, {"name": "教师管理", "url": "/teacher_jump"},
                          {"name": "班级管理", "url": "/class_jump"}, {"name": "专业管理", "url": "/major_jump"},
                          {"name": "教务管理", "url": "/teach_jump"}, {"name": "学校管理", "url": "/school_jump"},
-                         {"name": "课程管理", "url": ""}, {"name": "案例管理", "url": ""}]
+                         {"name": "课程管理", "url": "/course_jump"}, {"name": "案例管理", "url": "/case_jump"}]
 
-            task_edu = [{"name": "实训任务", "url": ""},  {"name": "教学管理", "url": ""},
+            task_edu = [{"name": "实训任务", "url": "/task_jump"},  {"name": "教学管理", "url": "/teaching_jump"},
                         {"name": "学生管理", "url": "/student_jump"}, {"name": "教师管理", "url": "/teacher_jump"},
                         {"name": "班级管理", "url": "/class_jump"}, {"name": "专业管理", "url": "/major_jump"},
                         {"name": "教务管理", "url": "/teach_jump"}]
 
-            task_teach = [{"name": "实训任务", "url": ""}, {"name": "教学管理", "url": ""},
+            task_teach = [{"name": "实训任务", "url": "/task_jump"}, {"name": "教学管理", "url": "/teaching_jump"},
                           {"name": "学生管理", "url": "/student_jump"}]
 
-            task_student = [{"name": "实训任务", "url": ""}]
+            task_student = [{"name": "实训任务", "url": "/task_jump"}]
 
             if admin_type[0] == '1':
                 return JsonResponse({"result": task_root})
