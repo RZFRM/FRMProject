@@ -278,11 +278,23 @@ class School_delete_search(View):
                         'i': i[8]
                     }
                     data_list.append(data)
-                return JsonResponse({"result": data_list})
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
             else:
-                return JsonResponse({"result": ""})
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
         except:
-            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误，请重试"}
+            }
+            return JsonResponse(data_dict)
 
 
 def province(request):
@@ -1834,3 +1846,35 @@ class Task_insert_delete(View):
         except:
             return JsonResponse({"result": "fail", "msg": "系统失败，请重试"})
 
+
+def task_search(request):
+    """课程管理，任务搜索"""
+    task_name = request.GET.get("task_name")
+
+    sql = "select task_name from task where task_name like '%%%s%%'" % task_name
+    try:
+        task_name_list = SqlModel().select_all(sql)
+        if task_name_list:
+            data_list = []
+            for i in task_name_list:
+                data = {
+                    "a": i[0],
+                }
+                data_list.append(data)
+            data_dict = {
+                "code": 0,
+                "data": data_list
+            }
+            return JsonResponse(data_dict)
+        else:
+            data_dict = {
+                "code": 0,
+                "data": ""
+            }
+            return JsonResponse(data_dict)
+    except:
+        data_dict = {
+            "code": 0,
+            "data": {"fail": "系统错误，请重试"}
+        }
+        return JsonResponse(data_dict)
