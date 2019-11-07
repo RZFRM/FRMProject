@@ -1583,18 +1583,25 @@ class Report_require_answer(View):
         """设置实训报告的要求"""
         report_name = request.GET.get("report_name")
         report_require = request.GET.get("report_require")
-        sql = "select * from report where report_name = '%s'"
+        now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
+
+        sql = "select * from report_answer where report_name = '%s'"
         try:
             res = SqlModel().select_one(sql)
             if res:
-                sql_up = "update report set report_require='%s' where report_name = '%s'" % (report_require, report_name)
+                sql_up = "update report_answer set report_require='%s' where report_name = '%s'" % (report_require, report_name)
                 res_up = SqlModel().insert_or_update(sql_up)
                 if res_up:
                     return JsonResponse({"result": "设置成功"})
                 else:
                     return JsonResponse({"result": "fail", "msg": "设置失败"})
             else:
-                return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+                sql_add = "insert into report_answer (report_name,report_require,create_time) values ('%s','%s','%s')" % (report_name,report_require,now_time)
+                res_add = SqlModel().insert_or_update(sql_add)
+                if res_add:
+                    return JsonResponse({"result": "设置成功"})
+                else:
+                    return JsonResponse({"result": "fail", "msg": "设置失败"})
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
@@ -1602,20 +1609,42 @@ class Report_require_answer(View):
         """设置实训报告的答案"""
         report_name = request.POST.get("report_name")
         report_answer = request.POST.get("report_answer")
-        sql = "select * from report where report_name='%s'" % report_name
+        now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
+
+        sql = "select * from report_answer where report_name='%s'" % report_name
         try:
             res = SqlModel().select_one(sql)
             if res:
-                sql_up = "update report set report_answer='%s' where report_name='%s'" % (report_answer, report_name)
+                sql_up = "update report_answer set report_answer='%s' where report_name='%s'" % (report_answer, report_name)
                 res_up = SqlModel().insert_or_update(sql_up)
                 if res_up:
                     return JsonResponse({"result": "设置成功"})
                 else:
                     return JsonResponse({"result": "fail", "msg": "设置失败"})
             else:
-                return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+                sql_add = "insert into report_answer (report_name,report_answer,create_time) values ('%s','%s','%s')" % (report_name,report_answer,now_time)
+                res_add = SqlModel().insert_or_update(sql_add)
+                if res_add:
+                    return JsonResponse({"result": "设置成功"})
+                else:
+                    return JsonResponse({"result": "fail", "msg": "设置失败"})
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def report_popup(request):
+    """课程管理，报告答案弹窗"""
+    task_name = request.GET.get("task_name")
+    sql = "select report_require from report_answer where report_name = '%s'" % task_name
+    try:
+        report_require_list = SqlModel().select_one(sql)
+        if report_require_list:
+            report_require = report_require_list[0]
+            return JsonResponse({"result": report_require})
+        else:
+            return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
 def task_teach_design(request):
