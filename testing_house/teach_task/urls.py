@@ -21,6 +21,7 @@ urlpatterns = [
 
     url(r'index', views.Index.as_view()),
     url(r'task_insert_delete',views.Task_insert_delete.as_view()),
+    url(r'task_search',views.task_search),
     url(r'task_state', views.task_state),
     url(r'task_card', views.task_card),
     url(r'task', views.Task.as_view()),
@@ -51,6 +52,7 @@ urlpatterns = [
     url(r'student_batch_down', views.student_batch_down),
     url(r'student', views.Student.as_view()),
     url(r'report_require_answer', views.Report_require_answer.as_view()),
+    url(r'report_popup',views.report_popup),
     url(r'report', views.Report.as_view()),
     url(r'course_ware', views.course_ware),
     url(r'course_add', views.course),

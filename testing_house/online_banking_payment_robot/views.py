@@ -63,7 +63,7 @@ def online_banking_payment_robot_requisition_data_1(request):
 
 # 业务信息
 def set_online_banking_payment_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -79,18 +79,12 @@ def set_online_banking_payment_business_info(request):
              'purchase_apply_status': '已执行', 'gmt_modified': '2019-11-1'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
     return JsonResponse(data)
 
 
 # 任务信息
 def set_online_banking_payment_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -102,11 +96,5 @@ def set_online_banking_payment_jobs_info(request):
             {'id': 3, 'job_name': '付嘉华建材/睦邻建材款申请与审批', 'job_start_time': '2019-11-3 11:00:00',
              'job_type': '批量网银对公付款机器人', 'job_status': '已执行'},
         ]
-    }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
     }
     return JsonResponse(data)

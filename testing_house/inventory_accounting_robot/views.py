@@ -86,7 +86,7 @@ def inventory_accounting_robot_requisition_data_1(request):
 
 # 业务信息
 def set_stock_valuations_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -105,17 +105,11 @@ def set_stock_valuations_business_info(request):
              'purchase_apply_status': '已执行', 'gmt_modified': '2019-8-9'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
     return JsonResponse(data)
 
 # 任务信息
 def set_stock_valuations_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -129,11 +123,5 @@ def set_stock_valuations_jobs_info(request):
             {'id': 4, 'job_name': '10月销售成本结转', 'job_start_time': '2019-11-5 19:00:00',
              'job_type': '结转销售成本机器人', 'job_status': '已执行'},
         ]
-    }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
     }
     return JsonResponse(data)
