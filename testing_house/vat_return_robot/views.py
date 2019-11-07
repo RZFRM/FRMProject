@@ -63,7 +63,7 @@ def vat_return_robot_requisition_data_1(request):
 
 # 业务管理
 def set_vat_return_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -88,18 +88,12 @@ def set_vat_return_business_info(request):
              'purchase_apply_status': '已执行', 'gmt_modified': '2019-11-01'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
     return JsonResponse(data)
 
 
 # 任务管理
 def set_vat_return_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -117,11 +111,5 @@ def set_vat_return_jobs_info(request):
             {'id': 6, 'job_name': '6月增值税申报', 'job_start_time': '2019-7-12 10:28:33',
              'job_type': '增值税申报机器人', 'job_status': '已执行'},
         ]
-    }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
     }
     return JsonResponse(data)

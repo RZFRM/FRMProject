@@ -3,7 +3,6 @@ from django.shortcuts import render
 # Create your views here.
 
 
-
 from django.db.models import Q
 
 from django.shortcuts import render
@@ -24,8 +23,7 @@ from IsearchAPI.ISAPI import rpa_rest
 from system_config.models import User, Job_list_summary, Application_info
 import time
 from sql_operating.mysql_class import *
-from etc.command import  *
-
+from etc.command import *
 
 
 # TODO 生成8位唯一任务编号
@@ -36,7 +34,6 @@ def create_uuid():
 
 
 DB = Mysql_client_FRM()
-
 
 
 #  TODO  销售机器人基础配置页
@@ -55,7 +52,7 @@ def sales_robot_base_datas(request):
 
     operator = request.POST.get('operator')
     password = request.POST.get('password')
-    account_set =  request.POST.get('account_set')
+    account_set = request.POST.get('account_set')
 
     u8_install_path = request.POST.get('u8_install_path')
     print(operator, password, account_set, u8_install_path)
@@ -105,10 +102,6 @@ def sales_robot_base_datas(request):
     #         return JsonResponse(data)
 
 
-
-
-
-
 #  TODO  跳转 销售机器人业务管理页
 def sales_robot_business_manager(request):
     return render(request, 'Sales_robot_business_manager.html', locals())
@@ -124,73 +117,108 @@ from sql_operating.mysql_class import SqlModel
 
 #  TODO  业务信息一览表
 def set_sales_robot_buession_info(request):
-    print('aaaa')
-    #  TODO 返回 未完成列表 数据
-    user_name = request.COOKIES.get('username')
-    # user_name = request.POST.get('username')
-    print(user_name)
 
-    sql = "select business_type, gmt_create,application_sector,applicant,sales_apply_status,gmt_modified,id  from  sale_apply_table  where user_name = '%s'  order by id  desc   "%user_name
-    #sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   " % user_name
 
-    print(sql)
-    user_jobs = SqlModel().select_all(sql)
-    # user_jobs = DB.select_all(sql_info=sql)
+    """    print('aaaa')
+        #  TODO 返回 未完成列表 数据
+        user_name = request.COOKIES.get('username')
+        # user_name = request.POST.get('username')
+        print(user_name)
 
-    print(user_jobs)
+        sql = "select business_type, gmt_create,application_sector,applicant,sales_apply_status,gmt_modified,id  from  sale_apply_table  where user_name = '%s'  order by id  desc   "%user_name
+        #sql = "select  business_name, gmt_create,application_depart,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   " % user_name
 
-    # return HttpResponse("ok")
-    data_list = []
-    # print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
-    if user_jobs:
-        for i in user_jobs:
-            data_dic = {
-                 "id":i[6]
-                ,"business_name": i[0]
-                , "gmt_create": str(i[1])
-                , "application_depart": i[2]
-                ,'robot_name':'采购请购机器人'
-                , "applicant": i[3]
-                , "purchase_apply_status": run_status[i[4]]
-                , "gmt_modified":str(i[5])
+        print(sql)
+        user_jobs = SqlModel().select_all(sql)
+        # user_jobs = DB.select_all(sql_info=sql)
+
+        print(user_jobs)
+
+        # return HttpResponse("ok")
+        data_list = []
+        # print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
+        if user_jobs:
+            for i in user_jobs:
+                data_dic = {
+                     "id":i[6]
+                    ,"business_name": i[0]
+                    , "gmt_create": str(i[1])
+                    , "application_depart": i[2]
+                    ,'robot_name':'采购请购机器人'
+                    , "applicant": i[3]
+                    , "purchase_apply_status": run_status[i[4]]
+                    , "gmt_modified":str(i[5])
+                }
+
+                data_list.append(data_dic)
+            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>业务信息查询成功')
+            data = {
+                "code": 0
+                , "msg": ""
+                , "count": 1
+                , "data": data_list
             }
+            return JsonResponse(data)
+        else:
+            data = {
+                "code": 0
+                , "msg": "查询失败！"
+                , "count": 1
+                , "data": data_list
+            }
+            return JsonResponse(data)"""
+    data = {
+        'code': 0,
+        'msg': '',
+        'count': 1,
+        'data': [
+            {'id': 1, 'business_name': '明华家具有限公司销售合同申请与审批', 'gmt_create': '2019-10-1 19:00:00',
+             'application_depart': '销售部', 'applicant': '张洁',
+             'purchase_apply_status': '已执行', 'gmt_modified': '2019-10-1'},
+            {'id': 2, 'business_name': '明华家具有限公司销售发货申请与审批', 'gmt_create': '2019-10-1 19:00:00',
+             'application_depart': '销售部', 'applicant': '张洁',
+             'purchase_apply_status': '已执行', 'gmt_modified': '2019-10-1'},
+            {'id': 3, 'business_name': '明华家具有限公司销售合同申请与审批', 'gmt_create': '2019-10-1 19:00:00',
+             'application_depart': '销售部', 'applicant': '张洁',
+             'purchase_apply_status': '已执行', 'gmt_modified': '2019-10-1'},
+            {'id': 4, 'business_name': '明华家具有限公司销售开票申请与审批', 'gmt_create': '2019-10-1 19:00:00',
+             'application_depart': '销售部', 'applicant': '张洁',
+             'purchase_apply_status': '已执行', 'gmt_modified': '2019-10-1'},
+            {'id': 5, 'business_name': '明华家具有限公司销售合同申请与审批', 'gmt_create': '2019-11-1 19:00:00',
+             'application_depart': '销售部', 'applicant': '张洁',
+             'purchase_apply_status': '已执行', 'gmt_modified': '2019-10-1'},
+            {'id': 6, 'business_name': '明华家具有限公司销售发货申请与审批', 'gmt_create': '2019-11-1 19:00:00',
+             'application_depart': '销售部', 'applicant': '张洁',
+             'purchase_apply_status': '已执行', 'gmt_modified': '2019-10-1'},
+            {'id': 7, 'business_name': '明华家具有限公司销售合同申请与审批', 'gmt_create': '2019-11-1 19:00:00',
+             'application_depart': '销售部', 'applicant': '张洁',
+             'purchase_apply_status': '已执行', 'gmt_modified': '2019-10-1'},
+            {'id': 8, 'business_name': '明华家具有限公司销售开票申请与审批', 'gmt_create': '2019-11-1 19:00:00',
+             'application_depart': '销售部', 'applicant': '张洁',
+             'purchase_apply_status': '已执行', 'gmt_modified': '2019-10-1'},
 
-            data_list.append(data_dic)
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>业务信息查询成功')
-        data = {
-            "code": 0
-            , "msg": ""
-            , "count": 1
-            , "data": data_list
-        }
-        return JsonResponse(data)
-    else:
-        data = {
-            "code": 0
-            , "msg": "查询失败！"
-            , "count": 1
-            , "data": data_list
-        }
-        return JsonResponse(data)
+        ]
+    }
+    return JsonResponse(data)
 
 
 #  TODO  任务列表信息
 #  TODO  任务 信息
 def set_sales_robot_jobs_info(request):
-    data_list  =[]
+    """data_list = []
     user_name = request.COOKIES.get('username')
     # sql = "select  id,job_no,job_name, job_type,job_start_time,job_status   from  job_list_summary where  job_type like '采购%%' and user_name_id= '%s' order by id desc "%user_name
     user_jobs = Job_list_summary.objects.filter(Q(user_name_id=user_name) & Q(job_type__contains='销售'))
     # user_jobs = DB.select_all(sql_info=sql)
     # user_jobs = DB.get_select(table='job_list_summary',fields='(id,job_no,job_name, job_type,job_start_time,job_status)', condition = user_name)
-    print(' 已完成：：：：：：：：：：：：：：：：：',user_jobs)
+    print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
 
     for i in user_jobs:
         # print(i)
         data_dic = {
-            'id':i.id
-            ,"job_no":i.job_no
-            ,"job_name": i.job_name
+            'id': i.id
+            , "job_no": i.job_no
+            , "job_name": i.job_name
             , "job_type": i.job_type
             , "job_start_time": str(i.job_start_time)
             , "job_status": run_status[i.job_status]
@@ -204,11 +232,31 @@ def set_sales_robot_jobs_info(request):
         , "data": data_list
     }
 
-
+    return JsonResponse(data)"""
+    data = {
+        'code': 0,
+        'msg': '',
+        'count': 1,
+        'data': [
+            {'id': 1, 'job_name': '明华家具有限公司-销售订单填制', 'job_start_time': '2019-10-1 19:00:00',
+             'job_type': '销售订单机器人', 'job_status': '已执行'},
+            {'id': 2, 'job_name': '明华家具有限公司-物资出库', 'job_start_time': '2019-10-1 19:00:00',
+             'job_type': '销售发货机器人', 'job_status': '已执行'},
+            {'id': 3, 'job_name': '明华家具有限公司-销售开票', 'job_start_time': '2019-10-1 19:00:00',
+             'job_type': '销售发票机器人', 'job_status': '已执行'},
+            {'id': 4, 'job_name': '明华家具有限公司-收款查询', 'job_start_time': '2019-10-1 19:00:00',
+             'job_type': '收款查询机器人', 'job_status': '已执行'},
+            {'id': 5, 'job_name': '明华家具有限公司-销售订单填制', 'job_start_time': '2019-11-1 19:00:00',
+             'job_type': '销售订单机器人', 'job_status': '已执行'},
+            {'id': 6, 'job_name': '明华家具有限公司-物资出库', 'job_start_time': '2019-11-1 19:00:00',
+             'job_type': '销售发货机器人', 'job_status': '已执行'},
+            {'id': 7, 'job_name': '明华家具有限公司-销售开票', 'job_start_time': '2019-11-1 19:00:00',
+             'job_type': '销售发票机器人', 'job_status': '已执行'},
+            {'id': 8, 'job_name': '明华家具有限公司-收款查询', 'job_start_time': '2019-11-1 19:00:00',
+             'job_type': '收款查询机器人', 'job_status': '已执行'},
+        ]
+    }
     return JsonResponse(data)
-
-
-
 
 
 #  TODO  # 新建业务展示页面
@@ -216,31 +264,29 @@ def sales_requisition_first_1(request):
     return render(request, 'sales_requisition_first_1.html')
 
 
-
 #  TODO  跳转 销售订单机器人
 def sales_requisition_2(request):
     return render(request, 'Sales_requisition_2.html')
 
+
 # TODO  销售机器人 弹框第一步 数据处理
 def sales_requisition_data_2(request):
-
-
     """
     销售业务机器人 第一步新增业务 销售订单填写后 数据提交到该处处理
     :param request:
     :return:
     """
     # 接收销售申请传过来的数据
-    user_name = request.COOKIES.get('username')     # 用户名
-    job_type = request.POST.get('job_type') # 机器人名称
+    user_name = request.COOKIES.get('username')  # 用户名
+    job_type = request.POST.get('job_type')  # 机器人名称
 
-    Contract_Number = request.POST.get('Contract_Number')     # 销售订单编号
-    Client_Name = request.POST.get('supplier_name')   # 客户名称
-    Business_Type = request.POST.get('Business_Type')   # 业务类型
-    Sales_Type = request.POST.get('Sales_Type')   # 销售类型
-    Product_Name = request.POST.get('Product_Name')   # 产品名称
-    Quantity = request.POST.get('Quantity') # 数量
-    Unit = request.POST.get('Unit') # 单位
+    Contract_Number = request.POST.get('Contract_Number')  # 销售订单编号
+    Client_Name = request.POST.get('supplier_name')  # 客户名称
+    Business_Type = request.POST.get('Business_Type')  # 业务类型
+    Sales_Type = request.POST.get('Sales_Type')  # 销售类型
+    Product_Name = request.POST.get('Product_Name')  # 产品名称
+    Quantity = request.POST.get('Quantity')  # 数量
+    Unit = request.POST.get('Unit')  # 单位
     Excluding_tax_univalent = request.POST.get('Excluding_tax_univalent')  # 不含税单价
     Tax_Rate_Or_Levy_Rate = request.POST.get('Tax_Rate_Or_Levy_Rate')  # 税率/征收率
     Total_Amount = request.POST.get('Total_Amount')  # 总金额
@@ -251,10 +297,9 @@ def sales_requisition_data_2(request):
     Department_Head = request.POST.get('Department_Head')  # 部门负责人
     Company_Representative = request.POST.get('Company_Representative')  # 公司负责人 Company_Representative
 
-
-
-    print(user_name,job_type,Contract_Number,Client_Name,Business_Type,Sales_Type,Product_Name,Quantity,Unit,Excluding_tax_univalent,Tax_Rate_Or_Levy_Rate,Total_Amount,Delivery_dates,Applicant,Application_sector, \
-            Application_Date,Department_Head,Company_Representative
+    print(user_name, job_type, Contract_Number, Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,
+          Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant, Application_sector, \
+          Application_Date, Department_Head, Company_Representative
           )
     # return HttpResponse('200')
 
@@ -271,17 +316,18 @@ def sales_requisition_data_2(request):
     # 数据库 操作 sales_apply_table, 插入数据
     try:
         SqlModel().insert(table='sale_apply_table',
-                      value=(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,
-                              Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,
-                              Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant,
-                              Application_sector,
-                              Application_Date, Department_Head, Company_Representative
-                             ),
-                      field="(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,"
-                              "Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,"
-                              "Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant,"
-                              "Application_sector, "
-                              "Application_Date, Department_Head, Company_Representative)")
+                          value=(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,
+                                 Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,
+                                 Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates,
+                                 Applicant,
+                                 Application_sector,
+                                 Application_Date, Department_Head, Company_Representative
+                                 ),
+                          field="(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,"
+                                "Client_Name, Business_Type, Sales_Type, Product_Name, Quantity, Unit,"
+                                "Excluding_tax_univalent, Tax_Rate_Or_Levy_Rate, Total_Amount, Delivery_dates, Applicant,"
+                                "Application_sector, "
+                                "Application_Date, Department_Head, Company_Representative)")
         print("AAAAAAAAAAA")
         # DB.get_insert(table='sale_apply_table',
         #               values=(user_name, gmt_create, gmt_modified, sales_apply_status, Contract_Number,
@@ -296,7 +342,7 @@ def sales_requisition_data_2(request):
         #                       "Application_sector, "
         #                       "Application_Date, Department_Head, Company_Representative)")
     except Exception as e:
-        print('插入失败！',e)
+        print('插入失败！', e)
         data = {
             'code': '400',
             'msg': '插入数据库失败'
@@ -307,7 +353,7 @@ def sales_requisition_data_2(request):
     print("BBBBBBBBBB")
     # # #  TODO  创建任务信息
     # #
-    job_no = create_uuid()              # 任务编号
+    job_no = create_uuid()  # 任务编号
     jobs_name = '销售-' + Product_Name + '-订单填制'
     print('job_no ============================', job_no)
 
@@ -331,7 +377,7 @@ def sales_requisition_data_2(request):
             , "msg": "成功！"
             , "count": 1
         }
-        print('任务创建成功',data)
+        print('任务创建成功', data)
         return JsonResponse(data)
     except:
         print('写入数据库失败！')
@@ -339,30 +385,33 @@ def sales_requisition_data_2(request):
 
 # TODO 跳转到销售合同审批
 def sales_created_3(request):
-    return render(request,'sales_created_3.html')
+    return render(request, 'sales_created_3.html')
+
 
 # # TODO 跳转到物资出库
 def sales_created_goods(request):
-    return render(request,'sales_created_goods.html')
+    return render(request, 'sales_created_goods.html')
+
 
 # # TODO 物资出库 数据处理
 def sales_created_data_goods(request):
     return HttpResponse('200')
 
+
 # # TODO 跳转到物资出库同意申请
 def sales_created_agree_goods(request):
-    return render(request,'sales_created_agree_goods.html')
+    return render(request, 'sales_created_agree_goods.html')
 
 
 # TODO 跳转到销售开票
 def sales_created_billing(request):
-    return render(request,'sales_created_billing.html')
+    return render(request, 'sales_created_billing.html')
 
 
 #
 # TODO 跳转到销售收款查询
 def sales_collection_inquiry(request):
-    return render(request,'sales_collection_inquiry.html')
+    return render(request, 'sales_collection_inquiry.html')
 
 # # TODO 跳转到第六步
 # def sales_created_6(request):
@@ -380,5 +429,3 @@ def sales_collection_inquiry(request):
 # def sales_created_9(request):
 #     return render(request,'Sales_created_9.html')
 #
-
-

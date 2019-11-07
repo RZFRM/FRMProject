@@ -56,7 +56,7 @@ def corporate_tax_quarterly_report_robot_requisition_data_1(request):
 
 
 def set_corporate_tax_quarterly_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -72,17 +72,11 @@ def set_corporate_tax_quarterly_business_info(request):
              'purchase_apply_status': '未执行', 'gmt_modified': '2019-11-05'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
     return JsonResponse(data)
 
 
 def set_corporate_tax_quarterly_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -94,12 +88,6 @@ def set_corporate_tax_quarterly_jobs_info(request):
             {'id': 3, 'job_name': '2019年第三季度企税季报', 'job_start_time': '2019-10-3 11:00:00',
              'job_type': '增值税申报机器人', 'job_status': '已执行'},
         ]
-    }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
     }
     return JsonResponse(data)
 

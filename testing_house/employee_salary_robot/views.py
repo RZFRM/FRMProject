@@ -66,7 +66,7 @@ def employee_salary_robot_requisition_2(request):
 
 # 业务信息
 def set_worker_salary_business_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -88,18 +88,12 @@ def set_worker_salary_business_info(request):
              'purchase_apply_status': '待执行', 'gmt_modified': '2019-11-3'},
         ]
     }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
-    }
     return JsonResponse(data)
 
 
 # 任务信息
 def set_worker_salary_jobs_info(request):
-    data_list = {
+    data = {
         'code': 0,
         'msg': '',
         'count': 1,
@@ -115,11 +109,5 @@ def set_worker_salary_jobs_info(request):
             {'id': 5, 'job_name': '11月职工薪酬制单与发放', 'job_start_time': '2019-11-5 19:00:00',
              'job_type': '工资付款机器人', 'job_status': '未执行'},
         ]
-    }
-    data = {
-        "code": 0,
-        "msg": "",
-        "count": 1,
-        "data": data_list
     }
     return JsonResponse(data)
