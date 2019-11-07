@@ -93,18 +93,28 @@
             , page: true,
         });
 
-        /*点击新增按钮*/
-        $("#add_sch,#update_sch").on('click', function () {
-            //console.log("data");
-            //页面层
-            layer.open({
-                title:'学校管理',
-                type: 2,
-                area: ['800px', '600px'],//宽高
-                content: 'school_update',
 
-            });
 
-        });
+        //新增弹层
+        $('#add_sch').off('click').on('click', (e)=>{
+					layer.open({
+						title: '学校管理',
+						type: 2,
+						area: ['70%', '600px'],
+						content: 'school_new_update.html',
+						btn: ['取回'],
+						yes: function(index, layero) {
+							var frameId = $(layero).find("iframe").attr('id'); //父页面获取子页面的iframe
+							var data = JSON.parse($(window.frames[frameId].document).find("#list").val()); //父页面获取子页面指定的id数据
+							layer.close(index);
+							tabList = data;
+							tabObj();
+						}
+					});
+					e.stopPropagation();
+			})
+
+
+
     });
 </script>
