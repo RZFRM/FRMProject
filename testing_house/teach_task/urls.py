@@ -21,7 +21,7 @@ urlpatterns = [
 
     url(r'index', views.Index.as_view()),
     url(r'task_insert_delete',views.Task_insert_delete.as_view()),
-    url(r'')
+    url(r'task_search',views.task_search),
     url(r'task_state', views.task_state),
     url(r'task_card', views.task_card),
     url(r'task', views.Task.as_view()),
