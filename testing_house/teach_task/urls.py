@@ -59,4 +59,5 @@ urlpatterns = [
     url(r'course_task', views.Course_task.as_view()),
     url(r'course_document', views.course_document),
 
+
 ]

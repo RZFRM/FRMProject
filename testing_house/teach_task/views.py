@@ -1769,15 +1769,12 @@ def task_card(request):
             sql_add = "insert into process (process_name,process_position,task_name) values ('%s','%s','%s')" % (str(task_process), process_position, task_name)
             SqlModel().insert_or_update(sql_add)
 
-        sql_name = "select admin_name from user where user_name ='%s'" % username
-        create_name = SqlModel().select_one(sql_name)[0]
-
         if task_case_list:
             for i in task_case_list:
-                sql_q = "select * from case where case_name='%s' and task_name='%s'" % (i, task_name)
+                sql_q = "select * from case_task where case_name='%s' and task_name='%s'" % (i, task_name)
                 res_case = SqlModel().select_one(sql_q)
                 if not res_case:
-                    sql_case_add = "insert into case (case_name,task_name,create_name,create_time) values ('%s','%s','%s','%s')" % (i, task_name, create_name, now_time)
+                    sql_case_add = "insert into case_task (case_name,task_name,create_time) values ('%s','%s','%s')" % (i, task_name, now_time)
                     SqlModel().insert_or_update(sql_case_add)
         return JsonResponse({"result": "设置成功"})
     except:
@@ -1877,3 +1874,5 @@ def task_search(request):
             "data": {"fail": "系统错误，请重试"}
         }
         return JsonResponse(data_dict)
+
+
