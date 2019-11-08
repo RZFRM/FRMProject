@@ -12,7 +12,7 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
-from .models import Major as MAJOR, School as SCHOOL
+from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE
 from sql_operating.mysql_class import SqlModel
 from .common import province_city
 
@@ -1769,15 +1769,12 @@ def task_card(request):
             sql_add = "insert into process (process_name,process_position,task_name) values ('%s','%s','%s')" % (str(task_process), process_position, task_name)
             SqlModel().insert_or_update(sql_add)
 
-        sql_name = "select admin_name from user where user_name ='%s'" % username
-        create_name = SqlModel().select_one(sql_name)[0]
-
         if task_case_list:
             for i in task_case_list:
-                sql_q = "select * from case where case_name='%s' and task_name='%s'" % (i, task_name)
+                sql_q = "select * from case_task where case_name='%s' and task_name='%s'" % (i, task_name)
                 res_case = SqlModel().select_one(sql_q)
                 if not res_case:
-                    sql_case_add = "insert into case (case_name,task_name,create_name,create_time) values ('%s','%s','%s','%s')" % (i, task_name, create_name, now_time)
+                    sql_case_add = "insert into case_task (case_name,task_name,create_time) values ('%s','%s','%s')" % (i, task_name, now_time)
                     SqlModel().insert_or_update(sql_case_add)
         return JsonResponse({"result": "设置成功"})
     except:
@@ -1802,20 +1799,16 @@ def task_state(request):
 
 class Task_insert_delete(View):
     """课程管理，任务添加与删除"""
-    def get(self,request):
+    def get(self, request):
         task_name = request.GET.get("task_name")
-        sql = "select * from task where task_name='%s'" % task_name
+
         try:
-            res = SqlModel().select_one(sql)
-            if res:
+            task = TASK.objects.filter(task_name=task_name).first()
+            if task:
                 return JsonResponse({"result": "fail", "msg": "该任务已经存在，不能重复添加"})
             else:
-                sql_add = "insert into task (task_name) values ('%s')" % task_name
-                res_add = SqlModel().insert_or_update(sql_add)
-                if res_add:
-                    return JsonResponse({"result": "添加成功"})
-                else:
-                    return JsonResponse({"result": "fail", "msg": "添加失败，请重试"})
+                TASK.objects.create(task_name=task_name)
+                return JsonResponse({"result": "添加成功"})
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
@@ -1877,3 +1870,100 @@ def task_search(request):
             "data": {"fail": "系统错误，请重试"}
         }
         return JsonResponse(data_dict)
+
+
+class Case(View):
+    """案例管理，查看与新增"""
+    def get(self,request):
+        """查看"""
+        try:
+            case_list = CASE.objects.all()
+            if case_list:
+                data_list = []
+                for i in case_list:
+                    case_dict = {
+                        "case_name": i.case_name,
+                        "create_name": i.create_name,
+                        "create_time": str(i.create_time)[:10]
+                    }
+                    data_list.append(case_dict)
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
+            else:
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
+        except:
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误,请重试"}
+            }
+            return JsonResponse(data_dict)
+
+    def post(self,request):
+        """案例模块，新增功能"""
+        user_name = request.COOKIES.get("username")
+        case_name = request.POST.get("case_name")
+        case_recommend = request.POST.get("case_recommend")
+        case_state = request.POST.get("case_state")
+        now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
+
+        sql = "select admin_name from user where user_name='%s'" % user_name
+        try:
+            admin_name_list = SqlModel().select_one(sql)
+            if admin_name_list:
+                create_name = admin_name_list[0]
+            else:
+                create_name = ""
+            case = CASE.objects.filter(case_name=case_name).first()
+            if case:
+                return JsonResponse({"result": "该案例已经存在，不能重复添加"})
+            else:
+                CASE.objects.create(
+                    case_name=case_name,
+                    case_recommend=case_recommend,
+                    case_state=case_state,
+                    create_name=create_name,
+                    create_time=now_time
+                )
+                return JsonResponse({"result": "新增成功"})
+        except:
+            return JsonResponse({"result": "  fail", "msg": "系统错误，请重试"})
+
+
+class Case_edit(View):
+    """案例管理，业务描述编辑功能"""
+    def get(self,request):
+        """业务描述编辑功能 信息展示"""
+        case_name = request.GET.get("case_name")
+        try:
+            case = CASE.objects.filter(case_name=case_name).first()
+            if case:
+                data_dict = {
+                    "case_recommend": case.case_recommend
+                }
+                return JsonResponse(data_dict)
+            else:
+                return JsonResponse({"result": "fail", "msg": "该案例不存在，请重试"})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+    def post(self,request):
+        """编辑功能，提交"""
+        old_case_name = request.POST.get("old_case_name")
+        case_name = request.POST.get("case_name")
+        case_recommend = request.POST.get("case_recommend")
+        case_state = request.POST.get("case_state")
+        try:
+            res = CASE.objects.filter(case_name=old_case_name).update(case_name=case_name, case_recommend=case_recommend, case_state=case_state)
+            if res:
+                return JsonResponse({"result": "编辑成功"})
+            else:
+                return JsonResponse({"result": "fail", "msg": "该案例不存在，请重试"})
+        except:
+            return JsonResponse({"result": "编辑失败，请重试"})

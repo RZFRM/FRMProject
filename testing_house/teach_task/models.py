@@ -207,6 +207,20 @@ class Case(models.Model):
         db_table = 'case'
 
 
+class Case_task(models.Model):
+    """案例 归属任务 对应表"""
+    case_id = models.AutoField(primary_key=True, verbose_name="案例id")
+    case_name = models.CharField(max_length=50, verbose_name="案例名称")
+    task_name = models.CharField(max_length=50, verbose_name="关联任务名称")
+    create_time = models.DateTimeField(null=True, verbose_name="创建时间")
+
+    def __str__(self):
+        return self.case_name
+
+    class Meta:
+        db_table = 'case_task'
+
+
 class Case_document(models.Model):
     """案例模块 文件 表"""
     document_id = models.AutoField(primary_key=True, verbose_name="文件id")
