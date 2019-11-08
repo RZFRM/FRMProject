@@ -96,24 +96,25 @@
 
 
         //新增弹层
-        $('#add_sch').off('click').on('click', (e)=>{
+        $('#add_sch').on('click', (e)=>{
+
 					layer.open({
 						title: '学校管理',
 						type: 2,
 						area: ['70%', '600px'],
-						content: 'school_new_update.html',
+						content: 'school_update',
 						btn: ['取回'],
-						yes: function(index, layero) {
-							var frameId = $(layero).find("iframe").attr('id'); //父页面获取子页面的iframe
-							var data = JSON.parse($(window.frames[frameId].document).find("#list").val()); //父页面获取子页面指定的id数据
-							layer.close(index);
-							tabList = data;
-							tabObj();
-						}
+						// yes: function(index, layero) {
+						// 	var frameId = $(layero).find("iframe").attr('id'); //父页面获取子页面的iframe
+						// 	var data = JSON.parse($(window.frames[frameId].document).find("#list").val()); //父页面获取子页面指定的id数据
+						// 	layer.close(index);
+						// 	tabList = data;
+						// 	tabObj();
+						// }
 					});
 					e.stopPropagation();
 			})
-
+        //
 
 
     });
