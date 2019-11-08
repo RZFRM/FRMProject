@@ -12,7 +12,7 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
-from .models import Major as MAJOR, School as SCHOOL
+from .models import Major as MAJOR, School as SCHOOL, Task as TASK
 from sql_operating.mysql_class import SqlModel
 from .common import province_city
 
@@ -1799,20 +1799,16 @@ def task_state(request):
 
 class Task_insert_delete(View):
     """课程管理，任务添加与删除"""
-    def get(self,request):
+    def get(self, request):
         task_name = request.GET.get("task_name")
-        sql = "select * from task where task_name='%s'" % task_name
+
         try:
-            res = SqlModel().select_one(sql)
-            if res:
+            task = TASK.objects.filter(task_name=task_name).first()
+            if task:
                 return JsonResponse({"result": "fail", "msg": "该任务已经存在，不能重复添加"})
             else:
-                sql_add = "insert into task (task_name) values ('%s')" % task_name
-                res_add = SqlModel().insert_or_update(sql_add)
-                if res_add:
-                    return JsonResponse({"result": "添加成功"})
-                else:
-                    return JsonResponse({"result": "fail", "msg": "添加失败，请重试"})
+                TASK.objects.create(task_name=task_name)
+                return JsonResponse({"result": "添加成功"})
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
