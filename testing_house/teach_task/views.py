@@ -12,7 +12,7 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
-from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE
+from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE, Picture as PICTURE, Case_document as DOCUMENT
 from sql_operating.mysql_class import SqlModel
 from .common import province_city
 
@@ -322,7 +322,7 @@ def city(request):
 def edu(request):
     """学校页面，教务管理员下拉接口"""
     school_code = request.GET.get('school_code')
-    sql = "select admin_name from user where admin_state='True' and school_code='%s'" % school_code
+    sql = "select admin_name from user where admin_state='True' and school_code='%s' and admin_type='2'" % school_code
     admin_name = SqlModel().select_all(sql)
     admin_name_list = []
     if admin_name:
@@ -889,7 +889,7 @@ class Class_down(View):
         """班级弹框，授课老师 下拉"""
         username = request.COOKIES.get("username")
         # username = request.POST.get("username")   # 测试用
-        sql = "select admin_name from user as A inner join (select school_code from user where user_name='%s') as B on A.school_code = B.school_code" % username
+        sql = "select admin_name from user as A inner join (select school_code from user where user_name='%s') as B on A.school_code = B.school_code where admin_type='3'" % username
         admin_name_list = SqlModel().select_all(sql)
         if admin_name_list:
             admin_list = []
@@ -1087,13 +1087,13 @@ class Student(View):
             if school_code_list:
                 school_code = school_code_list[0]
 
-                sql_student = "select student_code,student_name,student_major,student_class,phone,create_time,amount,sum_time,late_time,study_time,score from student where student_class = '%s' and school_code = '%s'" % (student_class, school_code)
+                sql_student = "select student_code,student_name,student_major,student_class,phone,create_time,amount,late_time,score from student where student_class = '%s' and school_code = '%s'" % (student_class, school_code)
                 student_list = SqlModel().select_all(sql_student)
                 if student_list:
                     data_list = []
                     for i in student_list:
                         i[5] = str(i[5])[:10]
-                        i[8] = str(i[8])[:10]
+                        i[7] = str(i[7])[:10]
                         data = {
                             "a": i[0],
                             "b": i[1],
@@ -1104,8 +1104,6 @@ class Student(View):
                             'g': i[6],
                             'h': i[7],
                             'i': i[8],
-                            'j': i[9],
-                            'k': i[10]
                         }
                         data_list.append(data)
                     data_dict = {
@@ -1237,7 +1235,7 @@ class Student_delete_search(View):
     def post(self, request):
         """搜索功能"""
         student_name = request.POST.get("student_name")
-        sql = "select student_code,student_name,student_major,student_class,phone,create_time,amount,sum_time,late_time,study_time,score from student where student_name like '%%%s%%' or student_code like '%%%s%%'" % (
+        sql = "select student_code,student_name,student_major,student_class,phone,create_time,amount,late_time,score from student where student_name like '%%%s%%' or student_code like '%%%s%%'" % (
             student_name, student_name)
         try:
             res = SqlModel().select_all(sql)
@@ -1245,7 +1243,7 @@ class Student_delete_search(View):
                 data_list = []
                 for i in res:
                     i[5] = str(i[5])[:10]
-                    i[8] = str(i[8])[:10]
+                    i[7] = str(i[7])[:10]
                     data = {
                         "a": i[0],
                         "b": i[1],
@@ -1256,8 +1254,6 @@ class Student_delete_search(View):
                         'g': i[6],
                         'h': i[7],
                         'i': i[8],
-                        'j': i[9],
-                        'k': i[10]
                     }
                     data_list.append(data)
                 data_dict = {
@@ -1331,6 +1327,10 @@ def student_batch_up(request):
     student_class = request.POST.get("student_class")
     file = request.FILES.get("a")
     MEDIA_ROOT = os.path.join(BASE_DIR, "media", str(file))
+
+    media_dir = os.path.join(BASE_DIR, "media")
+    if not os.path.exists(media_dir):  # 如果不存在文件夹，创建
+        os.makedirs(media_dir)
 
     try:
         with open(MEDIA_ROOT, "wb") as f:
@@ -1443,6 +1443,10 @@ def student_batch_down(request):  # TODO 后期做，确定怎么导
             ws.write(i + 1, 9, info["late_time"])
             ws.write(i + 1, 10, info["study_time"])
             ws.write(i + 1, 11, info["score"])
+
+        media_dir = os.path.join(BASE_DIR, "media")
+        if not os.path.exists(media_dir):  # 如果不存在文件夹，创建
+            os.makedirs(media_dir)
 
         MEDIA_ROOT = os.path.join(BASE_DIR, "media", "学生信息.xlsx")
         wb.save(MEDIA_ROOT)  # 写入数据.  保存在本地
@@ -1662,8 +1666,12 @@ def task_teach_design(request):
     """课程管理，设置 教学设计"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
-    position = "\document\%s" % str(file)
 
+    document_dir = os.path.join(BASE_DIR, "document")
+    if not os.path.exists(document_dir):  # 如果不存在文件夹，创建
+        os.makedirs(document_dir)
+
+    position = "\document\%s" % str(file)
     MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
@@ -1691,8 +1699,12 @@ def course_document(request):
     """课程管理，设置 XX文件"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
-    process_position = "\document\%s" % str(file)
 
+    document_dir = os.path.join(BASE_DIR, "document")
+    if not os.path.exists(document_dir):  # 如果不存在文件夹，创建
+        os.makedirs(document_dir)
+
+    process_position = "\document\%s" % str(file)
     MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
@@ -1719,8 +1731,12 @@ def course_ware(request):
     """课程管理，课件 设置"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
-    course_position = "\document\%s" % str(file)
 
+    document_dir = os.path.join(BASE_DIR, "document")
+    if not os.path.exists(document_dir):  # 如果不存在文件夹，创建
+        os.makedirs(document_dir)
+
+    course_position = "\document\%s" % str(file)
     MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
@@ -1751,6 +1767,10 @@ def task_card(request):
     task_process = request.FILES.get("task_process")
     task_case_list = request.POST.get("task_case")
     now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
+
+    picture_dir = os.path.join(BASE_DIR, "picture")
+    if not os.path.exists(picture_dir):  # 如果不存在文件夹，创建
+        os.makedirs(picture_dir)
 
     process_position = "\picture\%s" % str(task_process)
     MEDIA_ROOT = os.path.join(BASE_DIR, "picture", str(task_process))
@@ -1967,3 +1987,178 @@ class Case_edit(View):
                 return JsonResponse({"result": "fail", "msg": "该案例不存在，请重试"})
         except:
             return JsonResponse({"result": "编辑失败，请重试"})
+
+
+def case_delete(request):
+    """案例管理，删除"""
+    case_name = request.GET.get("case_name")
+    try:
+        CASE.objects.filter(case_name=case_name).delete()
+        return JsonResponse({"result": "删除成功"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def case_picture(request):
+    """案例管理，编辑图片"""
+    case_name = request.POST.get("case_name")
+    files = request.FILES.getlist("img")
+    if not files:
+        return JsonResponse({"result": "没有上传的图片"})
+
+    picture_dir = os.path.join(BASE_DIR, "picture")
+    if not os.path.exists(picture_dir):   # 文件夹不存在，创建
+        os.makedirs(picture_dir)
+
+    try:
+        for file in files:
+            picture_position = "\picture\%s" % str(file)
+            MEDIA_ROOT = os.path.join(BASE_DIR, "picture", str(file))
+            name = file.name[:-4]
+
+            with open(MEDIA_ROOT, "wb") as f:
+                for i in file.chunks():
+                    f.write(i)
+
+            res = PICTURE.objects.filter(picture_name=name).first()
+            if res:
+                PICTURE.objects.filter(picture_name=name).update(picture_position=picture_position, case_name=case_name)
+            else:
+                PICTURE.objects.create(picture_name=name, picture_position=picture_position, case_name=case_name)
+
+        return JsonResponse({"result": "编辑成功"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def case_document(request):
+    """案例管理，编辑文件"""
+    case_name = request.POST.get("case_name")
+    files = request.FILES.getlist("a")
+    if not files:
+        return JsonResponse({"result": "没有上传的文件"})
+
+    document_dir = os.path.join(BASE_DIR, "document")
+    if not os.path.exists(document_dir):   # 文件夹不存在，创建
+        os.makedirs(document_dir)
+
+    try:
+        for file in files:
+            document_position = "\document\%s" % str(file)
+            MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
+            name = file.name[:-5]
+
+            with open(MEDIA_ROOT, "wb") as f:
+                for i in file.chunks():
+                    f.write(i)
+
+            res = DOCUMENT.objects.filter(document_name=name).first()
+            if res:
+                DOCUMENT.objects.filter(document_name=name).update(document_position=document_position, case_name=case_name)
+            else:
+                DOCUMENT.objects.create(document_name=name, document_position=document_position, case_name=case_name)
+
+        return JsonResponse({"result": "编辑成功"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def case_state(request):
+    """案例管理，状态修改"""
+    case_name = request.GET.get("case_name")
+    case_state = request.GET.get("case_state")
+
+    try:
+        res = CASE.objects.filter(case_name=case_name).first()
+        if res:
+            CASE.objects.filter(case_name=case_name).update(case_state=case_state)
+            return JsonResponse({"result": "设置成功"})
+        else:
+            return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def case_search(request):
+    """案例管理，搜索功能"""
+    case_name = request.GET.get("case_name")
+
+    sql = "select case_name from case where case_name like '%%%s%%'" % case_name
+    try:
+        case_name_list = SqlModel().select_all(sql)
+        if case_name_list:
+            data_list = []
+            for i in case_name_list:
+                data = {
+                    "a": i[0],
+                }
+                data_list.append(data)
+            data_dict = {
+                "code": 0,
+                "data": data_list
+            }
+            return JsonResponse(data_dict)
+        else:
+            data_dict = {
+                "code": 0,
+                "data": ""
+            }
+            return JsonResponse(data_dict)
+    except:
+        data_dict = {
+            "code": 0,
+            "data": {"fail": "系统错误，请重试"}
+        }
+        return JsonResponse(data_dict)
+
+
+class Teachering(View):
+    """教学管理，展示，介绍查看"""
+    def get(self,request):
+        """页面展示"""
+        try:
+            task_list = TASK.objects.all()
+
+            if task_list:
+                data_list = []
+                for i in task_list:
+                    task_dict = {
+                        "task_name": i.task_name,
+                        "card_state": i.card_state,
+                        "report_state": i.report_state
+                    }
+                    data_list.append(task_dict)
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
+            else:
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
+        except:
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误,请重试"}
+            }
+            return JsonResponse(data_dict)
+
+    def post(self,request):
+        """介绍查看"""
+        task_name = request.POST.get("task_name")
+        try:
+            obj = TASK.objects.filter(task_name=task_name).first()
+            if obj:
+                task_recommend = obj.task_recommend
+                data = {
+                    "task_name": task_name,
+                    "task_recommend": task_recommend
+                }
+                return JsonResponse(data)
+            else:
+                return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})

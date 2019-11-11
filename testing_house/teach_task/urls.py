@@ -11,8 +11,8 @@ urlpatterns = [
     url(r'student_jump', views.student_jump),
     url(r'course_jump', views.course_jump),
     url(r'case_jump', views.case_jump),
-    url(r'teaching_jump',views.teaching_jump),
-    url(r'task_jump',views.task_jump),
+    url(r'teaching_jump', views.teaching_jump),
+    url(r'task_jump', views.task_jump),
 
     url(r'school_update', views.school_update),
     url(r'edu_update', views.edu_update),
@@ -20,8 +20,8 @@ urlpatterns = [
     url(r'class_update', views.class_update),
 
     url(r'index', views.Index.as_view()),
-    url(r'task_insert_delete',views.Task_insert_delete.as_view()),
-    url(r'task_search',views.task_search),
+    url(r'task_insert_delete', views.Task_insert_delete.as_view()),
+    url(r'task_search', views.task_search),
     url(r'task_state', views.task_state),
     url(r'task_card', views.task_card),
     url(r'task', views.Task.as_view()),
@@ -40,6 +40,8 @@ urlpatterns = [
     url(r'class_down', views.Class_down.as_view()),
     url(r'class_updata', views.class_updata),
     url(r'class', views.Class.as_view()),
+    url(r'teachering', views.Teachering.as_view()),
+
     url(r'teach_design', views.task_teach_design),
     url(r'teacher_delete_search', views.Teacher_delete_search.as_view()),
     url(r'teacher_updata', views.teacher_updata),
@@ -52,14 +54,18 @@ urlpatterns = [
     url(r'student_batch_down', views.student_batch_down),
     url(r'student', views.Student.as_view()),
     url(r'report_require_answer', views.Report_require_answer.as_view()),
-    url(r'report_popup',views.report_popup),
+    url(r'report_popup', views.report_popup),
     url(r'report', views.Report.as_view()),
     url(r'course_ware', views.course_ware),
     url(r'course_add', views.course),
     url(r'course_task', views.Course_task.as_view()),
     url(r'course_document', views.course_document),
-    url(r'case_edit',views.Case_edit.as_view()),
+    url(r'case_edit', views.Case_edit.as_view()),
+    url(r'case_picture', views.case_picture),
+    url(r'case_document', views.case_document),
+    url(r'case_state', views.case_state),
+    url(r'case_search', views.case_search),
+    url(r'case_delete',views.case_delete),
     url(r'case', views.Case.as_view()),
-
 
 ]
