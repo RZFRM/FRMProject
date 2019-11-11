@@ -2052,3 +2052,52 @@ def case_document(request):
     except:
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
+
+def case_state(request):
+    """案例管理，状态修改"""
+    case_name = request.GET.get("case_name")
+    case_state = request.GET.get("case_state")
+
+    try:
+        res = CASE.objects.filter(case_name=case_name).first()
+        if res:
+            CASE.objects.filter(case_name=case_name).update(case_state=case_state)
+            return JsonResponse({"result": "设置成功"})
+        else:
+            return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def case_search(request):
+    """案例管理，搜索功能"""
+    case_name = request.GET.get("case_name")
+
+    sql = "select case_name from case where case_name like '%%%s%%'" % case_name
+    try:
+        case_name_list = SqlModel().select_all(sql)
+        if case_name_list:
+            data_list = []
+            for i in case_name_list:
+                data = {
+                    "a": i[0],
+                }
+                data_list.append(data)
+            data_dict = {
+                "code": 0,
+                "data": data_list
+            }
+            return JsonResponse(data_dict)
+        else:
+            data_dict = {
+                "code": 0,
+                "data": ""
+            }
+            return JsonResponse(data_dict)
+    except:
+        data_dict = {
+            "code": 0,
+            "data": {"fail": "系统错误，请重试"}
+        }
+        return JsonResponse(data_dict)
+

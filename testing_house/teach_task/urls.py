@@ -61,6 +61,8 @@ urlpatterns = [
     url(r'case_edit', views.Case_edit.as_view()),
     url(r'case_picture', views.case_picture),
     url(r'case_document', views.case_document),
+    url(r'case_state',views.case_state),
+    url(r'case_search',views.case_search),
     url(r'case', views.Case.as_view()),
 
 ]
