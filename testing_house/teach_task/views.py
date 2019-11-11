@@ -1087,13 +1087,13 @@ class Student(View):
             if school_code_list:
                 school_code = school_code_list[0]
 
-                sql_student = "select student_code,student_name,student_major,student_class,phone,create_time,amount,sum_time,late_time,study_time,score from student where student_class = '%s' and school_code = '%s'" % (student_class, school_code)
+                sql_student = "select student_code,student_name,student_major,student_class,phone,create_time,amount,late_time,score from student where student_class = '%s' and school_code = '%s'" % (student_class, school_code)
                 student_list = SqlModel().select_all(sql_student)
                 if student_list:
                     data_list = []
                     for i in student_list:
                         i[5] = str(i[5])[:10]
-                        i[8] = str(i[8])[:10]
+                        i[7] = str(i[7])[:10]
                         data = {
                             "a": i[0],
                             "b": i[1],
@@ -1104,8 +1104,6 @@ class Student(View):
                             'g': i[6],
                             'h': i[7],
                             'i': i[8],
-                            'j': i[9],
-                            'k': i[10]
                         }
                         data_list.append(data)
                     data_dict = {
@@ -1237,7 +1235,7 @@ class Student_delete_search(View):
     def post(self, request):
         """搜索功能"""
         student_name = request.POST.get("student_name")
-        sql = "select student_code,student_name,student_major,student_class,phone,create_time,amount,sum_time,late_time,study_time,score from student where student_name like '%%%s%%' or student_code like '%%%s%%'" % (
+        sql = "select student_code,student_name,student_major,student_class,phone,create_time,amount,late_time,score from student where student_name like '%%%s%%' or student_code like '%%%s%%'" % (
             student_name, student_name)
         try:
             res = SqlModel().select_all(sql)
@@ -1245,7 +1243,7 @@ class Student_delete_search(View):
                 data_list = []
                 for i in res:
                     i[5] = str(i[5])[:10]
-                    i[8] = str(i[8])[:10]
+                    i[7] = str(i[7])[:10]
                     data = {
                         "a": i[0],
                         "b": i[1],
@@ -1256,8 +1254,6 @@ class Student_delete_search(View):
                         'g': i[6],
                         'h': i[7],
                         'i': i[8],
-                        'j': i[9],
-                        'k': i[10]
                     }
                     data_list.append(data)
                 data_dict = {
