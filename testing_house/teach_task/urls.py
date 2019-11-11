@@ -52,14 +52,15 @@ urlpatterns = [
     url(r'student_batch_down', views.student_batch_down),
     url(r'student', views.Student.as_view()),
     url(r'report_require_answer', views.Report_require_answer.as_view()),
-    url(r'report_popup',views.report_popup),
+    url(r'report_popup', views.report_popup),
     url(r'report', views.Report.as_view()),
     url(r'course_ware', views.course_ware),
     url(r'course_add', views.course),
     url(r'course_task', views.Course_task.as_view()),
     url(r'course_document', views.course_document),
-    url(r'case_edit',views.Case_edit.as_view()),
+    url(r'case_edit', views.Case_edit.as_view()),
+    url(r'case_picture', views.case_picture),
+    url(r'case_document', views.case_document),
     url(r'case', views.Case.as_view()),
-
 
 ]

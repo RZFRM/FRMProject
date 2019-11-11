@@ -12,7 +12,7 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
-from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE
+from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE, Picture as PICTURE, Case_document as DOCUMENT
 from sql_operating.mysql_class import SqlModel
 from .common import province_city
 
@@ -1332,6 +1332,10 @@ def student_batch_up(request):
     file = request.FILES.get("a")
     MEDIA_ROOT = os.path.join(BASE_DIR, "media", str(file))
 
+    media_dir = os.path.join(BASE_DIR, "media")
+    if not os.path.exists(media_dir):  # 如果不存在文件夹，创建
+        os.makedirs(media_dir)
+
     try:
         with open(MEDIA_ROOT, "wb") as f:
             for i in file.chunks():
@@ -1443,6 +1447,10 @@ def student_batch_down(request):  # TODO 后期做，确定怎么导
             ws.write(i + 1, 9, info["late_time"])
             ws.write(i + 1, 10, info["study_time"])
             ws.write(i + 1, 11, info["score"])
+
+        media_dir = os.path.join(BASE_DIR, "media")
+        if not os.path.exists(media_dir):  # 如果不存在文件夹，创建
+            os.makedirs(media_dir)
 
         MEDIA_ROOT = os.path.join(BASE_DIR, "media", "学生信息.xlsx")
         wb.save(MEDIA_ROOT)  # 写入数据.  保存在本地
@@ -1662,8 +1670,12 @@ def task_teach_design(request):
     """课程管理，设置 教学设计"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
-    position = "\document\%s" % str(file)
 
+    document_dir = os.path.join(BASE_DIR, "document")
+    if not os.path.exists(document_dir):  # 如果不存在文件夹，创建
+        os.makedirs(document_dir)
+
+    position = "\document\%s" % str(file)
     MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
@@ -1691,8 +1703,12 @@ def course_document(request):
     """课程管理，设置 XX文件"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
-    process_position = "\document\%s" % str(file)
 
+    document_dir = os.path.join(BASE_DIR, "document")
+    if not os.path.exists(document_dir):  # 如果不存在文件夹，创建
+        os.makedirs(document_dir)
+
+    process_position = "\document\%s" % str(file)
     MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
@@ -1719,8 +1735,12 @@ def course_ware(request):
     """课程管理，课件 设置"""
     task_name = request.POST.get("task_name")
     file = request.FILES.get("a")
-    course_position = "\document\%s" % str(file)
 
+    document_dir = os.path.join(BASE_DIR, "document")
+    if not os.path.exists(document_dir):  # 如果不存在文件夹，创建
+        os.makedirs(document_dir)
+
+    course_position = "\document\%s" % str(file)
     MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
@@ -1751,6 +1771,10 @@ def task_card(request):
     task_process = request.FILES.get("task_process")
     task_case_list = request.POST.get("task_case")
     now_time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
+
+    picture_dir = os.path.join(BASE_DIR, "picture")
+    if not os.path.exists(picture_dir):  # 如果不存在文件夹，创建
+        os.makedirs(picture_dir)
 
     process_position = "\picture\%s" % str(task_process)
     MEDIA_ROOT = os.path.join(BASE_DIR, "picture", str(task_process))
@@ -1967,3 +1991,68 @@ class Case_edit(View):
                 return JsonResponse({"result": "fail", "msg": "该案例不存在，请重试"})
         except:
             return JsonResponse({"result": "编辑失败，请重试"})
+
+
+def case_picture(request):
+    """案例管理，编辑图片"""
+    case_name = request.POST.get("case_name")
+    files = request.FILES.getlist("img")
+    if not files:
+        return JsonResponse({"result": "没有上传的图片"})
+
+    picture_dir = os.path.join(BASE_DIR, "picture")
+    if not os.path.exists(picture_dir):   # 文件夹不存在，创建
+        os.makedirs(picture_dir)
+
+    try:
+        for file in files:
+            picture_position = "\picture\%s" % str(file)
+            MEDIA_ROOT = os.path.join(BASE_DIR, "picture", str(file))
+            name = file.name[:-4]
+
+            with open(MEDIA_ROOT, "wb") as f:
+                for i in file.chunks():
+                    f.write(i)
+
+            res = PICTURE.objects.filter(picture_name=name).first()
+            if res:
+                PICTURE.objects.filter(picture_name=name).update(picture_position=picture_position, case_name=case_name)
+            else:
+                PICTURE.objects.create(picture_name=name, picture_position=picture_position, case_name=case_name)
+
+        return JsonResponse({"result": "编辑成功"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def case_document(request):
+    """案例管理，编辑文件"""
+    case_name = request.POST.get("case_name")
+    files = request.FILES.getlist("a")
+    if not files:
+        return JsonResponse({"result": "没有上传的文件"})
+
+    document_dir = os.path.join(BASE_DIR, "document")
+    if not os.path.exists(document_dir):   # 文件夹不存在，创建
+        os.makedirs(document_dir)
+
+    try:
+        for file in files:
+            document_position = "\document\%s" % str(file)
+            MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
+            name = file.name[:-5]
+
+            with open(MEDIA_ROOT, "wb") as f:
+                for i in file.chunks():
+                    f.write(i)
+
+            res = DOCUMENT.objects.filter(document_name=name).first()
+            if res:
+                DOCUMENT.objects.filter(document_name=name).update(document_position=document_position, case_name=case_name)
+            else:
+                DOCUMENT.objects.create(document_name=name, document_position=document_position, case_name=case_name)
+
+        return JsonResponse({"result": "编辑成功"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
