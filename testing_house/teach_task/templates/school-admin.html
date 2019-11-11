@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
-    <link rel="stylesheet" href="../../static/res/trainTask/static/js/school_admin.js">
+<!--    <link rel="stylesheet" href="../../static/res/trainTask/static/js/school_admin.js">-->
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style type="text/css">
     .layui-table-body{overflow-x: hidden !important;}
@@ -78,7 +78,7 @@
             , max_height: 1000
             , type: "get"
             , cols: [[
-                {checkbox: true, fixed: true}
+                { type:'checkbox' ,fixed: true}
                 , {field: 'a', align: "center", title: '序号', width: "5%", type: 'numbers'}
                 , {field: 'a', align: "center", title: '学校代码', width: "10%"}
                 , {field: 'b', align: "center", title: '学校名称', width: "15%"}
@@ -104,13 +104,13 @@
 						area: ['70%', '600px'],
 						content: 'school_update',
 						btn: ['取回'],
-						// yes: function(index, layero) {
-						// 	var frameId = $(layero).find("iframe").attr('id'); //父页面获取子页面的iframe
-						// 	var data = JSON.parse($(window.frames[frameId].document).find("#list").val()); //父页面获取子页面指定的id数据
-						// 	layer.close(index);
-						// 	tabList = data;
-						// 	tabObj();
-						// }
+						yes: function(index, layero) {
+							var frameId = $(layero).find("iframe").attr('id'); //父页面获取子页面的iframe
+							var data = JSON.parse($(window.frames[frameId].document).find("#list").val()); //父页面获取子页面指定的id数据
+							layer.close(index);
+							tabList = data;
+							tabObj();
+						}
 					});
 					e.stopPropagation();
 			})
