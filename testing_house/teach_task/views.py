@@ -2101,3 +2101,54 @@ def case_search(request):
         }
         return JsonResponse(data_dict)
 
+
+class Teachering(View):
+    """教学管理，展示，介绍查看"""
+    def get(self,request):
+        """页面展示"""
+        try:
+            task_list = TASK.objects.all()
+
+            if task_list:
+                data_list = []
+                for i in task_list:
+                    task_dict = {
+                        "task_name": i.task_name,
+                        "card_state": i.card_state,
+                        "report_state": i.report_state
+                    }
+                    data_list.append(task_dict)
+                data_dict = {
+                    "code": 0,
+                    "data": data_list
+                }
+                return JsonResponse(data_dict)
+            else:
+                data_dict = {
+                    "code": 0,
+                    "data": ""
+                }
+                return JsonResponse(data_dict)
+        except:
+            data_dict = {
+                "code": 0,
+                "data": {"fail": "系统错误,请重试"}
+            }
+            return JsonResponse(data_dict)
+
+    def post(self,request):
+        """介绍查看"""
+        task_name = request.POST.get("task_name")
+        try:
+            obj = TASK.objects.filter(task_name=task_name).first()
+            if obj:
+                task_recommend = obj.task_recommend
+                data = {
+                    "task_name": task_name,
+                    "task_recommend": task_recommend
+                }
+                return JsonResponse(data)
+            else:
+                return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
