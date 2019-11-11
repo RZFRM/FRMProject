@@ -107,7 +107,7 @@ class Report_answer(models.Model):
     weight = models.IntegerField(default=1, verbose_name='权重')
     report_require = models.CharField(max_length=1024, null=True, verbose_name="报告要求")
     report_answer = models.CharField(max_length=1024, null=True, verbose_name="报告答案")
-    report_state = models.CharField(max_length=11, default=False, verbose_name="报告答案")
+    report_state = models.CharField(max_length=11, default=False, verbose_name="报告状态")
     create_time = models.DateTimeField(verbose_name='创建时间')
 
     def __str__(self):

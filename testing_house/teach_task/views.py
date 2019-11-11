@@ -1989,6 +1989,16 @@ class Case_edit(View):
             return JsonResponse({"result": "编辑失败，请重试"})
 
 
+def case_delete(request):
+    """案例管理，删除"""
+    case_name = request.GET.get("case_name")
+    try:
+        CASE.objects.filter(case_name=case_name).delete()
+        return JsonResponse({"result": "删除成功"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
 def case_picture(request):
     """案例管理，编辑图片"""
     case_name = request.POST.get("case_name")
