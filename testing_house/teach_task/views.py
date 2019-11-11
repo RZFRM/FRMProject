@@ -322,7 +322,7 @@ def city(request):
 def edu(request):
     """学校页面，教务管理员下拉接口"""
     school_code = request.GET.get('school_code')
-    sql = "select admin_name from user where admin_state='True' and school_code='%s'" % school_code
+    sql = "select admin_name from user where admin_state='True' and school_code='%s' and admin_type='2'" % school_code
     admin_name = SqlModel().select_all(sql)
     admin_name_list = []
     if admin_name:
@@ -889,7 +889,7 @@ class Class_down(View):
         """班级弹框，授课老师 下拉"""
         username = request.COOKIES.get("username")
         # username = request.POST.get("username")   # 测试用
-        sql = "select admin_name from user as A inner join (select school_code from user where user_name='%s') as B on A.school_code = B.school_code" % username
+        sql = "select admin_name from user as A inner join (select school_code from user where user_name='%s') as B on A.school_code = B.school_code where admin_type='3'" % username
         admin_name_list = SqlModel().select_all(sql)
         if admin_name_list:
             admin_list = []
