@@ -2162,3 +2162,23 @@ class Teachering(View):
                 return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def teachering_card(request):
+    """教学管理 实训卡状态更改"""
+    card_state = request.GET.get("card_state")
+    task_name = request.GET.get("task_name")
+    try:
+        res = TASK.objects.filter(task_name=task_name).update(card_state=card_state)
+        if res:
+            return JsonResponse({"result": "设置成功"})
+        else:
+            return JsonResponse({"result": "fail", "msg": "该任务不存在，请重试"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+#TODO 实训卡跳转
+def teachering_card_jump(request):
+    """教学管理，实训卡查看"""
+    return render(request, "")

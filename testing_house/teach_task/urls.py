@@ -40,8 +40,8 @@ urlpatterns = [
     url(r'class_down', views.Class_down.as_view()),
     url(r'class_updata', views.class_updata),
     url(r'class', views.Class.as_view()),
+    url(r'teachering_card',views.teachering_card),
     url(r'teachering', views.Teachering.as_view()),
-
     url(r'teach_design', views.task_teach_design),
     url(r'teacher_delete_search', views.Teacher_delete_search.as_view()),
     url(r'teacher_updata', views.teacher_updata),
