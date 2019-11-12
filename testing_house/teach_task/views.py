@@ -12,7 +12,8 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
-from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE, Picture as PICTURE, Case_document as DOCUMENT
+from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE, Picture as PICTURE, Case_document as DOCUMENT, Report_answer as ANSWER, Teach_design as DESIGN
+from .models import Course_ware as WARE, Process as PROCESS
 from sql_operating.mysql_class import SqlModel
 from .common import province_city
 
@@ -1690,7 +1691,7 @@ def task_teach_design(request):
     if not os.path.exists(document_dir):  # 如果不存在文件夹，创建
         os.makedirs(document_dir)
 
-    position = "\document\%s" % str(file)
+    position = "\document"
     MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
@@ -1698,19 +1699,19 @@ def task_teach_design(request):
             for i in file.chunks():
                 f.write(i)
 
-        sql = "select * from teach_design where design_name='%s‘ and task_name='%s'" % (str(file),task_name)
+        sql = "select * from teach_design where design_name='%s' and task_name='%s'" % (str(file), task_name)
 
         res = SqlModel().select_one(sql)
         if res:
             return JsonResponse({"result": "fail", "msg": "该任务已经配置该教学设计文件"})
         else:
-            sql_add = "insert into teach_design (design_name,design_position,task_name) values ('%s','%s','%s')"% (str(file),position,task_name)
+            sql_add = "insert into teach_design (design_name,design_position,task_name) values ('%s','%s','%s')"% (str(file), position, task_name)
             res_add = SqlModel().insert_or_update(sql_add)
             if res_add:
                 return JsonResponse({"result": "设置成功"})
             else:
                 return JsonResponse({"result": "fail", "msg": "设置失败,请重试"})
-    except:
+    except Exception as e:
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
@@ -1723,7 +1724,7 @@ def course_document(request):
     if not os.path.exists(document_dir):  # 如果不存在文件夹，创建
         os.makedirs(document_dir)
 
-    process_position = "\document\%s" % str(file)
+    process_position = "\document"
     MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
@@ -1734,7 +1735,7 @@ def course_document(request):
         sql = "select * from process where process_name='%s' and task_name='%s'" % (str(file), task_name)
         res = SqlModel().select_one(sql)
         if res:
-            return JsonResponse({"result": "fail", "msg": "该任务已经配置该流程图"})
+            return JsonResponse({"result": "fail", "msg": "该任务已经配置该XX文件"})
         else:
             sql_add = "insert into process (process_name,process_position,task_name) values ('%s','%s','%s')" % (str(file), process_position, task_name)
             res_add = SqlModel().insert_or_update(sql_add)
@@ -1755,7 +1756,7 @@ def course_ware(request):
     if not os.path.exists(document_dir):  # 如果不存在文件夹，创建
         os.makedirs(document_dir)
 
-    course_position = "\document\%s" % str(file)
+    course_position = "\document"
     MEDIA_ROOT = os.path.join(BASE_DIR, "document", str(file))
 
     try:
@@ -1791,7 +1792,7 @@ def task_card(request):
     if not os.path.exists(picture_dir):  # 如果不存在文件夹，创建
         os.makedirs(picture_dir)
 
-    process_position = "\picture\%s" % str(task_process)
+    process_position = "\picture"
     MEDIA_ROOT = os.path.join(BASE_DIR, "picture", str(task_process))
 
     try:
@@ -2209,3 +2210,101 @@ class Teachering_report(View):
         """权重修改"""
         weight = request.GET.get("weight")
         task_name = request.GET.get("task_name")
+        try:
+            res = ANSWER.objects.filter(report_name=task_name).update(weight=int(weight))
+            if res:
+                return JsonResponse({"result": "修改成功"})
+            else:
+                return JsonResponse({"result": "修改失败,请重试"})
+        except:
+            return JsonResponse({"result": "系统错误，请重试"})
+
+    def post(self,request):
+        """状态修改"""
+        task_name = request.POST.get("task_name")
+        report_state = request.POST.get("report_state")
+        try:
+            res = ANSWER.objects.filter(report_name=task_name).update(report_state=report_state)
+            if res:
+                return JsonResponse({"result": "修改成功"})
+            else:
+                return JsonResponse({"result": "修改失败"})
+        except:
+            return JsonResponse({"result": "系统错误，请重试"})
+
+
+class Teachering_answer(View):
+    """教学管理，实训报告答案查看    教学设计文件下载"""
+    def get(self,request):
+        """答案查看"""
+        task_name = request.GET.get("task_name")
+        try:
+            report = ANSWER.objects.filter(report_name=task_name).first()
+            if not report:
+                return JsonResponse({"result": "该任务不存在，请重试"})
+
+            report_answer = report.report_answer
+            data = {
+                "task_name": task_name,
+                "report_answer": report_answer
+            }
+            return JsonResponse(data)
+        except:
+            return JsonResponse({"result": "系统错误，请重试"})
+
+    def post(self,request):
+        """教学设计 下载"""
+        task_name = request.POST.get("task_name")
+        res = DESIGN.objects.filter(task_name=task_name).first()
+        if not res:
+            return JsonResponse({"result": "该任务没有对应教学设计文件"})
+
+        design_name = res.design_name
+        design_position = res.design_position
+
+        MEDIA_ROOT = os.path.join(BASE_DIR, design_position, design_name)
+
+        with open(MEDIA_ROOT, 'rb') as f:
+            response = HttpResponse(f)
+            response['Content-Type'] = 'application/octet-stream'
+            response['Content-Disposition'] = 'attachment;filename="%s"' % design_name
+            return response
+
+
+class Teachering_ware(View):
+    """教学管理，课件，流程图下载"""
+    def get(self,request):
+        """课件下载"""
+        task_name = request.GET.get("task_name")
+        res = WARE.objects.filter(task_name=task_name).first()
+        if not res:
+            return JsonResponse({"result": "该任务没有对应课件文件"})
+
+        course_name = res.course_name
+        course_position = res.course_position
+
+        MEDIA_ROOT = os.path.join(BASE_DIR, course_position, course_name)
+
+        with open(MEDIA_ROOT, 'rb') as f:
+            response = HttpResponse(f)
+            response['Content-Type'] = 'application/octet-stream'
+            response['Content-Disposition'] = 'attachment;filename="%s"' % course_name
+            return response
+
+    def post(self,request):
+        """流程图下载"""
+        task_name = request.POST.get("task_name")
+        res = PROCESS.objects.filter(task_name=task_name).first()
+        if not res:
+            return JsonResponse({"result": "该任务没有对应流程图文件"})
+
+        process_name = res.course_name
+        process_position = res.course_position
+
+        MEDIA_ROOT = os.path.join(BASE_DIR, process_position, process_name)
+
+        with open(MEDIA_ROOT, 'rb') as f:
+            response = HttpResponse(f)
+            response['Content-Type'] = 'application/octet-stream'
+            response['Content-Disposition'] = 'attachment;filename="%s"' % process_name
+            return response
