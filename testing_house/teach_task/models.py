@@ -104,10 +104,10 @@ class Report_answer(models.Model):
     """报告要求和答案表"""
     report_id = models.AutoField(primary_key=True, verbose_name='报告表id')
     report_name = models.CharField(max_length=50, verbose_name='报告名称')
-    weight = models.IntegerField(default=1, verbose_name='权重')
+    weight = models.IntegerField(default=1, null=True, verbose_name='权重')
     report_require = models.CharField(max_length=1024, null=True, verbose_name="报告要求")
     report_answer = models.CharField(max_length=1024, null=True, verbose_name="报告答案")
-    report_state = models.CharField(max_length=11, default=False, verbose_name="报告状态")
+    report_state = models.CharField(max_length=11, default=False, null=True, verbose_name="报告状态")
     create_time = models.DateTimeField(verbose_name='创建时间')
 
     def __str__(self):

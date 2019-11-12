@@ -74,6 +74,11 @@ def school_update(request):
     return render(request, "school_new_update.html")
 
 
+def school_modify(request):
+    """学校管理，修改跳转"""
+    return render(request, "school_new_modify.html")
+
+
 def edu_update(request):
     """教务管理  新增跳转"""
     return render(request, "edu_update.html")
@@ -162,7 +167,6 @@ class Task(View):
 # 学校管理页面
 class School(View):
     """学校管理页面展示，学校新增/修改逻辑"""
-
     def get(self, request):
         """GET请求，学校管理页面展示"""
         sql = "select school_code,school_name,school_rank,school_type,school_province,school_city,admin_name,create_name,create_time from school"
@@ -199,8 +203,7 @@ class School(View):
             return JsonResponse(res_dict)
 
     def post(self, request):
-        """POST请求，新增、修改逻辑"""
-
+        """POST请求，新增、逻辑"""
         school_name = request.POST.get('school_name')
         school_code = request.POST.get('school_code')
         school_rank = request.POST.get('school_rank')
@@ -217,18 +220,9 @@ class School(View):
 
             result1 = SCHOOL.objects.filter(school_code=int(school_code))
             if result1:
-                sql = "update school set school_code='%s',school_name='%s',school_rank='%s',school_type='%s',school_province='%s', school_city='%s',admin_name='%s',create_name='%s',create_time='%s' where school_code='%s'" % (
-                    int(school_code), school_name, school_rank, school_type, school_province, school_city, admin_name,
-                    create_name, now_time, school_code)
-                res = SqlModel().insert_or_update(sql)
-                if res:
-                    return JsonResponse({"result": "修改成功"})
-                else:
-                    return JsonResponse({"result": "fail", "msg": "修改失败"})
+                return JsonResponse({"result": "fail", "msg": "该学校代码已经存在，不可重复"})
             else:
-                sql = "insert into school (school_code,school_name,school_rank,school_type,school_province,school_city,admin_name,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (
-                    int(school_code), school_name, school_rank, school_type, school_province, school_city, admin_name,
-                    create_name, now_time)
+                sql = "insert into school (school_code,school_name,school_rank,school_type,school_province,school_city,admin_name,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (int(school_code), school_name, school_rank, school_type, school_province, school_city, admin_name,create_name, now_time)
                 res = SqlModel().insert_or_update(sql)
                 if res:
                     return JsonResponse({"result": "新增成功"})
@@ -238,12 +232,37 @@ class School(View):
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
+def school_revise(request):
+    """学校修改 功能"""
+    school_name = request.GET.get('school_name')
+    school_code = request.GET.get('school_code')
+    school_rank = request.GET.get('school_rank')
+    school_type = request.GET.get('school_type')
+    school_province = request.GET.get('school_province')
+    school_city = request.GET.get('school_city')
+    admin_name = request.GET.get('admin_name')
+
+    try:
+        res = SCHOOL.objects.filter(school_code=school_code).update(
+            school_name=school_name,
+            school_rank=school_rank,
+            school_type=school_type,
+            school_province=school_province,
+            school_city=school_city,
+            admin_name=admin_name)
+        if res:
+            return JsonResponse({"result": "修改成功"})
+        else:
+            return JsonResponse({"result": "fail", "msg": "该学校代码不存在，请重试"})
+    except:
+        return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
 class School_delete_search(View):
     """get请求，学校删除接口，post请求，学校搜索接口"""
 
     def get(self, request):
         """学校删除功能"""
-        # return render(request,"school-admin.html")
         school_code = request.GET.get("school_code")
         sql = "delete from school where school_code='%s'" % int(school_code)
         try:
@@ -2178,7 +2197,15 @@ def teachering_card(request):
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
-#TODO 实训卡跳转
+#TODO 实训卡跳转页面写完后补充
 def teachering_card_jump(request):
     """教学管理，实训卡查看"""
     return render(request, "")
+
+
+class Teachering_report(View):
+    """教学管理，实训报告权重、状态 修改"""
+    def get(self,request):
+        """权重修改"""
+        weight = request.GET.get("weight")
+        task_name = request.GET.get("task_name")
