@@ -2339,15 +2339,39 @@ class Train_task(View):
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
-    # def post(self,request):
-    #     """课程名称，简介，总分数 展示"""
-    #     student_code = request.COOKIES.get("username")
-    #     course_obj = COURSE.objects.filter(course_id=1).first()
-    #     course_name = course_obj.course_name
-    #     course_recommend = course_obj.course_recommend
-    #     try:
-    #         task_obj = TASK.objects.filter(course_name=course_name,student_code=student_code)
-    #         data_list = []
-    #         for i in task_obj:
-    #             res = REPORT.objects.filter(report_name=i.task_name).first()
-
+    def post(self,request):
+        """课程名称，简介，总分数 展示"""
+        student_code = request.COOKIES.get("username")
+        course_obj = COURSE.objects.filter(course_id=1).first()
+        course_name = course_obj.course_name
+        course_recommend = course_obj.course_recommend
+        try:
+            task_obj = TASK.objects.filter(course_name=course_name)
+            sum_score = 0
+            for i in task_obj:
+                res = REPORT.objects.filter(report_name=i.task_name,student_code=student_code).first()
+                if res:
+                    score = res.score
+                    if not score:
+                        score = 0
+                else:
+                    score = 0
+                res2 = ANSWER.objects.filter(report_name=i.task_name).first()
+                if res2:
+                    weight = res2.weight
+                else:
+                    weight = 1
+                sum_score += float(score) * float(weight)
+            data = {
+                "course_name": course_name,
+                "course_recommend": course_recommend,
+                "sum_score": sum_score
+            }
+            return JsonResponse(data)
+        except:
+            data = {
+                "course_name": course_name,
+                "course_recommend": course_recommend,
+                "sum_score": ""
+            }
+            return JsonResponse(data)
