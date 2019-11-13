@@ -68,11 +68,11 @@
         <p>新增/修改</p>
     </div>
     <div style="height: 425px;overflow: auto;padding-top:25px">
-        <form  class="layui-form forn" action="" lay-filter="component-form-group">
+        <form  class="layui-form forn" action="" lay-filter="component-form-group" onsubmit = "return checkInput(this)">
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">学校名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" name="school_name" lay-verify="required|school_name" id="school_name" autocomplete="off" class="layui-input" placeholder="请输入学校名称"
+                    <input type="text" name="school_name" lay-verify="required|school_name"  id="school_name" autocomplete="off" class="layui-input" placeholder="请输入学校名称"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
@@ -141,7 +141,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">
                     <span class="xing"></span>教务管理员：
                 </label>
-                <div class="layui-input-block" style="min-height: 30px;">
+                <div class="layui-input-block" style="min-height: 30px;" id="selectt">
                     <select name="admin_name" id="administrator" lay-verify="required" lay-filter="edu_admin" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
 
@@ -191,6 +191,8 @@
        })
     //    所在城市
              form.on('select(Province)',function(data){
+                  $("#city").empty()// 暂时解决重复的问题
+
                 var city=data.value;
                  $.ajax({
                 url: "/city",
@@ -211,12 +213,8 @@
             })
         //教务管理员
         $("#code").blur(function(){
-
-            //var childs=pnode.childNodes;
-            //     for(var i=childs.length-1;i>=0;i--){
-            //     pnode.removeChild(childs.item(i));
-            // }
-
+                    $("#selectt>select").empty()     //暂时解决重复的问题
+             console.log($("#selectt>select").html())
                     var add= $("#code").val()
                      $.ajax({
                         url: "/edu",
@@ -225,6 +223,8 @@
                         success:function(res){
                            console.log(res.result);
                             var date=res.result
+
+
                              for ( var i = 0; i <date.length; i++){
                                         $("#administrator").append(`<option value="${date[i]}">${date[i]}</option>`)
                             }
@@ -236,6 +236,7 @@
         });
 
    //提交form表单
+
         $('#btn').on('click',function(){
             var school_name = $('#school_name').val()
             var school_code = $('#code').val()
@@ -244,8 +245,12 @@
             var ddlProvinceId = $('#ddlProvinceId').val()
             var city = $('#city').val()
             var administrator = $('#administrator').val()
-            console.log(school_rank)
-             $.ajax({
+            console.log(typeof(school_name))
+            if(school_name==""||school_code==""||school_rank==""||school_code==""||school_type==""||ddlProvinceId==""||city==""||administrator=="" ){
+               layer.msg("选择项不能为空")
+            }else{
+                console.log("1")
+                 $.ajax({
                         url: "/school",
                         type: "post",
                         data:{
@@ -258,20 +263,20 @@
                             "admin_name":administrator
                         },
                         success:function(res){
-                            if(res.result='新增成功'){
-                                console.log(res.result)
+
+                            console.log(res.result)
+                            if(res.result=="fail"){
+                                layer.msg(res.msg)
+                            }else{
                                  layer.msg(res.result)
-                                console.log("1")
-                                setTimeout(function(){
+                                  setTimeout(function(){
                                       window.parent.location.reload();
                                 },1000)
-
-
-                            }else {
-                                layer.msg(res.msg)
                             }
                         }
                     })
+
+            }
 
         })
 
