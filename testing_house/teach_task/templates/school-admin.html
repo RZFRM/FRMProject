@@ -57,8 +57,8 @@
 <!--            数据表-->
                     <div class="layui-card-body"  id="table1">
 
-                <!--        <table class="layui-hide" id="table_user" lay-filter="user"></table>-->
-                        <table class="layui-table"lay-data="{  page: true, limit:30, url:'/school', id:'thead' }" id="layui_table_member" lay-filter="member">
+<!--                        <table class="layui-hide" id="table_user" lay-filter="user"></table>-->
+                        <table class="layui-table" name="one" lay-data="{ page: true, count:20,  url:'/school',  }" id="member" lay-filter="member">
                           <thead >
                             <tr>
                               <th lay-data="{type:'radio'}" id="ass"></th>
@@ -88,19 +88,35 @@
             , laydate = layui.laydate
             , form = layui.form;
         //数据表
-
-
+        //  table.render({
+        //     elem: '#LAY_table_user'
+        //     ,url: '/school'
+        //     ,cols: [[
+        //       {checkbox: true, fixed: true}
+        //       ,{field:'a', title: 'ID', width:80, sort: true, fixed: true}
+        //       ,{field:'b', title: '用户名', width:80}
+        //       ,{field:'a', title: '性别', width:80, sort: true}
+        //       ,{field:'c', title: '城市', width:80}
+        //       ,{field:'d', title: '签名'}
+        //       ,{field:'e', title: '积分', sort: true, width:80}
+        //       ,{field:'f', title: '评分', sort: true, width:80}
+        //       ,{field:'classify', title: '职业', width:80}
+        //       ,{field:'wealth', title: '财富', sort: true, width:135}
+        //     ]]
+        //     ,id: 'testReload'
+        //     ,page: true
+        //     ,height: 310
+        //   });
         //删除功能
-        table.on('checkbox(member)', function(obj){
-
-           return cak=obj
-
-        })
-        //2.
+        //未完成
+        table.on('radio(member)', function(obj){
+             return cak=obj
+        });
          $("#del_sch").on("click",function(){
 
+            console.log(cak)
+
                 if(cak.checked===true){
-                 console.log(cak)
                   layer.confirm("确认要删除吗，删除后不能恢复", { title: "删除确认" }, function (index) {
                       $.ajax({
                                 url: "/school_delete_search",
@@ -130,70 +146,47 @@
 					layer.open({
 						title: '学校管理',
 						type: 2,
-						area: ['70%', '600px'],
+						area: ['637px', '518px'],
 						content: 'school_update',
 
 
 					});
 					e.stopPropagation();
 			})
+
+
+
+
         //搜索功能
-        console.log('aaa')
+        $('#btn').on('click',function(){
+           var val= $('#demoReload').val()
+             table.reload('member', {
+                      url: '/school_delete_search'
+                        ,method:'post'
+                      ,where: {
+                          "school_name":val,
+                        } //设定异步数据接口的额外参数
 
-        // $('#btn').on('click',function(){
-        //    var val= $('#demoReload').val()
-        //      $.ajax({
-        //         url: "/school_delete_search",
-        //         type: "post",
-        //          data:{"school_name":val},
-        //         datatype: "json",
-        //         success: function (res) {
-        //             // $("#table1").empty()
-        //             //
-        //             // console.log(res)
-        //                 active = {
-        //         reload: function(){
-        //           var demoReload = $('#demoReload');
-        //
-        //           //执行重载
-        //           table.reload('testReload', {
-        //             page: {
-        //               curr: 1 //重新从第 1 页开始
-        //             }
-        //             ,where: {
-        //               key: {
-        //                 id: demoReload.val()
-        //               }
-        //             }
-        //           }, 'data');
-        //         }
-        //       };
-        //
-        //       $('.demoTable .layui-btn').on('click', function(){
-        //         var type = $(this).data('type');
-        //         active[type] ? active[type].call(this) : '';
-        //       });
-        //
-        //         },
-        //     });
-        // })
+                    });
+        })
 
-            // table.on('row(test)', function(obj){
-            //     console.log(obj.tr) //得到当前行元素对象
-            //     console.log(obj.data) //得到当前行数据
-            // });
+
+
+
+
+
         //修改
-
-
          $('#update_sch').on('click', (e)=>{
                      var checkStatus = table.checkStatus('thead')
                         ,data = checkStatus.data;
                         console.log(data)
-
-					layer.open({
+                    if(data.length==0){
+                        layer.msg("请选择要修改的内容")
+                    }else{
+                        layer.open({
 						title: '学校管理',
 						type: 2,
-						area: ['70%', '600px'],
+						area: ['637px', '518qpx'],
 						content: 'school_modify',
                         success: function(layero, index){
                             var body = layer.getChildFrame('body', index);
@@ -207,6 +200,8 @@
 
                         }
 					});
+                    }
+
 					e.stopPropagation();
         })
       });

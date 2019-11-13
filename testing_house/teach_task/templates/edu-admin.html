@@ -29,6 +29,12 @@
         </div>
     </div>
 </div>
+<div class="测试" id="cs" style="width: 200px; height: 200px">
+
+    <img src="" alt="">
+    <img src="" alt="">
+
+</div>
 <div class="school-head" id="school-head">
     <div class="btn-groups">
         <div class="layui-groups">
@@ -60,8 +66,19 @@
             , $ = layui.jquery
             , laydate = layui.laydate;
 
+        //测试
 
+        console.log($("#cs"))
+        $(function(){
+            $.ajax({
+                url:'',
+                type:'',
+                data:{},
+                success: function(res){
 
+                }
+            })
+        })
         //方法级渲染
         table.render({
              elem: '#table_user'
@@ -93,7 +110,7 @@
             layer.open({
                 title:'教务管理',
                 type: 2,
-                area: ['742px', '570px'],//宽高
+                area: ['637px', '518px'],//宽高
                 content: 'edu_update'
             });
         });
