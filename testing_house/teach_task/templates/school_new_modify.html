@@ -72,7 +72,7 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">学校名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" name="school_name" lay-verify="required|school_name" id="school_name" autocomplete="off" class="layui-input" placeholder="请输入学校名称"
+                    <input id="school_name" type="text" name="school_name" lay-verify="required|school_name" id="school_name" autocomplete="off" class="layui-input" placeholder="请输入学校名称"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
@@ -86,7 +86,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span class="xing"></span>办学层次：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="school_rank" id="school_rank" onblur="abc()" lay-verify="required" lay-filter="school_rank" lay-search="" style="width:100%;height: 30px;">
+                    <select id="q1" name="school_rank" id="school_rank" onblur="abc()" lay-verify="required" lay-filter="school_rank" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
                         <option value="本科">本科</option>
                         <option value="高职高专">高职高专</option>
@@ -99,7 +99,7 @@
                     <span class="xing"></span>办学类型：
                 </label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="school_type" id="school_type" lay-verify="required" lay-filter="school_type" lay-search="" onblur="abc()" style="width:100%;height: 30px;">
+                    <select id="q2" name="school_type" id="school_type" lay-verify="required" lay-filter="school_type" lay-search="" onblur="abc()" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
                         <option value="公办">公办</option>
                         <option value="民办">民办</option>
@@ -116,7 +116,7 @@
                     <span class="xing"></span>所在省份：
                 </label>
                 <div   class="layui-input-block" id="str" style="min-height: 30px;">
-                    <select name="Province"   lay-verify="Province" lay-filter="Province" lay-search="" onblur="abc()" id="ddlProvinceId" style="width:100%;height: 30px;">
+                    <select  name="Province"   lay-verify="Province" lay-filter="Province" lay-search="" onblur="abc()" id="ddlProvinceId" style="width:100%;height: 30px;">
                         <option   style="height: 32px" value="">请选择</option>
                     </select>
                 </div>
@@ -140,7 +140,7 @@
                     <span class="xing"></span>教务管理员：
                 </label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="admin_name" id="administrator" lay-verify="required" lay-filter="edu_admin" lay-search="" style="width:100%;height: 30px;">
+                    <select  name="admin_name" id="administrator" lay-verify="required" lay-filter="edu_admin" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
 
                     </select>
@@ -164,6 +164,7 @@
             , laydate = layui.laydate;
 
              console.log( $('#code').val())
+
                  //省份的下拉框
              $(function(){
             $.ajax({
