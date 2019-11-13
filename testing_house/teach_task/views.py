@@ -13,7 +13,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
 from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE, Picture as PICTURE, Case_document as DOCUMENT, Report_answer as ANSWER, Teach_design as DESIGN
-from .models import Course_ware as WARE, Process as PROCESS
+from .models import Course_ware as WARE, Process as PROCESS, Course as COURSE, Report as REPORT
 from sql_operating.mysql_class import SqlModel
 from .common import province_city
 
@@ -1468,6 +1468,8 @@ def student_batch_down(request):  # TODO 后期做，确定怎么导
         if not os.path.exists(media_dir):  # 如果不存在文件夹，创建
             os.makedirs(media_dir)
 
+
+
         MEDIA_ROOT = os.path.join(BASE_DIR, "media", "学生信息.xlsx")
         wb.save(MEDIA_ROOT)  # 写入数据.  保存在本地
 
@@ -2308,3 +2310,44 @@ class Teachering_ware(View):
             response['Content-Type'] = 'application/octet-stream'
             response['Content-Disposition'] = 'attachment;filename="%s"' % process_name
             return response
+
+
+class Train_task(View):
+    """实训任务 页面展示, 总分数计算"""
+    def get(self, request):
+        """任务，简介，实训卡状态，分数展示"""
+        course_obj = COURSE.objects.filter(course_id=1).first()
+        course_name = course_obj.course_name
+        course_recommend = course_obj.course_recommend
+        try:
+            task_obj = TASK.objects.filter(course_name=course_name)
+            data_list = []
+            for i in task_obj:
+                res = REPORT.objects.filter(report_name=i.task_name).first()
+                if res:
+                    score = res.score
+                else:
+                    score = ""
+                data_dict = {
+                    "task_name": i.task_name,
+                    "task_recommend": i.task_recommend,
+                    "card_state": i.card_state,
+                    "score": score
+                }
+                data_list.append(data_dict)
+            return JsonResponse({"result": data_list})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+    # def post(self,request):
+    #     """课程名称，简介，总分数 展示"""
+    #     student_code = request.COOKIES.get("username")
+    #     course_obj = COURSE.objects.filter(course_id=1).first()
+    #     course_name = course_obj.course_name
+    #     course_recommend = course_obj.course_recommend
+    #     try:
+    #         task_obj = TASK.objects.filter(course_name=course_name,student_code=student_code)
+    #         data_list = []
+    #         for i in task_obj:
+    #             res = REPORT.objects.filter(report_name=i.task_name).first()
+
