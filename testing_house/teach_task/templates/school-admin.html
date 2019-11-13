@@ -32,33 +32,51 @@
     </style>
 </head>
 <body>
-<div class="layui-col-train-teach" style="width: 99%">
-    <div class="layui-card">
-        <div class="layui-card-header" style="width: 98%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
-            学校管理
-        </div>
-    </div>
+    <div class="layui-col-train-teach" style="width: 99%">
+            <div class="layui-card">
+                <div class="layui-card-header" style="width: 98%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+                    学校管理
+                </div>
+            </div>
 
-<div class="school-head" id="school-head" style="line-height: 36px" >
-    <div class="btn-groups">
-        <div class="layui-groups">
-            <button type="button" id="add_sch" class="layui-btn add_sch">新增</button>
-            <button type="button" id="update_sch"  class="layui-btn update_sch">修改</button>
-            <button type="button" id="del_sch"  class="layui-btn del_sch">删除</button>
+        <div class="school-head" id="school-head" style="line-height: 36px" >
+            <div class="btn-groups">
+                <div class="layui-groups">
+                    <button type="button" id="add_sch" class="layui-btn add_sch">新增</button>
+                    <button type="button" id="update_sch"  class="layui-btn update_sch">修改</button>
+                    <button type="button" id="del_sch"  class="layui-btn del_sch" >删除</button>
+                </div>
+            </div>
+            <div class="demoTable" >
+                <div class="layui-inline">
+                    <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索姓名">
+                </div>
+                <button class="layui-btn" data-type="reload"  id="btn">搜索</button>
+            </div>
         </div>
-    </div>
-    <div class="demoTable" >
-        <div class="layui-inline">
-            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索姓名">
-        </div>
-        <button class="layui-btn" data-type="reload" >搜索</button>
-    </div>
-</div>
+<!--            数据表-->
+                    <div class="layui-card-body"  id="table1">
 
-    <div class="layui-card-body" >
-        <table class="layui-hide" id="table_user" lay-filter="user"></table>
-    </div>
-</div>
+                <!--        <table class="layui-hide" id="table_user" lay-filter="user"></table>-->
+                        <table class="layui-table"lay-data="{  page: true, limit:30, url:'/school', id:'thead' }" id="layui_table_member" lay-filter="member">
+                          <thead >
+                            <tr>
+                              <th lay-data="{type:'checkbox'}" id="ass"></th>
+                              <th lay-data="{field:'a', align: 'center' }">序号</th>
+                              <th lay-data="{field:'a',  align: 'center'}">学校代码</th>
+                              <th lay-data="{field:'b',  align: 'center'}">学校名称</th>
+                              <th lay-data="{field:'c', align: 'center'}">办学层次</th>
+                              <th lay-data="{field:'d', align: 'center'}">办学类型</th>
+                              <th lay-data="{field:'e',   align: 'center',}">省份</th>
+                                <th lay-data="{field:'f',  align: 'center',}">城市</th>
+                                 <th lay-data="{field:'g',  align: 'center',}">教务管理员</th>
+                                 <th lay-data="{field:'h',   align: 'center',}">创建人</th>
+                                 <th lay-data="{field:'i',   align: 'center',}">创建时间</th>
+                            </tr>
+                          </thead>
+                        </table>
+                    </div>
+            </div>
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
@@ -69,36 +87,43 @@
             , $ = layui.jquery
             , laydate = layui.laydate
             , form = layui.form;
+        //数据表
 
-        //方法级渲染
-        table.render({
-            elem: '#table_user'
-            , url: '/school'
-            , toolbar: 'school-head'
-            , max_height: 1000
-            , type: "get"
-            , cols: [[
-                { type:'checkbox' ,fixed: true}
-                , {field: 'a', align: "center", title: '序号', width: "5%", type: 'numbers'}
-                , {field: 'a', align: "center", title: '学校代码', width: "10%"}
-                , {field: 'b', align: "center", title: '学校名称', width: "15%"}
-                , {field: 'c', align: "center", title: '办学层次', width: "8%"}
-                , {field: 'd', align: "center", title: '办学类型', width: "7%"}
-                , {field: 'e', align: "center", title: '省份', width: "10%"}
-                , {field: 'f', align: "center", title: '城市', width: "10%"}
-                , {field: 'g', align: "center", title: '教务管理员', width: "10%"}
-                , {field: 'h', align: "center", title: '创建人', width: "10%"}
-                , {field: 'i', align: "center", title: '创建时间', width: "15%"}
-            ]]
-            , page: true
-        });
+
         //删除功能
+        table.on('checkbox(member)', function(obj){
+
+           return cak=obj
+
+        })
+        //2.
+         $("#del_sch").on("click",function(){
+
+                if(cak.checked===true){
+                 console.log(cak)
+                  layer.confirm("确认要删除吗，删除后不能恢复", { title: "删除确认" }, function (index) {
+                      $.ajax({
+                                url: "/school_delete_search",
+                                type: "get",
+                                data:{"school_code":cak.data.a},
+                                success:function(res){
+                                  if(res.result=="fail"){
+                                      layer.msg(res.msg)
+                                  }else{
+                                      layer.msg(res.result)
+                                       setTimeout(function(){
+                                           table.reload("thead")
+                                        },1000)
+                                  }
+                                }
+                            })
+                  });
+             }else{
+                 layer.msg('请选择要删除的')
+             }
 
 
-
-
-
-
+        })
         //新增弹层
         $('#add_sch').on('click', (e)=>{
 
@@ -108,18 +133,76 @@
 						area: ['70%', '600px'],
 						content: 'school_update',
 
-						yes: function(index, layero) {
-							var frameId = $(layero).find("iframe").attr('id'); //父页面获取子页面的iframe
-							var data = JSON.parse($(window.frames[frameId].document).find("#list").val()); //父页面获取子页面指定的id数据
-							layer.close(index);
-							tabList = data;
-							tabObj();
-						}
+
 					});
 					e.stopPropagation();
 			})
+        //搜索功能
+        console.log('aaa')
+
+        // $('#btn').on('click',function(){
+        //    var val= $('#demoReload').val()
+        //      $.ajax({
+        //         url: "/school_delete_search",
+        //         type: "post",
+        //          data:{"school_name":val},
+        //         datatype: "json",
+        //         success: function (res) {
+        //             // $("#table1").empty()
+        //             //
+        //             // console.log(res)
+        //                 active = {
+        //         reload: function(){
+        //           var demoReload = $('#demoReload');
         //
+        //           //执行重载
+        //           table.reload('testReload', {
+        //             page: {
+        //               curr: 1 //重新从第 1 页开始
+        //             }
+        //             ,where: {
+        //               key: {
+        //                 id: demoReload.val()
+        //               }
+        //             }
+        //           }, 'data');
+        //         }
+        //       };
+        //
+        //       $('.demoTable .layui-btn').on('click', function(){
+        //         var type = $(this).data('type');
+        //         active[type] ? active[type].call(this) : '';
+        //       });
+        //
+        //         },
+        //     });
+        // })
+
+            // table.on('row(test)', function(obj){
+            //     console.log(obj.tr) //得到当前行元素对象
+            //     console.log(obj.data) //得到当前行数据
+            // });
+        //修改
 
 
-    });
+         $('#update_sch').on('click', (e)=>{
+                     var checkStatus = table.checkStatus('thead')
+                        ,data = checkStatus.data;
+                        console.log(data[0].a)
+
+					layer.open({
+						title: '学校管理',
+						type: 2,
+						area: ['70%', '600px'],
+						content: 'school_modify',
+                        success: function(layero, index){
+                            var body = layer.getChildFrame('body', index);
+                            var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                           //得到iframe页的body内容
+                            body.find('#code').val(data[0].a)
+                        }
+					});
+					e.stopPropagation();
+        })
+      });
 </script>
