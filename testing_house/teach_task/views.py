@@ -279,7 +279,7 @@ class School_delete_search(View):
         """搜索功能,按名称搜索"""
         school_name = request.POST.get('school_name')
         sql = "select school_code,school_name,school_rank,school_type,school_province,school_city,admin_name,create_name,create_time from school where school_name like '%%%s%%' or school_code like '%%%s%%'" % (
-            school_name, int(school_name))
+            school_name, school_name)
         try:
             school_info = SqlModel().select_all(sql)
             if school_info:
