@@ -22,6 +22,9 @@ urlpatterns = [
     url(r'class_update', views.class_update),
 
     url(r'index', views.Index.as_view()),
+    url(r'train_task', views.Train_task.as_view()),
+    url(r'train_card',views.Train_card.as_view()),
+
     url(r'task_insert_delete', views.Task_insert_delete.as_view()),
     url(r'task_search', views.task_search),
     url(r'task_state', views.task_state),

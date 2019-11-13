@@ -13,7 +13,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
 from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE, Picture as PICTURE, Case_document as DOCUMENT, Report_answer as ANSWER, Teach_design as DESIGN
-from .models import Course_ware as WARE, Process as PROCESS
+from .models import Course_ware as WARE, Process as PROCESS, Course as COURSE, Report as REPORT
 from sql_operating.mysql_class import SqlModel
 from .common import province_city
 
@@ -1468,6 +1468,8 @@ def student_batch_down(request):  # TODO 后期做，确定怎么导
         if not os.path.exists(media_dir):  # 如果不存在文件夹，创建
             os.makedirs(media_dir)
 
+
+
         MEDIA_ROOT = os.path.join(BASE_DIR, "media", "学生信息.xlsx")
         wb.save(MEDIA_ROOT)  # 写入数据.  保存在本地
 
@@ -2308,3 +2310,117 @@ class Teachering_ware(View):
             response['Content-Type'] = 'application/octet-stream'
             response['Content-Disposition'] = 'attachment;filename="%s"' % process_name
             return response
+
+
+class Train_task(View):
+    """实训任务 页面展示, 总分数计算"""
+    def get(self, request):
+        """任务，简介，实训卡状态，分数展示"""
+        course_obj = COURSE.objects.filter(course_id=1).first()
+        course_name = course_obj.course_name
+        course_recommend = course_obj.course_recommend
+        try:
+            task_obj = TASK.objects.filter(course_name=course_name)
+            data_list = []
+            for i in task_obj:
+                res = REPORT.objects.filter(report_name=i.task_name).first()
+                if res:
+                    score = res.score
+                else:
+                    score = ""
+                data_dict = {
+                    "task_name": i.task_name,
+                    "task_recommend": i.task_recommend,
+                    "card_state": i.card_state,
+                    "score": score
+                }
+                data_list.append(data_dict)
+            return JsonResponse({"result": data_list})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+    def post(self,request):
+        """课程名称，简介，总分数 展示"""
+        student_code = request.COOKIES.get("username")
+        course_obj = COURSE.objects.filter(course_id=1).first()
+        course_name = course_obj.course_name
+        course_recommend = course_obj.course_recommend
+        try:
+            task_obj = TASK.objects.filter(course_name=course_name)
+            sum_score = 0
+            for i in task_obj:
+                res = REPORT.objects.filter(report_name=i.task_name,student_code=student_code).first()
+                if res:
+                    score = res.score
+                    if not score:
+                        score = 0
+                else:
+                    score = 0
+                res2 = ANSWER.objects.filter(report_name=i.task_name).first()
+                if res2:
+                    weight = res2.weight
+                else:
+                    weight = 1
+                sum_score += float(score) * float(weight)
+            data = {
+                "course_name": course_name,
+                "course_recommend": course_recommend,
+                "sum_score": sum_score
+            }
+            return JsonResponse(data)
+        except:
+            data = {
+                "course_name": course_name,
+                "course_recommend": course_recommend,
+                "sum_score": ""
+            }
+            return JsonResponse(data)
+
+
+class Train_card(View):
+    """实训任务卡 要求，流程图，案例，案例文件"""
+    def get(self,request):
+        """task 要求，流程图"""
+        # #TODO 第一种，用接口返回数据
+        # task_name = request.GET.get("task_name")
+        # try:
+        #     task_obj = TASK.objects.filter(task_name=task_name).first()
+        #     task_require = task_obj.task_require
+        #
+        #     process_obj = PROCESS.objects.filter(task_name=task_name).first()
+        #     process_name = process_obj.process_name
+        #     process_position = process_obj.process_position
+        #
+        #     MEDIA_ROOT = os.path.join(BASE_DIR, process_position, process_name)
+        #     if not os.path.exists(MEDIA_ROOT):  # 如果不存在文件夹，创建
+        #         return HttpResponse("文件不存在")
+        #
+        #     with open(MEDIA_ROOT, 'rb') as f:
+        #         info = f.read()
+        #     return HttpResponse(info, content_type='image/jpg')
+        # except:
+        #     return HttpResponse("系统错误，请重试")
+
+        # TODO 第二种，返回一个地址
+        task_name = request.GET.get("task_name")
+        try:
+            task_obj = TASK.objects.filter(task_name=task_name).first()
+            task_require = task_obj.task_require
+
+            process_obj = PROCESS.objects.filter(task_name=task_name).first()
+            process_name = process_obj.process_name
+            process_position = process_obj.process_position
+
+            MEDIA_ROOT = os.path.join(BASE_DIR, process_position, process_name)
+            print(MEDIA_ROOT)
+            if not os.path.exists(MEDIA_ROOT):  # 如果不存在文件，返回
+                return HttpResponse("文件不存在")
+
+            data = {
+                "task_require": task_require,
+                "url": MEDIA_ROOT
+            }
+
+            return JsonResponse(data)
+        except:
+            return HttpResponse("系统错误，请重试")
