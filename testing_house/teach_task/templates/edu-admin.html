@@ -29,6 +29,12 @@
         </div>
     </div>
 </div>
+<!--<div class="测试" id="cs" style="width: 200px; height: 200px">-->
+
+
+<!--    <img src="" alt="">-->
+
+<!--</div>-->
 <div class="school-head" id="school-head">
     <div class="btn-groups">
         <div class="layui-groups">
@@ -60,8 +66,20 @@
             , $ = layui.jquery
             , laydate = layui.laydate;
 
+        //测试
 
-
+        // console.log($("#cs"))
+        // $(function(){
+        //     $.ajax({
+        //         url:'train_card',
+        //         type:'get',
+        //         data:{"task_name":"采购机器人"},
+        //         success: function(res){
+        //             console.log(res)
+        //            // $("#cs").append(`<img src="http://127.0.0.1:8000/res">`)
+        //         }
+        //     })
+        // })
         //方法级渲染
         table.render({
              elem: '#table_user'
@@ -70,7 +88,7 @@
             , max_height: 1000
             , type:"get"
             , cols: [[
-                {checkbox: true, fixed: true}
+                {type: 'radio'}
                 , {field: 'a', align:"center", title: '序号', width: "5%",type:'numbers'}
                 , {field: 'a', align:"center", title: '姓名', width: "10%"}
                 , {field: 'b', align:"center",title: '用户名', width: "20%" }
@@ -80,7 +98,14 @@
                 , {field: 'f', align:"center",title: '创建人', width: "10%"}
                 , {field: 'g', align:"center",title: '操作时间', width: "15%"}
             ]]
-            , page: true
+            ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+              layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+              //,curr: 5 //设定初始在第 5 页
+              ,groups: 1 //只显示 1 个连续页码
+              ,first: false //不显示首页
+              ,last: false //不显示尾页
+
+            }
         });
 
 
@@ -93,7 +118,7 @@
             layer.open({
                 title:'教务管理',
                 type: 2,
-                area: ['742px', '570px'],//宽高
+                area: ['637px', '518px'],//宽高
                 content: 'edu_update'
             });
         });
