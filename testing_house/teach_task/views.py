@@ -2375,3 +2375,52 @@ class Train_task(View):
                 "sum_score": ""
             }
             return JsonResponse(data)
+
+
+class Train_card(View):
+    """实训任务卡 要求，流程图，案例，案例文件"""
+    def get(self,request):
+        """task 要求，流程图"""
+        # #TODO 第一种，用接口返回数据
+        # task_name = request.GET.get("task_name")
+        # try:
+        #     task_obj = TASK.objects.filter(task_name=task_name).first()
+        #     task_require = task_obj.task_require
+        #
+        #     process_obj = PROCESS.objects.filter(task_name=task_name).first()
+        #     process_name = process_obj.process_name
+        #     process_position = process_obj.process_position
+        #
+        #     MEDIA_ROOT = os.path.join(BASE_DIR, process_position, process_name)
+        #     if not os.path.exists(MEDIA_ROOT):  # 如果不存在文件夹，创建
+        #         return HttpResponse("文件不存在")
+        #
+        #     with open(MEDIA_ROOT, 'rb') as f:
+        #         info = f.read()
+        #     return HttpResponse(info, content_type='image/jpg')
+        # except:
+        #     return HttpResponse("系统错误，请重试")
+
+        # TODO 第二种，返回一个地址
+        task_name = request.GET.get("task_name")
+        try:
+            task_obj = TASK.objects.filter(task_name=task_name).first()
+            task_require = task_obj.task_require
+
+            process_obj = PROCESS.objects.filter(task_name=task_name).first()
+            process_name = process_obj.process_name
+            process_position = process_obj.process_position
+
+            MEDIA_ROOT = os.path.join(BASE_DIR, process_position, process_name)
+            print(MEDIA_ROOT)
+            if not os.path.exists(MEDIA_ROOT):  # 如果不存在文件，返回
+                return HttpResponse("文件不存在")
+
+            data = {
+                "task_require": task_require,
+                "url": MEDIA_ROOT
+            }
+
+            return JsonResponse(data)
+        except:
+            return HttpResponse("系统错误，请重试")
