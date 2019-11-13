@@ -2405,5 +2405,5 @@ class Train_card(View):
             task_require = task_obj.task_require
             return JsonResponse({"result": task_require})
         except:
-            return JsonResponse({"result": "系统错误，请重试"})
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
