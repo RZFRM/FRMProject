@@ -128,7 +128,7 @@
                                   }else{
                                       layer.msg(res.result)
                                        setTimeout(function(){
-                                           table.reload("thead")
+                                           table.reload("member")
                                         },1000)
                                   }
                                 }
@@ -153,10 +153,6 @@
 					});
 					e.stopPropagation();
 			})
-
-
-
-
         //搜索功能
         $('#btn').on('click',function(){
            var val= $('#demoReload').val()
@@ -169,24 +165,18 @@
 
                     });
         })
-
-
-
-
-
-
         //修改
          $('#update_sch').on('click', (e)=>{
-                     var checkStatus = table.checkStatus('thead')
+                     var checkStatus = table.checkStatus('member')
                         ,data = checkStatus.data;
                         console.log(data)
-                    if(data.length==0){
+                    if(data.length){
                         layer.msg("请选择要修改的内容")
                     }else{
                         layer.open({
 						title: '学校管理',
 						type: 2,
-						area: ['637px', '518qpx'],
+						area: ['637px', '518px'],
 						content: 'school_modify',
                         success: function(layero, index){
                             var body = layer.getChildFrame('body', index);

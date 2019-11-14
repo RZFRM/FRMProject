@@ -48,7 +48,7 @@
 </div>
 
 <div class="layui-card-body">
-    <table class="layui-hide" id="table_user" lay-filter="user"></table>
+    <table class="layui-hide" id="table_user" lay-filter="table_user"></table>
 </div>
 
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
@@ -67,11 +67,10 @@
         table.render({
             elem: '#table_user'
             , url: '/major'
-            , toolbar: 'school-head'
             , max_height: 1000
             ,type:"get"
             , cols: [[
-                {checkbox: true, fixed: true}
+                {radio: true, fixed: true}
                 , {field: 'a', align:"center", title: '序号', width: "10%",type:'numbers'}
                 , {field: 'a', align:"center", title: '专业代码', width: "20%"}
                 , {field: 'b', align:"center",title: '专业名称', width: "20%"}

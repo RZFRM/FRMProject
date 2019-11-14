@@ -423,16 +423,13 @@ class Edu(View):
         sql = "select admin_name,school_code from user where user_name='%s'" % log_accounts
         sql2 = "select * from user where user_name='%s'" % user_name  # 该语句判断数据是否存在
         try:
-            admin_list = SqlModel().select_one(
-                sql)  # admin_list[0] = admin_name = create_name , admin_list[1] = school_code
+            admin_list = SqlModel().select_one(sql)  # admin_list[0] = admin_name = create_name , admin_list[1] = school_code
             res = SqlModel().select_one(sql2)
             if res:
                 return JsonResponse({"result": "fail", "msg": "该帐号已存在"})
             else:
                 """新增接口"""
-                sql_add = "insert into user (admin_name,user_name,user_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (
-                    admin_name, user_name, user_pass, admin_type, int(phone), int(admin_list[1]), admin_state,
-                    admin_list[0], now_time)
+                sql_add = "insert into user (admin_name,user_name,user_pass,admin_type,phone,school_code,admin_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (admin_name, user_name, user_pass, admin_type, int(phone), admin_list[1], admin_state,admin_list[0], now_time)
                 res_add = SqlModel().insert_or_update(sql_add)
                 if res_add:
                     return JsonResponse({"result": "新增成功"})
