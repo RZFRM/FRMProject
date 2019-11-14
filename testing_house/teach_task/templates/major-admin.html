@@ -135,14 +135,15 @@
             return data = obj
         });
         $('#add2').on('click', function () {
-            console.log(data.data.a)
+             var checkStatus = table.checkStatus('table_user'),
+                data = checkStatus.data;
             console.log(data)
-            if (data.checked == true) {
+            if (data.length == 1) {
                 $.ajax({
                     url: "/teach_task/major_delete_search",
                     type: 'get',
                     data: {
-                        'major_code': data.data.a
+                        'major_code': data[0].a
                     },
                     success: function (res) {
                         if (res.result == 'fail') {
