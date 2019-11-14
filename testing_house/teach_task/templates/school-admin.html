@@ -8,79 +8,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
-<!--    <link rel="stylesheet" href="../../static/res/trainTask/static/js/school_admin.js">-->
+    <!--    <link rel="stylesheet" href="../../static/res/trainTask/static/js/school_admin.js">-->
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style type="text/css">
-    .layui-table-body{overflow-x: hidden !important;}
+        .layui-table-body {
+            overflow-x: hidden !important;
+        }
 
-    .layui-card-body{
-        width: 98%;
-        margin: auto;
-        background:rgba(255,255,255,1);
-    }
-    .layui-table-cell,layui-table-tool-panel li{
-            height:auto;
-            overflow:visible;
-            text-overflow:inherit;
-            white-space:normal;
+        .layui-card-body {
+            width: 98%;
+            margin: auto;
+            background: rgba(255, 255, 255, 1);
+        }
 
-            line-height:24px;
-            }
-        .layui-table-fixed-l{
+        .layui-table-cell, layui-table-tool-panel li {
+            height: auto;
+            overflow: visible;
+            text-overflow: inherit;
+            white-space: normal;
+
+            line-height: 24px;
+        }
+
+        .layui-table-fixed-l {
             opacity: 0;
         }
     </style>
 </head>
 <body>
-    <div class="layui-col-train-teach" style="width: 99%">
-            <div class="layui-card">
-                <div class="layui-card-header" style="width: 98%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
-                    学校管理
-                </div>
-            </div>
+<div class="layui-col-train-teach" style="width: 99%">
+    <div class="layui-card">
+        <div class="layui-card-header" style="width: 98%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机器人实训教学 &nbsp;>&nbsp;
+            学校管理
+        </div>
+    </div>
 
-        <div class="school-head" id="school-head" style="line-height: 36px" >
-            <div class="btn-groups">
-                <div class="layui-groups">
-                    <button type="button" id="add_sch" class="layui-btn add_sch">新增</button>
-                    <button type="button" id="update_sch"  class="layui-btn update_sch">修改</button>
-                    <button type="button" id="del_sch"  class="layui-btn del_sch" >删除</button>
-                </div>
-            </div>
-            <div class="demoTable" >
-                <div class="layui-inline">
-                    <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索姓名">
-                </div>
-                <button class="layui-btn" data-type="reload"  id="btn">搜索</button>
+    <div class="school-head" id="school-head" style="line-height: 36px">
+        <div class="btn-groups">
+            <div class="layui-groups">
+                <button type="button" id="add_sch" class="layui-btn add_sch">新增</button>
+                <button type="button" id="update_sch" class="layui-btn update_sch">修改</button>
+                <button type="button" id="del_sch" class="layui-btn del_sch">删除</button>
             </div>
         </div>
-<!--            数据表-->
-                    <div class="layui-card-body"  id="table1">
-
-<!--                        <table class="layui-hide" id="table_user" lay-filter="user"></table>-->
-                        <table class="layui-table" name="one" lay-data="{ page: true, count:20,  url:'/school',  }" id="member" lay-filter="member">
-                          <thead >
-                            <tr>
-                              <th lay-data="{type:'radio'}" id="ass"></th>
-                              <th lay-data="{field:'a', align: 'center' }">序号</th>
-                              <th lay-data="{field:'a',  align: 'center'}">学校代码</th>
-                              <th lay-data="{field:'b',  align: 'center'}">学校名称</th>
-                              <th lay-data="{field:'c', align: 'center'}">办学层次</th>
-                              <th lay-data="{field:'d', align: 'center'}">办学类型</th>
-                              <th lay-data="{field:'e',   align: 'center',}">省份</th>
-                                <th lay-data="{field:'f',  align: 'center',}">城市</th>
-                                 <th lay-data="{field:'g',  align: 'center',}">教务管理员</th>
-                                 <th lay-data="{field:'h',   align: 'center',}">创建人</th>
-                                 <th lay-data="{field:'i',   align: 'center',}">创建时间</th>
-                            </tr>
-                          </thead>
-                        </table>
-                    </div>
+        <div class="demoTable">
+            <div class="layui-inline">
+                <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索姓名">
             </div>
+            <button class="layui-btn" data-type="reload" id="btn">搜索</button>
+        </div>
+    </div>
+    <!--            数据表-->
+    <div class="layui-card-body" id="table1">
+
+        <!--                        <table class="layui-hide" id="table_user" lay-filter="user"></table>-->
+        <table class="layui-table" name="one" lay-data="{ page: true, count:20,  url:'/teach_task/school',  }" id="member"
+               lay-filter="member">
+            <thead>
+            <tr>
+                <th lay-data="{type:'radio'}" id="ass"></th>
+                <th lay-data="{field:'a', align: 'center' }">序号</th>
+                <th lay-data="{field:'a',  align: 'center'}">学校代码</th>
+                <th lay-data="{field:'b',  align: 'center'}">学校名称</th>
+                <th lay-data="{field:'c', align: 'center'}">办学层次</th>
+                <th lay-data="{field:'d', align: 'center'}">办学类型</th>
+                <th lay-data="{field:'e',   align: 'center',}">省份</th>
+                <th lay-data="{field:'f',  align: 'center',}">城市</th>
+                <th lay-data="{field:'g',  align: 'center',}">教务管理员</th>
+                <th lay-data="{field:'h',   align: 'center',}">创建人</th>
+                <th lay-data="{field:'i',   align: 'center',}">创建时间</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['form','table', 'layedit', 'laydate', 'jquery'], function () {
+    layui.use(['form', 'table', 'layedit', 'laydate', 'jquery'], function () {
         let table = layui.table
             , layer = layui.layer
             , layedit = layui.layedit
@@ -109,92 +114,92 @@
         //   });
 
 
-    // 删除功能
+        // 删除功能
         //未完成
-        table.on('radio(member)', function(obj){
-             return cak=obj
+        table.on('radio(member)', function (obj) {
+            return cak = obj
         });
-         $("#del_sch").on("click",function(){
+        $("#del_sch").on("click", function () {
 
             console.log(cak)
 
-                if(cak.checked===true){
-                  layer.confirm("确认要删除吗，删除后不能恢复", { title: "删除确认" }, function (index) {
-                      $.ajax({
-                                url: "/school_delete_search",
-                                type: "get",
-                                data:{"school_code":cak.data.a},
-                                success:function(res){
-                                  if(res.result=="fail"){
-                                      layer.msg(res.msg)
-                                  }else{
-                                      layer.msg(res.result)
-                                       setTimeout(function(){
-                                           table.reload("member")
-                                        },1000)
-                                  }
-                                }
-                            })
-                  });
-             }else{
-                 layer.msg('请选择要删除的')
-             }
+            if (cak.checked === true) {
+                layer.confirm("确认要删除吗，删除后不能恢复", {title: "删除确认"}, function (index) {
+                    $.ajax({
+                        url: "/teach_task/school_delete_search",
+                        type: "get",
+                        data: {"school_code": cak.data.a},
+                        success: function (res) {
+                            if (res.result == "fail") {
+                                layer.msg(res.msg)
+                            } else {
+                                layer.msg(res.result)
+                                setTimeout(function () {
+                                    table.reload("member")
+                                }, 1000)
+                            }
+                        }
+                    })
+                });
+            } else {
+                layer.msg('请选择要删除的')
+            }
 
 
         })
         //新增弹层
-        $('#add_sch').on('click', (e)=>{
+        $('#add_sch').on('click', (e) => {
 
-					layer.open({
-						title: '学校管理',
-						type: 2,
-						area: ['637px', '518px'],
-						content: 'school_update',
+            layer.open({
+                title: '学校管理',
+                type: 2,
+                area: ['637px', '518px'],
+                content: '/teach_task/school_update',
 
 
-					});
-					e.stopPropagation();
-			})
+            });
+            e.stopPropagation();
+        })
         //搜索功能
-        $('#btn').on('click',function(){
-           var val= $('#demoReload').val()
-             table.reload('member', {
-                      url: '/school_delete_search'
-                        ,method:'post'
-                      ,where: {
-                          "school_name":val,
-                        } //设定异步数据接口的额外参数
+        $('#btn').on('click', function () {
+            var val = $('#demoReload').val()
+            table.reload('member', {
+                url: '/teach_task/school_delete_search'
+                , method: 'post'
+                , where: {
+                    "school_name": val,
+                } //设定异步数据接口的额外参数
 
-                    });
+            });
         })
         //修改
-         $('#update_sch').on('click', (e)=>{
-                     var checkStatus = table.checkStatus('member')
-                        ,data = checkStatus.data;
-                        console.log(data)
-                    if(data.length==0){
-                        layer.msg("请选择要修改的内容")
-                    }else{
-                        layer.open({
-						title: '学校管理',
-						type: 2,
-						area: ['637px', '518px'],
-						content: 'school_modify',
-                        success: function(layero, index){
-                            var body = layer.getChildFrame('body', index);
-                            var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-                           //得到iframe页的body内容
-                            body.find('#code').val(data[0].a)
-                            body.find('#school_name').val(data[0].b)
-                            body.find('#q1').val(data[0].c)
-                            body.find('#q2').val(data[0].d)
+        $('#update_sch').on('click', (e) => {
+            var checkStatus = table.checkStatus('member')
+                , data = checkStatus.data;
+            console.log(data)
+            if (data.length == 0) {
+                layer.msg("请选择要修改的内容")
+            } else {
+                layer.open({
+                    title: '学校管理',
+                    type: 2,
+                    area: ['637px', '518px'],
+                    content: '/teach_task/school_modify',
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                        //得到iframe页的body内容
+                        body.find('#code').val(data[0].a)
+                        body.find('#school_name').val(data[0].b)
+                        body.find('#q1').val(data[0].c)
+                        body.find('#q2').val(data[0].d)
 
 
-                        }
-					});
                     }
+                });
+            }
 
-					e.stopPropagation();
+            e.stopPropagation();
         })
-      });
+    });
 </script>

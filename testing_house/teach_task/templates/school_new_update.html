@@ -185,9 +185,9 @@
         //判断要求 ——code-
         $("#code").blur(function () {
             var code = $('#code').val()
-            var reg = new RegExp("^[0-9]{6}$");
+            var reg = new RegExp("^[0-9]{1,10}$");
             if (!reg.test(code)) {
-                layer.msg("请输入6位有效的数字")
+                layer.msg("请输入1-10位有效的数字")
             }
 
         })
@@ -271,12 +271,12 @@
             if (school_name == "" || school_code == "" || school_rank == "" || school_code == "" || school_type == "" || ddlProvinceId == "" || city == "" || administrator == "") {
                 layer.msg("选择项不能为空")
             } else {
-                var reg = new RegExp("^[0-9]{6}$");
+                var reg = new RegExp("^[0-9]{1,6}$");
                 if (!reg.test(school_code)) {
-                    layer.msg("请输入6位有效的数字")
+                    layer.msg("请输入1-0位有效的数字")
                 }else {
                      $.ajax({
-                        url: "/school",
+                        url: "/teach_task/school",
                         type: "post",
                         data: {
                             "school_name": school_name,
