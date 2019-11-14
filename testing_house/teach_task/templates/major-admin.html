@@ -72,7 +72,7 @@
             , max_height: 1000
             , type: "get"
             , cols: [[
-                {type: 'radio'}
+                {type: 'radio' ,id:'sex1'}
                 , {field: 'a', align: "center", title: '序号', width: "10%", type: 'numbers'}
                 , {field: 'a', align: "center", title: '专业代码', width: "20%"}
                 , {field: 'b', align: "center", title: '专业名称', width: "20%"}
@@ -95,39 +95,12 @@
             });
         });
         //删除
-        table.on('toolbar(table_user)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id)
-                , data = checkStatus.data; //获取选中的数据
-            console.log(data)
-            // switch (obj.event) {
-            //     case 'add':
-            //         layer.msg('添加');
-            //         break;
-            //     case 'update':
-            //         if (data.length === 0) {
-            //             layer.msg('请选择一行');
-            //         } else if (data.length > 1) {
-            //             layer.msg('只能同时编辑一个');
-            //         } else {
-            //             layer.alert('编辑 [id]：' + checkStatus.data[0].id);
-            //         }
-            //         break;
-            //     case 'delete':
-            //         if (data.length === 0) {
-            //             layer.msg('请选择一行');
-            //         } else {
-            //             layer.msg('删除');
-            //         }
-            //         break;
-            // }
-            // ;
-        });
-        // $('#add2').on('click', function () {
-        //     console.log('a')
-        //     table.on('radio(table_user)', function (obj) {
-        //         console.log(obj)
-        //     });
-        // })
+        $('#add2').on('click', function () {
+            console.log('a')
+            table.on('radio(table_user)', function (obj) {
+                console.log(obj)
+            });
+        })
     });
 </script>
 
