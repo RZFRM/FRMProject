@@ -73,7 +73,7 @@ def rpa_rest(host,rest_type,data_json,add_pr,token,port=10080,try_times=2, timeo
             return get_field_json
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     '''
     获取服务端所有流程
     (proc_code:'',如果填了值就是获取一个流程)流程的json格式：返回值json： {'code': 0, 'msg': 'success', 
@@ -113,14 +113,18 @@ def rpa_rest(host,rest_type,data_json,add_pr,token,port=10080,try_times=2, timeo
     # rpa_rest(host='http://192.168.1.151', rest_type='start-job', data_json={"proc_code":"GeShui", "robot_no": "Administrator@ECA86B62AEFF"},
     #          add_pr='/rapi/rcall.action?', token='a56d8e1e413c43baa989c5feeb2d5fdb')
 
-    # rpa_rest(host='http://rpa.chinaive.com', rest_type='start-job', data_json={"proc_code":"GeShui", "robot_no": "Chen@081F711D91AE"},
-    #          add_pr='/rapi/rcall.action?', token='59e078f284f440f49e36076eb07efbc3')
+    # rpa_rest(host='http://rpa.chinaive.com', rest_type='start-job', data_json={"proc_code":"X_sale_2", "robot_no": "Administrator@180373C41DC4"},
+    #          add_pr='/rapi/rcall.action?', token='9f9d7e7a928a4873ae6191f5386b4288')
+    # rpa_rest(host='http://rpa.chinaive.com', rest_type='start-job', data_json={"proc_code":"X_sale_2", "robot_no": "XLL@CE043E65ACBB"},
+    #          add_pr='/rapi/rcall.action?', token='9f9d7e7a928a4873ae6191f5386b4288')
+    rpa_rest(host='http://rpa.chinaive.com', rest_type='start-job', data_json={"proc_code":"X_sale_3", "robot_no": "HipWang@10604B80E461"},
+             add_pr='/rapi/rcall.action?', token='9f9d7e7a928a4873ae6191f5386b4288')
     # TODO  阿里云 服务器
 
     # rpa_rest(host='www.chinaive.com', rest_type='start-job',
     #          data_json={"proc_code":'NewProject1', "robot_no": rpa_client_id},
     #          add_pr='/rapi/rcall.action?', token='59e078f284f440f49e36076eb07efbc3')
-    '''  bn
+    '''
     查询任务：
     http://server/rapi/rcall.action?action=get-jobs&param={}&timestamp=1361431471&sign=XNibuRALx3vjq1FFiv4AqzygOA&token=xxxxxxxxx
     编号：65fc00fb-99e9-4808-9ce6-b0b1e7b796eb
