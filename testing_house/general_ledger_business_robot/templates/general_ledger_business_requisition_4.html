@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>第十步</title>
+    <title>付款审批</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
@@ -67,6 +67,41 @@
         .borp {
             background: rgb(55, 38, 89);
         }
+
+        ul {
+            position: absolute;
+            left: 18px;
+            list-style: none;
+            padding: 0;
+            height: 410px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        ul > li {
+            width: 14px;
+            height: 14px;
+            border: 1px solid #b7b7b7;
+            border-radius: 50%;
+            display: flex;
+        }
+
+        ul > li > p {
+            width: 8px;
+            height: 8px;
+            background: #b7b7b7;
+            border-radius: 50%;
+            margin: auto;
+        }
+
+        .borli {
+            border: 1px solid rgb(55, 38, 89);
+        }
+
+        .borp {
+            background: rgb(55, 38, 89);
+        }
     </style>
 </head>
 <body>
@@ -78,9 +113,8 @@
         <li class="borli"><p class="borp"></p></li>
         <li class="borli"><p class="borp"></p></li>
         <li class="borli"><p class="borp"></p></li>
-        <li class="borli"><p class="borp"></p></li>
-        <li class="borli"><p class="borp"></p></li>
-        <li class="borli"><p class="borp"></p></li>
+        <li><p></p></li>
+        <li><p></p></li>
     </ul>
     <div style="height: 310px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">

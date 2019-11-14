@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>暂估入库</title>
+    <title>批量查验</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
         .forn {
-            width: 350px;
+            width: 355px;
             margin: 0 auto;
         }
 
@@ -18,7 +18,7 @@
         }
 
         .btn {
-            width: 105px;
+            width: 175px;
             height: 39px;
             background: rgba(55, 38, 89, 1);
             border-radius: 4px;
@@ -52,7 +52,6 @@
             display: flex;
         }
 
-
         ul > li > p {
             width: 8px;
             height: 8px;
@@ -68,58 +67,65 @@
         .borp {
             background: rgb(55, 38, 89);
         }
+
+        .layui-form-label {
+            padding: 5px 15px 5px 0px;
+            width: 100px;
+        }
+
+        .layui-input-block {
+            margin-left: 115px;
+        }
     </style>
 </head>
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>暂估入库</span>
+        <span>批量查验</span>
     </div>
     <ul>
         <li class="borli"><p class="borp"></p></li>
         <li class="borli"><p class="borp"></p></li>
         <li class="borli"><p class="borp"></p></li>
-        <li class="borli"><p class="borp"></p></li>
-        <li><p></p></li>
     </ul>
     <div style="height: 425px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">所属期间：</lable>
+                <lable class="layui-form-label">所属期间：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                    <input type="text" autocomplete="off" class="layui-input" name="approval_date" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">业务名称：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                <lable class="layui-form-label">计划执行时间：</lable>
+                <div class="layui-input-block" style="min-height: 30px;" name="warehouse_date">
+                    <input type="text" autocomplete="off" class="layui-input" name="warehouse_date" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding: 5px 12px 5px 0px;width: 98px;">计划执行时间：</lable>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                <lable class="layui-form-label">任务名称：</lable>
+                <div class="layui-input-block" style="min-height: 30px;" name="warehouse_date">
+                    <input type="text" autocomplete="off" class="layui-input" name="warehouse_date" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请人：</lable>
+                <lable class="layui-form-label">申请人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                    <input type="text" autocomplete="off" class="layui-input" name="department_head" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请部门：</lable>
+                <lable class="layui-form-label">申请部门：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                    <input type="text" autocomplete="off" class="layui-input" name="company_head" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
-            <button class="layui-btn btn" lay-submit="" lay-filter="demo6" id="wicket">下一步</button>
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo3" id="wicket">上传批量发票查验数据</button>
         </form>
     </div>
 </div>

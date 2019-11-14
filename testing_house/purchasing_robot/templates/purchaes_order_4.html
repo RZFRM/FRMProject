@@ -83,7 +83,7 @@
         <li><p></p></li>
         <li><p></p></li>
     </ul>
-    <div style="height: 327px;overflow: auto;padding-top:25px">
+    <div style="height: 315px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;">请购单编号：</label>
@@ -95,29 +95,8 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">合同编号：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="contract_number" lay-verify="required" lay-filter="" lay-search=""
-                            style="width:100%;height: 30px;">
-                        <option value="">直接选择或搜索选择</option>
-                        <option value="C181201">C181201</option>
-                        <option value="C181202">C181202</option>
-                        <option value="C181203">C181203</option>
-                        <option value="C181204">C181204</option>
-                        <option value="C181205">C181205</option>
-                        <option value="C181206">C181206</option>
-                        <option value="C181207">C181207</option>
-                        <option value="C181208">C181208</option>
-                        <option value="C181209">C181209</option>
-                        <option value="C181210">C181210</option>
-                        <option value="C181291">C181291</option>
-                        <option value="C181292">C181292</option>
-                        <option value="C181293">C181293</option>
-                        <option value="C181294">C181294</option>
-                        <option value="C181295">C181295</option>
-                        <option value="C181296">C181296</option>
-                        <option value="C181297">C181297</option>
-                        <option value="C181298">C181298</option>
-                        <option value="C181299">C181299</option>
-                    </select>
+                    <input type="text" autocomplete="off" class="layui-input" name="contract_number" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -226,7 +205,6 @@
                            style="min-height: 30px;line-height: 30px; height: 30px;" value="订货机器人">
                 </div>
             </div>
-            {#            <a class="btn" href="purchaes_order_determine" class="layui-btn">提交</a>#}
             <button class="layui-btn btn" lay-submit="" lay-filter="demo4">下一步</button>
         </form>
     </div>

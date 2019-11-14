@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>暂估入库</title>
+    <title>第六步</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
         .forn {
-            width: 350px;
+            width: 355px;
             margin: 0 auto;
+        }
+
+        ul {
+            position: absolute;
+            top: 95px;
+            left: 17px;
         }
 
         .atitle > span {
@@ -52,7 +58,6 @@
             display: flex;
         }
 
-
         ul > li > p {
             width: 8px;
             height: 8px;
@@ -68,58 +73,64 @@
         .borp {
             background: rgb(55, 38, 89);
         }
+
+        .layui-form-label {
+            padding: 5px 15px 5px 0px;
+            width: 100px;
+        }
+
+        .layui-input-block {
+            margin-left: 115px;
+        }
     </style>
 </head>
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>暂估入库</span>
+        <span>编制财务报告</span>
     </div>
     <ul>
-        <li class="borli"><p class="borp"></p></li>
-        <li class="borli"><p class="borp"></p></li>
-        <li class="borli"><p class="borp"></p></li>
         <li class="borli"><p class="borp"></p></li>
         <li><p></p></li>
     </ul>
     <div style="height: 425px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">所属期间：</lable>
+                <lable class="layui-form-label">所属期间：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                    <input type="text" autocomplete="off" class="layui-input" name="approval_date"
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">业务名称：</lable>
+                <lable class="layui-form-label">任务名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                    <input type="text" autocomplete="off" class="layui-input" name="warehouse_date" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding: 5px 12px 5px 0px;width: 98px;">计划执行时间：</lable>
+                <lable class="layui-form-label">计划执行时间：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                    <input type="text" autocomplete="off" class="layui-input" name="warehouse_date" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请人：</lable>
+                <lable class="layui-form-label">申请人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                    <input type="text" autocomplete="off" class="layui-input" name="department_head" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请部门：</lable>
+                <lable class="layui-form-label">申请部门：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                    <input type="text" autocomplete="off" class="layui-input" name="company_head" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
-            <button class="layui-btn btn" lay-submit="" lay-filter="demo6" id="wicket">下一步</button>
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo2" id="wicket">提交</button>
         </form>
     </div>
 </div>
@@ -133,12 +144,24 @@
             , $ = layui.jquery
             , laydate = layui.laydate;
 
-        //关闭当前窗口
-        $("#wicket").click(function () {
-            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-            parent.layer.close(index); //再执行关闭
-            window.parent.location.reload();//刷新父页面
-        })
+
+        $("#renwu").val($("#time2").val() + "财务报告")
+
+        //提交验证
+        form.on('submit(demo2)', function (data) {
+            $.ajax({
+                url: "/purchaes_requisitions_create_data",
+                type: "post",
+                datatype: "json",
+                data: $(data.form).serialize(),
+                success: function (res) {
+                    if (res == 200) {
+                        location.href = "/purchaes_requisitions_determine"
+                    }
+                }
+            });
+            return false;  //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
     });
 
 </script>
