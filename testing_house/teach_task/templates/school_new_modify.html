@@ -166,7 +166,7 @@
                  //省份的下拉框
              $(function(){
             $.ajax({
-                url: "/province",
+                url: "/teach_task/province",
                 type: "get",
                 datatype: "json",
                 success: function (res) {
@@ -186,7 +186,7 @@
                   $("#city").empty()// 暂时解决重复的问题
                 var city=data.value;
                  $.ajax({
-                url: "/city",
+                url: "/teach_task/city",
                 type: "get",
                 data:{"province_name":city},
                 success:function(res){
@@ -206,7 +206,7 @@
              $(function(){
             var add = $("#code").val()
             $.ajax({
-                url:'/edu',
+                url:'/teach_task/edu',
                 type:'get',
                 data:{"school_code":add},
                 success:function(res){
@@ -234,7 +234,7 @@
                layer.msg("选择项不能为空")
             }else{
              $.ajax({
-                        url: "/school_revise",
+                        url: "/teach_task/school_revise",
                         type: "get",
                         data:{
                             "school_name":school_name,
