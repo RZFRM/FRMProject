@@ -11,14 +11,17 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 
     <style>
-        .layui-table-body{overflow-x: hidden !important;}
+        .layui-table-body {
+            overflow-x: hidden !important;
+        }
 
-        .layui-card-body{
+        .layui-card-body {
             width: 98%;
             margin: auto;
-            background:rgba(255,255,255,1);
+            background: rgba(255, 255, 255, 1);
         }
-        .layui-table-fixed-l{
+
+        .layui-table-fixed-l {
             opacity: 0;
         }
     </style>
@@ -36,7 +39,7 @@
         <div class="layui-groups">
             <button type="button" class="layui-btn" id="add3">新增</button>
             <button type="button" class="layui-btn">修改</button>
-            <button type="button" class="layui-btn">删除</button>
+            <button type="button" class="layui-btn" id="add2">删除</button>
         </div>
     </div>
     <div class="demoTable">
@@ -62,37 +65,69 @@
             , laydate = layui.laydate;
 
 
-
         //方法级渲染
         table.render({
             elem: '#table_user'
             , url: '/major'
             , max_height: 1000
-            ,type:"get"
+            , type: "get"
             , cols: [[
-                {type:'radio'}
-                , {field: 'a', align:"center", title: '序号', width: "10%",type:'numbers'}
-                , {field: 'a', align:"center", title: '专业代码', width: "20%"}
-                , {field: 'b', align:"center",title: '专业名称', width: "20%"}
-                , {field: 'c', align:"center", title: '状态', width: "10%"}
-                , {field: 'd', align:"center",title: '创建人员',width:"20%"}
-                , {field: 'e', align:"center",title: '操作时间',width:"20%"}
+                {type: 'radio'}
+                , {field: 'a', align: "center", title: '序号', width: "10%", type: 'numbers'}
+                , {field: 'a', align: "center", title: '专业代码', width: "20%"}
+                , {field: 'b', align: "center", title: '专业名称', width: "20%"}
+                , {field: 'c', align: "center", title: '状态', width: "10%"}
+                , {field: 'd', align: "center", title: '创建人员', width: "20%"}
+                , {field: 'e', align: "center", title: '操作时间', width: "20%"}
             ]]
             , page: true
         });
-
+        //新建弹出层
         $("#add3").on('click', function () {
             //console.log("data");
             //页面层
             layer.open({
-                title:'专业管理',
+                title: '专业管理',
                 type: 2,
                 area: ['742px', '570px'],//宽高
                 content: 'major_update'
 
             });
         });
-
+        //删除
+        table.on('toolbar(table_user)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id)
+                , data = checkStatus.data; //获取选中的数据
+            console.log(data)
+            // switch (obj.event) {
+            //     case 'add':
+            //         layer.msg('添加');
+            //         break;
+            //     case 'update':
+            //         if (data.length === 0) {
+            //             layer.msg('请选择一行');
+            //         } else if (data.length > 1) {
+            //             layer.msg('只能同时编辑一个');
+            //         } else {
+            //             layer.alert('编辑 [id]：' + checkStatus.data[0].id);
+            //         }
+            //         break;
+            //     case 'delete':
+            //         if (data.length === 0) {
+            //             layer.msg('请选择一行');
+            //         } else {
+            //             layer.msg('删除');
+            //         }
+            //         break;
+            // }
+            // ;
+        });
+        // $('#add2').on('click', function () {
+        //     console.log('a')
+        //     table.on('radio(table_user)', function (obj) {
+        //         console.log(obj)
+        //     });
+        // })
     });
 </script>
 
