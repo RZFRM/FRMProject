@@ -42,6 +42,10 @@ def pruchasing_robot_base(request):
     return render(request, 'purchasing_robot_base_manager.html')
 
 
+
+
+
+
 # TODO  采购机器人基础配置页面
 def pruchasing_robot_base_data(request):
     user_name = request.COOKIES.get('username')
@@ -100,6 +104,34 @@ def pruchasing_robot_base_data(request):
             print('>>>>>>>>>>>>>>更新失败！原因如下：', e)
             data = {'fail': '4444', 'msg': '插入失败'}
             return JsonResponse(data)
+
+
+
+
+
+
+
+#  TODO  采购选择 案例数据
+def set_purchasing_chose_models(request):
+    sql = "select case_number  from  case_module_relationship  where  id < 23  "
+    row_info = DB.select_all(sql)
+    print(row_info)
+    data = []
+    for i in row_info:
+        data.append(i[0])
+
+    info  = {'success': '1111', 'msg': '','data':data}
+    return  JsonResponse(info)
+
+
+
+
+
+
+
+
+
+
 
 
 #  TODO  采购机器人业务管理页

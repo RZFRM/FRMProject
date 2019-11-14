@@ -20,8 +20,8 @@ from django.conf.urls import url
 urlpatterns = [
 
     #  TODO  数据页面
-    url('pruchasing_robot_base_data', views.pruchasing_robot_base_data, name='set_robot'),
-
+    url('pruchasing_robot_base_data', views.pruchasing_robot_base_data, name='采购机器人基础配置页面'),
+    url('purchasing_chose_models',views.set_purchasing_chose_models,name = '采购选择案例'),
     url('purchaes_requisitions_create_data', views.purchaes_requisitions_create_data,
         name='purchaes_requisitions_create'),
     url('purchasing_created_data', views.purchasing_created_data, name='purchasing_created'),
