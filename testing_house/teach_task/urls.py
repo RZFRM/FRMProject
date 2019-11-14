@@ -13,13 +13,14 @@ urlpatterns = [
     url(r'case_jump', views.case_jump),
     url(r'teaching_jump', views.teaching_jump),
     url(r'task_jump', views.task_jump),
-    url(r'teachering_card_jump',views.teachering_card_jump),  # 实训卡查看跳转页面
+    url(r'teachering_card_jump', views.teachering_card_jump),  # 实训卡查看跳转页面
 
     url(r'school_update', views.school_update),
     url(r'school_modify', views.school_modify),
     url(r'edu_update', views.edu_update),
-    url(r'edu_modify',views.edu_modify),
+    url(r'edu_modify', views.edu_modify),
     url(r'major_update', views.major_update),
+    url(r'major_modify', views.major_modify),
     url(r'class_update', views.class_update),
 
     url(r'index', views.Index.as_view()),
@@ -76,7 +77,7 @@ urlpatterns = [
     url(r'case_document', views.case_document),
     url(r'case_state', views.case_state),
     url(r'case_search', views.case_search),
-    url(r'case_delete',views.case_delete),
+    url(r'case_delete', views.case_delete),
     url(r'case', views.Case.as_view()),
 
 ]

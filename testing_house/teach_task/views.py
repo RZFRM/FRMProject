@@ -95,6 +95,11 @@ def major_update(request):
     return render(request, "major_new_update.html")
 
 
+def major_modify(request):
+    """专业管理  修改跳转"""
+    return render(request, "major_new_modify.html")
+
+
 def class_update(request):
     """班级管理 新增跳转"""
     return render(request, "class_admin_new_update.html")
