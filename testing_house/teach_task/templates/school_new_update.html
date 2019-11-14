@@ -22,29 +22,33 @@
             top: 95px;
             left: 17px;
         }
-        .atitle>span{
-            width:61px;
-            height:15px;
-            font-size:14px;
-            font-family:Microsoft YaHei;
-            font-weight:400;
-            color:rgba(51,51,51,1);
+
+        .atitle > span {
+            width: 61px;
+            height: 15px;
+            font-size: 14px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: rgba(51, 51, 51, 1);
         }
-        .atitle>button {
-            width:27px;
-            height:25px;
+
+        .atitle > button {
+            width: 27px;
+            height: 25px;
             border: none;
-            background:rgba(248,248,248,1);
+            background: rgba(248, 248, 248, 1);
             margin-left: 600px;
         }
-        .new_update>p {
-            width:79px;
-            height:16px;
-            font-size:16px;
-            font-family:Microsoft YaHei;
-            font-weight:bold;
-            color:rgba(51,51,51,1);
+
+        .new_update > p {
+            width: 79px;
+            height: 16px;
+            font-size: 16px;
+            font-family: Microsoft YaHei;
+            font-weight: bold;
+            color: rgba(51, 51, 51, 1);
         }
+
         .btn {
             width: 105px;
             height: 39px;
@@ -62,24 +66,26 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: #FFFFFF">
 <div class="Popout" id="add_update_school">
     <div class="new_update">
         <p>新增/修改</p>
     </div>
     <div style="height: 425px;overflow: auto;padding-top:25px">
-        <form class="layui-form forn" action="" lay-filter="component-form-group">
+        <form class="layui-form forn" action="" lay-filter="component-form-group" onsubmit="return checkInput(this)">
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">学校名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" name="school_name" autocomplete="off" class="layui-input" placeholder="请输入学校名称"
+                    <input type="text" name="school_name" lay-verify="required|school_name" id="school_name"
+                           autocomplete="off" class="layui-input" placeholder="请输入学校名称"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">学校代码：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" name="school_code" autocomplete="off" class="layui-input" placeholder="请输入学校代码"
+                    <input id="code" type="text" name="school_code" lay-verify="required|school_code" autocomplete="off"
+                           class="layui-input" placeholder="请输入学校代码"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
@@ -87,67 +93,75 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>办学层次：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="school_rank" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="school_rank" id="school_rank" onblur="abc()" lay-verify="required"
+                            lay-filter="school_rank" lay-search="" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
-                        <option value="1">本科</option>
-                        <option value="2">高职高专</option>
-                        <option value="3">中专</option>
+                        <option value="本科">本科</option>
+                        <option value="高职高专">高职高专</option>
+                        <option value="中专">中专</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>办学类型：</label>
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">
+                    <span class="xing"></span>办学类型：
+                </label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="school_type" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="school_type" id="school_type" lay-verify="required" lay-filter="school_type"
+                            lay-search="" onblur="abc()" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
-                        <option value="1">公办</option>
-                        <option value="2">民办</option>
-                        <option value="3">独立学院</option>
+                        <option value="公办">公办</option>
+                        <option value="民办">民办</option>
+                        <option value="独立学院">独立学院</option>
                     </select>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>所在省份：</label>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="school_province" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+            <!--            实验-->
+
+
+            <!--  所在省份          -->
+            <div class="layui-form-item ">
+                <label class="layui-form-label" id="citySel" style="padding:5px 15px 5px 10px;;width: 85px;">
+                    <span class="xing"></span>所在省份：
+                </label>
+                <div class="layui-input-block" id="str" style="min-height: 30px;">
+                    <select name="Province" lay-verify="Province" lay-filter="Province" lay-search="" onblur="abc()"
+                            id="ddlProvinceId" style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>所在城市：</label>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="school_city" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
-                        <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>教务管理员：</label>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="admin_name" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
-                        <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
                     </select>
                 </div>
             </div>
 
-            <button class="btn" type="button" lay-submit lay-filter="btn_school">提交</button>
+
+            <!--    所在城市        -->
+            <div class="layui-form-item" id="add">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">
+                    <span class="xing"></span>所在城市：
+                </label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="school_rank" id="city" lay-verify="required" lay-filter="school_rank" lay-search=""
+                            onblur="abc()" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="">请选择</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <!--教务管理员-->
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">
+                    <span class="xing"></span>教务管理员：
+                </label>
+                <div class="layui-input-block" style="min-height: 30px;" id="selectt">
+                    <select name="admin_name" id="administrator" lay-verify="required" lay-filter="edu_admin"
+                            lay-search="" style="width:100%;height: 30px;">
+                        <option style="height: 32px" value="">请选择</option>
+
+                    </select>
+                </div>
+            </div>
+            <button class="btn layui-btn" type="button" id="btn" lay-filter="test" lay-submit>提交</button>
+
 
         </form>
     </div>
@@ -156,33 +170,141 @@
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
     layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
-        let   form = layui.form
+        let form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
 
-        //点击保存新增
-        /*form.on('submit(btn_school)', function (data) {
-            //console.log(data.field);
-            let param = data.field;
-            //发生请求
-            $.post("/school", param, function (result) {
-               alert('新增成功');
-            })
-            return false;
-        });*/
-
-
-        //监听提交
-        form.on('submit(btn_school)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '新增成功'
-            })
-            return false;
+        //验证学校名称
+        form.verify({
+            school_name: /^([\u4e00-\u9fa5]{1,20}|[a-zA-Z\.\s]{1,20})$/,  //验证学校名称
+            school_code: /^([a-zA-Z0-9]\.{6,12})$/,    //验证学校代码
         });
 
+        //判断要求 ——code-
+        $("#code").blur(function () {
+            var code = $('#code').val()
+            var reg = new RegExp("^[0-9]{1,10}$");
+            if (!reg.test(code)) {
+                layer.msg("请输入1-10位有效的数字")
+            }
+
+        })
+
+
+        //省份的下拉框
+        $(function () {
+            $.ajax({
+                url: "/teach_task/province",
+                type: "get",
+                datatype: "json",
+                success: function (res) {
+                    // console.log(res)
+                    var date = res.result;
+                    console.log(date)
+                    for (var i = 0; i < date.length; i++) {
+                        // console.log(date[i]);
+                        $("#ddlProvinceId").append(`<option value="${date[i]}">${date[i]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group")
+                },
+            });
+        })
+        //    所在城市
+        form.on('select(Province)', function (data) {
+            $("#city").empty()// 暂时解决重复的问题
+
+            var city = data.value;
+            $.ajax({
+                url: "/teach_task/city",
+                type: "get",
+                data: {"province_name": city},
+                success: function (res) {
+                    console.log(res.result);
+                    var date = res.result
+                    for (var i = 0; i < date.length; i++) {
+
+                        $("#city").append(`<option value="${date[i]}">${date[i]}</option>`)
+                    }
+                    console.log(date);
+
+                    layui.form.render("select", "component-form-group")
+                }
+            })
+        })
+        //教务管理员
+        $("#code").blur(function () {
+            $("#selectt>select").empty()     //暂时解决重复的问题
+            console.log($("#selectt>select").html())
+            var add = $("#code").val()
+            $.ajax({
+                url: "/teach_task/edu",
+                type: "get",
+                data: {"school_code": add},
+                success: function (res) {
+                    console.log(res.result);
+                    var date = res.result
+
+
+                    for (var i = 0; i < date.length; i++) {
+                        $("#administrator").append(`<option value="${date[i]}">${date[i]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group")
+                }
+            })
+
+
+        });
+
+        //提交form表单
+
+        $('#btn').on('click', function () {
+
+            var school_name = $('#school_name').val()
+            var school_code = $('#code').val()
+            var school_rank = $('#school_rank').val()
+            var school_type = $('#school_type').val()
+            var ddlProvinceId = $('#ddlProvinceId').val()
+            var city = $('#city').val()
+            var administrator = $('#administrator').val()
+            if (school_name == "" || school_code == "" || school_rank == "" || school_code == "" || school_type == "" || ddlProvinceId == "" || city == "" || administrator == "") {
+                layer.msg("选择项不能为空")
+            } else {
+                var reg = new RegExp("^[0-9]{1,6}$");
+                if (!reg.test(school_code)) {
+                    layer.msg("请输入1-0位有效的数字")
+                }else {
+                     $.ajax({
+                        url: "/teach_task/school",
+                        type: "post",
+                        data: {
+                            "school_name": school_name,
+                            "school_code": school_code,
+                            "school_rank": school_rank,
+                            "school_type": school_type,
+                            "school_province": ddlProvinceId,
+                            "school_city": city,
+                            "admin_name": administrator
+                        },
+                        success: function (res) {
+
+                            console.log(res.result)
+                            if (res.result == "fail") {
+                                layer.msg(res.msg)
+                            } else {
+                                layer.msg(res.result)
+                                setTimeout(function () {
+                                    window.parent.location.reload();
+                                }, 1000)
+                            }
+                        }
+                    })
+                }
+            }
+
+        })
 
     });
 </script>
-</body>>
+</body>
