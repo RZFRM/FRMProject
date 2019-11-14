@@ -85,6 +85,10 @@ def edu_update(request):
     return render(request, "edu_update.html")
 
 
+def edu_modify(request):
+    """教务管理，修改跳转"""
+    return render(request, "edu_modify.html")
+
 def major_update(request):
     """专业管理  新增跳转"""
     return render(request, "major_new_update.html")
