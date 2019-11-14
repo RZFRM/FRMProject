@@ -636,7 +636,7 @@ def major_updata(request):
     sql = "select admin_name,school_code from user where user_name = '%s'" % username
     try:
         admin_list = SqlModel().select_one(sql)  # admin_name=admin_list[0]  school_code=admin_list[1]
-        result = MAJOR.objects.filter(major_code=int(major_code))
+        result = MAJOR.objects.filter(school_code=admin_list[1], major_code=int(major_code))
         if result:
             return JsonResponse({"result": "fail", "msg": "该专业代码已经存在,不能重复使用"})
         else:
@@ -668,10 +668,13 @@ class Major_delete_search(View):
 
     def post(self, request):
         """搜索功能"""
+        username = request.COOKIES.get("username")
         major_name = request.POST.get("major_name")
-        sql = "select major_name,major_code,major_state,create_name,create_time from major where major_name like '%%%s%%'" % major_name
-
         try:
+            sql_admin = "select school_code from user where user_name='%s'" % username
+            school_list = SqlModel().select_one(sql_admin)
+            sql = "select major_name,major_code,major_state,create_name,create_time from major where school_code='%s' and major_name like '%%%s%%'" % (school_list[0], major_name)
+
             major_list = SqlModel().select_all(sql)
             if major_list:
                 data_list = []
