@@ -196,7 +196,7 @@
         //省份的下拉框
         $(function () {
             $.ajax({
-                url: "/province",
+                url: "/teach_task/province",
                 type: "get",
                 datatype: "json",
                 success: function (res) {
@@ -217,7 +217,7 @@
 
             var city = data.value;
             $.ajax({
-                url: "/city",
+                url: "/teach_task/city",
                 type: "get",
                 data: {"province_name": city},
                 success: function (res) {
@@ -239,7 +239,7 @@
             console.log($("#selectt>select").html())
             var add = $("#code").val()
             $.ajax({
-                url: "/edu",
+                url: "/teach_task/edu",
                 type: "get",
                 data: {"school_code": add},
                 success: function (res) {
