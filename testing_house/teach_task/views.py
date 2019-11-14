@@ -13,7 +13,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
 from .models import Major as MAJOR, School as SCHOOL, Task as TASK, Case as CASE, Picture as PICTURE, Case_document as DOCUMENT, Report_answer as ANSWER, Teach_design as DESIGN
-from .models import Course_ware as WARE, Process as PROCESS, Course as COURSE, Report as REPORT
+from .models import Course_ware as WARE, Process as PROCESS, Course as COURSE, Report as REPORT, Case_task as CASE_TASK
 from sql_operating.mysql_class import SqlModel
 from .common import province_city
 
@@ -498,9 +498,19 @@ class Edu_delete_search(View):
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
     def post(self, request):
+        username = request.COOKIES.get("username")
         admin_name = request.POST.get('admin_name')
-        sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_name like '%%%s%%'" % admin_name
+
         try:
+            sql_admin = "select school_code,admin_type from user where user_name='%s'" % username
+            res = SqlModel().select_one(sql_admin)
+            school_code = res[0]
+            admin_type = res[1]
+            if admin_type == '2':
+                sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where school_code='%s' and admin_type='2' and admin_name like '%%%s%%'" % (school_code, admin_name)
+            else:
+                sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='2' and admin_name like '%%%s%%'" % admin_name
+
             admin_info = SqlModel().select_all(sql)
             if admin_info:
                 data_list = []
@@ -2410,3 +2420,26 @@ class Train_card(View):
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
+
+class Train_case(View):
+    """实训任务卡，get案例名称和描述，post案例下载的对应文件"""
+    def get(self, request):
+        """案例名称和描述"""
+        task_name = request.GET.get("task_name")
+        try:
+            case_obj_list = CASE_TASK.objects.filter(task_name=task_name)
+            print(case_obj_list)
+            data_list = []
+            for i in case_obj_list:
+                case_name = i.case_name
+                case_obj = CASE.objects.filter(case_name=case_name).first()
+                case_recommend = case_obj.case_recommend
+                data_dict = {
+                    "case_name": case_name,
+                    "case_recommend": case_recommend
+                }
+                data_list.append(data_dict)
+
+            return JsonResponse({"result": data_list})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
