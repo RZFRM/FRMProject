@@ -1069,7 +1069,7 @@ class Teacher_delete_search(View):
     def post(self, request):
         """搜索功能"""
         admin_name = request.POST.get("admin_name")
-        sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_name like '%%%s%%'" % admin_name
+        sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='3' and admin_name like '%%%s%%'" % admin_name
         try:
             class_list = SqlModel().select_all(sql)
             if class_list:
