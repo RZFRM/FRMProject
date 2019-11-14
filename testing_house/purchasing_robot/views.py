@@ -22,8 +22,7 @@ from sql_operating.mysql_class import *
 from  personal_center.views import  update_sql
 from etc.command import *
 from .models import  purchase_payment_table, purchase_contract_table,purchase_invoice_table,purchase_warehousing_table,purchase_apply_table
-
-
+import json
 
 
 
@@ -115,7 +114,7 @@ def pruchasing_robot_base_data(request):
 def set_purchasing_chose_models(request):
     sql = "select case_number  from  case_module_relationship  where  id < 23  "
     row_info = DB.select_all(sql)
-    print(row_info)
+    # print(row_info)
     data = []
     for i in row_info:
         data.append(i[0])
@@ -126,7 +125,163 @@ def set_purchasing_chose_models(request):
 
 
 
+# TODO  创建请购单数据
+def set_apply_data(request):
+    # TODO  判断 数据库是否有 CG000001
+    user_name = request.COOKIES.get('username')
+    AL = 'AL0001'
+    id = 1
+    try:
+        sql = "select  module_number_1  from case_module_relationship   where  case_number = '%s' ;"% AL
+        print(sql)
+        buessines_info = DB.get_select_one(sql_info=sql)[0]
+        print('----buessines_info------',buessines_info)
+        modules_sql = "select  * from m01 where  module_number = '%s'" %buessines_info
+        purchase_info  =  DB.get_select_one(sql_info=modules_sql)
 
+        data  = purchase_info[4:]
+        data.append(AL)
+        print('---------------------------',type(purchase_info))
+        # if buessines_info == False or buessines_info == 0:
+        #     purchase_number = "CG0000" + str(id)
+        #     return HttpResponse(purchase_number)
+        # else:
+        #     id = int(buessines_info) + 1
+        #     purchase_number = "CG0000" + str(id)
+        info = {'success': '1111', 'msg': '', 'data': data}
+        return JsonResponse(info)
+    except Exception as e:
+
+        # purchase_number = "CG0000" + str(id)
+        return HttpResponse('NO')
+
+
+
+
+#  TODO　创建合同数据信息
+def set_contract_data(request):
+    # TODO  判断 数据库是否有 CG000001
+    user_name = request.COOKIES.get('username')
+    AL = 'AL0001'
+    id = 1
+    try:
+        sql = "select  module_number_2  from case_module_relationship   where  case_number = '%s' ;" % AL
+        print(sql)
+        buessines_info = DB.get_select_one(sql_info=sql)[0]
+        print('----buessines_info------', buessines_info)
+        modules_sql = "select  * from m04 where  module_number = '%s'" % buessines_info
+        purchase_info = DB.get_select_one(sql_info=modules_sql)
+
+        info = purchase_info[2:]
+        print('---------------------------', type(purchase_info))
+        # if buessines_info == False or buessines_info == 0:
+        #     purchase_number = "CG0000" + str(id)
+        #     return HttpResponse(purchase_number)
+        # else:
+        #     id = int(buessines_info) + 1
+        #     purchase_number = "CG0000" + str(id)
+        data = {'success': '1111', 'msg': '', 'data': info}
+        return JsonResponse(data)
+    except Exception as e:
+        # purchase_number = "CG0000" + str(id)
+        data = {'fail': '4444', 'msg': '查询失败'}
+        return JsonResponse(data)
+
+
+
+
+# TODO 创建入库数据信息
+def set_warehousing_data(request):
+    # TODO  判断 数据库是否有 CG000001
+    user_name = request.COOKIES.get('username')
+    AL = 'AL0001'
+    id = 1
+    try:
+        sql = "select  module_number_3  from case_module_relationship   where  case_number = '%s' ;" % AL
+        print(sql)
+        buessines_info = DB.get_select_one(sql_info=sql)[0]
+        print('----buessines_info------', buessines_info)
+        modules_sql = "select  * from m02 where  module_number = '%s'" % buessines_info
+        purchase_info = DB.get_select_one(sql_info=modules_sql)
+
+        info = purchase_info[3:]
+        print('---------------------------', type(purchase_info))
+        # if buessines_info == False or buessines_info == 0:
+        #     purchase_number = "CG0000" + str(id)
+        #     return HttpResponse(purchase_number)
+        # else:
+        #     id = int(buessines_info) + 1
+        #     purchase_number = "CG0000" + str(id)
+        data = {'success': '1111', 'msg': '', 'data': info}
+        return JsonResponse(data)
+    except Exception as e:
+        # purchase_number = "CG0000" + str(id)
+        data = {'fail': '4444', 'msg': '查询失败'}
+        return JsonResponse(data)
+
+
+
+
+
+# TODO   创建报销数据
+def set_invoice_data(request):
+    # TODO  判断 数据库是否有 CG000001
+    user_name = request.COOKIES.get('username')
+    AL = 'AL0001'
+    id = 1
+    try:
+        sql = "select  module_number_4  from case_module_relationship   where  case_number = '%s' ;" % AL
+        print(sql)
+        buessines_info = DB.get_select_one(sql_info=sql)[0]
+        print('----buessines_info------', buessines_info)
+        modules_sql = "select  * from m06 where  module_number = '%s'" % buessines_info
+        purchase_info = DB.get_select_one(sql_info=modules_sql)
+        info = purchase_info[3:]
+        print('---------------------------', type(purchase_info))
+        # if buessines_info == False or buessines_info == 0:
+        #     purchase_number = "CG0000" + str(id)
+        #     return HttpResponse(purchase_number)
+        # else:
+        #     id = int(buessines_info) + 1
+        #     purchase_number = "CG0000" + str(id)
+        data = {'success': '1111', 'msg': '', 'data': info}
+        return JsonResponse(data)
+    except Exception as e:
+        # purchase_number = "CG0000" + str(id)
+        data = {'fail': '4444', 'msg': '查询失败'}
+        return JsonResponse(data)
+
+
+
+
+
+#  TODO  创建 报账数据
+def set_payment_data(request):
+    # TODO  判断 数据库是否有 CG000001
+    user_name = request.COOKIES.get('username')
+    AL = 'AL0001'
+    id = 1
+    try:
+        sql = "select  module_number_5  from case_module_relationship   where  case_number = '%s' ;" % AL
+        print(sql)
+        buessines_info = DB.get_select_one(sql_info=sql)[0]
+        print('----buessines_info------', buessines_info)
+        modules_sql = "select  * from m08 where  module_number = '%s'" % buessines_info
+        purchase_info = DB.get_select_one(sql_info=modules_sql)
+        info = purchase_info[3:]
+        print('---------------------------', type(purchase_info))
+        # if buessines_info == False or buessines_info == 0:
+        #     purchase_number = "CG0000" + str(id)
+        #     return HttpResponse(purchase_number)
+        # else:
+        #     id = int(buessines_info) + 1
+        #     purchase_number = "CG0000" + str(id)
+        data = {'success': '1111', 'msg': '', 'data': info}
+        return JsonResponse(data)
+    except Exception as e:
+        # purchase_number = "CG0000" + str(id)
+        data = {'fail': '4444', 'msg': '查询失败'}
+        return JsonResponse(data)
 
 
 
@@ -155,11 +310,6 @@ def purchasing_created(request):
 
 
 
-#  TODO   选择案例
-def set_chose_case(request):
-    sql = "select *   from   case_module_relationship"
-    row_info = DB.select_one(sql)
-    print(row_info)
 
 
 
@@ -1090,31 +1240,6 @@ def set_purchase_robot_buession_info(request):
 
 
 
-# TODO  创建请购单数据
-def set_create_purchase_number(request):
-    # TODO  判断 数据库是否有 CG000001
-    user_name = request.COOKIES.get('username')
-    id = 1
-    try:
-        sql = "select id from purchase_apply_table  where  user_name ='%s'  order by id desc  limit 1 ;" % user_name
-
-
-        buessines_info = DB.get_select_one(sql_info=sql)[0]
-        print(buessines_info)
-
-        if buessines_info == False or buessines_info == 0:
-            purchase_number = "CG0000" + str(id)
-            return HttpResponse(purchase_number)
-        else:
-            id = int(buessines_info) + 1
-            purchase_number = "CG0000" + str(id)
-            return HttpResponse(purchase_number)
-    except Exception as e:
-
-        purchase_number = "CG0000" + str(id)
-        return HttpResponse(purchase_number)
-
-
 # from teach_task.models import  Class
 # from  system_config.models import  purchase_contract_table
 # #  TODO  trst
@@ -1130,7 +1255,7 @@ def set_create_purchase_number(request):
 
 
 
-import json
+
 #  TODO  创建查看共功能数据
 def set_view_information_data(request):
     body1 = request.body
