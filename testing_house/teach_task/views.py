@@ -89,6 +89,7 @@ def edu_modify(request):
     """教务管理，修改跳转"""
     return render(request, "edu_modify.html")
 
+
 def major_update(request):
     """专业管理  新增跳转"""
     return render(request, "major_new_update.html")
@@ -465,20 +466,16 @@ def edu_updata(request):
             return JsonResponse({"result": "fail", "msg": "该帐号已存在"})
         else:
             """修改接口"""
-            print("============修改接口")
             sql_revise = "update user set admin_name='%s',user_name='%s',user_pass='%s',admin_type='%s',phone='%s',school_code='%s',admin_state='%s',create_name='%s',create_time='%s' where user_name='%s'" % (
                 admin_name, user_name, user_pass, admin_type, phone, admin_list[1], admin_state, admin_list[0],
                 now_time,
                 old_user_name)
-            print(sql_revise)
             res_up = SqlModel().insert_or_update(sql_revise)
-            print(res_up)
             if res_up:
                 return JsonResponse({"result": "修改成功"})
             else:
                 return JsonResponse({"result": "fail", "msg": "修改失败"})
-    except Exception as e:
-        print(e)
+    except:
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
