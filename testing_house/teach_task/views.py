@@ -556,8 +556,6 @@ class Major(View):
     def get(self, request):
         """GET请求，专业展示"""
         username = request.COOKIES.get('username')
-        # username = request.GET.get('username')  # 测试用
-
         sql = "select school_code from user where user_name='%s'" % username
         try:
             school_code = SqlModel().select_one(sql)
@@ -612,12 +610,11 @@ class Major(View):
         sql = "select admin_name,school_code from user where user_name = '%s'" % username
         try:
             admin_list = SqlModel().select_one(sql)  # admin_name=admin_list[0]  school_code=admin_list[1]
-            result = MAJOR.objects.filter(major_code=int(major_code))
+            result = MAJOR.objects.filter(school_code=admin_list[1], major_code=int(major_code))
             if result:
                 return JsonResponse({"result": "fail", "msg": "该专业已经存在"})
             else:
-                sql_add = "insert into major (major_code,major_name,school_code,major_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s')" % (
-                    int(major_code), major_name, int(admin_list[1]), major_state, admin_list[0], now_time)
+                sql_add = "insert into major (major_code,major_name,school_code,major_state,create_name,create_time) values ('%s','%s','%s','%s','%s','%s')" % (int(major_code), major_name, int(admin_list[1]), major_state, admin_list[0], now_time)
                 res_insert = SqlModel().insert_or_update(sql_add)
                 if res_insert:
                     return JsonResponse({"result": "新建成功"})
@@ -639,7 +636,7 @@ def major_updata(request):
     sql = "select admin_name,school_code from user where user_name = '%s'" % username
     try:
         admin_list = SqlModel().select_one(sql)  # admin_name=admin_list[0]  school_code=admin_list[1]
-        result = MAJOR.objects.filter(major_code=int(major_code))
+        result = MAJOR.objects.filter(school_code=admin_list[1], major_code=int(major_code))
         if result:
             return JsonResponse({"result": "fail", "msg": "该专业代码已经存在,不能重复使用"})
         else:
@@ -671,10 +668,13 @@ class Major_delete_search(View):
 
     def post(self, request):
         """搜索功能"""
+        username = request.COOKIES.get("username")
         major_name = request.POST.get("major_name")
-        sql = "select major_name,major_code,major_state,create_name,create_time from major where major_name like '%%%s%%'" % major_name
-
         try:
+            sql_admin = "select school_code from user where user_name='%s'" % username
+            school_list = SqlModel().select_one(sql_admin)
+            sql = "select major_name,major_code,major_state,create_name,create_time from major where school_code='%s' and major_name like '%%%s%%'" % (school_list[0], major_name)
+
             major_list = SqlModel().select_all(sql)
             if major_list:
                 data_list = []
@@ -712,7 +712,6 @@ class Class(View):
 
     def get(self, request):
         username = request.COOKIES.get("username")
-        # username = request.GET.get("username")    # 测试用
         sql = "select school_code from user where user_name = '%s'" % username
         try:
             school_code = SqlModel().select_one(sql)
