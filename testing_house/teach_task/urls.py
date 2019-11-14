@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'school_update', views.school_update),
     url(r'school_modify', views.school_modify),
     url(r'edu_update', views.edu_update),
+    url(r'edu_modify',views.edu_modify),
     url(r'major_update', views.major_update),
     url(r'class_update', views.class_update),
 
