@@ -21,7 +21,7 @@ import time
 from sql_operating.mysql_class import *
 from  personal_center.views import  update_sql
 from etc.command import *
-from .models import  *
+from .models import  purchase_payment_table, purchase_contract_table,purchase_invoice_table,purchase_warehousing_table,purchase_apply_table
 
 
 
@@ -122,6 +122,16 @@ def purchasing_created(request):
     return render(request, 'purchasing_created_1.html')
 
 
+
+#  TODO   选择案例
+def set_chose_case(request):
+    sql = "select *   from   case_module_relationship"
+    row_info = DB.select_one(sql)
+    print(row_info)
+
+
+
+
 # TODO 第一步数据确认
 def purchasing_created_data(request):
     return render(request, '200')
@@ -131,7 +141,7 @@ def purchasing_created_data(request):
 def purchaes_requisitions_create(request):
     # user_name = request.COOKIES.get('username')
     # modules = request.POST.get("modules")
-    #
+
     # price = request.POST.get("price")
     # unit  = request.POST.get("unit")
     # quantity = request.POST.get("quantity")
@@ -153,8 +163,10 @@ def purchaes_requisitions_create_data(request):
     procurement_type_1 = request.POST.get('procurement_type')
     # TODO 采购用途
     purchase_usesing_1 = request.POST.get('purchase_usesing')
+
     # TODO  货物编码
     goods_number_1 = request.POST.get('goods_number')
+
     # TODO 建议单价
     recommended_unite_price_1 = request.POST.get('unit_price')
     # TODO 单位规格
@@ -420,16 +432,21 @@ def set_purchaes_order_create_data(request):
 def set_warehousing_by_purchase_number(request):
     user_name = request.COOKIES.get('username')
     # user_name = 'kj1'
-    sql = "select purchase_number, contract_number from purchase_contract_table  where user_name = '%s'" % user_name
+    # sql = "select purchase_number, contract_number from purchase_contract_table  where user_name = '%s'" % user_name
 
-    user_jobs = DB.get_select_all(sql_info=sql)
+    # user_jobs = DB.get_select_all(sql_info=sql)
+    user_jobs = purchase_contract_table.objects.filter(Q(user_name=user_name))
     data_list = []
-
+    contract_info = []
     print(user_jobs)
     if user_jobs:
         print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', user_jobs)
-        data_list.append(user_jobs)
+        for i in user_jobs:
+            contract_info.append(i.contract_number)
+            data_list.append(contract_info)
+            contract_info = []
+        print(data_list)
         data = {
             "scuess": "200"
             , "msg": ""
@@ -499,16 +516,22 @@ def set_purchaes_storage_create_data(request):
     gmt_create = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     gmt_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     purchase_warehousing_status = '1113'
-
+    application_sector_1  = purchase_contract_table.objects.filter(Q(user_name=user_name) & Q(contract_number = contract_number))
+    print(application_sector_1)
+    for i in application_sector_1:
+        application_sector = i.application_sector
+        break
+    # print(application_sector)
+    # return  HttpResponse('ok')
     print(gmt_modified, gmt_create, purchase_warehousing_status, business_name)
 
     try:
         DB.get_insert(table='purchase_warehousing_table',
                       values=(gmt_create, gmt_modified, user_name, purchase_number, approval_date,
-                              contract_number, warehouse_number, warehouse_date,
+                              contract_number, warehouse_number, warehouse_date,application_sector,
                               application, purchase_warehousing_status, business_name),
                       fields="(gmt_create, gmt_modified,user_name,purchase_number,approval_date,"
-                             "contract_number,warehouse_number,warehouse_date,"
+                             "contract_number,warehouse_number,warehouse_date,application_sector,"
                              "application,purchase_warehousing_status,business_name)")
 
 
@@ -827,7 +850,7 @@ def set_purchaes_payment_create_data(request):
     # #  TODO  创建任务信息
     #
     job_no = create_uuid()
-    jobs_name = '采购-' + goods_numbers[goods_name] + '-入库单填写'
+    jobs_name = '采购-' + goods_numbers[goods_name] + '-付款制单'
     print('job_no ============================', job_no)
     print('jobbbbbbbbbbbbbbb:', job_no)
     # TODO  获取开始时间写入数据库  用户名  写入数据库
@@ -879,8 +902,8 @@ def set_purchase_robot_jobs_info(request):
     data_list = []
     user_name = request.COOKIES.get('username')
     # sql = "select  id,job_no,job_name, job_type,job_start_time,job_status   from  job_list_summary where  job_type like '采购%%' and user_name_id= '%s' order by id desc "%user_name
-    user_jobs = Job_list_summary.objects.filter(Q(user_name_id=user_name) & Q(job_type__contains='采购'))
-    # user_jobs = DB.select_all(sql_info=sql)
+    user_jobs = Job_list_summary.objects.filter(Q(user_name_id=user_name) & Q(job_type__contains='采购')).order_by('-id')
+
     # user_jobs = DB.get_select(table='job_list_summary',fields='(id,job_no,job_name, job_type,job_start_time,job_status)', condition = user_name)
     print(' 已完成：：：：：：：：：：：：：：：：：', user_jobs)
     for i in user_jobs:
@@ -911,24 +934,109 @@ def set_purchase_robot_buession_info(request):
 
     user_name = request.COOKIES.get('username')
     # TODO  5 个业务表联查
-    sql_apply = "select  business_name, gmt_create,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   " % user_name
-    sql_contract = "select  business_name, gmt_create,applicant,contract_apply_status,gmt_modified,id  from  purchase_contract_table  where user_name = '%s'  order by id  desc    " %user_name
-    sql_warehousing = "select  business_name, gmt_create,application,purchase_warehousing_status,gmt_modified,id  from  purchase_warehousing_table  where user_name = '%s'  order by id  desc" % user_name
-    sql_invoice = "select  business_name, gmt_create,application,purchase_invoice_status,gmt_modified,id  from  purchase_invoice_table  where user_name = '%s'  order by id  desc  " % user_name
-    sql_payment = "select  business_name, gmt_create,application,purchase_payment_status,gmt_modified,id  from  purchase_payment_table  where user_name = '%s'  order by id  desc    " % user_name
+    # sql_apply = "select  business_name, gmt_create,applicant,purchase_apply_status,gmt_modified,id  from  purchase_apply_table  where user_name = '%s'  order by id  desc   " % user_name
+    # sql_contract = "select  business_name, gmt_create,applicant,contract_apply_status,gmt_modified,id  from  purchase_contract_table  where user_name = '%s'  order by id  desc    " %user_name
+    # sql_warehousing = "select  business_name, gmt_create,application,purchase_warehousing_status,gmt_modified,id  from  purchase_warehousing_table  where user_name = '%s'  order by id  desc" % user_name
+    # sql_invoice = "select  business_name, gmt_create,application,purchase_invoice_status,gmt_modified,id  from  purchase_invoice_table  where user_name = '%s'  order by id  desc  " % user_name
+    # sql_payment = "select  business_name, gmt_create,application,purchase_payment_status,gmt_modified,id  from  purchase_payment_table  where user_name = '%s'  order by id  desc    " % user_name
+    sql_apply =purchase_apply_table.objects.filter(user_name=user_name).order_by('-id')
+    sql_contract  =purchase_contract_table.objects.filter(user_name=user_name).order_by('-id')
+    sql_warehousing = purchase_warehousing_table.objects.filter(user_name=user_name).order_by('-id')
+    sql_invoice = purchase_invoice_table.objects.filter(user_name=user_name).order_by('-id')
+    sql_payment  =  purchase_payment_table.objects.filter(user_name=user_name).order_by('-id')
 
-    apply_info = DB.select_all(sql_info=sql_apply)
-    contract_info = DB.select_all(sql_info=sql_contract)
-    warehousing_info = DB.select_all(sql_info=sql_warehousing)
-    invoice_info = DB.select_all(sql_info=sql_invoice)
-    payment_info = DB.select_all(sql_info=sql_payment)
-    user_jobs = []
+
+    # apply_info = DB.select_all(sql_info=sql_apply)
+    # contract_info = DB.select_all(sql_info=sql_contract)
+    # warehousing_info = DB.select_all(sql_info=sql_warehousing)
+    # invoice_info = DB.select_all(sql_info=sql_invoice)
+    # payment_info = DB.select_all(sql_info=sql_payment)
+
+
+
     data_list = []
     try:
-        for i in [warehousing_info, apply_info, contract_info, invoice_info, payment_info]:
-            for x in i:
-                user_jobs.append(x)
-    except Exception as e:
+        if sql_apply:
+            #  TODO  请购信息
+            for i in sql_apply  :
+
+                data_dic = {
+                    "id": i.id
+                    , "business_name": i.business_name
+                    , "gmt_create": str(i.gmt_create).split('+')[0]
+                    , "application_depart": i.application_depart
+                    # , 'robot_name': '采购请购机器人'
+                    , "applicant": i.applicant
+                    , "purchase_apply_status": run_status[i.purchase_apply_status]
+                    , "gmt_modified": str(i.gmt_modified).split('+')[0]
+                }
+                data_list.append(data_dic)
+
+        # data_list.append(user_jobs)
+
+        #  TODO   合同信息
+        if sql_contract:
+            print(sql_contract)
+            for i in sql_contract  :
+                data_dic = {
+                    "id": i.id
+                    , "business_name": i.business_name
+                    , "gmt_create": str(i.gmt_create).split('+')[0]
+                    , "application_depart": i.application_sector
+                    # , 'robot_name': '采购请购机器人'
+                    , "applicant": i.applicant
+                    , "purchase_apply_status": run_status[i.contract_apply_status]
+                    , "gmt_modified": str(i.gmt_modified).split('+')[0]
+                }
+                data_list.append(data_dic)
+        print(data_list)
+        #  TODO   入库信息
+        if sql_warehousing:
+            for i in sql_warehousing  :
+                data_dic = {
+                    "id": i.id
+                    , "business_name": i.business_name
+                    , "gmt_create": str(i.gmt_create).split('+')[0]
+                    , "application_depart": i.application_sector
+                    # , 'robot_name': '采购请购机器人'
+                    , "applicant": i.application
+                    , "purchase_apply_status": run_status[i.purchase_warehousing_status]
+                    , "gmt_modified": str(i.gmt_modified).split('+')[0]
+                }
+                data_list.append(data_dic)
+            # print(data_list)
+        if sql_invoice:
+            #  TODO   报账信息
+            for i in sql_invoice  :
+
+                data_dic = {
+                    "id": i.id
+                    , "business_name": i.business_name
+                    , "gmt_create": str(i.gmt_create).split('+')[0]
+                    , "application_depart": i.application_sector
+                    # , 'robot_name': '采购请购机器人'
+                    , "applicant": i.application
+                    , "purchase_apply_status": run_status[i.purchase_invoice_status]
+                    , "gmt_modified": str(i.gmt_modified).split('+')[0]
+                }
+                data_list.append(data_dic)
+        #  TODO   付款信息
+        if sql_payment:
+            for i in sql_payment  :
+
+                data_dic = {
+                    "id": i.id
+                    , "business_name": i.business_name
+                    , "gmt_create": str(i.gmt_create).split('+')[0]
+                    , "application_depart": i.application_sector
+                    # , 'robot_name': '采购请购机器人'
+                    , "applicant": i.application
+                    , "purchase_apply_status": run_status[i.purchase_payment_status]
+                    , "gmt_modified": str(i.gmt_modified).split('+')[0]
+                }
+                data_list.append(data_dic)
+
+        # print('apply', data_list)
         data = {
             "code": 0
             , "msg": "查询失败！"
@@ -936,43 +1044,18 @@ def set_purchase_robot_buession_info(request):
             , "data": data_list
         }
         return  JsonResponse(data)
-    # print('apply', user_jobs)
-    data_list = []
 
-    # print(' 业务已完成：：：：：：：：：：：：：：：：：', user_jobs)
-    if user_jobs:
-
-        for i in user_jobs:
-            data_dic = {
-                "id": i[5]
-                , "business_name": i[0]
-                , "gmt_create": str(i[1])
-                , "application_depart": '封装打孔二车间'
-                , 'robot_name': '采购请购机器人'
-                , "applicant": i[2]
-                , "purchase_apply_status": run_status[i[3]]
-                , "gmt_modified": str(i[4])
-            }
-            data_list.append(data_dic)
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>业务信息查询成功')
+    except Exception as e:
         data = {
             "code": 0
-            , "msg": ""
+            , "msg": "fail!"
             , "count": 1
             , "data": data_list
         }
-        # print(data)
-        return JsonResponse(data)
-    else:
+        print('Error:',e)
+        return  JsonResponse(data)
 
-        data = {
-            "code": 0
-            , "msg": "查询失败！"
-            , "count": 1
-            , "data": data_list
-        }
 
-        return JsonResponse(data)
 
 
 # TODO  创建请购单数据
@@ -1024,7 +1107,6 @@ def set_view_information_data(request):
     r_name =body1['name']
     r_name = r_name.split('-')[1]
     print('//////////////////////////////////-----',r_name,id)
-
     user_name = request.COOKIES.get('username')
 
     print(body1)
@@ -1039,6 +1121,7 @@ def set_view_information_data(request):
         if r_name == '采购申请与审批':
             sql = 'select purchase_number,purchase_usesing,goods_number,recommended_unite_price, specification, goods_count,recommended_price,applicant, application_depart,recommended_date,business_name from purchase_apply_table where id = ' + str(id)
             print(sql)
+
             views_info = DB.select_one(sql)
 
             project_name.append('单据编号')
@@ -1053,6 +1136,7 @@ def set_view_information_data(request):
             project_name.append('申请日期')
 
             views_info[2] = goods_numbers[views_info[2]]
+            print('-------------------------',views_info)
             views_info.pop()
             result = {
                 'code': '200'
@@ -1107,6 +1191,8 @@ def set_view_information_data(request):
             project_name.append('点验人员')
 
             views_info[2] = warehouse_name[views_info[2]]
+
+            # print('--------------------------------------入库：',views_info)
             views_info.pop()
             result = {
                 'code': '200'

@@ -3,6 +3,7 @@ import re
 
 from django.http import JsonResponse
 
+
 from .models import *
 from django.db.models import Q
 from django.shortcuts import render, HttpResponse, redirect
@@ -464,6 +465,22 @@ def menu_list(request):
 
     return render(request, 'menu_list.html', locals())
 
+
+
+#  TODO
+def download_cjfh(request):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    media_dir = os.path.join(BASE_DIR, "static")
+    if not os.path.exists(media_dir):  # 如果不存在文件夹，创建
+        os.makedirs(media_dir)
+    """模版下载"""
+    MEDIA_ROOT = os.path.join(media_dir, "cjfh", "xzlt2019.pdf")
+
+    with open(MEDIA_ROOT, 'rb') as f:
+        response = HttpResponse(f)
+        response['Content-Type'] = 'application/octet-stream'
+        response['Content-Disposition'] = 'attachment;filename="xzlt2019.pdf"'
+        return response
 
 def menu_add(request):
     data = Menu.objects.all().values()

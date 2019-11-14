@@ -36,7 +36,7 @@ urlpatterns = [
     url('invoice_by_purchase_number', views.set_invoice_by_purchase_number, name = '发票关联请购单'),
     url('pyment_by_purchase_number', views.set_pyment_by_purchase_number, name = '付款关联请购单'),
 
-
+    url('chose_case',views.set_chose_case, name = '选择案例'),
     url('purchasing_created', views.purchasing_created, name='purchasing_created'),
     url('purchaes_requisitions_create', views.purchaes_requisitions_create, name='purchaes_requisitions_create'),
     url('purchaes_requisitions_determine', views.purchaes_requisitions_determine,

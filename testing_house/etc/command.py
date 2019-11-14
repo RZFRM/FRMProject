@@ -12,7 +12,10 @@ robot_name =  {
     '采购申请机器人':'purchase_requisition_RPA_NoOCR',
     '个税机器人':'GeShui',
     '采购合同机器人':'purchase_order_RPA',
+    '采购报账机器人':'purchase_order_RPA',
+    '采购付款机器人':'purchase_order_RPA',
     '销售合同机器人':'sale_RPA',
+
 }
 
 # TODO  货物信息          ----------------
