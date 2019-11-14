@@ -13,18 +13,20 @@ urlpatterns = [
     url(r'case_jump', views.case_jump),
     url(r'teaching_jump', views.teaching_jump),
     url(r'task_jump', views.task_jump),
-    url(r'teachering_card_jump',views.teachering_card_jump),  # 实训卡查看跳转页面
+    url(r'teachering_card_jump', views.teachering_card_jump),  # 实训卡查看跳转页面
 
     url(r'school_update', views.school_update),
     url(r'school_modify', views.school_modify),
     url(r'edu_update', views.edu_update),
-    url(r'edu_modify',views.edu_modify),
+    url(r'edu_modify', views.edu_modify),
     url(r'major_update', views.major_update),
+    url(r'major_modify', views.major_modify),
     url(r'class_update', views.class_update),
 
     url(r'index', views.Index.as_view()),
+    url(r'train_case', views.Train_case.as_view()),
     url(r'train_task', views.Train_task.as_view()),
-    url(r'train_card',views.Train_card.as_view()),
+    url(r'train_card', views.Train_card.as_view()),
 
     url(r'task_insert_delete', views.Task_insert_delete.as_view()),
     url(r'task_search', views.task_search),
@@ -32,7 +34,7 @@ urlpatterns = [
     url(r'task_card', views.task_card),
     url(r'task', views.Task.as_view()),
     url(r'school_delete_search', views.School_delete_search.as_view()),
-    url(r'school_revise',views.school_revise),
+    url(r'school_revise', views.school_revise),
     url(r'school', views.School.as_view()),
     url(r'province', views.province),
     url(r'city', views.city),
@@ -47,10 +49,10 @@ urlpatterns = [
     url(r'class_down', views.Class_down.as_view()),
     url(r'class_updata', views.class_updata),
     url(r'class', views.Class.as_view()),
-    url(r'teachering_report',views.Teachering_report.as_view()),
-    url(r'teachering_card',views.teachering_card),
-    url(r'teachering_answer',views.Teachering_answer.as_view()),
-    url(r'teachering_ware',views.Teachering_ware.as_view()),
+    url(r'teachering_report', views.Teachering_report.as_view()),
+    url(r'teachering_card', views.teachering_card),
+    url(r'teachering_answer', views.Teachering_answer.as_view()),
+    url(r'teachering_ware', views.Teachering_ware.as_view()),
     url(r'teachering', views.Teachering.as_view()),
     url(r'teach_design', views.task_teach_design),
     url(r'teacher_delete_search', views.Teacher_delete_search.as_view()),
@@ -75,7 +77,7 @@ urlpatterns = [
     url(r'case_document', views.case_document),
     url(r'case_state', views.case_state),
     url(r'case_search', views.case_search),
-    url(r'case_delete',views.case_delete),
+    url(r'case_delete', views.case_delete),
     url(r'case', views.Case.as_view()),
 
 ]

@@ -95,6 +95,11 @@ def major_update(request):
     return render(request, "major_new_update.html")
 
 
+def major_modify(request):
+    """专业管理  修改跳转"""
+    return render(request, "major_new_modify.html")
+
+
 def class_update(request):
     """班级管理 新增跳转"""
     return render(request, "class_admin_new_update.html")
@@ -2428,7 +2433,6 @@ class Train_case(View):
         task_name = request.GET.get("task_name")
         try:
             case_obj_list = CASE_TASK.objects.filter(task_name=task_name)
-            print(case_obj_list)
             data_list = []
             for i in case_obj_list:
                 case_name = i.case_name
@@ -2443,3 +2447,27 @@ class Train_case(View):
             return JsonResponse({"result": data_list})
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+    def post(self, request):
+        """实训任务卡，案例对应文件的下载"""
+        case_name = request.POST.get("case_name")
+        info_type = request.POST.get("info_type")
+        try:
+            if info_type == "picture":
+                res = PICTURE.objects.filter(case_name=case_name).first()
+                picture_name = res.picture_name
+                picture_position = res.picture_position
+                MEDIA_ROOT = os.path.join(BASE_DIR, picture_position, picture_name)
+            elif info_type == "document":
+                res = DOCUMENT.objects.filter(case_name=case_name).first()
+                document_name = res.document_name
+                document_position = res.document_position
+                MEDIA_ROOT = os.path.join(BASE_DIR, document_position, document_name)
+
+            with open(MEDIA_ROOT, 'rb') as f:
+                response = HttpResponse(f)
+                response['Content-Type'] = 'application/octet-stream'
+                response['Content-Disposition'] = 'attachment;filename="模版.xlsx"'
+                return response
+        except:
+            return HttpResponse("系统错误，请重试")
