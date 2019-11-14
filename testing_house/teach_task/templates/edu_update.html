@@ -174,7 +174,10 @@
                        'admin_state':select1
                    },
                    success:function(res){
-                        console.log(res)
+                        layer.msg(res.result)
+                                  setTimeout(function(){
+                                      window.parent.location.reload();
+                                },1000)
                    }
                })
                 }
