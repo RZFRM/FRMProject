@@ -447,6 +447,7 @@ def edu_updata(request):
     """教务 修改接口"""
     admin_name = request.POST.get('admin_name')
     old_user_name = request.POST.get('old_user_name')
+    print("========",old_user_name)
     user_name = request.POST.get('user_name')
     user_pass = request.POST.get('user_pass')
     phone = request.POST.get('phone')
