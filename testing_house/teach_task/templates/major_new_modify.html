@@ -121,45 +121,41 @@
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
-        //添加数据
-        // form.on('submit(major_btn)',function(data){
-        //      console.log(JSON.stringify(data))
-        //     $.ajax({
-        //         url:'/major',
-        //         type:'post',
-        //         data:{
-        //             'major_name':$('#major_nane').val(),
-        //             'major_code':$('#major_code').val(),
-        //             'major_state':$('#major_tab').val()
-        //         },
-        //         success:function (res) {
-        //             console.log(res)
-        //         }
-        //     })
-        // })
-        $('#major_btn').on('click',function(){
-             $.ajax({
-                url:'/teach_task/major',
-                type:'post',
-                data:{
-                    'major_name':$('#major_nane').val(),
-                    'major_code':$('#major_code').val(),
-                    'major_state':$('#major_tab').val()
-                },
-                success:function (res) {
-                    console.log(res.result)
-                    console.log(res)
-                   if(res.result=="fail"){
-                       layer.msg(res.msg)
-                   }else{
-                       layer.msg(res.result)
-                       setTimeout(function(){
-                             window.parent.location.reload();
-                       },1000)
-                   }
-                }
-            })
+        //修改数据
+        $(function(){
+            return  old_major_code=$('#major_code').val()
+
         })
+        $('#major_btn').on('click',function(){
+                console.log($('#major_nane').val(),$('#major_code').val(),$('#major_tab').val(),old_major_code)
+            if($('#major_tab').val()==''){
+                layer.msg('请选择')
+            }else {
+                 $.ajax({
+                    url:'/teach_task/major_updata',
+                    type:'post',
+                    data:{
+                        'major_name':$('#major_nane').val(),
+                        'major_code':$('#major_code').val(),
+                        'major_state':$('#major_tab').val(),
+                        'old_major_code':old_major_code
+                    },
+                    success:function (res) {
+                        console.log(res.result)
+                        console.log(res)
+                       if(res.result=="fail"){
+                           layer.msg(res.msg)
+                       }else{
+                           layer.msg(res.result)
+                           setTimeout(function(){
+                                 window.parent.location.reload();
+                           },1000)
+                       }
+                    }
+                })
+            }
+
+            })
     });
 
 </script>

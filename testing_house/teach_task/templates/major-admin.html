@@ -38,7 +38,7 @@
     <div class="btn-groups">
         <div class="layui-groups">
             <button type="button" class="layui-btn" id="add3">新增</button>
-            <button type="button" class="layui-btn">修改</button>
+            <button type="button" class="layui-btn" id="add1">修改</button>
             <button type="button" class="layui-btn" id="add2">删除</button>
         </div>
     </div>
@@ -72,7 +72,7 @@
             , max_height: 1000
             , type: "get"
             , cols: [[
-                {type: 'radio' ,id:'sex1'}
+                {type: 'radio', id: 'sex1'}
                 , {field: 'a', align: "center", title: '序号', width: "10%", type: 'numbers'}
                 , {field: 'a', align: "center", title: '专业代码', width: "20%"}
                 , {field: 'b', align: "center", title: '专业名称', width: "20%"}
@@ -94,6 +94,29 @@
 
             });
         });
+        //修改弹出层
+        $('#add1').on('click', function () {
+            var checkStatus = table.checkStatus('table_user'),
+                data = checkStatus.data;
+            console.log(data)
+            if (data.length == 0) {
+                layer.msg('请选择要修改的内容')
+            } else {
+                layer.open({
+                    title: '学校管理',
+                    type: 2,
+                    area: ['637px', '518px'],
+                    content: '/teach_task/major_modify',
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        var iframeWin = window[layero.find('iframe')[0]['table_user']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                        //得到iframe页的body内容
+                         body.find('#major_nane').val(data[0].b)
+                         body.find('#major_code').val(data[0].a)
+                    }
+                });
+            }
+        })
         //搜索
         $('#btn').on('click', function () {
             var val = $('#demoReload').val()
@@ -108,31 +131,31 @@
             });
         })
         //删除
-         table.on('radio(table_user)', function (obj) {
-                return data=obj
-            });
+        table.on('radio(table_user)', function (obj) {
+            return data = obj
+        });
         $('#add2').on('click', function () {
             console.log(data.data.a)
             console.log(data)
-            if(data.checked==true){
+            if (data.checked == true) {
                 $.ajax({
                     url: "/teach_task/major_delete_search",
-                    type:'get',
-                    data:{
-                        'major_code':data.data.a
+                    type: 'get',
+                    data: {
+                        'major_code': data.data.a
                     },
-                    success:function(res){
-                        if(res.result=='fail'){
+                    success: function (res) {
+                        if (res.result == 'fail') {
                             layer.msg(res.msg)
-                        }else{
+                        } else {
                             layer.msg(res.result)
-                            setTimeout(function(){
-                                 table.reload("table_user")
-                            },1000)
+                            setTimeout(function () {
+                                table.reload("table_user")
+                            }, 1000)
                         }
                     }
                 })
-            }else {
+            } else {
                 layer.msg('请选择删除的项')
             }
         })
