@@ -38,7 +38,6 @@ urlpatterns = [
     path('', include('corporate_tax_quarterly_report_robot.urls')),
     path('', include('vat_return_robot.urls')),
 
-
     url('^fixed_assets/', include('fixed_assets_robot.urls')),
 
     path('', include('sales_robot.urls')),
