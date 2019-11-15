@@ -105,6 +105,11 @@ def class_update(request):
     return render(request, "class_admin_new_update.html")
 
 
+def class_modify(request):
+    """班级管理  修改跳转"""
+    return render(request, "class_admin_new_modify.html")
+
+
 class Index(View):
     def get(self, request):
         return render(request, 'login.html')
@@ -2426,7 +2431,7 @@ class Train_card(View):
 
 
 class Train_case(View):
-    """实训任务卡，get案例名称和描述，post案例下载的对应文件"""
+    """实训任务卡，get案例名称和描述，post返回案例对应的文件和图片名称+url下载路径"""
     def get(self, request):
         """案例名称和描述"""
         task_name = request.GET.get("task_name")
@@ -2450,23 +2455,55 @@ class Train_case(View):
     def post(self, request):
         """实训任务卡，案例对应文件的下载"""
         case_name = request.POST.get("case_name")
-        info_type = request.POST.get("info_type")
-        try:
-            if info_type == "picture":
-                res = PICTURE.objects.filter(case_name=case_name).first()
-                picture_name = res.picture_name
-                picture_position = res.picture_position
-                MEDIA_ROOT = os.path.join(BASE_DIR, picture_position, picture_name)
-            elif info_type == "document":
-                res = DOCUMENT.objects.filter(case_name=case_name).first()
-                document_name = res.document_name
-                document_position = res.document_position
-                MEDIA_ROOT = os.path.join(BASE_DIR, document_position, document_name)
 
-            with open(MEDIA_ROOT, 'rb') as f:
-                response = HttpResponse(f)
-                response['Content-Type'] = 'application/octet-stream'
-                response['Content-Disposition'] = 'attachment;filename="模版.xlsx"'
-                return response
-        except:
-            return HttpResponse("系统错误，请重试")
+        document_obj_list = DOCUMENT.objects.filter(case_name=case_name)
+        for i in document_obj_list:
+            document_name = i.document_name
+            document_position = i.document_position
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # case_name = request.POST.get("case_name")
+        # info_type = request.POST.get("info_type")
+        # try:
+        #     if info_type == "picture":
+        #         res = PICTURE.objects.filter(case_name=case_name).first()
+        #         picture_name = res.picture_name
+        #         picture_position = res.picture_position
+        #         MEDIA_ROOT = os.path.join(BASE_DIR, picture_position, picture_name)
+        #     elif info_type == "document":
+        #         res = DOCUMENT.objects.filter(case_name=case_name).first()
+        #         document_name = res.document_name
+        #         document_position = res.document_position
+        #         MEDIA_ROOT = os.path.join(BASE_DIR, document_position, document_name)
+        #
+        #     with open(MEDIA_ROOT, 'rb') as f:
+        #         response = HttpResponse(f)
+        #         response['Content-Type'] = 'application/octet-stream'
+        #         response['Content-Disposition'] = 'attachment;filename="模版.xlsx"'
+        #         return response
+        # except:
+        #     return HttpResponse("系统错误，请重试")

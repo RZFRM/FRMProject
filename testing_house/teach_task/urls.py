@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'major_update', views.major_update),
     url(r'major_modify', views.major_modify),
     url(r'class_update', views.class_update),
+    url(r'class_modify', views.class_modify),
 
     url(r'index', views.Index.as_view()),
     url(r'train_case', views.Train_case.as_view()),
