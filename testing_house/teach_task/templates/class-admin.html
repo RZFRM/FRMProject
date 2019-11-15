@@ -40,7 +40,7 @@
     </div>
 </div>
 <div class="school-head" id="school-head" style="width: 98%">
-    <div class="btn-groups" >
+    <div class="btn-groups">
         <div class="layui-groups">
             <button type="button" class="layui-btn" id="add4">新增</button>
             <button type="button" class="layui-btn" id="add3">修改</button>
@@ -103,13 +103,21 @@
 
         });
         //修改弹窗
-        $('#add3').on('click',function(){
-             layer.open({
-                title: '班级管理',
-                type: 2,
-                area: ['800px', '600px'],//宽高
-                content: 'class_update'
-            });
+        $('#add3').on('click', function () {
+            var checkStatus = table.checkStatus('table_user')
+                , data = checkStatus.data;
+            console.log(data)
+            if (data.length == 0) {
+                layer.msg('请选择要修改的内容')
+            } else {
+                layer.open({
+                    title: '班级管理',
+                    type: 2,
+                    area: ['800px', '600px'],//宽高
+                    content: '/teach_task/class_modify'
+                });
+            }
+
         })
         //删除功能
         $('#dele').on('click', function () {
