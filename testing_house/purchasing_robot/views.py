@@ -112,15 +112,20 @@ def pruchasing_robot_base_data(request):
 
 #  TODO  采购选择 案例数据
 def set_purchasing_chose_models(request):
-    sql = "select case_number  from  case_module_relationship  where  id < 23  "
-    row_info = DB.select_all(sql)
-    # print(row_info)
-    data = []
-    for i in row_info:
-        data.append(i[0])
+    try:
+        sql = "select case_number  from  case_module_relationship  where  id < 23  "
+        row_info = DB.select_all(sql)
+        # print(row_info)
+        info = []
+        for i in row_info:
+            info.append(i[0])
 
-    info  = {'success': '1111', 'msg': '','data':data}
-    return  JsonResponse(info)
+        data  = {'success': '1111', 'msg': '','data':info}
+        return  JsonResponse(data)
+    except Exception as e:
+        print(e)
+        data = {'fail': '4444', 'msg': ''}
+        return  JsonResponse(data)
 
 
 

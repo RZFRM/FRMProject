@@ -16,4 +16,4 @@ var.live.*
 */gen-*
 */var/
 */bin_*
-__pycache__/
+*__pycache__/

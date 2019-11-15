@@ -32,12 +32,9 @@ urlpatterns = [
     url('purchase_invoice_data', views.set_invoice_data, name='采购报销单数据'),
     url('purchase_payment_data', views.set_payment_data, name='采购报销单数据'),
 
-
-
-
-
-
-
+    #  TODO　　页面接口
+    url('purchasing_created', views.purchasing_created, name='选择案例编号'),
+    url('purchaes_requisitions_create', views.purchaes_requisitions_create, name='物资请购'),
 
     # url('purchasing_created_data', views.purchasing_created_data, name='purchasing_created'),
     # url('purchaes_order_create_data', views.set_purchaes_order_create_data, name='purchaes_requisitions_create'),
@@ -52,23 +49,24 @@ urlpatterns = [
     # url('pyment_by_purchase_number', views.set_pyment_by_purchase_number, name = '付款关联请购单'),
 
 
-    url('purchasing_created', views.purchasing_created, name='purchasing_created'),
-    url('purchaes_requisitions_create', views.purchaes_requisitions_create, name='purchaes_requisitions_create'),
-    url('purchaes_requisitions_determine', views.purchaes_requisitions_determine,
-        name='purchaes_requisitions_determine'),
+    # url('purchaes_requisitions_determine', views.purchaes_requisitions_determine,
+    #     name='purchaes_requisitions_determine'),
     url('purchaes_order_create', views.purchaes_order_create, name='purchaes_order_create'),
-    url('purchaes_order_determine', views.purchaes_order_determine, name='purchaes_order_determine'),
+    # url('purchaes_order_determine', views.purchaes_order_determine, name='purchaes_order_determine'),
 
     url('purchaes_storage_create', views.purchaes_storage_create, name='purchaes_storage_create'),
-    url('purchaes_storage_determine', views.purchaes_storage_determine, name='purchaes_storage_determine'),
+    # url('purchaes_storage_determine', views.purchaes_storage_determine, name='purchaes_storage_determine'),
 
     url('purchaes_reimburse_create', views.purchaes_reimburse_create, name='purchaes_reimburse_create'),
-    url('purchaes_reimburse_determine', views.purchaes_reimburse_determine, name='purchaes_reimburse_determine'),
+    # url('purchaes_reimburse_determine', views.purchaes_reimburse_determine, name='purchaes_reimburse_determine'),
+
     url('purchaes_payment_create', views.purchaes_payment_create, name='purchaes_payment_create'),
-    url('purchaes_payment_determine', views.purchaes_payment_determine, name='purchaes_payment_determine'),
+    # url('purchaes_payment_determine', views.purchaes_payment_determine, name='purchaes_payment_determine'),
+
     url('purchaes_business_data_display', views.purchaes_business_data_display, name='purchaes_business_data_display'),
 
     url('pruchasing_robot_base', views.pruchasing_robot_base, name='set_robot'),
+
     url('purchasing_robot_business_manager', views.pruchasing_robot_business, name='set_robot'),
     url('purchasing_robot_jobs_manager', views.pruchasing_robot_jobs, name='set_prokject'),
 
@@ -77,6 +75,8 @@ urlpatterns = [
 
     url('purchase_view_information_data', views.set_view_information_data, name='查看数据'),
     url('purchase_view_information', views.set_view_information, name='查看页面'),
+
+
 
     # url('purchase_delete_jobs_info', views.set_purchase_deletjobs_info, name='delete_jobs'),
     # url('purchase_stop_jobs_info', views.set_purchase_stopjobs_info, name='stop_jobs'),
