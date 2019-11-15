@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -324,40 +324,26 @@ button.nav-button:hover{
         //方法级渲染
         table.render({
             elem: '#table_user'
-            , url: '/student'
+            , url: '/teach_task/student'
             , toolbar: 'school-head'
             , max_height: 1000
             ,type:"get"
             , cols: [[
-                {checkbox: true, fixed: true}
+                {checkbox: true, }
                 , {field: 'a', align: "center",title: '序号', width: "6%",type:'numbers'}
-                , {field: 'a', align: "center",title: '学号', width: "9%"}
-                , {field: 'b', align: "center",title: '姓名', width: "9%"}
+                , {field: 'a', align: "center",title: '学号', width: "8%"}
+                , {field: 'b', align: "center",title: '姓名', width: "8%"}
                 , {field: 'c', align: "center",title: '专业', width: "8%"}
-                , {field: 'd', align: "center",title: '班级', width:"12%"}
-                , {field: 'e', align: "center",title: '手机', width: "13%"}
-                , {field: 'f', align: "center",title: '注册时间', width: "11%"}
-                , {field: 'g', align: "center",title: '登陆次数', width: "8%"}
+                , {field: 'd', align: "center",title: '班级', width:"10%"}
+                , {field: 'e', align: "center",title: '手机', width: "11%"}
+                , {field: 'f', align: "center",title: '注册时间', width: "13%"}
+                , {field: 'g', align: "center",title: '登陆次数', width: "9%"}
                 , {field: 'h', align: "center",title: '最近登录时间', width: "12%"}
-                , {field: 'i', align: "center",title: '实训报告', width: "12%"}
+                , {field: 'i', align: "center",title: '实训报告', width: "16%"}
             ]]
             , page: true
-        });
-
-
-        $("#add5").on('click', function () {
-            //console.log("data");
-            //页面层
-            layer.open({
-                title:'学生管理',
-                type: 2,
-                area: ['800px', '600px'],//宽高
-                content: 'school_update'
-            });
-
         });
     });
 </script>
 </body>
->>>>>>> c8cb2c88960a5e4477c30259ba1e4f4e74d96770
 </html>
