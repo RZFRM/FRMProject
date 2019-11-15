@@ -180,8 +180,10 @@
                             {#iframe.child('我是父布局传到子布局的值')#}
 
                             var body = layer.getChildFrame('body', index);//建立父子联系
+
                             body.find('#id').val(data.id);
                             body.find('#business_name').val(data.business_name);
+
                         }
                     })
 

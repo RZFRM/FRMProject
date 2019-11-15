@@ -23,7 +23,7 @@ urlpatterns = [
     path('', include('personal_center.urls')),
     path('', include('getRobot.urls')),
     path('', include('purchasing_robot.urls')),
-    path('', include('teach_task.urls')),
+    url(r'^teach_task', include('teach_task.urls')),
     path('', include('sales_robot.urls')),
     path('', include('inventory_accounting_robot.urls')),
 

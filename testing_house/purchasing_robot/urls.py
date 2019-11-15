@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.urls import path
 from . import views
 from django.conf.urls import url
@@ -20,21 +21,35 @@ from django.conf.urls import url
 urlpatterns = [
 
     #  TODO  数据页面
-    url('pruchasing_robot_base_data', views.pruchasing_robot_base_data, name='set_robot'),
-
+    url('pruchasing_robot_base_data', views.pruchasing_robot_base_data, name='采购机器人基础配置页面'),
+    url('purchasing_chose_models',views.set_purchasing_chose_models,name = '采购选择案例'),
     url('purchaes_requisitions_create_data', views.purchaes_requisitions_create_data,
         name='purchaes_requisitions_create'),
-    url('purchasing_created_data', views.purchasing_created_data, name='purchasing_created'),
-    url('purchaes_order_create_data', views.set_purchaes_order_create_data, name='purchaes_requisitions_create'),
-    url('purchaes_storage_create_data', views.set_purchaes_storage_create_data, name='purchaes_requisitions_create'),
-    url('purchaes_reimburse_create_data', views.set_purchaes_reimburse_create_data,
-        name='purchaes_requisitions_create'),
-    url('purchaes_payment_create_data', views.set_purchaes_payment_create_data, name='purchaes_requisitions_create'),
-    url('contract_by_purchase_number', views.set_contract_by_purchase_number, name='合同关联请购单'),
-    url('contract_by_purchase_number', views.set_contract_by_purchase_number, name = '合同关联请购单'),
-    url('warehousing_by_purchase_number', views.set_warehousing_by_purchase_number, name = '入库关联请购单'),
-    url('invoice_by_purchase_number', views.set_invoice_by_purchase_number, name = '发票关联请购单'),
-    url('pyment_by_purchase_number', views.set_pyment_by_purchase_number, name = '付款关联请购单'),
+    # TODO　　数据接口
+    url('purchase_apply_data', views.set_apply_data, name='采购请购单数据'),
+    url('purchase_contract_data', views.set_contract_data, name='采购合同单数据'),
+    url('purchase_warehousing_data', views.set_warehousing_data, name='采购入库单数据'),
+    url('purchase_invoice_data', views.set_invoice_data, name='采购报销单数据'),
+    url('purchase_payment_data', views.set_payment_data, name='采购报销单数据'),
+
+
+
+
+
+
+
+
+    # url('purchasing_created_data', views.purchasing_created_data, name='purchasing_created'),
+    # url('purchaes_order_create_data', views.set_purchaes_order_create_data, name='purchaes_requisitions_create'),
+    # url('purchaes_storage_create_data', views.set_purchaes_storage_create_data, name='purchaes_requisitions_create'),
+    # url('purchaes_reimburse_create_data', views.set_purchaes_reimburse_create_data,
+    #     name='purchaes_requisitions_create'),
+    # url('purchaes_payment_create_data', views.set_purchaes_payment_create_data, name='purchaes_requisitions_create'),
+    # url('contract_by_purchase_number', views.set_contract_by_purchase_number, name='合同关联请购单'),
+    # url('contract_by_purchase_number', views.set_contract_by_purchase_number, name = '合同关联请购单'),
+    # url('warehousing_by_purchase_number', views.set_warehousing_by_purchase_number, name = '入库关联请购单'),
+    # url('invoice_by_purchase_number', views.set_invoice_by_purchase_number, name = '发票关联请购单'),
+    # url('pyment_by_purchase_number', views.set_pyment_by_purchase_number, name = '付款关联请购单'),
 
 
     url('purchasing_created', views.purchasing_created, name='purchasing_created'),
@@ -56,12 +71,12 @@ urlpatterns = [
     url('pruchasing_robot_base', views.pruchasing_robot_base, name='set_robot'),
     url('purchasing_robot_business_manager', views.pruchasing_robot_business, name='set_robot'),
     url('purchasing_robot_jobs_manager', views.pruchasing_robot_jobs, name='set_prokject'),
-    # url('purchasing_robot_create', views.pruchasing_robot_create, name='purchasing_robot_create'),
+
     url('purchase_robot_buession_info', views.set_purchase_robot_buession_info, name='set_purchase_robot_jobs_info'),
     url('purchase_robot_jobs_info', views.set_purchase_robot_jobs_info, name='set_purchase_robot_jobs_info'),
-    url('create_purchase_number', views.set_create_purchase_number, name='set_purchase_robot_jobs_info'),
-    url('view_information_data', views.set_view_information_data, name='set_view_information'),
-    url('view_information', views.set_view_information, name='set_view_information'),
+
+    url('purchase_view_information_data', views.set_view_information_data, name='查看数据'),
+    url('purchase_view_information', views.set_view_information, name='查看页面'),
 
     # url('purchase_delete_jobs_info', views.set_purchase_deletjobs_info, name='delete_jobs'),
     # url('purchase_stop_jobs_info', views.set_purchase_stopjobs_info, name='stop_jobs'),

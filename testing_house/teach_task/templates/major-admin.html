@@ -11,14 +11,17 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 
     <style>
-        .layui-table-body{overflow-x: hidden !important;}
+        .layui-table-body {
+            overflow-x: hidden !important;
+        }
 
-        .layui-card-body{
+        .layui-card-body {
             width: 98%;
             margin: auto;
-            background:rgba(255,255,255,1);
+            background: rgba(255, 255, 255, 1);
         }
-        .layui-table-fixed-l{
+
+        .layui-table-fixed-l {
             opacity: 0;
         }
     </style>
@@ -36,19 +39,19 @@
         <div class="layui-groups">
             <button type="button" class="layui-btn" id="add3">新增</button>
             <button type="button" class="layui-btn">修改</button>
-            <button type="button" class="layui-btn">删除</button>
+            <button type="button" class="layui-btn" id="add2">删除</button>
         </div>
     </div>
-    <div class="demoTable">
+    <div class="demoTable" style="margin-top: 6px">
         <div class="layui-inline">
             <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索专业">
         </div>
-        <button class="layui-btn" data-type="reload">搜索</button>
+        <button class="layui-btn" id="btn" data-type="reload">搜索</button>
     </div>
 </div>
 
 <div class="layui-card-body">
-    <table class="layui-hide" id="table_user" lay-filter="user"></table>
+    <table class="layui-hide" id="table_user" lay-filter="table_user"></table>
 </div>
 
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
@@ -62,38 +65,77 @@
             , laydate = layui.laydate;
 
 
-
         //方法级渲染
         table.render({
             elem: '#table_user'
-            , url: '/major'
-            , toolbar: 'school-head'
+            , url: '/teach_task/major'
             , max_height: 1000
-            ,type:"get"
+            , type: "get"
             , cols: [[
-                {checkbox: true, fixed: true}
-                , {field: 'a', align:"center", title: '序号', width: "10%",type:'numbers'}
-                , {field: 'a', align:"center", title: '专业代码', width: "20%"}
-                , {field: 'b', align:"center",title: '专业名称', width: "20%"}
-                , {field: 'c', align:"center", title: '状态', width: "10%"}
-                , {field: 'd', align:"center",title: '创建人员',width:"20%"}
-                , {field: 'e', align:"center",title: '操作时间',width:"20%"}
+                {type: 'radio' ,id:'sex1'}
+                , {field: 'a', align: "center", title: '序号', width: "10%", type: 'numbers'}
+                , {field: 'a', align: "center", title: '专业代码', width: "20%"}
+                , {field: 'b', align: "center", title: '专业名称', width: "20%"}
+                , {field: 'c', align: "center", title: '状态', width: "10%"}
+                , {field: 'd', align: "center", title: '创建人员', width: "20%"}
+                , {field: 'e', align: "center", title: '操作时间', width: "20%"}
             ]]
             , page: true
         });
-
+        //新建弹出层
         $("#add3").on('click', function () {
             //console.log("data");
             //页面层
             layer.open({
-                title:'专业管理',
+                title: '专业管理',
                 type: 2,
                 area: ['742px', '570px'],//宽高
-                content: 'major_update'
+                content: '/teach_task/major_update'
 
             });
         });
+        //搜索
+        $('#btn').on('click', function () {
+            var val = $('#demoReload').val()
+            console.log(val)
+            table.reload('table_user', {
+                url: '/teach_task/major_delete_search'
+                , method: 'post'
+                , where: {
+                    "major_name": val,
+                } //设定异步数据接口的额外参数
 
+            });
+        })
+        //删除
+         table.on('radio(table_user)', function (obj) {
+                return data=obj
+            });
+        $('#add2').on('click', function () {
+            console.log(data.data.a)
+            console.log(data)
+            if(data.checked==true){
+                $.ajax({
+                    url: "/teach_task/major_delete_search",
+                    type:'get',
+                    data:{
+                        'major_code':data.data.a
+                    },
+                    success:function(res){
+                        if(res.result=='fail'){
+                            layer.msg(res.msg)
+                        }else{
+                            layer.msg(res.result)
+                            setTimeout(function(){
+                                 table.reload("table_user")
+                            },1000)
+                        }
+                    }
+                })
+            }else {
+                layer.msg('请选择删除的项')
+            }
+        })
     });
 </script>
 

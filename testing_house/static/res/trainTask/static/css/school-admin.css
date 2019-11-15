@@ -2,7 +2,7 @@
 
 .school-head{
     display: flex;
-    flex-wrap: nowrap;
+    justify-content: space-between;
     width:98%;
     height:50px;
     line-height: 50px;
@@ -10,7 +10,8 @@
     margin: 0 auto;
 }
 .demoTable{
-    margin-left: 45%;
+    display: flex;
+    justify-content: space-between;
     z-index: 999;
     border-radius: 4px;
 }

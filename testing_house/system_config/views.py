@@ -3,6 +3,7 @@ import re
 
 from django.http import JsonResponse
 
+
 from .models import *
 from django.db.models import Q
 from django.shortcuts import render, HttpResponse, redirect
@@ -65,54 +66,54 @@ def logout(request):
 
 
 
-
-# TODO  检查用户名密码
-def index(request):
-    if request.method == 'GET':
-        return render(request, 'login.html', locals())
-    elif request.method =='POST':
-        user_name_code = request.POST.get('username')
-        user_pawd_code = request.POST.get('pwd')
-        print('POST:', user_name_code, user_pawd_code)
-        # print('POST:', check_code)
-        sql_name   = "select user_name from user where user_name = '%s' "%user_name_code
-        user_name = DB.get_select_one(sql_name)
-        try:
-
-            mysql_username = user_name[0]
-            print('-----------mysql_username',mysql_username)
-        except Exception as e:
-            print(False)
-            data = {
-                'code':'400'
-                ,'msg':'用户不存在'
-            }
-            return data
-
-        sql = "select user_pass from user where user_name = '%s' "%user_name_code
-        user_pass = DB.get_select_one(sql)
-        mysql_password = user_pass[0]
-        print('----------------',mysql_password)
-        print(mysql_username)
-        if mysql_username == user_name_code:
-            if mysql_password:
-                # resp.set_cookie('key', 'value', max_age='过期时间')
-                client_cookie = request.COOKIES.get('username')
-                data = {'code': '200',
-                        'msg': '登录成功！'}
-            elif user_pawd_code == user_pass:
-
-                return JsonResponse({'result': 'success','username':user_name_code})
-            else:
-                data = {'code':'300',
-                        'msg':'登录失败'}
-                return  JsonResponse(data)
-            data = {'code': '200',
-                    'msg': '登录成功！'}
-
-            return JsonResponse({'result': 'success','username':user_name_code})
-        else:
-            return JsonResponse({'result': 'fail'})
+#
+# # TODO  检查用户名密码
+# def index(request):
+#     if request.method == 'GET':
+#         return render(request, 'login.html', locals())
+#     elif request.method =='POST':
+#         user_name_code = request.POST.get('username')
+#         user_pawd_code = request.POST.get('pwd')
+#         print('POST:', user_name_code, user_pawd_code)
+#         # print('POST:', check_code)
+#         sql_name   = "select user_name from user where user_name = '%s' "%user_name_code
+#         user_name = DB.get_select_one(sql_name)
+#         try:
+#
+#             mysql_username = user_name[0]
+#             print('-----------mysql_username',mysql_username)
+#         except Exception as e:
+#             print(False)
+#             data = {
+#                 'code':'400'
+#                 ,'msg':'用户不存在'
+#             }
+#             return data
+#
+#         sql = "select user_pass from user where user_name = '%s' "%user_name_code
+#         user_pass = DB.get_select_one(sql)
+#         mysql_password = user_pass[0]
+#         print('----------------',mysql_password)
+#         print(mysql_username)
+#         if mysql_username == user_name_code:
+#             if mysql_password:
+#                 # resp.set_cookie('key', 'value', max_age='过期时间')
+#                 client_cookie = request.COOKIES.get('username')
+#                 data = {'code': '200',
+#                         'msg': '登录成功！'}
+#             elif user_pawd_code == user_pass:
+#
+#                 return JsonResponse({'result': 'success','username':user_name_code})
+#             else:
+#                 data = {'code':'300',
+#                         'msg':'登录失败'}
+#                 return  JsonResponse(data)
+#             data = {'code': '200',
+#                     'msg': '登录成功！'}
+#
+#             return JsonResponse({'result': 'success','username':user_name_code})
+#         else:
+#             return JsonResponse({'result': 'fail'})
 
         # token = edu_mysql_found_user(user_code)
 
@@ -464,6 +465,22 @@ def menu_list(request):
 
     return render(request, 'menu_list.html', locals())
 
+
+
+#  TODO
+def download_cjfh(request):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    media_dir = os.path.join(BASE_DIR, "static")
+    if not os.path.exists(media_dir):  # 如果不存在文件夹，创建
+        os.makedirs(media_dir)
+    """模版下载"""
+    MEDIA_ROOT = os.path.join(media_dir, "cjfh", "xzlt2019.pdf")
+
+    with open(MEDIA_ROOT, 'rb') as f:
+        response = HttpResponse(f)
+        response['Content-Type'] = 'application/octet-stream'
+        response['Content-Disposition'] = 'attachment;filename="xzlt2019.pdf"'
+        return response
 
 def menu_add(request):
     data = Menu.objects.all().values()
