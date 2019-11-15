@@ -9,6 +9,7 @@ import time
 import xlwt
 import json
 
+from django.utils.encoding import escape_uri_path
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
@@ -2463,7 +2464,7 @@ class Train_case(View):
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
     def post(self, request):
-        """实训任务卡，案例对应文件的下载"""
+        """案例对应的文件和图片名称+url下载路径"""
         case_name = request.POST.get("case_name")
 
         data = []
@@ -2489,6 +2490,7 @@ class Train_case(View):
                         "position": picture_position,
                         "url": "/teach_task/train_case_down"
                     }
+                    data.append(data_dict)
             return JsonResponse({"result": data})
         except:
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
@@ -2496,24 +2498,16 @@ class Train_case(View):
 
 def train_case_down(request):
     """案例文件下载"""
-    case_name = request.POST.get("case_name")
-    info_type = request.POST.get("info_type")
+    name = request.GET.get("name")
+    position = request.GET.get("position")
     try:
-        if info_type == "picture":
-            res = PICTURE.objects.filter(case_name=case_name).first()
-            picture_name = res.picture_name
-            picture_position = res.picture_position
-            MEDIA_ROOT = os.path.join(BASE_DIR, picture_position, picture_name)
-        elif info_type == "document":
-            res = DOCUMENT.objects.filter(case_name=case_name).first()
-            document_name = res.document_name
-            document_position = res.document_position
-            MEDIA_ROOT = os.path.join(BASE_DIR, document_position, document_name)
+        MEDIA_ROOT = os.path.join(BASE_DIR, position, name)
 
         with open(MEDIA_ROOT, 'rb') as f:
             response = HttpResponse(f)
             response['Content-Type'] = 'application/octet-stream'
-            response['Content-Disposition'] = 'attachment;filename="模版.xlsx"'
+            response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(escape_uri_path(name))
             return response
     except:
         return HttpResponse("系统错误，请重试")
+
