@@ -114,7 +114,7 @@
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
-    //新建功能
+
     layui.use(['form', 'layedit', 'laydate', 'jquery'], function () {
         var form = layui.form
             , layer = layui.layer
@@ -137,14 +137,20 @@
         //         }
         //     })
         // })
+
+        $(function(){
+             return  old_user_name= $('#major_code').val()
+        })
         $('#major_btn').on('click',function(){
+            console.log(old_user_name)
              $.ajax({
-                url:'/teach_task/major',
+                url:'/teach_task/major_updata',
                 type:'post',
                 data:{
                     'major_name':$('#major_nane').val(),
                     'major_code':$('#major_code').val(),
-                    'major_state':$('#major_tab').val()
+                    'major_state':$('#major_tab').val(),
+                    'old_major_code':old_user_name
                 },
                 success:function (res) {
                     console.log(res.result)
