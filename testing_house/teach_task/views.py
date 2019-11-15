@@ -479,7 +479,6 @@ def edu_updata(request):
     """教务 修改接口"""
     admin_name = request.POST.get('admin_name')
     old_user_name = request.POST.get('old_user_name')
-    print("========",old_user_name)
     user_name = request.POST.get('user_name')
     user_pass = request.POST.get('user_pass')
     phone = request.POST.get('phone')
@@ -698,7 +697,7 @@ class Major_delete_search(View):
         try:
             sql_admin = "select school_code from user where user_name='%s'" % username
             school_list = SqlModel().select_one(sql_admin)
-            sql = "select major_name,major_code,major_state,create_name,create_time from major where school_code='%s' and major_name like '%%%s%%'" % (school_list[0], major_name)
+            sql = "select major_code,major_name,major_state,create_name,create_time from major where school_code='%s' and major_name like '%%%s%%'" % (school_list[0], major_name)
 
             major_list = SqlModel().select_all(sql)
             if major_list:
