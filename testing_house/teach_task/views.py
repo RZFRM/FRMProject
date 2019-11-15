@@ -666,8 +666,7 @@ def major_updata(request):
         if result:
             return JsonResponse({"result": "fail", "msg": "该专业代码已经存在,不能重复使用"})
         else:
-            sql_up = "update major set major_code='%s',major_name='%s',major_state='%s',create_name='%s',create_time='%s' where major_code='%s'" % (
-                int(major_code), major_name, major_state, admin_list[0], now_time, int(old_major_code))
+            sql_up = "update major set major_code='%s',major_name='%s',major_state='%s',create_name='%s',create_time='%s' where school_code='%s' and major_code='%s'" % (major_code, major_name, major_state, admin_list[0], now_time, admin_list[1], old_major_code)
             res_update = SqlModel().insert_or_update(sql_up)
             if res_update:
                 return JsonResponse({"result": "更新成功"})
@@ -841,10 +840,8 @@ def class_updata(request):
     sql_admin = "select admin_name,school_code from user where user_name = '%s'" % username
     try:
         admin_list = SqlModel().select_one(sql_admin)
-        print(admin_list)
         admin_name = admin_list[0]
         school_code = admin_list[1]
-        print(school_code)
         sql_select = "select * from class where school_code='%s' and class_code = '%s'" % (school_code, class_code)
         res = SqlModel().select_one(sql_select)
         if res:
@@ -1104,12 +1101,16 @@ class Teacher_delete_search(View):
 
     def post(self, request):
         """搜索功能"""
+        username = request.COOKIES.get("username")
         admin_name = request.POST.get("admin_name")
-        sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='3' and admin_name like '%%%s%%'" % admin_name
+
         try:
+            sql_admin = "select school_code from user where user_name='%s'" % username
+            school_list = SqlModel().select_one(sql_admin)
+
+            sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where school_code='%s' and admin_type='3' and admin_name like '%%%s%%'" % (school_list[0], admin_name)
             class_list = SqlModel().select_all(sql)
             if class_list:
-
                 data_list = []
                 for i in class_list:
                     i[6] = str(i[6])[:10]
@@ -1303,10 +1304,15 @@ class Student_delete_search(View):
 
     def post(self, request):
         """搜索功能"""
+
+        username = request.COOKIES.get("username")
         student_name = request.POST.get("student_name")
-        sql = "select student_code,student_name,student_major,student_class,phone,create_time,amount,late_time,score from student where student_name like '%%%s%%' or student_code like '%%%s%%'" % (
-            student_name, student_name)
+
         try:
+            sql_admin = "select school_code from user where user_name='%s'" % username
+            school_list = SqlModel().select_one(sql_admin)
+
+            sql = "select student_code,student_name,student_major,student_class,phone,create_time,amount,late_time,score from student where school_code='%s' and student_name like '%%%s%%' or student_code like '%%%s%%'" % (school_list[0], student_name, student_name)
             res = SqlModel().select_all(sql)
             if res:
                 data_list = []
