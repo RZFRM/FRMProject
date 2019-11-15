@@ -1059,10 +1059,11 @@ def teacher_updata(request):
     try:
         sql = "select admin_name,school_code from user where user_name='%s'" % username
         admin_list = SqlModel().select_one(sql)
-        if admin_list:
-            create_name = admin_list[0]
-            school_code = admin_list[1]
+        create_name = admin_list[0]
+        school_code = admin_list[1]
 
+        if user_name != old_user_name:
+            """如果帐号变了"""
             sql_res = "select * from user where user_name='%s'" % user_name
             res = SqlModel().select_one(sql_res)
             if res:
@@ -1078,6 +1079,17 @@ def teacher_updata(request):
                     return JsonResponse({"result": "修改成功"})
                 else:
                     return JsonResponse({"result": "修改失败"})
+        else:
+            """如果帐号就没变，更新其他数据"""
+            sql_up = "update user set admin_name='%s',user_name='%s',user_pass='%s',admin_type='%s',phone='%s',school_code='%s',admin_state='%s',create_name='%s',create_time='%s' where user_name='%s'" % (
+                admin_name, user_name, user_pass, '3', int(phone), int(school_code), admin_state, create_name,
+                now_time,
+                old_user_name)
+            res_up = SqlModel().insert_or_update(sql_up)
+            if res_up:
+                return JsonResponse({"result": "修改成功"})
+            else:
+                return JsonResponse({"result": "修改失败"})
     except:
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
