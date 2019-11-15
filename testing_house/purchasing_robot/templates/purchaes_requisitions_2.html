@@ -106,7 +106,7 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">货物名称：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="goods_number" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;"  value="{{ data.6 }}">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -120,7 +120,7 @@
                 <lable class="layui-form-label" style="padding:5px 15px;">单位：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="specification" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.2 }}">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -196,32 +196,34 @@
             <button class="layui-btn btn" lay-submit="" lay-filter="demo2">下一步</button>
         </form>
         <div style="clear: both"></div>
+
     </div>
 </div>
 <script src="../../static/layuiadmin/layui/layui.js"></script>
 <script>
+
     layui.use(['form', 'jquery'], function () {
         var form = layui.form
             , layer = layui.layer
             , $ = layui.jquery;
 
         //调用后台,传回案例
-        $(function () {
-            $.ajax({
-                url: "/purchase_apply_data",
-                type: "post",
-                datatype: "json",
-                success: function (res) {
-                    console.log(res)
-                    var date = res.data;
-                    for (let index in date) {
-                        $("#contract").append(`<option value="${date[index]}">${date[index]}</option>`)
-                    }
-                    //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
-                    layui.form.render("select", "component-form-group");
-                }
-            });
-        });
+        {#$(function () {#}
+        {#    $.ajax({#}
+        {#        url: "/purchase_apply_data",#}
+        {#        type: "post",#}
+        {#        datatype: "json",#}
+        {#        success: function (res) {#}
+        {#            console.log(res)#}
+        {#            var date = res.data;#}
+        {#            for (let index in date) {#}
+        {#                $("#contract").append(`<option value="${date[index]}">${date[index]}</option>`)#}
+        {#            }#}
+        {#            //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态#}
+        {#            layui.form.render("select", "component-form-group");#}
+        {#        }#}
+        {#    });#}
+        {#);#}
 
         //提交form表单
         form.on('submit(demo2)', function (data) {

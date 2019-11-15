@@ -35,6 +35,8 @@ urlpatterns = [
     url('pruchasing_robot_base_data', views.pruchasing_robot_base_data, name='采购机器人基础配置页面'),
     url('purchase_view_information_data', views.set_view_information_data, name='查看数据'),
 
+
+
     #  TODO　　页面接口
 
     url('purchasing_created', views.purchasing_created, name='选择案例编号'),
