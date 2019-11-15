@@ -62,7 +62,8 @@
     <div class="layui-card-body" id="table1">
 
         <!--                        <table class="layui-hide" id="table_user" lay-filter="user"></table>-->
-        <table class="layui-table" name="one" lay-data="{ page: true, count:20,  url:'/teach_task/school',  }" id="member"
+        <table class="layui-table" name="one" lay-data="{ page: true, count:20,  url:'/teach_task/school',  }"
+               id="member"
                lay-filter="member">
             <thead>
             <tr>
@@ -115,20 +116,17 @@
 
 
         // 删除功能
-        //未完成
-        table.on('radio(member)', function (obj) {
-            return cak = obj
-        });
+
         $("#del_sch").on("click", function () {
-
-            console.log(cak)
-
-            if (cak.checked === true) {
+            var checkStatus = table.checkStatus('member'),
+                data = checkStatus.data;
+            console.log(data)
+            if (data.length == 1) {
                 layer.confirm("确认要删除吗，删除后不能恢复", {title: "删除确认"}, function (index) {
                     $.ajax({
                         url: "/teach_task/school_delete_search",
                         type: "get",
-                        data: {"school_code": cak.data.a},
+                        data: {"school_code": data[0].a},
                         success: function (res) {
                             if (res.result == "fail") {
                                 layer.msg(res.msg)
@@ -144,8 +142,6 @@
             } else {
                 layer.msg('请选择要删除的')
             }
-
-
         })
         //新增弹层
         $('#add_sch').on('click', (e) => {

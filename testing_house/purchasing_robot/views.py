@@ -453,7 +453,7 @@ def purchaes_requisitions_determine(request):
 
 
 #  TODO  采购机器人 弹框第四步
-def purchaes_order_create(request):
+def purchaes_contract_create(request):
     return render(request, 'purchaes_order_4.html')
 
 
