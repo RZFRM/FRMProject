@@ -153,10 +153,10 @@ def set_apply_data(al):
 
 
 #  TODO　创建合同数据信息
-def set_contract_data(request):
+def set_contract_data(al):
     # TODO  判断 数据库是否有 CG000001
-    user_name = request.COOKIES.get('username')
-    AL = 'AL0001'
+    # user_name = request.COOKIES.get('username')
+    AL = al
     id = 1
     try:
         sql = "select  module_number_2  from case_module_relationship   where  case_number = '%s' ;" % AL
@@ -175,18 +175,17 @@ def set_contract_data(request):
         #     id = int(buessines_info) + 1
         #     purchase_number = "CG0000" + str(id)
         data = {'success': '1111', 'msg': '', 'data': info}
-        return JsonResponse(data)
+        return data
     except Exception as e:
         # purchase_number = "CG0000" + str(id)
         data = {'fail': '4444', 'msg': '查询失败'}
-        return JsonResponse(data)
+        return data
 
 
 # TODO 创建入库数据信息
-def set_warehousing_data(request):
+def set_warehousing_data(al):
     # TODO  判断 数据库是否有 CG000001
-    user_name = request.COOKIES.get('username')
-    AL = 'AL0001'
+    AL = al
     id = 1
     try:
         sql = "select  module_number_3  from case_module_relationship   where  case_number = '%s' ;" % AL
@@ -213,10 +212,10 @@ def set_warehousing_data(request):
 
 
 # TODO   创建报销数据
-def set_invoice_data(request):
+def set_invoice_data(al):
     # TODO  判断 数据库是否有 CG000001
-    user_name = request.COOKIES.get('username')
-    AL = 'AL0001'
+    # user_name = request.COOKIES.get('username')
+    AL = al
     id = 1
     try:
         sql = "select  module_number_4  from case_module_relationship   where  case_number = '%s' ;" % AL
@@ -242,10 +241,9 @@ def set_invoice_data(request):
 
 
 #  TODO  创建 报账数据
-def set_payment_data(request):
+def set_payment_data(al):
     # TODO  判断 数据库是否有 CG000001
-    user_name = request.COOKIES.get('username')
-    AL = 'AL0001'
+    AL = al
     id = 1
     try:
         sql = "select  module_number_5  from case_module_relationship   where  case_number = '%s' ;" % AL
@@ -256,14 +254,9 @@ def set_payment_data(request):
         purchase_info = DB.get_select_one(sql_info=modules_sql)
         info = purchase_info[3:]
         print('---------------------------', type(purchase_info))
-        # if buessines_info == False or buessines_info == 0:
-        #     purchase_number = "CG0000" + str(id)
-        #     return HttpResponse(purchase_number)
-        # else:
-        #     id = int(buessines_info) + 1
-        #     purchase_number = "CG0000" + str(id)
         data = {'success': '1111', 'msg': '', 'data': info}
         return JsonResponse(data)
+
     except Exception as e:
         # purchase_number = "CG0000" + str(id)
         data = {'fail': '4444', 'msg': '查询失败'}
@@ -295,14 +288,12 @@ def purchasing_created_data(request):
     return render(request, '200')
 
 
-#  TODO  采购机器人 弹框第二步
+#  TODO  采购机器人 请购单页面以及数据
 def purchaes_requisitions_create(request):
     al = request.GET.get('al')
     print('alalalalallalalallal----', type(al))
     data = set_apply_data(al)
-
     print('--物资采购弹框数据--', data)
-
     return render(request, 'purchaes_requisitions_2.html', locals())
 
 
@@ -420,7 +411,12 @@ def purchaes_requisitions_determine(request):
 
 #  TODO  采购机器人 弹框第四步
 def purchaes_contract_create(request):
-    return render(request, 'purchaes_order_4.html')
+    al = request.GET.get('case')
+    print('alalalalallalalallal----', type(al))
+    data = set_contract_data(al)
+    print('--采购合同弹框数据--', data)
+
+    return render(request, 'purchaes_order_4.html', locals())
 
 
 # TODO  采购合同 获取所有请购单信息
@@ -577,8 +573,6 @@ def set_purchaes_order_create_data(request):
     }
     return JsonResponse(data)
 
-
-# 第六步数据提交地址
 
 
 #  TODO 入库关联  请购单
@@ -1204,20 +1198,12 @@ def set_purchase_robot_buession_info(request):
         return JsonResponse(data)
 
 
+def set_purchase_success(request):
+    user_name = request.COOKIES.get('user_name')
 
 
-def set_purchase_success(reqeuest):
+
     pass
-
-
-
-
-
-
-
-
-
-
 
 
 #  TODO  创建查看共功能数据
@@ -1233,10 +1219,7 @@ def set_view_information_data(request):
     print(body1)
 
     try:
-        # if views_info:
-        #     r_name = views_info[-1].split('-')[1]
 
-        # print('---------------------------------', id, views_info,r_name)
         project_name = []
 
         if r_name == '采购申请与审批':
