@@ -2,8 +2,6 @@
 {% load staticfiles %}
 {% block iframe_info %}
 
-
-
     <div class="layui-col-md12" style="width:100%">
         <div class="layui-card">
             <div class="layui-card-header"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采购业务机器人 &nbsp;>&nbsp;
@@ -175,15 +173,17 @@
                         shade: false,
                         maxmin: true, //开启最大化最小化按钮
                         area: ['43.65%', '65%'],
-                        content: '/view_information',
+                        content: '/purchase_view_information',
                         success: function (layero, index) {
 
                             {#var iframe = window['layui-layer-iframe' + index];#}
                             {#iframe.child('我是父布局传到子布局的值')#}
 
                             var body = layer.getChildFrame('body', index);//建立父子联系
+
                             body.find('#id').val(data.id);
                             body.find('#business_name').val(data.business_name);
+
                         }
                     })
 
