@@ -121,6 +121,16 @@ def teacher_modify(request):
     return render(request, "teacher_new_modify.html")
 
 
+def student_update(request):
+    """学生管理  新增跳转"""
+    return render(request, "student_new_update.html")
+
+
+def student_modify(request):
+    """学生管理  修改跳转"""
+    return render(request, "student_new_modify.html")
+
+
 class Index(View):
     def get(self, request):
         return render(request, 'login.html')
@@ -2497,7 +2507,7 @@ class Train_case(View):
 
 
 def train_case_down(request):
-    """案例文件下载"""
+    """实训卡，案例文件下载"""
     name = request.GET.get("name")
     position = request.GET.get("position")
     try:
