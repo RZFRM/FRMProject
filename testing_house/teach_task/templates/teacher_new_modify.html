@@ -173,7 +173,7 @@
                     layer.msg('您输入的手机号有误')
                 } else {
                     $.ajax({
-                        url: '/teach_task/teacher',
+                        url: '/teach_task/teacher_updata',
                         type: 'post',
                         data: {
                             'admin_name': teacher_name,
@@ -184,6 +184,7 @@
                             'old_user_name':old_user_name
                         },
                         success: function (res) {
+                            console.log(res)
                             if (res.result == 'fail') {
                                 layer.msg(res.msg)
                             } else {

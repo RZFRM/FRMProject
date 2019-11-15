@@ -136,6 +136,7 @@
         $('#dele').on('click', function () {
             var checkStatus = table.checkStatus('table_user'),
                 data = checkStatus.data;
+            console.log(data)
             if (data.length == 0) {
                 layer.msg('请选择删除的对象')
             } else {
@@ -143,15 +144,16 @@
                     $.ajax({
                         url: "/teach_task/class_delete_search",
                         type: "get",
-                        data: {"major_code": data[0].b},
+                        data: {"class_code": data[0].a},
                         success: function (res) {
+                            console.log(res)
                             if (res.result == "fail") {
                                 layer.msg(res.msg)
                             } else {
                                 layer.msg(res.result)
                                 setTimeout(function () {
                                     table.reload("table_user")
-                                }, 1000)
+                                },1000)
                             }
                         }
                     })

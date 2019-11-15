@@ -241,14 +241,11 @@
             })
 
         })
+        //获取最初数据
+        $(function () {
+            return  old_user_name = $('#class_code').val()
 
-
-
-
-
-
-
-
+        })
         //提交数据
         $('#class_btn').on('click', function () {
             var class_name = $('#class_name').val();
@@ -263,7 +260,7 @@
                 layer.msg('请填写完整')
             } else {
                 $.ajax({
-                    url: '/teach_task/class',
+                    url: '/teach_task/class_updata',
                     type: 'post',
                     data: {
                         'class_code': class_code,
@@ -274,10 +271,11 @@
                         'begin_time': test1,
                         'close_time': test2,
                         'create_time': test1,
-                        'create_name': class_name
+                        'old_class_code': old_user_name
 
                     },
                     success: function (res) {
+                        console.log(res)
                         if (res.result == 'fail') {
                             layer.msg(res.msg)
                         } else {

@@ -281,17 +281,11 @@ button.nav-button:hover{
                         <button type="button" class="layui-btn">删除</button>
                         <button class="nav-button">批量导入</button>
                         <button class="nav-button">批量导出</button>
-                            <select class="tt" name="city" lay-verify="">
-                                <option value="">专业</option>
-                                <option value="010">北京</option>
-                                <option value="021">上海</option>
-                                <option value="0571">杭州</option>
+                            <select class="tt" name="city" lay-verify="" id="ddlProvinceId">
+                                <option value="">请选择班级</option>
                             </select>
                             <select  class="tt" name="city" lay-verify="">
                                 <option value="">班级</option>
-                                <option value="010">北京</option>
-                                <option value="021">上海</option>
-                                <option value="0571">杭州</option>
                             </select>
                     </div>
                </div>
@@ -306,7 +300,7 @@ button.nav-button:hover{
     </div>
 
 <div class="layui-card-body" style="width: 98%">
-    <table class="layui-hide" id="table_user" lay-filter="user"></table>
+    <table class="layui-hide" id="table_user"  lay-filter="user"></table>
 </div>>
 
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
@@ -318,9 +312,6 @@ button.nav-button:hover{
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
-
-
-
         //方法级渲染
         table.render({
             elem: '#table_user'
@@ -343,6 +334,21 @@ button.nav-button:hover{
             ]]
             , page: true
         });
+        $(function(){
+            $.ajax({
+                url:'/teach_task/student_down',
+                type:'get',
+                success:function (res) {
+                    var date = res.result;
+                    console.log(date)
+                    for (var i = 0; i < date.length; i++) {
+                        // console.log(date[i]);
+                        $("#ddlProvinceId").append(`<option value="${date[i]}">${date[i]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group")
+                }
+            })
+        })
     });
 </script>
 </body>
