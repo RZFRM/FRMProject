@@ -841,10 +841,11 @@ def class_updata(request):
     sql_admin = "select admin_name,school_code from user where user_name = '%s'" % username
     try:
         admin_list = SqlModel().select_one(sql_admin)
+        print(admin_list)
         admin_name = admin_list[0]
         school_code = admin_list[1]
-
-        sql_select = "select * from class where class_code = '%s'" % class_code
+        print(school_code)
+        sql_select = "select * from class where school_code='%s' and class_code = '%s'" % (school_code, class_code)
         res = SqlModel().select_one(sql_select)
         if res:
             return JsonResponse({"result": "fail", "msg": "该专业代码已经存在"})
@@ -881,9 +882,14 @@ class Class_delete_search(View):
 
     def post(self, request):
         """搜索功能"""
+        username = request.COOKIES.get("username")
         class_name = request.POST.get("class_name")
-        sql_class = "select class_code,class_name,major_name,class_teacher,class_state,begin_time,close_time,create_name,create_time from class where class_name like '%%%s%%'" % class_name
+
         try:
+            sql_admin = "select school_code from user where user_name='%s'" % username
+            school_list = SqlModel().select_one(sql_admin)
+
+            sql_class = "select class_code,class_name,major_name,class_teacher,class_state,begin_time,close_time,create_name,create_time from class where school_code='%s' and class_name like '%%%s%%'" % (school_list[0], class_name)
             class_list = SqlModel().select_all(sql_class)
             if class_list:
                 data_list = []
