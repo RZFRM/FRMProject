@@ -299,9 +299,9 @@ def purchasing_created_data(request):
 def purchaes_requisitions_create(request):
     al = request.GET.get('al')
     print('alalalalallalalallal----', type(al))
-    info = set_apply_data(al)
+    data = set_apply_data(al)
 
-    print('--物资采购弹框数据--', info)
+    print('--物资采购弹框数据--', data)
 
     return render(request, 'purchaes_requisitions_2.html', locals())
 
