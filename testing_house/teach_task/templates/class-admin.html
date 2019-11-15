@@ -39,7 +39,7 @@
         <div class="layui-groups">
             <button type="button" class="layui-btn" id="add4">新增</button>
             <button type="button" class="layui-btn">修改</button>
-            <button type="button" class="layui-btn">删除</button>
+            <button type="button" class="layui-btn" id="dele">删除</button>
         </div>
     </div>
     <div class="demoTable" style="width: 45%">
@@ -63,10 +63,6 @@
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
-
-
-
-
         //方法级渲染
         table.render({
             elem: '#table_user'
@@ -75,7 +71,7 @@
             , max_height: 1000
             ,type:"get"
             , cols: [[
-                {checkbox: true, fixed: true}
+                {type: 'radio'}
                 , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
                 , {field: 'a', align:"center",title: '班级名称', width: "10%"}
                 , {field: 'b', align:"center",title: '班级编号', width: "10%"}
@@ -89,7 +85,7 @@
             ]]
             , page: true
         });
-
+        //新增弹窗
         $("#add4").on('click', function () {
             //console.log("data");
             //页面层
@@ -101,6 +97,15 @@
             });
 
         });
+        //删除功能
+        $('#dele').on('click',function(){
+              var checkStatus = table.checkStatus('table_user'),
+                data = checkStatus.data;
+            console.log(data)
+            if(data.length){
+                layer.msg('请选择删除的对象')
+            }
+        })
     });
 </script>
 

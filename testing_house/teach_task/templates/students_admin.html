@@ -11,43 +11,79 @@
      <link rel="stylesheet" href="../../static/res/trainTask/static/css/teaching.css">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style>
-        .tt{
-          width: 170px;
-          margin-left:20px;
-          height: 25px;
-      }
-      .nav-1 {
-          width:98%;
-          height:50px;
-          background:rgba(242,242,242,1);
-      }
-      .nav-2>.nav-button {
-          width: 100px;
-          border-radius: 4px;
-          height: 34px;
-          line-height: 27px;
-      }
-      .nav-3 {
-          width:412px;
-          height:43px;
-      }
-        .layui-card-body{
-        width: 98%;
-        margin: auto;
-        background:rgba(255,255,255,1);
-    }
-      .layui-table-fixed-l{
-            opacity: 0;
-        }
-         .layui-btn{
-          width: 100px;
-          border-radius: 4px;
-          height: 36px;
-          line-height: 27px;
-      }
-        .layui-table-header{
+    /*    .tt{*/
+    /*      width: 170px;*/
+    /*      margin-left:20px;*/
+    /*      height: 25px;*/
+    /*  }*/
+    /*  .nav-1 {*/
+    /*      width:98%;*/
+    /*      height:50px;*/
+    /*      background:rgba(242,242,242,1);*/
+    /*  }*/
+    /*  .nav-2>.nav-button {*/
+    /*      width: 100px;*/
+    /*      border-radius: 4px;*/
+    /*      height: 34px;*/
+    /*      line-height: 27px;*/
+    /*  }*/
+    /*  .nav-3 {*/
+    /*      width:412px;*/
+    /*      height:43px;*/
+    /*  }*/
+    /*    .layui-card-body{*/
+    /*    width: 98%;*/
+    /*    margin: auto;*/
+    /*    background:rgba(255,255,255,1);*/
+    /*}*/
+    /*  .layui-table-fixed-l{*/
+    /*        opacity: 0;*/
+    /*    }*/
+    /*     .layui-btn{*/
+    /*      width: 100px;*/
+    /*      border-radius: 4px;*/
+    /*      height: 36px;*/
+    /*      line-height: 27px;*/
+    /*  }*/
+    /*    .layui-table-header{*/
 
-        }
+    /*    }*/
+        .nav-button{
+    width: 12px;
+    height: 21px;
+}
+button.nav-button {
+    width: 77px;
+    height: 30px;
+    color: white;
+    background-color: #009688;
+    font-size: 14px;
+    border: 0;
+    border-radius: 6.9px;
+}
+button.nav-button:hover{
+    cursor:pointer
+}
+	.nav-1 {
+		display: flex;
+		justify-content: space-between;
+		background-color: #F2F2F2;
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+	}
+	.nav-3{
+		margin-right: 11px;
+	}
+	.download-li-1 {
+		display: flex;
+		justify-content: space-between;
+	}
+	.download-li-1>span{
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow:ellipsis
+	}
     </style>
 </head>
 <body style="width: 99%">
@@ -58,43 +94,70 @@
         </div>
     </div>
 </div>
-    <div class="school-head" id="school-head" style="width: 100%">
-        <div class="btn-groups">
-            <div class="layui-groups">
-                <div class="nav-1" >
-                    <div class="nav-2">
-                        <button type="button" class="layui-btn" id="add5">新增</button>
-                        <button type="button" class="layui-btn">修改</button>
-                        <button type="button" class="layui-btn">删除</button>
-                        <button class="nav-button">批量导入</button>
-                        <button class="nav-button">批量导出</button>
-                            <select class="tt" name="city" lay-verify="">
-                                <option value="">专业</option>
-                                <option value="010">北京</option>
-                                <option value="021">上海</option>
-                                <option value="0571">杭州</option>
-                            </select>
-                            <select  class="tt" name="city" lay-verify="">
-                                <option value="">班级</option>
-                                <option value="010">北京</option>
-                                <option value="021">上海</option>
-                                <option value="0571">杭州</option>
-                            </select>
-                    </div>
+<!--    <div class="school-head" id="school-head" style="width: 100%">-->
+<!--        <div class="btn-groups">-->
+<!--            <div class="layui-groups">-->
+<!--                <div class="nav-1" >-->
+<!--                    <div class="nav-2">-->
+<!--                        <button type="button" class="layui-btn" id="add5">新增</button>-->
+<!--                        <button type="button" class="layui-btn">修改</button>-->
+<!--                        <button type="button" class="layui-btn">删除</button>-->
+<!--                        <button class="nav-button">批量导入</button>-->
+<!--                        <button class="nav-button">批量导出</button>-->
+<!--                        <div>-->
+<!--                             <select class="tt" name="city" lay-verify="">-->
+<!--                                <option value="">专业</option>-->
+<!--                                <option value="010">北京</option>-->
+<!--                                <option value="021">上海</option>-->
+<!--                                <option value="0571">杭州</option>-->
+<!--                            </select>-->
+<!--                            <select  class="tt" name="city" lay-verify="">-->
+<!--                                <option value="">班级</option>-->
+<!--                                <option value="010">北京</option>-->
+<!--                                <option value="021">上海</option>-->
+<!--                                <option value="0571">杭州</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--               </div>-->
+<!--           </div>-->
+<!--        </div>-->
+<!--        <div class="demoTable" style="margin-left: -154px">-->
+<!--            <div class="layui-inline" >-->
+<!--                <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索学号">-->
+<!--            </div>-->
+<!--            <button class="layui-btn" data-type="reload">搜索</button>-->
+<!--        </div>-->
+<!--    </div>-->
+               <div class="nav-1">
+                <div class="nav-2" style="margin-left: 10px">
+                    <button class="nav-button">新增</button>
+                    <button class="nav-button">修改</button>
+                    <button class="nav-button">删除</button>
+                     <button class="nav-button">批量导入</button>
+                     <button class="nav-button">批量导出</button>
+                    <select class="tt" name="city" lay-verify="">
+                        <option value="">专业</option>
+                        <option value="010">北京</option>
+                        <option value="021">上海</option>
+                        <option value="0571">杭州</option>
+                    </select>
+                    <select  class="tt" name="city" lay-verify="">
+                        <option value="">班级</option>
+                        <option value="010">北京</option>
+                        <option value="021">上海</option>
+                        <option value="0571">杭州</option>
+                    </select>
+                </div>
+                <div class="nav-3">
+                    <input type="text" placeholder="搜索业务"><button type="button" class="nav-button">搜索</button>
                </div>
-           </div>
-        </div>
-        <div class="demoTable" style="margin-left: -154px">
-            <div class="layui-inline" >
-                <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索学号">
-            </div>
-            <button class="layui-btn" data-type="reload">搜索</button>
-        </div>
-    </div>
+			       </div>
 
 <div class="layui-card-body" style="width: 98%">
     <table class="layui-hide" id="table_user" lay-filter="user"></table>
-</div>>
+</div>
 
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
@@ -111,7 +174,7 @@
         //方法级渲染
         table.render({
             elem: '#table_user'
-            , url: '/student'
+            , url: '/teach_task/student'
             , toolbar: 'school-head'
             , max_height: 1000
             ,type:"get"

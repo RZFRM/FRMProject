@@ -18,53 +18,60 @@
             top: 95px;
             left: 17px;
         }
-        .atitle>span{
+
+        .atitle > span {
             margin-left: 5px;
-            width:61px;
-            height:15px;
-            font-size:14px;
-            font-family:Microsoft YaHei;
-            font-weight:400;
-            color:rgba(51,51,51,1);
+            width: 61px;
+            height: 15px;
+            font-size: 14px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: rgba(51, 51, 51, 1);
         }
-        .atitle>button {
-            width:27px;
-            height:25px;
+
+        .atitle > button {
+            width: 27px;
+            height: 25px;
             border: none;
-            background:rgba(248,248,248,1);
+            background: rgba(248, 248, 248, 1);
             margin-left: 600px;
         }
+
         .remind {
-            width:356px;
-            height:39px;
-            font-size:14px;
-            font-family:Microsoft YaHei;
-            font-weight:400;
-            color:rgba(255,84,0,1);
+            width: 356px;
+            height: 39px;
+            font-size: 14px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: rgba(255, 84, 0, 1);
             margin: 30px 0 0 42px;
         }
-        .remind>p:nth-child(2) {
+
+        .remind > p:nth-child(2) {
             color: #0C0C0C;
             margin: 8px;
         }
-        .remind>p:nth-child(3) {
+
+        .remind > p:nth-child(3) {
             color: #0C0C0C;
             margin: 8px;
         }
+
         .increase {
             position: absolute;
             top: 7px;
             right: -44px;
-            width:29px;
-            height:15px;
-            font-size:14px;
-            font-family:Microsoft YaHei;
-            font-weight:400;
-            text-decoration:underline;
-            color:rgba(0,150,136,1);
-            line-height:40px;
+            width: 29px;
+            height: 15px;
+            font-size: 14px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            text-decoration: underline;
+            color: rgba(0, 150, 136, 1);
+            line-height: 40px;
             list-style: none;
         }
+
         .btn {
             width: 105px;
             height: 39px;
@@ -82,7 +89,7 @@
         }
     </style>
 </head>
-<body >
+<body>
 <div class="Popout" style="width: 100%;height: 100%">
     <div>
         <p>新增/修改</p>
@@ -92,14 +99,14 @@
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">班级名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入班级名称"
+                    <input type="text" autocomplete="off" id="class_name" class="layui-input" placeholder="请输入班级名称"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">班级编号：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" placeholder="请输入班级编号"
+                    <input type="text" autocomplete="off" id="class_code" class="layui-input" placeholder="请输入班级编号"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
@@ -107,12 +114,10 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>所属专业：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="modules" lay-verify="required" id="class_1" lay-search=""
+                            style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
+
                     </select>
                 </div>
             </div>
@@ -120,56 +125,58 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>授课教师：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="modules" lay-verify="required" id="class_2" lay-search=""
+                            style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
                     </select>
-                    <a class="increase">增加</a>
+
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>班级状态：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
+                    <select name="modules" lay-verify="required" lay-search="" id="class_3"
+                            style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
+                        <option value="True">开课</option>
+                        <option value="False">未开课</option>
+
                     </select>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>开课日期：</label>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
-                        <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
-                    </select>
+            <div class="layui-inline" style="margin-bottom: 15px">
+                <label class="layui-form-label"
+                       style="padding:5px 15px 5px 10px;;width: 85px; text-align: center">开课日期:</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test1" placeholder="请选择开课日期"
+                           style="width:100%;height: 30px;">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
-                        class="xing"></span>关课日期：</label>
-                <div class="layui-input-block" style="min-height: 30px;">
-                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">
-                        <option style="height: 32px" value="">请选择</option>
-                        <option value="1">CG-2020110328</option>
-                        <option value="2">CG-2020120101</option>
-                        <option value="3">CG-2020120102</option>
-                        <option value="4">CG-2020120608</option>
-                    </select>
+            <div class="layui-inline">
+                <label class="layui-form-label"
+                       style="padding:5px 15px 5px 10px;;width: 85px; text-align: center">关课日期:</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test2" placeholder="请选择关课日期"
+                           style="width:100%;height: 30px;">
                 </div>
             </div>
-            <button class="btn" type="submit" lay-submit="" lay-filter="class_btn">提交</button>
+
+            <!--            <div class="layui-form-item">-->
+            <!--                <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span-->
+            <!--                        class="xing"></span>关课日期：</label>-->
+            <!--                <div class="layui-input-block" style="min-height: 30px;">-->
+            <!--                    <select name="modules" lay-verify="required" lay-search="" style="width:100%;height: 30px;">-->
+            <!--                        <option style="height: 32px" value="">请选择</option>-->
+            <!--                        <option value="1">CG-2020110328</option>-->
+            <!--                        <option value="2">CG-2020120101</option>-->
+            <!--                        <option value="3">CG-2020120102</option>-->
+            <!--                        <option value="4">CG-2020120608</option>-->
+            <!--                    </select>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <button class="btn" type="button" id="class_btn" lay-submit="" lay-filter="class_btn">提交</button>
 
         </form>
     </div>
@@ -183,19 +190,99 @@
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
+        //验证班级编号
+        $("#class_code").blur(function () {
+            var code = $('#class_code').val()
+            var reg = new RegExp("^[0-9]{1,10}$");
+            if (!reg.test(code)) {
+                layer.msg("请输入1-10位班级编号")
+            }
 
+        })
         //日期
+        //开课日期
         laydate.render({
-            elem: '#date'
-        });
+            elem: '#test1',
+            trigger: 'click', //添加这一行来处理
 
-         //点击保存新增
-        form.on('submit("class_btn)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: ''
-            })
-            return false;
         });
+        //结课日期
+        laydate.render({
+            elem: '#test2',
+            trigger: 'click', //添加这一行来处理
+        });
+        //获取授课老师
+        $(function () {
+            $.ajax({
+                url: '/teach_task/class_down',
+                type: 'post',
+                success: function (res) {
+                    console.log(res.result)
+                    var date = res.result
+                    for (var i = 0; i < date.length; i++) {
+                        $("#class_2").append(`<option value="${date[i]}">${date[i]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group")
+                }
+            })
+        });
+        //获取所属专业
+        $(function () {
+            $.ajax({
+                url: '/teach_task/class_down',
+                type: 'get',
+                success: function (res) {
+                    var date = res.result
+                    for (var i = 0; i < date.length; i++) {
+                        $("#class_1").append(`<option value="${date[i]}">${date[i]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group")
+                }
+            })
+
+        })
+        //提交数据
+        $('#class_btn').on('click', function () {
+            var class_name = $('#class_name').val();
+            var class_code = $('#class_code').val();
+            var class_1 = $('#class_1').val();
+            var class_2 = $('#class_2').val();
+            var class_3 = $('#class_3').val();
+            var test1 = $('#test1').val();
+            var test2 = $('#test2').val()
+            console.log(class_name, class_code, class_1, class_2, class_3, test1, test2)
+            if (class_name == '' || class_code == '' || class_1 == '' || class_2 == '' || class_3 == '' || test1 == '' || test2 == '') {
+                layer.msg('请填写完整')
+            } else {
+                $.ajax({
+                    url: '/teach_task/class',
+                    type: 'post',
+                    data: {
+                        'class_code': class_code,
+                        'class_name': class_name,
+                        'major_name': class_1,
+                        'class_teacher': class_2,
+                        'class_state': class_3,
+                        'begin_time': test1,
+                        'close_time': test2,
+                        'create_time': test1,
+                        'create_name': class_name
+
+                    },
+                    success: function (res) {
+                        if (res.result == 'fail') {
+                            layer.msg(res.msg)
+                        } else {
+                            layer.msg(res.result);
+                            setTimeout(function () {
+                                window.parent.location.reload();
+                            }, 1000)
+                        }
+                    }
+                })
+            }
+        })
+
     });
 
 </script>
