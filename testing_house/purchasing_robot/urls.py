@@ -28,14 +28,11 @@ urlpatterns = [
     url('purchase_contract_data', views.set_contract_data, name='采购合同单数据'),
     url('purchase_warehousing_data', views.set_warehousing_data, name='采购入库单数据'),
     url('purchase_invoice_data', views.set_invoice_data, name='采购报销单数据'),
-    url('purchase_payment_data', views.set_payment_data, name='采购报销单数据'),
+    url('purchase_payment_data', views.set_payment_data, name='采购报账单数据'),
 
     url('purchase_robot_buession_info', views.set_purchase_robot_buession_info, name='采购机器人业务数据'),
     url('purchase_robot_jobs_info', views.set_purchase_robot_jobs_info, name='采购机器任务务数据'),
     url('pruchasing_robot_base_data', views.pruchasing_robot_base_data, name='采购机器人基础配置页面'),
-
-    url('purchaes_requisitions_create_data', views.purchaes_requisitions_create_data,name='purchaes_requisitions_create'),
-
     url('purchase_view_information_data', views.set_view_information_data, name='查看数据'),
 
     #  TODO　　页面接口
@@ -44,13 +41,19 @@ urlpatterns = [
     url('purchaes_requisitions_create', views.purchaes_requisitions_create, name='物资请购'),
     url('purchaes_contract_create', views.purchaes_contract_create, name='采购合同页面接口'),
     url('purchaes_storage_create', views.purchaes_storage_create, name='物资入库页面接口'),
-    url('purchaes_reimburse_create', views.purchaes_reimburse_create, name='报销申请页面接口'),
-    url('purchaes_payment_create', views.purchaes_payment_create, name='付款申请页面接口'),
+    url('purchaes_reimburse_create', views.purchaes_reimburse_create, name='采购报销单页面'),
+    url('purchaes_payment_create', views.purchaes_payment_create, name='采购付款页面'),
     url('pruchasing_robot_base', views.pruchasing_robot_base, name='采购机器人基础配置页面'),
-
     url('purchasing_robot_business_manager', views.pruchasing_robot_business, name='采购机器人业务管理页面'),
     url('purchasing_robot_jobs_manager', views.pruchasing_robot_jobs, name='采购机器人任务管理页面'),
     url('purchase_view_information', views.set_view_information, name='查看页面'),
+
+
+    # TODO  完成接口
+    url('purchase_success', views.set_purchase_success, name='完成接口'),
+
+    # url('purchaes_requisitions_create_data', views.purchaes_requisitions_create_data,name='purchaes_requisitions_create'),
+
     # url('purchasing_created_data', views.purchasing_created_data, name='purchasing_created'),
     # url('purchaes_order_create_data', views.set_purchaes_order_create_data, name='purchaes_requisitions_create'),
     # url('purchaes_storage_create_data', views.set_purchaes_storage_create_data, name='purchaes_requisitions_create'),

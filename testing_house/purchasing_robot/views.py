@@ -327,16 +327,6 @@ def purchasing_created_data(request):
 #  TODO  采购机器人 弹框第二步
 def purchaes_requisitions_create(request):
     # user_name = request.COOKIES.get('username')
-    # modules = request.POST.get("modules")
-
-    # price = request.POST.get("price")
-    # unit  = request.POST.get("unit")
-    # quantity = request.POST.get("quantity")
-    # print( user_name,'-----------------------' ,modules, price , unit , quantity)
-    #
-    # purchase_number = 'CG0000007'
-    # print(locals())
-    # return  render(request, 'purchaes_storage_6.html')
     return render(request, 'purchaes_requisitions_2.html', locals())
 
 
@@ -1257,6 +1247,19 @@ def set_purchase_robot_buession_info(request):
 #
 #
 #import json
+
+
+#  TODO 完成一次创建5个业务  5 个任务
+def set_purchase_success(reqeuest):
+    pass
+
+
+
+
+
+
+
+
 
 
 
