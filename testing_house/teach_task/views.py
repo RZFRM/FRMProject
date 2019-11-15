@@ -110,6 +110,16 @@ def class_modify(request):
     return render(request, "class_admin_new_modify.html")
 
 
+def teacher_update(request):
+    """教师管理  新增跳转"""
+    return render(request, "teacher_new_update.html")
+
+
+def teacher_modify(request):
+    """教师管理  修改跳转"""
+    return render(request, "teacher_new_modify.html")
+
+
 class Index(View):
     def get(self, request):
         return render(request, 'login.html')
@@ -2456,54 +2466,54 @@ class Train_case(View):
         """实训任务卡，案例对应文件的下载"""
         case_name = request.POST.get("case_name")
 
-        document_obj_list = DOCUMENT.objects.filter(case_name=case_name)
-        for i in document_obj_list:
-            document_name = i.document_name
-            document_position = i.document_position
+        data = []
+        try:
+            document_obj_list = DOCUMENT.objects.filter(case_name=case_name)
+            picture_obj_list = PICTURE.objects.filter(case_name=case_name)
+            if document_obj_list:
+                for i in document_obj_list:
+                    document_name = i.document_name
+                    document_position = i.document_position
+                    data_dict = {
+                        "name": document_name,
+                        "position": document_position,
+                        "url": "/teach_task/train_case_down"
+                    }
+                    data.append(data_dict)
+            if picture_obj_list:
+                for i in picture_obj_list:
+                    picture_name = i.picture_name
+                    picture_position = i.picture_position
+                    data_dict = {
+                        "name": picture_name,
+                        "position": picture_position,
+                        "url": "/teach_task/train_case_down"
+                    }
+            return JsonResponse({"result": data})
+        except:
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
 
+def train_case_down(request):
+    """案例文件下载"""
+    case_name = request.POST.get("case_name")
+    info_type = request.POST.get("info_type")
+    try:
+        if info_type == "picture":
+            res = PICTURE.objects.filter(case_name=case_name).first()
+            picture_name = res.picture_name
+            picture_position = res.picture_position
+            MEDIA_ROOT = os.path.join(BASE_DIR, picture_position, picture_name)
+        elif info_type == "document":
+            res = DOCUMENT.objects.filter(case_name=case_name).first()
+            document_name = res.document_name
+            document_position = res.document_position
+            MEDIA_ROOT = os.path.join(BASE_DIR, document_position, document_name)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # case_name = request.POST.get("case_name")
-        # info_type = request.POST.get("info_type")
-        # try:
-        #     if info_type == "picture":
-        #         res = PICTURE.objects.filter(case_name=case_name).first()
-        #         picture_name = res.picture_name
-        #         picture_position = res.picture_position
-        #         MEDIA_ROOT = os.path.join(BASE_DIR, picture_position, picture_name)
-        #     elif info_type == "document":
-        #         res = DOCUMENT.objects.filter(case_name=case_name).first()
-        #         document_name = res.document_name
-        #         document_position = res.document_position
-        #         MEDIA_ROOT = os.path.join(BASE_DIR, document_position, document_name)
-        #
-        #     with open(MEDIA_ROOT, 'rb') as f:
-        #         response = HttpResponse(f)
-        #         response['Content-Type'] = 'application/octet-stream'
-        #         response['Content-Disposition'] = 'attachment;filename="模版.xlsx"'
-        #         return response
-        # except:
-        #     return HttpResponse("系统错误，请重试")
+        with open(MEDIA_ROOT, 'rb') as f:
+            response = HttpResponse(f)
+            response['Content-Type'] = 'application/octet-stream'
+            response['Content-Disposition'] = 'attachment;filename="模版.xlsx"'
+            return response
+    except:
+        return HttpResponse("系统错误，请重试")
