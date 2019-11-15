@@ -10,17 +10,22 @@
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style type="text/css">
-        .layui-table-body{overflow-x: hidden !important;}
-        .layui-card-body{
-        margin: auto;
-        background:rgba(255,255,255,1);
-    }
-        .layui-card-body{
-        width: 1418px;
-        margin: auto;
-        background:rgba(255,255,255,1);
-    }
-        .layui-table-fixed-l{
+        .layui-table-body {
+            overflow-x: hidden !important;
+        }
+
+        .layui-card-body {
+            margin: auto;
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .layui-card-body {
+            width: 1418px;
+            margin: auto;
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .layui-table-fixed-l {
             opacity: 0;
         }
     </style>
@@ -38,14 +43,14 @@
         <div class="layui-groups">
             <button type="button" class="layui-btn" id="add4">新增</button>
             <button type="button" class="layui-btn">修改</button>
-            <button type="button" class="layui-btn">删除</button>
+            <button type="button" class="layui-btn" id="dele">删除</button>
         </div>
     </div>
     <div class="demoTable">
         <div class="layui-inline" style="margin-left: -300%">
             <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索用户名">
         </div>
-        <button class="layui-btn" data-type="reload" >搜索</button>
+        <button class="layui-btn" data-type="reload">搜索</button>
     </div>
 </div>
 
@@ -62,41 +67,57 @@
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
-
-
-
         //方法级渲染
         table.render({
             elem: '#table_user'
             , url: '/teach_task/teacher'
             , toolbar: 'teacher-head'
             , max_height: 1000
-            ,type:"get"
+            , type: "get"
             , cols: [[
-                {checkbox: true, fixed: true}
-                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
-                , {field: 'a', align:"center",title: '姓名', width: "15%"}
-                , {field: 'b', align:"center", title: '用户名', width: "15%"}
-                , {field: 'c', align:"center",title: '密码', width: "10%"}
-                , {field: 'd', align:"center",title: '手机号码',width:"10%"}
-                , {field: 'e', align:"center",title: '状态', width: "10%"}
-                , {field: 'f', align:"center", title: '创建人', width: "10%"}
-                , {field: 'g', align:"center",title: '操作时间', width: "25%"}
+                {type: 'radio'}
+                , {field: 'a', align: "center", title: '序号', width: "5%", type: 'numbers'}
+                , {field: 'a', align: "center", title: '姓名', width: "15%"}
+                , {field: 'b', align: "center", title: '用户名', width: "15%"}
+                , {field: 'c', align: "center", title: '密码', width: "10%"}
+                , {field: 'd', align: "center", title: '手机号码', width: "10%"}
+                , {field: 'e', align: "center", title: '状态', width: "10%"}
+                , {field: 'f', align: "center", title: '创建人', width: "10%"}
+                , {field: 'g', align: "center", title: '操作时间', width: "25%"}
             ]]
             , page: true
         });
 
+        //新增页面
         $("#add4").on('click', function () {
             //console.log("data");
             //页面层
             layer.open({
-                title:'教师管理',
+                title: '教师管理',
                 type: 2,
                 area: ['800px', '600px'],//宽高
                 content: '/teach_task/teacher_update'
             });
 
         });
+        //删除
+        $('#dele').on('click', function () {
+            var checkStatus = table.checkStatus('table_user'),
+                data = checkStatus.data;
+                console.log(data)
+            if(data.length==0){
+                layer.msg('请选择删除的内容')
+            }else{
+                $.ajax({
+                    url:'/teach_task/teacher_delete_search',
+                    type:'get',
+                    data:{'user_name':data[0].b},
+                    success:function(res){
+                        console.log(res)
+                    }
+                })
+            }
+        })
     });
 </script>
 
