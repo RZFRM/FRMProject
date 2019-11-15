@@ -183,6 +183,7 @@
        })
     //    所在城市
              form.on('select(Province)',function(data){
+                 console.log(data)
                   $("#city").empty()// 暂时解决重复的问题
                 var city=data.value;
                  $.ajax({

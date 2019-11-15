@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,84 +8,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
-     <link rel="stylesheet" href="../../static/res/trainTask/static/css/teaching.css">
+    <link rel="stylesheet" href="../../static/res/trainTask/static/css/teaching.css">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style>
-    /*    .tt{*/
-    /*      width: 170px;*/
-    /*      margin-left:20px;*/
-    /*      height: 25px;*/
-    /*  }*/
-    /*  .nav-1 {*/
-    /*      width:98%;*/
-    /*      height:50px;*/
-    /*      background:rgba(242,242,242,1);*/
-    /*  }*/
-    /*  .nav-2>.nav-button {*/
-    /*      width: 100px;*/
-    /*      border-radius: 4px;*/
-    /*      height: 34px;*/
-    /*      line-height: 27px;*/
-    /*  }*/
-    /*  .nav-3 {*/
-    /*      width:412px;*/
-    /*      height:43px;*/
-    /*  }*/
-    /*    .layui-card-body{*/
-    /*    width: 98%;*/
-    /*    margin: auto;*/
-    /*    background:rgba(255,255,255,1);*/
-    /*}*/
-    /*  .layui-table-fixed-l{*/
-    /*        opacity: 0;*/
-    /*    }*/
-    /*     .layui-btn{*/
-    /*      width: 100px;*/
-    /*      border-radius: 4px;*/
-    /*      height: 36px;*/
-    /*      line-height: 27px;*/
-    /*  }*/
-    /*    .layui-table-header{*/
+        .nav-button {
+            width: 12px;
+            height: 21px;
+        }
 
-    /*    }*/
-        .nav-button{
-    width: 12px;
-    height: 21px;
-}
-button.nav-button {
-    width: 77px;
-    height: 30px;
-    color: white;
-    background-color: #009688;
-    font-size: 14px;
-    border: 0;
-    border-radius: 6.9px;
-}
-button.nav-button:hover{
-    cursor:pointer
-}
-	.nav-1 {
-		display: flex;
-		justify-content: space-between;
-		background-color: #F2F2F2;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-	}
-	.nav-3{
-		margin-right: 11px;
-	}
-	.download-li-1 {
-		display: flex;
-		justify-content: space-between;
-	}
-	.download-li-1>span{
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow:ellipsis
-	}
-        .tt{
-           width: 120px;
+        button.nav-button {
+            width: 77px;
+            height: 30px;
+            color: white;
+            background-color: #009688;
+            font-size: 14px;
+            border: 0;
+            border-radius: 6.9px;
+        }
+
+        button.nav-button:hover {
+            cursor: pointer
+        }
+
+        .nav-1 {
+            display: flex;
+            justify-content: space-between;
+            background-color: #F2F2F2;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .nav-3 {
+            margin-right: 11px;
+        }
+
+        .download-li-1 {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .download-li-1 > span {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis
+        }
+
+        .tt {
+            width: 120px;
         }
     </style>
 </head>
@@ -98,62 +67,32 @@ button.nav-button:hover{
         </div>
     </div>
 </div>
-<!--    <div class="school-head" id="school-head" style="width: 100%">-->
-<!--        <div class="btn-groups">-->
-<!--            <div class="layui-groups">-->
-<!--                <div class="nav-1" >-->
-<!--                    <div class="nav-2">-->
-<!--                        <button type="button" class="layui-btn" id="add5">新增</button>-->
-<!--                        <button type="button" class="layui-btn">修改</button>-->
-<!--                        <button type="button" class="layui-btn">删除</button>-->
-<!--                        <button class="nav-button">批量导入</button>-->
-<!--                        <button class="nav-button">批量导出</button>-->
-<!--                        <div>-->
-<!--                             <select class="tt" name="city" lay-verify="">-->
-<!--                                <option value="">专业</option>-->
-<!--                                <option value="010">北京</option>-->
-<!--                                <option value="021">上海</option>-->
-<!--                                <option value="0571">杭州</option>-->
-<!--                            </select>-->
-<!--                            <select  class="tt" name="city" lay-verify="">-->
-<!--                                <option value="">班级</option>-->
-<!--                                <option value="010">北京</option>-->
-<!--                                <option value="021">上海</option>-->
-<!--                                <option value="0571">杭州</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
+<div class="nav-1">
+    <div class="nav-2" style="margin-left: 10px">
+        <button class="nav-button" id="add1">新增</button>
+        <button class="nav-button">修改</button>
+        <button class="nav-button">删除</button>
+        <button class="nav-button">批量导入</button>
+        <button class="nav-button">批量导出</button>
+        <select class="tt"  name="Province"   lay-verify="Province" lay-filter="Province" id="ddlProvinceId">
+          <option value="" style="color: #f2f2f2">选择专业</option>
 
-<!--                    </div>-->
-<!--               </div>-->
-<!--           </div>-->
-<!--        </div>-->
-<!--        <div class="demoTable" style="margin-left: -154px">-->
-<!--            <div class="layui-inline" >-->
-<!--                <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索学号">-->
-<!--            </div>-->
-<!--            <button class="layui-btn" data-type="reload">搜索</button>-->
-<!--        </div>-->
-<!--    </div>-->
-               <div class="nav-1">
-                <div class="nav-2" style="margin-left: 10px">
-                    <button class="nav-button">新增</button>
-                    <button class="nav-button">修改</button>
-                    <button class="nav-button">删除</button>
-                     <button class="nav-button">批量导入</button>
-                     <button class="nav-button">批量导出</button>
-                    <select class="tt" name="city" lay-verify="" placeholder="搜索业务">
+        </select>
+
+        <select class="tt" lay-verify="" id="">
+          <option value="" style="color: #f2f2f2">选择班级</option>
+
+        </select>
 
 
-                    </select>
-                    <select  class="tt" name="city" lay-verify="" placeholder="搜索业务">
 
-
-                    </select>
-                </div>
-                <div class="nav-3">
-                    <input type="text" placeholder="搜索业务"><button type="button" class="nav-button">搜索</button>
-               </div>
-			       </div>
+        </select>
+    </div>
+    <div class="nav-3">
+        <input type="text" placeholder="搜索业务">
+        <button type="button" class="nav-button">搜索</button>
+    </div>
+</div>
 
 <div class="layui-card-body" style="width: 98%">
     <table class="layui-hide" id="table_user" lay-filter="user"></table>
@@ -162,50 +101,76 @@ button.nav-button:hover{
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['table', 'layedit', 'laydate', 'jquery'], function () {
+    layui.use(['table', 'layedit', 'laydate', 'jquery','form'], function () {
         var table = layui.table
             , layer = layui.layer
             , layedit = layui.layedit
             , $ = layui.jquery
-            , laydate = layui.laydate;
-
-
-
+            , laydate = layui.laydate,
+            form=layui.form
         //方法级渲染
         table.render({
             elem: '#table_user'
             , url: '/teach_task/student'
             , toolbar: 'school-head'
             , max_height: 1000
-            ,type:"get"
+            , type: "get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', align: "center",title: '序号', width: "6%",type:'numbers'}
-                , {field: 'a', align: "center",title: '学号', width: "9%"}
-                , {field: 'b', align: "center",title: '姓名', width: "9%"}
-                , {field: 'c', align: "center",title: '专业', width: "8%"}
-                , {field: 'd', align: "center",title: '班级', width:"12%"}
-                , {field: 'e', align: "center",title: '手机', width: "13%"}
-                , {field: 'f', align: "center",title: '注册时间', width: "11%"}
-                , {field: 'g', align: "center",title: '登陆次数', width: "8%"}
-                , {field: 'h', align: "center",title: '最近登录时间', width: "12%"}
-                , {field: 'i', align: "center",title: '实训报告', width: "12%"}
+                , {field: 'a', align: "center", title: '序号', width: "6%", type: 'numbers'}
+                , {field: 'a', align: "center", title: '学号', width: "9%"}
+                , {field: 'b', align: "center", title: '姓名', width: "9%"}
+                , {field: 'c', align: "center", title: '专业', width: "8%"}
+                , {field: 'd', align: "center", title: '班级', width: "12%"}
+                , {field: 'e', align: "center", title: '手机', width: "13%"}
+                , {field: 'f', align: "center", title: '注册时间', width: "11%"}
+                , {field: 'g', align: "center", title: '登陆次数', width: "8%"}
+                , {field: 'h', align: "center", title: '最近登录时间', width: "12%"}
+                , {field: 'i', align: "center", title: '实训报告', width: "12%"}
             ]]
             , page: true
         });
-
-
-        $("#add5").on('click', function () {
+        //添加弹窗
+         $("#add1").on('click', function () {
             //console.log("data");
             //页面层
             layer.open({
-                title:'学生管理',
+                title: '教务管理',
                 type: 2,
-                area: ['800px', '600px'],//宽高
-                content: 'school_update'
+                area: ['637px', '518px'],//宽高
+                content: '/teach_task/students_update'
             });
-
         });
+        //获取专业
+        $(function(){
+            $.ajax({
+                url:'/teach_task/student_down',
+                type:'get',
+                success:function(res){
+                    var date = res.result;
+                    console.log(date)
+                    for ( var i = 0; i <date.length; i++){
+                              // console.log(date[i]);
+                                $("#ddlProvinceId").append(`<option value="${date[i]}">${date[i]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group")
+                }
+            })
+        })
+        //获取班级
+         $('#ddlProvinceId').blur(function(){
+             var val= $('#ddlProvinceId').val()
+             $.ajax({
+                 url:'/teach_task/student_down',
+                 type:'post',
+                 data:{
+                     'Major_name':val
+                 },
+                 success:function(res){
+                     console.log(res)
+                 }
+             })
+         })
     });
 </script>
 </body>
