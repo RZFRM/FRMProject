@@ -40,10 +40,6 @@ p {
     margin: 30px auto 0;
 }
 
-.xing {
-    color: #ff0000;
-    font-size: 22px;
-    position: relative;
-    top: 7px;
+ul > li + li {
+    margin-top: 25px;
 }
-

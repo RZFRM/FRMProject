@@ -113,30 +113,30 @@ WSGI_APPLICATION = 'testing_house.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'FinceRobotManager',
-#         'USER': 'rzgc',
-#         'PASSWORD': 'Rzgcchampion2019',
-#         'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
-#         'PORT': '3306'
-#
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'FinceRobotManager',
-        'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': '192.168.1.152',
-        'PORT': '3306',
+        'USER': 'rzgc',
+        'PASSWORD': 'Rzgcchampion2019',
+        'HOST': 'rm-8vb002tgw7k23y30l6o.mysql.zhangbei.rds.aliyuncs.com',
+        'PORT': '3306'
 
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'FinceRobotManager',
+#         'USER': 'root',
+#         'PASSWORD': '123456',
+#         'HOST': '192.168.1.152',
+#         'PORT': '3306',
+#
+#     }
+# }
 
 
 # Password validation

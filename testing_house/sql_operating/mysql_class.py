@@ -165,7 +165,10 @@ class Mysql_base(object):
                 cursor.close()
                 return []
         except Exception as e:
+
             print("数据库查询错误，错误内容:%s" % e)
+
+
 
     def insert(self, table, values, fields=None):
 
