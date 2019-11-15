@@ -495,7 +495,7 @@ def edu_updata(request):
             sql)  # admin_list[0] = admin_name = create_name , admin_list[1] = school_code
         res = SqlModel().select_one(sql2)
         if res:
-            return JsonResponse({"result": "fail", "msg": "该帐号已存在"})
+            return JsonResponse({"result": "该帐号已存在"})
         else:
             """修改接口"""
             sql_revise = "update user set admin_name='%s',user_name='%s',user_pass='%s',admin_type='%s',phone='%s',school_code='%s',admin_state='%s',create_name='%s',create_time='%s' where user_name='%s'" % (
