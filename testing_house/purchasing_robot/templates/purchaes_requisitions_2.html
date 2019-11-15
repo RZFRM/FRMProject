@@ -208,14 +208,14 @@
         //调用后台,传回案例
         $(function () {
             $.ajax({
-                url: "/",
+                url: "/purchase_apply_data",
                 type: "post",
                 datatype: "json",
                 success: function (res) {
                     console.log(res)
-                    var date = res.data[0];
+                    var date = res.data;
                     for (let index in date) {
-                        $("#contract").append(`<option value="${date[index]}">${(date[index])[1]}</option>`)
+                        $("#contract").append(`<option value="${date[index]}">${date[index]}</option>`)
                     }
                     //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
                     layui.form.render("select", "component-form-group");

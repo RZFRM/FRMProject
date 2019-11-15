@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
         .forn {
-            width: 350px;
+            width: 355px;
             margin: 0 auto;
         }
 
@@ -68,6 +68,15 @@
         .borp {
             background: rgb(55, 38, 89);
         }
+
+        .layui-form-label {
+            padding: 5px 15px 5px 0 !important;
+            width: 100px !important;
+        }
+
+        .layui-input-block {
+            margin-left: 115px !important;
+        }
     </style>
 </head>
 <body>
@@ -83,104 +92,104 @@
         <li class="borli"><p class="borp"></p></li>
         <li><p></p></li>
     </ul>
-    <div style="height: 320px;overflow: auto;padding-top:25px">
+    <div style="height: 310px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
             <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;">采购合同号：</label>
+                <label class="layui-form-label">采购合同号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="contract_number" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;">支付类别：</label>
+                <label class="layui-form-label">支付类别：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;">收款单位名称：</label>
+                <label class="layui-form-label">收款单位名称：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;">发票类型：</label>
+                <label class="layui-form-label">发票类型：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="reimbursement_type" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">发票号码：</lable>
-                 <div class="layui-input-block" style="min-height: 30px;">
+                <lable class="layui-form-label">发票号码：</lable>
+                <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="incoive_number" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">费用明细：</lable>
+                <lable class="layui-form-label">费用明细：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="money_details" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">报销金额：</lable>
+                <lable class="layui-form-label">报销金额：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="reimbursement_money" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">申请日期：</lable>
+                <lable class="layui-form-label">申请日期：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="application_date" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">申请人：</lable>
+                <lable class="layui-form-label">申请人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="application" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">申请部门：</lable>
+                <lable class="layui-form-label">申请部门：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="二车间" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="application_sector">
+                    <input type="text" autocomplete="off" class="layui-input" name="application_sector" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">部门负责人：</lable>
+                <lable class="layui-form-label">部门负责人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" value="徐蓉" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" name="department_head">
+                    <input type="text" autocomplete="off" class="layui-input" name="department_head" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
-            <div class="layui-form-item" style="display: none">
+            <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">公司负责人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="supplier_name" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
-            <div class="layui-form-item" style="display: none">
+            <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">案例编号：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="" readonly
                            style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
-            <div class="layui-form-item" style="display: none">
-                <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">机器人名称：</lable>
+            <div class="layui-form-item">
+                <lable class="layui-form-label">机器人名称：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="job_type" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;" value="报账机器人">
+                           style="min-height: 30px;line-height: 30px; height: 30px;">
                 </div>
             </div>
             <button class="layui-btn btn" lay-submit="" lay-filter="demo8">下一步</button>

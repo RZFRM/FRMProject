@@ -86,7 +86,6 @@
                 ]]
                 , done: function (res, curr, count) { // 隐藏列
                     $(".layui-table-box").find("[data-field='id']").css("display", "none");
-                    console.log(res)
                 }
                 , page: true
             });
@@ -101,7 +100,6 @@
                 checkStatus.forEach(function (val, index) {
                     console.log(val.job_no, index)
                     batch_start.append(index, val.job_no)
-                    {#console.log(length(val.job_no))#}
                 })
                 console.log('------------------------------------------------------')
 

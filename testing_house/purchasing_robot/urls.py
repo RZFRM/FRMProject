@@ -24,11 +24,11 @@ urlpatterns = [
 
     # TODO　　数据接口
     url('purchasing_models_data', views.set_purchasing_chose_models, name='采购选择案例数据'),
-    url('purchase_apply_data', views.set_apply_data, name='采购请购单数据'),
-    url('purchase_contract_data', views.set_contract_data, name='采购合同单数据'),
-    url('purchase_warehousing_data', views.set_warehousing_data, name='采购入库单数据'),
-    url('purchase_invoice_data', views.set_invoice_data, name='采购报销单数据'),
-    url('purchase_payment_data', views.set_payment_data, name='采购报账单数据'),
+    # url('purchase_apply_data', views.set_apply_data, name='采购请购单数据'),
+    # url('purchase_contract_data', views.set_contract_data, name='采购合同单数据'),
+    # url('purchase_warehousing_data', views.set_warehousing_data, name='采购入库单数据'),
+    # url('purchase_invoice_data', views.set_invoice_data, name='采购报销单数据'),
+    # url('purchase_payment_data', views.set_payment_data, name='采购报账单数据'),
 
     url('purchase_robot_buession_info', views.set_purchase_robot_buession_info, name='采购机器人业务数据'),
     url('purchase_robot_jobs_info', views.set_purchase_robot_jobs_info, name='采购机器任务务数据'),
