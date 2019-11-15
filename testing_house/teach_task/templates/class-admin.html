@@ -40,7 +40,7 @@
     </div>
 </div>
 <div class="school-head" id="school-head" style="width: 98%">
-    <div class="btn-groups" >
+    <div class="btn-groups">
         <div class="layui-groups">
             <button type="button" class="layui-btn" id="add4">新增</button>
             <button type="button" class="layui-btn" id="add3">修改</button>
@@ -97,19 +97,40 @@
             layer.open({
                 title: '班级管理',
                 type: 2,
-                area: ['800px', '600px'],//宽高
+                area: ['742px', '570px'],//宽高
                 content: 'class_update'
             });
 
         });
         //修改弹窗
-        $('#add3').on('click',function(){
-             layer.open({
-                title: '班级管理',
-                type: 2,
-                area: ['800px', '600px'],//宽高
-                content: 'class_update'
-            });
+        $('#add3').on('click', function () {
+            var checkStatus = table.checkStatus('table_user')
+                , data = checkStatus.data;
+            console.log(data)
+            if (data.length == 0) {
+                layer.msg('请选择要修改的内容')
+            } else {
+                layer.open({
+                    title: '班级管理',
+                    type: 2,
+                    area: ['742px', '570px'],//宽高
+                    content: '/teach_task/class_modify',
+                    success: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                    //得到iframe页的body内容
+                    body.find('#class_name').val(data[0].b),
+                    body.find('#class_code').val(data[0].a),
+                    body.find('#class_1').val(data[0].c),
+                    body.find('#class_2').val(data[0].d),
+                    body.find('#class_3').val(data[0].e)
+
+
+
+                }
+                });
+            }
+
         })
         //删除功能
         $('#dele').on('click', function () {
