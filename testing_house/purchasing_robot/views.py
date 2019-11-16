@@ -729,7 +729,14 @@ def set_purchaes_storage_create_data(request):
 
 #  TODO  采购机器人 弹框第六步
 def purchaes_storage_create(request):
+    print("aaaa")
     return render(request, 'purchaes_storage_6.html')
+
+
+
+
+
+
 
 
 # #  TODO  采购机器人 弹框第六步
@@ -1059,12 +1066,13 @@ def set_purchase_robot_jobs_info(request):
     for i in user_jobs:
         # print(i)
         data_dic = {
-            'id': i.id
-            , "job_no": i.job_no
+
+             "job_no": i.job_no
             , "job_name": i.job_name
             , "job_type": i.job_type
             , "job_start_time": str(i.job_start_time)
             , "job_status": run_status[i.job_status]
+            , 'id': i.id
         }
         data_list.append(data_dic)
     print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>任务')
