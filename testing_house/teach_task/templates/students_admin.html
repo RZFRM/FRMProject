@@ -121,11 +121,11 @@
                 , {field: 'a', align: "center", title: '学号', width: "9%"}
                 , {field: 'b', align: "center", title: '姓名', width: "9%"}
                 , {field: 'c', align: "center", title: '专业', width: "8%"}
-                , {field: 'd', align: "center", title: '班级', width: "12%"}
-                , {field: 'e', align: "center", title: '手机', width: "13%"}
+                , {field: 'd', align: "center", title: '班级', width: "10%"}
+                , {field: 'e', align: "center", title: '手机', width: "12%"}
                 , {field: 'f', align: "center", title: '注册时间', width: "11%"}
                 , {field: 'g', align: "center", title: '登陆次数', width: "8%"}
-                , {field: 'h', align: "center", title: '最近登录时间', width: "12%"}
+                , {field: 'h', align: "center", title: '最近登录时间', width: "11%"}
                 , {field: 'i', align: "center", title: '实训报告', width: "12%"}
             ]]
             , page: true
@@ -138,9 +138,18 @@
                 title: '教务管理',
                 type: 2,
                 area: ['637px', '518px'],//宽高
-                content: '/teach_task/students_update'
+                content: '/teach_task/student_update'
             });
         });
+         $(function(){
+             $.ajax({
+                 url:'/teach_task/students_update',
+                 type:'get',
+                 success:function(res){
+                     console.log(res)
+                 }
+             })
+         })
         //获取专业
         $(function(){
             $.ajax({
