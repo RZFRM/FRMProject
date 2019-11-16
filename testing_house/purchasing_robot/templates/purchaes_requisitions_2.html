@@ -242,6 +242,7 @@
         //提交form表单
         form.on('submit(demo2)', function (data) {
             //通用表单提交(AJAX方式)
+
             {#$.ajax({#}
             {#    url: "/purchaes_requisitions_create_data",#}
             {#    type: "post",#}
@@ -255,6 +256,7 @@
             {#);#}
             location.href = "/purchaes_contract_create?case="+data.field.each;
             return false;  //阻止表单跳转。如果需要表单跳转，去掉这段即可.
+
         });
     });
 </script>
