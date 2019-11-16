@@ -135,7 +135,7 @@ def set_apply_data(al):
         modules_sql = "select  * from m01 where  module_number = '%s'" % buessines_info
         purchase_info = DB.get_select_one(sql_info=modules_sql)
 
-        data = purchase_info[4:]
+        data = purchase_info[6:]
         data.append(AL)
         print('---------------------------', type(purchase_info))
         # if buessines_info == False or buessines_info == 0:
@@ -168,6 +168,8 @@ def set_contract_data(al):
 
         info = purchase_info[2:]
         print('---------------------------', type(purchase_info))
+        info[9] = info[9].split('.')[1]+'%'
+        print('-------------9999999999----',info)
         # if buessines_info == False or buessines_info == 0:
         #     purchase_number = "CG0000" + str(id)
         #     return HttpResponse(purchase_number)
@@ -175,11 +177,11 @@ def set_contract_data(al):
         #     id = int(buessines_info) + 1
         #     purchase_number = "CG0000" + str(id)
         data = {'success': '1111', 'msg': '', 'data': info}
-        return data
+        return info
     except Exception as e:
         # purchase_number = "CG0000" + str(id)
         data = {'fail': '4444', 'msg': '查询失败'}
-        return data
+        return info
 
 
 # TODO 创建入库数据信息
