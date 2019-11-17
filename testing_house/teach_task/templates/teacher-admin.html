@@ -10,17 +10,22 @@
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style type="text/css">
-        .layui-table-body{overflow-x: hidden !important;}
-        .layui-card-body{
-        margin: auto;
-        background:rgba(255,255,255,1);
-    }
-        .layui-card-body{
-        width: 1418px;
-        margin: auto;
-        background:rgba(255,255,255,1);
-    }
-        .layui-table-fixed-l{
+        .layui-table-body {
+            overflow-x: hidden !important;
+        }
+
+        .layui-card-body {
+            margin: auto;
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .layui-card-body {
+            width: 1418px;
+            margin: auto;
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .layui-table-fixed-l {
             opacity: 0;
         }
     </style>
@@ -34,18 +39,18 @@
     </div>
 </div>
 <div class="school-head" id="school-head" style="width: 98%">
-    <div class="btn-groups" style="width: 187%">
+     <div class="btn-groups">
         <div class="layui-groups">
             <button type="button" class="layui-btn" id="add4">新增</button>
-            <button type="button" class="layui-btn">修改</button>
-            <button type="button" class="layui-btn">删除</button>
+            <button type="button" id="add3" class="layui-btn">修改</button>
+            <button type="button" id="dele" class="layui-btn">删除</button>
         </div>
     </div>
     <div class="demoTable">
-        <div class="layui-inline" style="margin-left: -300%">
-            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索用户名">
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="按名称搜索">
         </div>
-        <button class="layui-btn" data-type="reload" >搜索</button>
+        <button class="layui-btn" id="search" data-type="reload">搜索</button>
     </div>
 </div>
 
@@ -62,40 +67,102 @@
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
-
-
-
         //方法级渲染
         table.render({
             elem: '#table_user'
-            , url: '/teacher'
+            , url: '/teach_task/teacher'
             , toolbar: 'teacher-head'
             , max_height: 1000
-            ,type:"get"
+            , type: "get"
             , cols: [[
-                {checkbox: true, fixed: true}
-                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
-                , {field: 'a', align:"center",title: '姓名', width: "15%"}
-                , {field: 'b', align:"center", title: '用户名', width: "15%"}
-                , {field: 'c', align:"center",title: '密码', width: "10%"}
-                , {field: 'd', align:"center",title: '手机号码',width:"10%"}
-                , {field: 'e', align:"center",title: '状态', width: "10%"}
-                , {field: 'f', align:"center", title: '创建人', width: "10%"}
-                , {field: 'g', align:"center",title: '操作时间', width: "25%"}
+                {type: 'radio'}
+                , {field: 'a', align: "center", title: '序号', width: "5%", type: 'numbers'}
+                , {field: 'a', align: "center", title: '姓名', width: "15%"}
+                , {field: 'b', align: "center", title: '用户名', width: "15%"}
+                , {field: 'c', align: "center", title: '密码', width: "10%"}
+                , {field: 'd', align: "center", title: '手机号码', width: "10%"}
+                , {field: 'e', align: "center", title: '状态', width: "10%"}
+                , {field: 'f', align: "center", title: '创建人', width: "10%"}
+                , {field: 'g', align: "center", title: '操作时间', width: "25%"}
             ]]
             , page: true
         });
 
+        //新增页面
         $("#add4").on('click', function () {
             //console.log("data");
             //页面层
             layer.open({
-                title:'教师管理',
+                title: '教师管理',
                 type: 2,
-                area: ['800px', '600px'],//宽高
-                content: 'teacher_update'
+                area: ['637px', '518px'],//宽高
+                content: '/teach_task/teacher_update'
             });
 
+        });
+        //修改页面
+        $('#add3').on('click', function () {
+            var checkStatus = table.checkStatus('table_user'),
+                data = checkStatus.data;
+            console.log(data)
+            if (data.length == 0) {
+                layer.msg('请选择修改的内容')
+            } else {
+                layer.open({
+                    title: '教师管理',
+                    type: 2,
+                    area: ['637px', '518px'],//宽高
+                    content: '/teach_task/teacher_modify',
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                        //得到iframe页的body内容
+                        body.find('#user_name').val(data[0].b)
+                        body.find('#pwd').val(data[0].c)
+                        body.find('#teacher_name').val(data[0].a)
+                        body.find('#phone').val(data[0].d)
+                    }
+                });
+            }
+        });
+        //删除
+        $('#dele').on('click', function () {
+              var checkStatus = table.checkStatus('table_user'),
+                data = checkStatus.data;
+            console.log(data)
+             if (data.length == 1) {
+                layer.confirm("确认要删除吗，删除后不能恢复", {title: "删除确认"}, function (index) {
+                    $.ajax({
+                        url: "/teach_task/teacher_delete_search",
+                        type: "get",
+                        data: {"user_name": data[0].b},
+                        success: function (res) {
+                            if (res.result == "fail") {
+                                layer.msg(res.msg)
+                            } else {
+                                layer.msg(res.result)
+                                setTimeout(function () {
+                                    table.reload("table_user")
+                                }, 1000)
+                            }
+                        }
+                    })
+                });
+            } else {
+                layer.msg('请选择要删除的')
+            }
+        });
+        //搜索
+          $('#search').on('click', function () {
+            var val = $('#demoReload').val()
+            console.log(val)
+            table.reload('table_user', {
+                url: '/teach_task/teacher_delete_search'
+                , method: 'post'
+                , where: {
+                    "admin_name": val,
+                } //设定异步数据接口的额外参数
+            });
         });
     });
 </script>

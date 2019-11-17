@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>教务管理/新增/修改</title>
+    <title>教师管理/新增/修改</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
@@ -75,38 +75,38 @@
     </style>
 </head>
 <body style="background-color: #FFFFFF">
-<div class="Popout" id="add_update_teach">
+<div class="Popout">
+
     <div>
         <p>新增/修改</p>
     </div>
     <div style="height: 425px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
-           <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">姓名：</lable>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">用户名：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input id="name" type="text" autocomplete="off" class="layui-input" placeholder="请输入教师姓名"
+                    <input type="text" autocomplete="off" id="user_name" class="layui-input" placeholder="请输入用户名"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">密码：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input id="pwd" type="text" autocomplete="off" class="layui-input" placeholder="请输入密码"
+                    <input type="text" autocomplete="off" id="pwd" class="layui-input" placeholder="请输入密码"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
-              <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">用户名：</lable>
+            <div class="layui-form-item">
+                <lable class="layui-form-label" style="padding:5px 15px;">教师姓名：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input id="user_name" type="text" autocomplete="off" class="layui-input" placeholder="请输入用户名"
+                    <input type="text" autocomplete="off" id="teacher_name" class="layui-input" placeholder="请输入教师姓名"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
-
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">手机号码：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input id="phone" type="text" autocomplete="off" class="layui-input" placeholder="请输入手机号"
+                    <input type="text" autocomplete="off" id="phone" class="layui-input" placeholder="请输入手机号码"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
@@ -114,10 +114,11 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;"><span
                         class="xing"></span>是否有效：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <select id="select1" name="modules" lay-verify="required" lay-search=""
+                    <select name="modules" lay-verify="required" lay-search="" id="teacher_select"
                             style="width:100%;height: 30px;">
                         <option style="height: 32px" value="">请选择</option>
                         <option value="True">是</option>
+                        .
                         <option value="False">否</option>
                     </select>
                 </div>
@@ -125,9 +126,9 @@
             <div class="remind">
                 <p>提示：</p>
                 <p>1.设置为无效后，该账号无法登陆。</p>
-                <p>2.教师账号未添加学生账号可删除，否则不可删除。</p>
+                <p>2.教师账号未添加学生可删除，否则不可删除。</p>
             </div>
-            <button class="btn" id="btn" type="button" lay-submit="" lay-filter="teach_btn">提交</button>
+            <button class="btn" type="button" lay-submit="" id="teacher_btn" lay-filter="teacher_btn">提交</button>
 
         </form>
     </div>
@@ -141,15 +142,7 @@
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
-        //   判断用户名是否符合要求
-        $("#user_name").blur(function () {
-            var user_name = $("#user_name").val();
-            var reg = /[\u4E00-\u9FA5]/g;
-            if (reg.test(user_name)) {//     alert("密码长度要大于6位，由数字和字母组成");　　　　
-                layer.msg("用户名不允许有汉字")
-            }
-        })
-        //判断手机号是否有符合要求
+        //验证手机号码是否正确
         $("#phone").blur(function () {
             var phone = $('#phone').val()
             var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -157,48 +150,54 @@
                 layer.msg("输入的手机号码不正确")
             }
 
+        });
+        //原来的用户名
+        $(function(){
+           return  old_user_name= $('#user_name').val()
+            console.log(old_user_name)
         })
-
         //提交数据
-        $('#btn').on("click", function () {
-            var user_name = $("#user_name").val()
-            var pwd = $("#pwd").val()
-            var name = $("#name").val()
-            var phone = $("#phone").val()
-            var select1 = $("#select1").val()
-            console.log(user_name, pwd, name, phone, select1)
-            if (user_name == '' || pwd == '' || name == '' || phone == '' || select1 == '') {
+        $("#teacher_btn").on('click', function () {
+            var user_name = $('#user_name').val()
+            var pwd = $('#pwd').val()
+            var teacher_name = $('#teacher_name').val()
+            var phone = $('#phone').val()
+            var teacher_select = $('#teacher_select').val()
+            console.log(user_name, pwd, teacher_name, phone, teacher_select)
+            if (user_name == '' || pwd == '' || teacher_name == '' || teacher_select == '') {
                 layer.msg('请填写完整')
             } else {
-                var reg = /[\u4E00-\u9FA5]/g;
+
                 var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-                if (reg.test(user_name) || !myreg.test(phone)) {
-                    layer.msg("输入的手机号码确或用户名格式不正确")
+                if (!myreg.test(phone)) {
+                    layer.msg('您输入的手机号有误')
                 } else {
                     $.ajax({
-                        url: '/teach_task/education',
+                        url: '/teach_task/teacher_updata',
                         type: 'post',
                         data: {
-                            'admin_name': name,
+                            'admin_name': teacher_name,
                             'user_name': user_name,
                             'user_pass': pwd,
                             'phone': phone,
-                            'admin_state': select1
+                            'admin_state': teacher_select,
+                            'old_user_name':old_user_name
                         },
                         success: function (res) {
-                            layer.msg(res.result)
-                            setTimeout(function () {
-                                window.parent.location.reload();
-                            }, 1000)
+                            console.log(res)
+                            if (res.result == 'fail') {
+                                layer.msg(res.msg)
+                            } else {
+                                layer.msg(res.result)
+                                setTimeout(function () {
+                                    window.parent.location.reload();
+                                }, 1000)
+                            }
                         }
                     })
                 }
-
-
             }
-
         })
-
 
     });
 

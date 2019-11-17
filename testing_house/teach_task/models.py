@@ -43,7 +43,7 @@ class Major(models.Model):
 
 class Class(models.Model):
     class_id = models.AutoField(primary_key=True, verbose_name='班级id')
-    class_code = models.IntegerField(unique=True, verbose_name='班级编号')
+    class_code = models.IntegerField(verbose_name='班级编号')
     class_name = models.CharField(max_length=50, verbose_name='班级名称')
     major_name = models.CharField(max_length=50, verbose_name='班级专业')
     school_code = models.IntegerField(verbose_name='班级所在学校')

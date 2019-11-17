@@ -9,6 +9,7 @@ import time
 import xlwt
 import json
 
+from django.utils.encoding import escape_uri_path
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
@@ -103,6 +104,31 @@ def major_modify(request):
 def class_update(request):
     """班级管理 新增跳转"""
     return render(request, "class_admin_new_update.html")
+
+
+def class_modify(request):
+    """班级管理  修改跳转"""
+    return render(request, "class_admin_new_modify.html")
+
+
+def teacher_update(request):
+    """教师管理  新增跳转"""
+    return render(request, "teacher_new_update.html")
+
+
+def teacher_modify(request):
+    """教师管理  修改跳转"""
+    return render(request, "teacher_new_modify.html")
+
+
+def student_update(request):
+    """学生管理  新增跳转"""
+    return render(request, "student_new_update.html")
+
+
+def student_modify(request):
+    """学生管理  修改跳转"""
+    return render(request, "student_new_modify.html")
 
 
 class Index(View):
@@ -453,7 +479,6 @@ def edu_updata(request):
     """教务 修改接口"""
     admin_name = request.POST.get('admin_name')
     old_user_name = request.POST.get('old_user_name')
-    print("========",old_user_name)
     user_name = request.POST.get('user_name')
     user_pass = request.POST.get('user_pass')
     phone = request.POST.get('phone')
@@ -469,7 +494,7 @@ def edu_updata(request):
             sql)  # admin_list[0] = admin_name = create_name , admin_list[1] = school_code
         res = SqlModel().select_one(sql2)
         if res:
-            return JsonResponse({"result": "fail", "msg": "该帐号已存在"})
+            return JsonResponse({"result": "该帐号已存在"})
         else:
             """修改接口"""
             sql_revise = "update user set admin_name='%s',user_name='%s',user_pass='%s',admin_type='%s',phone='%s',school_code='%s',admin_state='%s',create_name='%s',create_time='%s' where user_name='%s'" % (
@@ -640,8 +665,7 @@ def major_updata(request):
         if result:
             return JsonResponse({"result": "fail", "msg": "该专业代码已经存在,不能重复使用"})
         else:
-            sql_up = "update major set major_code='%s',major_name='%s',major_state='%s',create_name='%s',create_time='%s' where major_code='%s'" % (
-                int(major_code), major_name, major_state, admin_list[0], now_time, int(old_major_code))
+            sql_up = "update major set major_code='%s',major_name='%s',major_state='%s',create_name='%s',create_time='%s' where school_code='%s' and major_code='%s'" % (major_code, major_name, major_state, admin_list[0], now_time, admin_list[1], old_major_code)
             res_update = SqlModel().insert_or_update(sql_up)
             if res_update:
                 return JsonResponse({"result": "更新成功"})
@@ -673,7 +697,7 @@ class Major_delete_search(View):
         try:
             sql_admin = "select school_code from user where user_name='%s'" % username
             school_list = SqlModel().select_one(sql_admin)
-            sql = "select major_name,major_code,major_state,create_name,create_time from major where school_code='%s' and major_name like '%%%s%%'" % (school_list[0], major_name)
+            sql = "select major_code,major_name,major_state,create_name,create_time from major where school_code='%s' and major_name like '%%%s%%'" % (school_list[0], major_name)
 
             major_list = SqlModel().select_all(sql)
             if major_list:
@@ -817,8 +841,7 @@ def class_updata(request):
         admin_list = SqlModel().select_one(sql_admin)
         admin_name = admin_list[0]
         school_code = admin_list[1]
-
-        sql_select = "select * from class where class_code = '%s'" % class_code
+        sql_select = "select * from class where school_code='%s' and class_code = '%s'" % (school_code, class_code)
         res = SqlModel().select_one(sql_select)
         if res:
             return JsonResponse({"result": "fail", "msg": "该专业代码已经存在"})
@@ -855,9 +878,14 @@ class Class_delete_search(View):
 
     def post(self, request):
         """搜索功能"""
+        username = request.COOKIES.get("username")
         class_name = request.POST.get("class_name")
-        sql_class = "select class_code,class_name,major_name,class_teacher,class_state,begin_time,close_time,create_name,create_time from class where class_name like '%%%s%%'" % class_name
+
         try:
+            sql_admin = "select school_code from user where user_name='%s'" % username
+            school_list = SqlModel().select_one(sql_admin)
+
+            sql_class = "select class_code,class_name,major_name,class_teacher,class_state,begin_time,close_time,create_name,create_time from class where school_code='%s' and class_name like '%%%s%%'" % (school_list[0], class_name)
             class_list = SqlModel().select_all(sql_class)
             if class_list:
                 data_list = []
@@ -1031,10 +1059,11 @@ def teacher_updata(request):
     try:
         sql = "select admin_name,school_code from user where user_name='%s'" % username
         admin_list = SqlModel().select_one(sql)
-        if admin_list:
-            create_name = admin_list[0]
-            school_code = admin_list[1]
+        create_name = admin_list[0]
+        school_code = admin_list[1]
 
+        if user_name != old_user_name:
+            """如果帐号变了"""
             sql_res = "select * from user where user_name='%s'" % user_name
             res = SqlModel().select_one(sql_res)
             if res:
@@ -1050,6 +1079,17 @@ def teacher_updata(request):
                     return JsonResponse({"result": "修改成功"})
                 else:
                     return JsonResponse({"result": "修改失败"})
+        else:
+            """如果帐号就没变，更新其他数据"""
+            sql_up = "update user set admin_name='%s',user_name='%s',user_pass='%s',admin_type='%s',phone='%s',school_code='%s',admin_state='%s',create_name='%s',create_time='%s' where user_name='%s'" % (
+                admin_name, user_name, user_pass, '3', int(phone), int(school_code), admin_state, create_name,
+                now_time,
+                old_user_name)
+            res_up = SqlModel().insert_or_update(sql_up)
+            if res_up:
+                return JsonResponse({"result": "修改成功"})
+            else:
+                return JsonResponse({"result": "修改失败"})
     except:
         return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
@@ -1072,12 +1112,16 @@ class Teacher_delete_search(View):
 
     def post(self, request):
         """搜索功能"""
+        username = request.COOKIES.get("username")
         admin_name = request.POST.get("admin_name")
-        sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where admin_type='3' and admin_name like '%%%s%%'" % admin_name
+
         try:
+            sql_admin = "select school_code from user where user_name='%s'" % username
+            school_list = SqlModel().select_one(sql_admin)
+
+            sql = "select admin_name,user_name,user_pass,phone,admin_state,create_name,create_time from user where school_code='%s' and admin_type='3' and admin_name like '%%%s%%'" % (school_list[0], admin_name)
             class_list = SqlModel().select_all(sql)
             if class_list:
-
                 data_list = []
                 for i in class_list:
                     i[6] = str(i[6])[:10]
@@ -1271,10 +1315,15 @@ class Student_delete_search(View):
 
     def post(self, request):
         """搜索功能"""
+
+        username = request.COOKIES.get("username")
         student_name = request.POST.get("student_name")
-        sql = "select student_code,student_name,student_major,student_class,phone,create_time,amount,late_time,score from student where student_name like '%%%s%%' or student_code like '%%%s%%'" % (
-            student_name, student_name)
+
         try:
+            sql_admin = "select school_code from user where user_name='%s'" % username
+            school_list = SqlModel().select_one(sql_admin)
+
+            sql = "select student_code,student_name,student_major,student_class,phone,create_time,amount,late_time,score from student where school_code='%s' and student_name like '%%%s%%' or student_code like '%%%s%%'" % (school_list[0], student_name, student_name)
             res = SqlModel().select_all(sql)
             if res:
                 data_list = []
@@ -2426,7 +2475,7 @@ class Train_card(View):
 
 
 class Train_case(View):
-    """实训任务卡，get案例名称和描述，post案例下载的对应文件"""
+    """实训任务卡，get案例名称和描述，post返回案例对应的文件和图片名称+url下载路径"""
     def get(self, request):
         """案例名称和描述"""
         task_name = request.GET.get("task_name")
@@ -2448,25 +2497,73 @@ class Train_case(View):
             return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
 
     def post(self, request):
-        """实训任务卡，案例对应文件的下载"""
+        """案例对应的文件和图片名称+url下载路径"""
         case_name = request.POST.get("case_name")
-        info_type = request.POST.get("info_type")
-        try:
-            if info_type == "picture":
-                res = PICTURE.objects.filter(case_name=case_name).first()
-                picture_name = res.picture_name
-                picture_position = res.picture_position
-                MEDIA_ROOT = os.path.join(BASE_DIR, picture_position, picture_name)
-            elif info_type == "document":
-                res = DOCUMENT.objects.filter(case_name=case_name).first()
-                document_name = res.document_name
-                document_position = res.document_position
-                MEDIA_ROOT = os.path.join(BASE_DIR, document_position, document_name)
 
-            with open(MEDIA_ROOT, 'rb') as f:
-                response = HttpResponse(f)
-                response['Content-Type'] = 'application/octet-stream'
-                response['Content-Disposition'] = 'attachment;filename="模版.xlsx"'
-                return response
+        data = []
+        try:
+            document_obj_list = DOCUMENT.objects.filter(case_name=case_name)
+            picture_obj_list = PICTURE.objects.filter(case_name=case_name)
+            if document_obj_list:
+                for i in document_obj_list:
+                    document_name = i.document_name
+                    document_position = i.document_position
+                    data_dict = {
+                        "name": document_name,
+                        "position": document_position,
+                        "url": "/teach_task/train_case_down"
+                    }
+                    data.append(data_dict)
+            if picture_obj_list:
+                for i in picture_obj_list:
+                    picture_name = i.picture_name
+                    picture_position = i.picture_position
+                    data_dict = {
+                        "name": picture_name,
+                        "position": picture_position,
+                        "url": "/teach_task/train_case_down"
+                    }
+                    data.append(data_dict)
+            return JsonResponse({"result": data})
         except:
-            return HttpResponse("系统错误，请重试")
+            return JsonResponse({"result": "fail", "msg": "系统错误，请重试"})
+
+
+def train_case_down(request):
+    """实训卡，案例文件下载"""
+    name = request.GET.get("name")
+    position = request.GET.get("position")
+    try:
+        MEDIA_ROOT = os.path.join(BASE_DIR, position, name)
+
+        with open(MEDIA_ROOT, 'rb') as f:
+            response = HttpResponse(f)
+            response['Content-Type'] = 'application/octet-stream'
+            response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(escape_uri_path(name))
+            return response
+    except:
+        return HttpResponse("系统错误，请重试")
+
+
+class Train_case_report(View):
+    """实训卡，点击报告，跳转"""
+    def get(self, request):    #TODO  等页面做完填写
+        return render(request, "")
+
+    def post(self, request):
+        """填写完实训报告，提交"""
+        student_code = request.COOKIES.get("username")
+        report_name = request.POST.get("report_name")
+        report_info = request.POST.get("report_info")
+        try:
+            res = REPORT.objects.create(
+                report_name=report_name,
+                report_info=report_info,
+                student_code=student_code
+            )
+            if res:
+                return JsonResponse({"result": "提交成功"})
+            else:
+                return JsonResponse({"result": "提交失败,请重试"})
+        except:
+            return JsonResponse({"result": "系统错误，请重试"})

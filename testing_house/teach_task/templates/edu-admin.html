@@ -49,7 +49,7 @@
     </div>
     <div class="demoTable">
         <div class="layui-inline">
-            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="搜索任务名称">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="按名称搜索">
         </div>
         <button class="layui-btn" id="search" data-type="reload">搜索</button>
     </div>
@@ -113,18 +113,18 @@
         });
 
         //删除功能
-        //小问题
-        table.on('radio(table_user)', function (data) {
-            return obj = data
 
-        });
+
         $("#btn").on("click", function () {
-            if (obj.checked == true) {
+              var checkStatus = table.checkStatus('table_user'),
+                data = checkStatus.data;
+
+            if (data.length == 1) {
                 layer.confirm("确认要删除吗，删除后不能恢复", {title: "删除确认"}, function (index) {
                     $.ajax({
                         url: "/teach_task/edu_delete_search",
                         type: "get",
-                        data: {"user_name": obj.data.b},
+                        data: {"user_name": data[0].b},
                         success: function (res) {
                             if (res.result == "fail") {
                                 layer.msg(res.msg)
@@ -154,7 +154,7 @@
             });
         });
         /*新增功能*/
-        /*有问题*/
+
         $("#add2").on('click', function () {
             //console.log("data");
             //页面层
