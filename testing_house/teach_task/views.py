@@ -2544,3 +2544,26 @@ def train_case_down(request):
     except:
         return HttpResponse("系统错误，请重试")
 
+
+class Train_case_report(View):
+    """实训卡，点击报告，跳转"""
+    def get(self, request):    #TODO  等页面做完填写
+        return render(request, "")
+
+    def post(self, request):
+        """填写完实训报告，提交"""
+        student_code = request.COOKIES.get("username")
+        report_name = request.POST.get("report_name")
+        report_info = request.POST.get("report_info")
+        try:
+            res = REPORT.objects.create(
+                report_name=report_name,
+                report_info=report_info,
+                student_code=student_code
+            )
+            if res:
+                return JsonResponse({"result": "提交成功"})
+            else:
+                return JsonResponse({"result": "提交失败,请重试"})
+        except:
+            return JsonResponse({"result": "系统错误，请重试"})
