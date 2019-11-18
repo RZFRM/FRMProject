@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'class_modify', views.class_modify),
     url(r'teacher_update', views.teacher_update),
     url(r'teacher_modify', views.teacher_modify),
+    url(r'student_update',views.student_update),
+    url(r'student_modify',views.student_modify),
 
     url(r'index', views.Index.as_view()),
     url(r'train_case_report',views.Train_case_report.as_view()),
