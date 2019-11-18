@@ -1,46 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
+{% load  static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>第一步</title>
+    <title>请选择案例编号</title>
     <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/res/static/css/purchasing.css">
     <style>
-        .elect{
+        .forn {
+            width: 350px;
+            margin: 0 auto;
+        }
 
+        .atitle > span {
+            margin: 0 auto;
+        }
+
+        .layui-form-select dl {
+            max-height: 218px !important;
         }
 
         .btn {
             width: 105px;
             height: 39px;
-            color: #333;
-            font-size: 18px;
-            font-weight: bold;
-            display: block;
+            background: rgba(55, 38, 89, 1);
+            border-radius: 4px;
+            font-size: 14px;
             text-align: center;
-            margin: auto;
             line-height: 39px;
+            border: 0;
+            color: #fff;
             cursor: pointer;
+            position: absolute;
+            left: 44%;
+            bottom: 32px;
         }
 
-        .btn + .btn {
-            margin-top: 50px;
+        ul {
+            position: absolute;
+            left: 18px;
+            list-style: none;
+            padding: 0;
+            height: 410px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        ul > li {
+            width: 14px;
+            height: 14px;
+            border: 1px solid #b7b7b7;
+            border-radius: 50%;
+            display: flex;
+        }
+
+        ul > li > p {
+            width: 8px;
+            height: 8px;
+            background: #b7b7b7;
+            border-radius: 50%;
+            margin: auto;
+        }
+
+        .borli {
+            border: 1px solid rgb(55, 38, 89);
+        }
+
+        .borp {
+            background: rgb(55, 38, 89);
         }
     </style>
 </head>
 <body>
 <div class="Popout">
     <div class="atitle">
-        <span>选择机器人业务</span>
+        <span>请选择案例编号</span>
     </div>
-    <div class="elect" style="margin:50px auto 0">
-        <a class="btn" href="/inventory_accounting_requisitions_2">单笔检验</a>
-        <a class="btn" href="/inventory_purchaes_order_4">批量检验</a>
+    <ul>
+        <li class="borli"><p class="borp"></p></li>
+        <li><p></p></li>
+        <li><p></p></li>
+    </ul>
+    <div style="height: 290px;overflow: auto;margin-top:10%">
+        <form class="layui-form forn" action="" lay-filter="component-form-group">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 13px 5px 0px;width: 97px;">案例编号：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <select name="revenue" lay-verify="required" lay-search="" lay-filter="revenue" id="revenue"
+                            style="width:100%;height: 30px;">
+                        <option value="">直接选择或搜索选择</option>
+                        <option value="purchaes_requisitions_create">物资请购</option>
+                        <option value="purchaes_order_create">采购合同</option>
+                        <option value="purchaes_storage_create">物资入库</option>
+                        <option value="purchaes_reimburse_create">报销申请</option>
+                        <option value="purchaes_payment_create">付款申请</option>
+                        <option value="purchaes_reimburse_create">报销申请</option>
+                        <option value="purchaes_payment_create">付款申请</option>
+                        <option value="purchaes_reimburse_create">报销申请</option>
+                        <option value="purchaes_payment_create">付款申请</option>
+                        <option value="purchaes_reimburse_create">报销申请</option>
+                        <option value="purchaes_payment_create">付款申请</option>
+                    </select>
+                </div>
+            </div>
+            <button class="layui-btn btn" lay-submit="" lay-filter="demo1">下一步</button>
+        </form>
     </div>
 </div>
+<script src="../../static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'jquery'], function () {
+        var form = layui.form,
+            $ = layui.jquery;
+
+        //调用后台,传回案例
+        $(function () {
+            $.ajax({
+                url: "/",
+                type: "post",
+                datatype: "json",
+                success: function (res) {
+                    console.log(res)
+                    var date = res.data[0];
+                    for (let index in date) {
+                        $("#contract").append(`<option value="${date[index]}">${(date[index])[1]}</option>`)
+                    }
+                    layui.form.render("select", "component-form-group");//更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
+                }
+            });
+        });
+
+        //监听提交  返回后台数据 select选项  跳转第二步
+        form.on('submit(demo1)', function (data) {
+            //通用表单提交(AJAX方式)
+            $.ajax({
+                url: "/purchaes_reimburse_create_data",
+                type: "post",
+                data: $(data.form).serialize(data),
+                success: function () {
+                    if (data.fail == 4444) {
+                        layer.msg("此合同已被占用请另选择！");
+                    } else {
+                        location.href = "/purchaes_requisitions_create";
+                    }
+                }
+            });
+            return false;
+        });
+    })
+</script>
 </body>
 </html>

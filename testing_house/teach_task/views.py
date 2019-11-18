@@ -1868,14 +1868,15 @@ def task_card(request):
             for i in task_process.chunks():
                 f.write(i)
 
-        sql_up = "update task set task_require='%s' where task_name='%s'" % (task_require,task_name)
-        SqlModel().insert_or_update(sql_up)
+        TASK.objects.filter(task_name=task_name).update(task_require=task_require)  # 更新实训任务要求
 
-        sql_process = "select * from process where process_name='%s'" % str(task_process)
-        res = SqlModel().select_one(sql_process)
+        res = PROCESS.objects.filter(process_name=task_process).first()    # 查询流程图是否存在
         if not res:
-            sql_add = "insert into process (process_name,process_position,task_name) values ('%s','%s','%s')" % (str(task_process), process_position, task_name)
-            SqlModel().insert_or_update(sql_add)
+            PROCESS.objects.create(
+                process_name=str(task_process),
+                process_position=process_position,
+                task_name=task_name
+            )
 
         if task_case_list:
             for i in task_case_list:
@@ -1925,15 +1926,11 @@ class Task_insert_delete(View):
         1、案例表  2、课件表  3、教学设计表 4、流程图表 5、还有一个没定名字的表没创建
         """
         task_name = request.POST.get("task_name")
-        sql = "select * from process where task_name = '%s'" % task_name
-        sql2 = "select * from teach_design where task_name = '%s'" % task_name
-        sql3 = "select * from course_ware where task_name = '%s'" % task_name
-        sql4 = "select * from case where task_name = '%s'" % task_name
         try:
-            res = SqlModel().select_one(sql)
-            res2 = SqlModel().select_one(sql2)
-            res3 = SqlModel().select_one(sql3)
-            res4 = SqlModel().select_one(sql4)
+            res = PROCESS.objects.filter(task_name=task_name).first()
+            res2 = DESIGN.objects.filter(task_name=task_name).first()
+            res3 = WARE.objects.filter(task_name=task_name).first()
+            res4 = CASE.objects.filter(task_name=task_name).first()
             if res or res2 or res3 or res4:
                 return JsonResponse({"result": "fail", "msg": "该任务有关联事项，不可以删除"})
             else:
@@ -2544,3 +2541,26 @@ def train_case_down(request):
     except:
         return HttpResponse("系统错误，请重试")
 
+
+class Train_case_report(View):
+    """实训卡，点击报告，跳转"""
+    def get(self, request):    #TODO  等页面做完填写
+        return render(request, "")
+
+    def post(self, request):
+        """填写完实训报告，提交"""
+        student_code = request.COOKIES.get("username")
+        report_name = request.POST.get("report_name")
+        report_info = request.POST.get("report_info")
+        try:
+            res = REPORT.objects.create(
+                report_name=report_name,
+                report_info=report_info,
+                student_code=student_code
+            )
+            if res:
+                return JsonResponse({"result": "提交成功"})
+            else:
+                return JsonResponse({"result": "提交失败,请重试"})
+        except:
+            return JsonResponse({"result": "系统错误，请重试"})
