@@ -10,6 +10,22 @@
     <link rel="stylesheet" href="../../static/res/trainTask/static/css/school-admin.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style type="text/css">
+        .layui-table-body {
+            overflow-x: hidden !important;
+        }
+
+        .layui-card-body {
+            margin: auto;
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .layui-card-body {
+            width: 98%;
+            margin: auto;
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .layui-table-fixed-l {
         .layui-table-body{overflow-x: hidden !important;}
         .layui-card-body{
         margin: auto;
@@ -52,6 +68,12 @@
     <table class="layui-hide" id="table_user" lay-filter="user"></table>
 </div>
 
+<script type="text/html" id="barDemo">
+    <a href="javascrip:;">查看</a>
+</script>
+<script type="text/html" id="describe">
+    <a href="javascrip:;" id="sss">编辑</a>
+</script>
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
@@ -61,42 +83,42 @@
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate;
-
-
+    $('#describe').on('click',function(){
+        console.log('123')
+    })
 
         //方法级渲染
         table.render({
             elem: '#table_user'
-            , url: '/teacher'
+            , url: '/teach_task/case'
             , toolbar: 'school-head'
             , max_height: 1000
-            ,type:"get"
+            , type: "get"
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'a', align:"center",title: '序号', width: "5%",type:'numbers'}
-                , {field: 'a', align:"center",title: '姓名', width: "15%"}
-                , {field: 'b', align:"center", title: '用户名', width: "15%"}
-                , {field: 'c', align:"center",title: '密码', width: "10%"}
-                , {field: 'd', align:"center",title: '手机号码',width:"10%"}
-                , {field: 'e', align:"center",title: '状态', width: "10%"}
-                , {field: 'f', align:"center", title: '创建人', width: "10%"}
-                , {field: 'g', align:"center",title: '操作时间', width: "25%"}
+                , {field: 'a', align: "center", title: '序号', width: "5%", type: 'numbers'}
+                , {field: 'a', align: "center", title: '案例名称', width: "15%"}
+                , {field: 'b', align: "center", title: '专业描述', width: "15%", toolbar: '#describe'}
+
+                , {field: 'c', align: "center", title: '密码', width: "10%"}
+
+                , {field: 'd', align: "center", title: '手机号码', width: "10%"}
+                , {field: 'e', align: "center", title: '状态', width: "10%"}
+
+                , {field: 'g', align: "center", title: '操作时间', width: "25%"}
+                , {fixed: '', title: '操作', toolbar: '#barDemo', width: "10%"}
             ]]
             , page: true
         });
-        $("#add6").on('click', function () {
-            //console.log("data");
-            //页面层
-            layer.open({
-                title:'案例管理',
-                type: 2,
-                area: ['800px', '600px'],//宽高
-                content: 'school_update'
-            });
-            layer.style(index, {
-              background:'#fff',
-            });
-        });
+        $(function () {
+            $.ajax({
+                url: '/teach_task/case',
+                type: 'get',
+                success: function (res) {
+                    console.log(res)
+                }
+            })
+        })
     });
 </script>
 </body>

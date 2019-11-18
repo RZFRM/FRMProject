@@ -81,13 +81,16 @@
     </div>
     <div style="height: 425px;overflow: auto;padding-top:25px">
         <form class="layui-form forn" action="" lay-filter="component-form-group">
+
+
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">用户名：</lable>
+                <lable class="layui-form-label" style="padding:5px 15px;">姓名：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input id="user_name" type="text" autocomplete="off" class="layui-input" placeholder="请输入用户名"
+                    <input id="name" type="text" autocomplete="off" class="layui-input" placeholder="请输入教师姓名"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
+
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">密码：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
@@ -96,9 +99,9 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <lable class="layui-form-label" style="padding:5px 15px;">姓名：</lable>
+                <lable class="layui-form-label" style="padding:5px 15px;">用户名：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input id="name" type="text" autocomplete="off" class="layui-input" placeholder="请输入教师姓名"
+                    <input id="user_name" type="text" autocomplete="off" class="layui-input" placeholder="请输入用户名"
                            style="min-height: 30px;line-height: 20px; height: 20px;">
                 </div>
             </div>
@@ -158,6 +161,24 @@
         //
         // })
 
+        $("#user_name").blur(function () {
+            var user_name = $("#user_name").val();
+            var reg = /[\u4E00-\u9FA5]/g;
+            if (reg.test(user_name)) {//     alert("密码长度要大于6位，由数字和字母组成");　　　　
+                layer.msg("用户名不允许有汉字")
+            }
+        })
+        //判断手机号是否有符合要求
+        $("#phone").blur(function () {
+            var phone = $('#phone').val()
+            var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+            if (!myreg.test(phone)) {
+                layer.msg("输入的手机号码不正确")
+            }
+
+        })
+
+
         //提交数据
         $(function () {
             return old_user_name = $("#user_name").val()
@@ -170,29 +191,42 @@
             var name = $("#name").val()
             var phone = $("#phone").val()
             var select1 = $("#select1").val()
-            console.log(user_name,phone,pwd,select1,name)
+            console.log(user_name, phone, pwd, select1, name)
             if (user_name == '' || pwd == '' || name == '' || phone == '' || select1 == '') {
                 layer.msg('请填写完整')
             } else {
-                console.log("1")
-                $.ajax({
-                    url: '/teach_task/edu_updata',
-                    type: 'post',
-                    data: {
-                        'admin_name': name,
-                        'user_name': user_name,
-                        'user_pass': pwd,
-                        'phone': phone,
-                        'admin_state': select1,
-                        'old_user_name': old_user_name,
-                    },
-                    success:function (res) {
-                       layer.msg(res.result)
-                          setTimeout(function(){
-                                      window.parent.location.reload();
-                                },1000)
-                    }
-                })
+                var reg = /[\u4E00-\u9FA5]/g;
+                var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+                if (reg.test(user_name) || !myreg.test(phone)) {
+                    layer.msg("输入的手机号码确或用户名格式不正确")
+                } else {
+
+                    $.ajax({
+                        url: '/teach_task/edu_updata',
+                        type: 'post',
+                        data: {
+                            'admin_name': name,
+                            'user_name': user_name,
+                            'user_pass': pwd,
+                            'phone': phone,
+                            'admin_state': select1,
+                            'old_user_name': old_user_name,
+                        },
+                        success: function (res) {
+                            console.log(res)
+                            if (res.result == '该帐号已存在') {
+                                layer.msg(res.result)
+                            } else {
+                                layer.msg(res.result)
+                                setTimeout(function () {
+                                    window.parent.location.reload();
+                                }, 1000)
+                            }
+
+                        }
+                    })
+                }
+
             }
         })
     });
