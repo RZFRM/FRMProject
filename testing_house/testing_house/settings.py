@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'invoice_inspection_robot',
     'invoice_certification_robot',
     'corporate_tax_quarterly_report_robot',
-    'vat_return_robot',
 
 
 
