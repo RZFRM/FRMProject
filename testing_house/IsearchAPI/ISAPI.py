@@ -112,13 +112,13 @@ if __name__ == '__main__':
     #
     # rpa_rest(host='http://192.168.1.151', rest_type='start-job', data_json={"proc_code":"GeShui", "robot_no": "Administrator@ECA86B62AEFF"},
     #          add_pr='/rapi/rcall.action?', token='a56d8e1e413c43baa989c5feeb2d5fdb')
-
-    rpa_rest(host='http://rpa.chinaive.com', rest_type='start-job', data_json={"proc_code":"X_sale_2", "robot_no": "Administrator@180373C41DC4"},
-             add_pr='/rapi/rcall.action?', token='9f9d7e7a928a4873ae6191f5386b4288')
+    #
+    # rpa_rest(host='http://rpa.chinaive.com', rest_type='start-job', data_json={"proc_code":"X_sale_2", "robot_no": "Administrator@180373C41DC4"},
+    #          add_pr='/rapi/rcall.action?', token='9f9d7e7a928a4873ae6191f5386b4288')
     # rpa_rest(host='http://rpa.chinaive.com', rest_type='start-job', data_json={"proc_code":"X_sale_2", "robot_no": "XLL@CE043E65ACBB"},
     #          add_pr='/rapi/rcall.action?', token='9f9d7e7a928a4873ae6191f5386b4288')
-    rpa_rest(host='http://rpa.chinaive.com', rest_type='start-job', data_json={"proc_code":"X_sale_3", "robot_no": "HipWang@10604B80E461"},
-             add_pr='/rapi/rcall.action?', token='9f9d7e7a928a4873ae6191f5386b4288')
+    # rpa_rest(host='http://rpa.chinaive.com', rest_type='start-job', data_json={"proc_code":"X_sale_3", "robot_no": "HipWang@10604B80E461"},
+    #          add_pr='/rapi/rcall.action?', token='9f9d7e7a928a4873ae6191f5386b4288')
     # TODO  阿里云 服务器
 
     # rpa_rest(host='www.chinaive.com', rest_type='start-job',
