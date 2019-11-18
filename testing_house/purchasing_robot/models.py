@@ -80,7 +80,6 @@ class purchase_contract_table(models.Model):
     application_sector = models.CharField(max_length=20, null=True, verbose_name='申请部门')
     application_date = models.CharField(max_length=20, null=True, verbose_name='申请日期')
 
-
     department_head = models.CharField(max_length=50, null=True, verbose_name='部门领导')
     department_head_date = models.CharField(max_length=50, null=True, verbose_name='部门领导审批日期')
     company_head = models.CharField(max_length=50, null=True, verbose_name='公司领导')
@@ -110,7 +109,7 @@ class purchase_contract_table(models.Model):
 
 
 
-# TODO   采购入库机器人数据表
+
 
 class purchase_warehousing_table(models.Model):
 

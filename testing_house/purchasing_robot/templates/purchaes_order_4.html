@@ -89,113 +89,126 @@
                 <label class="layui-form-label" style="padding:5px 15px 5px 2px;width: 93px;">请购单编号：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="purchase_number" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.1 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">合同编号：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="contract_number" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.3 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">供应商：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" name="supplier_name" class="layui-input" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.4 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">货物名称：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" name="" class="layui-input" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.5 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 0px;width: 95px;">不含税单价：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="free_tax_unit_price" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.6 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">数量：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="count"
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.7 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">单位：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name=""
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.8 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 13px 5px 0px;width: 97px;">税率/征收率：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" name="tax_rate" class="layui-input" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.9 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:4px 15px 5px 0px;width: 95px;">总金额(含税)：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="summary_price" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.10 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="padding:5px 15px;">需求日期：</label>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="demand_date" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
-
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.11 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">申请人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="applicant" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.12 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px;">申请部门：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="application_sector" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.13 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">申请日期：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="application_date" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.14 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">部门负责人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="department_head" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.15 }}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px;">审批日期：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.16 }}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">公司负责人：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
                     <input type="text" autocomplete="off" class="layui-input" name="company_head" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.17 }}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="padding:5px 15px;">审批日期：</label>
+                <div class="layui-input-block" style="min-height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" name="case" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.18 }}">
                 </div>
             </div>
             <div class="layui-form-item" style="display: none">
                 <lable class="layui-form-label" style="padding:5px 15px 5px 10px;;width: 85px;">案例编号：</lable>
                 <div class="layui-input-block" style="min-height: 30px;">
-                    <input type="text" autocomplete="off" class="layui-input" name="" readonly
-                           style="min-height: 30px;line-height: 30px; height: 30px;">
+                    <input type="text" autocomplete="off" class="layui-input" name="each" readonly
+                           style="min-height: 30px;line-height: 30px; height: 30px;" value="{{ data.19 }}">
                 </div>
             </div>
             <div class="layui-form-item" style="display: none">
@@ -222,18 +235,19 @@
         //提交验证
         form.on('submit(demo4)', function (data) {
             //通用表单提交(AJAX方式)
-            $.ajax({
-                url: "/purchaes_order_create_data",
-                type: "post",
-                data: $(data.form).serialize(),
-                success: function (data) {
-                    if (data.fail == 4444) {
-                        layer.msg("关联请购单编号错误，请重新选择")
-                    } else {
-                        location.href = "/purchaes_storage_create";
-                    }
-                }
-            });
+            {#$.ajax({#}
+            {#    url: "/purchaes_order_create_data",#}
+            {#    type: "post",#}
+            {#    data: $(data.form).serialize(),#}
+            {#    success: function (data) {#}
+            {#        if (data.fail == 4444) {#}
+            {#            layer.msg("关联请购单编号错误，请重新选择")#}
+            {#        } else {#}
+            {#           #}
+            {#        }#}
+            {#    }#}
+            {#);#}
+             location.href = "/purchaes_storage_create?="+data.field.each;
             return false;  //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
 

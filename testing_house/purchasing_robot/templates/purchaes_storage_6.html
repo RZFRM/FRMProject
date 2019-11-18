@@ -191,20 +191,20 @@
             , laydate = layui.laydate;
 
 
-        $(function () {
-            $.ajax({
-                url: "/warehousing_by_purchase_number",
-                type: "post",
-                datatype: "json",
-                success: function (res) {
-                    var date = res.data[0];
-                    for (let index in date) {
-                        $("#contract").append(`<option value="${date[index]}">${(date[index])[1]}</option>`)
-                    }
-                    layui.form.render("select", "component-form-group");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态
-                }
-            });
-        });
+        {#$(function () {#}
+        {#    $.ajax({#}
+        {#        url: "/warehousing_by_purchase_number",#}
+        {#        type: "post",#}
+        {#        datatype: "json",#}
+        {#        success: function (res) {#}
+        {#            var date = res.data[0];#}
+        {#            for (let index in date) {#}
+        {#                $("#contract").append(`<option value="${date[index]}">${(date[index])[1]}</option>`)#}
+        {#            }#}
+        {#            layui.form.render("select", "component-form-group");  //更新 lay-filter="xmFilter" 所在容器内的全部 select 状态#}
+        {#        }#}
+        {#    });#}
+        {#);#}
 
         form.on('submit(demo6)', function (data) {
             //通用表单提交(AJAX方式)

@@ -35,6 +35,11 @@ urlpatterns = [
     url('pruchasing_robot_base_data', views.pruchasing_robot_base_data, name='采购机器人基础配置页面'),
     url('purchase_view_information_data', views.set_view_information_data, name='查看数据'),
 
+
+
+
+
+
     #  TODO　　页面接口
 
     url('purchasing_created', views.purchasing_created, name='选择案例编号'),
@@ -47,6 +52,9 @@ urlpatterns = [
     url('purchasing_robot_business_manager', views.pruchasing_robot_business, name='采购机器人业务管理页面'),
     url('purchasing_robot_jobs_manager', views.pruchasing_robot_jobs, name='采购机器人任务管理页面'),
     url('purchase_view_information', views.set_view_information, name='查看页面'),
+
+
+
 
 
     # TODO  完成接口
@@ -65,27 +73,4 @@ urlpatterns = [
     # url('warehousing_by_purchase_number', views.set_warehousing_by_purchase_number, name = '入库关联请购单'),
     # url('invoice_by_purchase_number', views.set_invoice_by_purchase_number, name = '发票关联请购单'),
     # url('pyment_by_purchase_number', views.set_pyment_by_purchase_number, name = '付款关联请购单'),
-
-
-    # url('purchaes_requisitions_determine', views.purchaes_requisitions_determine,
-    #     name='purchaes_requisitions_determine'),
-    # url('purchaes_order_determine', views.purchaes_order_determine, name='purchaes_order_determine'),
-
-    # url('purchaes_storage_determine', views.purchaes_storage_determine, name='purchaes_storage_determine'),
-
-    # url('purchaes_reimburse_determine', views.purchaes_reimburse_determine, name='purchaes_reimburse_determine'),
-
-    # url('purchaes_payment_determine', views.purchaes_payment_determine, name='purchaes_payment_determine'),
-
-    # url('purchaes_business_data_display', views.purchaes_business_data_display, name='purchaes_business_data_display'),
-
-
-
-
-
-
-    # url('purchase_delete_jobs_info', views.set_purchase_deletjobs_info, name='delete_jobs'),
-    # url('purchase_stop_jobs_info', views.set_purchase_stopjobs_info, name='stop_jobs'),
-    # url('purchase_start_jobs_info', views.set_purchase_startjobs_info, name='start_jobs'),
-    # url(r'aaaaa',views.test)
 ]

@@ -36,7 +36,6 @@ urlpatterns = [
     path('', include('invoice_inspection_robot.urls')),
     path('', include('invoice_certification_robot.urls')),
     path('', include('corporate_tax_quarterly_report_robot.urls')),
-    path('', include('vat_return_robot.urls')),
 
     url('^fixed_assets/', include('fixed_assets_robot.urls')),
 
