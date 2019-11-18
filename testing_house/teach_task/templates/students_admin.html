@@ -70,27 +70,26 @@
 <div class="nav-1">
     <div class="nav-2" style="margin-left: 10px">
         <button class="nav-button" id="add1">新增</button>
-        <button class="nav-button">修改</button>
-        <button class="nav-button">删除</button>
+        <button class="nav-button" id="add2">修改</button>
+        <button class="nav-button" id="dele">删除</button>
         <button class="nav-button">批量导入</button>
         <button class="nav-button">批量导出</button>
-        <select class="tt"  name="Province"   lay-verify="Province" lay-filter="Province" id="ddlProvinceId">
-          <option value="" style="color: #f2f2f2">选择专业</option>
+        <select class="tt" name="Province" lay-verify="Province" lay-filter="Province" id="ddlProvinceId">
+            <option value="" style="color: #f2f2f2">选择专业</option>
 
         </select>
 
         <select class="tt" lay-verify="" id="">
-          <option value="" style="color: #f2f2f2">选择班级</option>
+            <option value="" style="color: #f2f2f2">选择班级</option>
 
         </select>
-
 
 
         </select>
     </div>
     <div class="nav-3">
-        <input type="text" placeholder="搜索业务">
-        <button type="button" class="nav-button">搜索</button>
+        <input type="text" id="demoReload" placeholder="按名称搜索">
+        <button type="button" id="major_btn"  class="nav-button">搜索</button>
     </div>
 </div>
 
@@ -101,13 +100,13 @@
 <script src="../../static/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['table', 'layedit', 'laydate', 'jquery','form'], function () {
+    layui.use(['table', 'layedit', 'laydate', 'jquery', 'form'], function () {
         var table = layui.table
             , layer = layui.layer
             , layedit = layui.layedit
             , $ = layui.jquery
             , laydate = layui.laydate,
-            form=layui.form
+            form = layui.form
         //方法级渲染
         table.render({
             elem: '#table_user'
@@ -131,7 +130,7 @@
             , page: true
         });
         //添加弹窗
-         $("#add1").on('click', function () {
+        $("#add1").on('click', function () {
             //console.log("data");
             //页面层
             layer.open({
@@ -141,45 +140,64 @@
                 content: '/teach_task/student_update'
             });
         });
-         $(function(){
-             $.ajax({
-                 url:'/teach_task/students_update',
-                 type:'get',
-                 success:function(res){
-                     console.log(res)
-                 }
-             })
-         })
+        //修改弹窗页面
+        $('#add2').on('click', function () {
+            layer.open({
+                title: '教务管理',
+                type: 2,
+                area: ['637px', '518px'],
+                counter: '/teach_task/student_modify'
+            })
+        })
+        //删除
+        $('#dele').on('click',function(){
+            console.log("aa")
+        })
         //获取专业
-        $(function(){
+        $(function () {
             $.ajax({
-                url:'/teach_task/student_down',
-                type:'get',
-                success:function(res){
+                url: '/teach_task/student_down',
+                type: 'get',
+                success: function (res) {
+                    console.log(res)
                     var date = res.result;
                     console.log(date)
-                    for ( var i = 0; i <date.length; i++){
-                              // console.log(date[i]);
-                                $("#ddlProvinceId").append(`<option value="${date[i]}">${date[i]}</option>`)
+                    for (var i = 0; i < date.length; i++) {
+                        // console.log(date[i]);
+                        $("#ddlProvinceId").append(`<option value="${date[i]}">${date[i]}</option>`)
                     }
                     layui.form.render("select", "component-form-group")
                 }
             })
         })
         //获取班级
-         $('#ddlProvinceId').blur(function(){
-             var val= $('#ddlProvinceId').val()
-             $.ajax({
-                 url:'/teach_task/student_down',
-                 type:'post',
-                 data:{
-                     'Major_name':val
-                 },
-                 success:function(res){
-                     console.log(res)
-                 }
-             })
-         })
+        $('#ddlProvinceId').blur(function () {
+            var val = $('#ddlProvinceId').val()
+            console.log(val)
+            $.ajax({
+                url: '/teach_task/student_down',
+                type: 'post',
+                data: {
+                    'Major_name': val
+                },
+                success: function (res) {
+                    console.log(res)
+                }
+            })
+        });
+        //搜索
+        $('#major_btn').on('click', function () {
+            var val = $('#demoReload').val()
+            console.log(val)
+            table.reload('table_user', {
+                url: '/teach_task/student_delete_search'
+                , method: 'post'
+                , where: {
+                    "admin_name": val,
+                } //设定异步数据接口的额外参数
+
+            });
+        })
     });
 </script>
 </body>

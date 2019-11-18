@@ -139,8 +139,10 @@
             var checkStatus = table.checkStatus('table_user'),
                 data = checkStatus.data;
             console.log(data)
-            console.log(data[0].a)
-            if (data.length == 1) {
+
+            if (data.length == 0) {
+                 layer.msg('请选择删除的项')
+            } else {
                 layer.confirm("确认要删除吗，删除后不能恢复", {title: "删除确认"}, function (index) {
                     console.log(data[0].a)
                     $.ajax({
@@ -161,8 +163,6 @@
                     })
 
                 });
-            } else {
-                layer.msg('请选择删除的项')
             }
         })
     });
